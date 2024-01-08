@@ -39,7 +39,7 @@ class AuthMobileScreen extends StatelessWidget {
                     },
                     obscureText: true),
                 const SizedBox(height: spacingBetweenTextFieldAndButton),
-                const AuthVerifyButton()
+                AuthVerifyButton()
               ],
             ),
           ),

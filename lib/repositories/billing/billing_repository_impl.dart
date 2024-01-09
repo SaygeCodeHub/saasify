@@ -30,8 +30,6 @@ class BillingRepositoryImpl implements BillingRepository {
 
   @override
   Future<List<QueryDocumentSnapshot>> getAllTabs() async {
-    final db = FirebaseFirestore.instance;
-
     String userId = await _customerCache.getUserId();
     String companyId = await _customerCache.getCompanyId();
     int branchId = await _customerCache.getBranchId();

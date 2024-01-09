@@ -140,7 +140,7 @@ class Branch {
 class User {
   final String userName;
   final String userId;
-  final int userContact;
+  final int? userContact;
 
   User({
     required this.userName,

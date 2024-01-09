@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,10 +60,15 @@ class AuthenticationBloc
       UserCredential userCredential = await _authenticationRepository.signIn(
           authDetails["email"], authDetails["password"]);
 
+      Map map = await _authenticationRepository.fetchModules(userCredential.user!.uid);
+
+      log(map.toString());
+
       Map userDetailsMap = {
         'user_id': userCredential.user!.uid,
         'user_name': "",
-        'user_contact': "0000000000"
+        'user_contact': "",
+        'user_email': authDetails["email"]
       };
 
       AuthenticationModel authenticationModel =
@@ -71,7 +78,7 @@ class AuthenticationBloc
         _customerCache.setIsLoggedIn(true);
         _customerCache.setUserId(authenticationModel.data.user.userId);
         _customerCache
-            .setUserContact(authenticationModel.data.user.userContact);
+            .setUserContact(authenticationModel.data.user.userContact??0);
         _customerCache.setUserName(authenticationModel.data.user.userName);
         if (authenticationModel.data.companies.length == 1) {
           _customerCache
@@ -182,9 +189,9 @@ class AuthenticationBloc
             _customerCache.setBranchId(
                 authenticationModel.data.companies[0].branches[0].branchId);
             _customerCache
-                .setUserContact(authenticationModel.data.user.userContact);
+                .setUserContact(authenticationModel.data.user.userContact??0);
             _customerCache.setUserName(authenticationModel.data.user.userName);
-            SideBar.userContact = authenticationModel.data.user.userContact;
+            SideBar.userContact = authenticationModel.data.user.userContact ?? 0;
             SideBar.userName = authenticationModel.data.user.userName;
             emit(PhoneOtpVerified(userData: authenticationModel.data));
           } else if (authenticationModel.status == 404) {

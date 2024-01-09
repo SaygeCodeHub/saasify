@@ -1,3 +1,3 @@
 class ApiConstants {
-  static const baseUrl = 'https://saasify-qm2p.onrender.com/v1/';
+  static const baseUrl = 'https://saasify-qm2p.onrender.com/v1_1/';
 }

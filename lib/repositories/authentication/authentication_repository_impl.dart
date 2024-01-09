@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:saasify/data/models/authentication/authentication_model.dart';
 import 'package:saasify/services/client_services.dart';
@@ -5,6 +6,8 @@ import 'package:saasify/utils/constants/api_constants.dart';
 import 'authentication_repository.dart';
 
 class AuthenticationRepositoryImpl implements AuthenticationRepository {
+  final db = FirebaseFirestore.instance;
+
   @override
   Future verifyPhoneNumber(
       {required String phoneNumber,
@@ -31,11 +34,20 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-
       return userCredential;
     } catch (error) {
       rethrow;
     }
+  }
+
+  @override
+  Future<Map> fetchModules(String id) async{
+
+    QuerySnapshot<Map<String, dynamic>> modules = await db
+        .collection("clients/$id")
+        .get();
+
+    return modules.docs.first.data();
   }
 
   @override

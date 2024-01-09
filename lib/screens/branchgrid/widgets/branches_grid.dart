@@ -10,7 +10,7 @@ import '../../../configs/app_spacing.dart';
 import '../../../data/models/branches/fetch_all_branches_model.dart';
 import '../../../utils/constants/string_constants.dart';
 import '../../../widgets/toggle_switch_widget.dart';
-import '../edit_branch_popup.dart';
+import 'edit_branch_popup.dart';
 
 class BranchesGrid extends StatelessWidget {
   final List<BranchesData> branchesData;
@@ -50,7 +50,14 @@ class BranchesGrid extends StatelessWidget {
                                         .copyWith(
                                             fontWeight: FontWeight.w600,
                                             color: AppColor.saasifyDarkerGrey)),
-                                const SizedBox(height: spacingXSmall),
+                                const SizedBox(height: spacingXXSmall),
+                                Text(
+                                    branchesData[index]
+                                        .branchContact
+                                        .toString(),
+                                    style:
+                                        Theme.of(context).textTheme.xxTiniest),
+                                const SizedBox(height: spacingXXSmall),
                                 Row(children: [
                                   Text(StringConstants.kCurrency,
                                       style: Theme.of(context)
@@ -89,7 +96,7 @@ class BranchesGrid extends StatelessWidget {
         },
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            childAspectRatio: 4,
+            childAspectRatio: 3,
             crossAxisSpacing: spacingLarge,
             mainAxisSpacing: spacingLarge));
   }

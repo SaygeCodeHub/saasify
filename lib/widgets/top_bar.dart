@@ -7,13 +7,14 @@ import '../configs/app_colors.dart';
 class TopBar extends StatelessWidget {
   final GlobalKey<ScaffoldState> scaffoldKey;
   final String headingText;
-  final bool backButtonVisible;
+  final void Function()? onTap;
 
-  const TopBar(
-      {super.key,
-      required this.scaffoldKey,
-      required this.headingText,
-      this.backButtonVisible = false});
+  const TopBar({
+    super.key,
+    required this.scaffoldKey,
+    required this.headingText,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,22 +24,18 @@ class TopBar extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(
                 vertical: spacingSmall, horizontal: spacingLarge),
-            child: IconButton(
-                onPressed: () {
-                  scaffoldKey.currentState!.openDrawer();
-                },
-                iconSize: 30,
-                icon: const Icon(Icons.menu)),
-          ),
-          Visibility(
-            visible: backButtonVisible,
-            child: Align(
-                alignment: Alignment.centerLeft,
-                child: InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: const Icon(Icons.arrow_back_ios_new))),
+            child: LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              return (constraints.maxWidth < 600)
+                  ? InkWell(
+                      onTap: () {}, child: const Icon(Icons.arrow_back_ios_new))
+                  : IconButton(
+                      onPressed: () {
+                        scaffoldKey.currentState!.openDrawer();
+                      },
+                      iconSize: 30,
+                      icon: const Icon(Icons.menu));
+            }),
           ),
           Text(headingText,
               style: Theme.of(context)

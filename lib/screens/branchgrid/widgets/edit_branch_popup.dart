@@ -3,15 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/branches/branches_bloc.dart';
 import 'package:saasify/bloc/branches/branches_event.dart';
 import 'package:saasify/configs/app_theme.dart';
-import '../../configs/app_color.dart';
-import '../../configs/app_dimensions.dart';
-import '../../configs/app_spacing.dart';
-import '../../data/models/branches/fetch_all_branches_model.dart';
-import '../../utils/constants/string_constants.dart';
-import '../../widgets/custom_text_field.dart';
-import '../../widgets/primary_button.dart';
-import '../../widgets/secondary_button.dart';
-import '../../widgets/toggle_switch_widget.dart';
+import '../../../configs/app_color.dart';
+import '../../../configs/app_dimensions.dart';
+import '../../../configs/app_spacing.dart';
+import '../../../data/models/branches/fetch_all_branches_model.dart';
+import '../../../utils/constants/string_constants.dart';
+import '../../../widgets/custom_text_field.dart';
+import '../../../widgets/primary_button.dart';
+import '../../../widgets/secondary_button.dart';
+import '../../../widgets/toggle_switch_widget.dart';
 
 class EditBranchPopup extends StatelessWidget {
   const EditBranchPopup({super.key, required this.branchesData});

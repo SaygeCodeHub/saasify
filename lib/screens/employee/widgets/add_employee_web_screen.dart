@@ -44,7 +44,7 @@ class AddEmployeeWebScreen extends StatelessWidget {
           ),
           const SizedBox(height: spacingMedium),
           Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(spacingLarge),
             child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -119,10 +119,13 @@ class AddEmployeeWebScreen extends StatelessWidget {
                       ]))
                 ]),
           ),
-          const SizedBox(height: 50),
+          const SizedBox(height: spacingExcel),
           Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             SecondaryButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacementNamed(
+                      context, EmployeeListScreen.routeName);
+                },
                 buttonWidth: spacingXXXXHuge,
                 buttonTitle: StringConstants.kCancel),
             const SizedBox(width: spacingExcel),

@@ -32,7 +32,6 @@ class ProfileScreen extends StatelessWidget {
             children: [
               context.responsive(
                   TopBar(
-                      backButtonVisible: true,
                       scaffoldKey: _scaffoldKey,
                       headingText: StringConstants.kProfile),
                   desktop: const Expanded(child: SideBar(selectedIndex: 1))),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_color.dart';
 import '../data/models/dashboard/dashboard_card.dart';
-import '../screens/settings/discount_screen.dart';
+import '../screens/coupon/coupon_screen.dart';
 import '../screens/employee/employee_list.dart';
-import '../screens/settings/payment_type_screen.dart';
-import '../screens/settings/branches_grid_screen.dart';
+import '../screens/payment/payment_type_screen.dart';
+import '../screens/branchgrid/branches_grid_screen.dart';
 import '../screens/profile/profile_screen.dart';
 
 List<DashboardCardData> dashboardCard = [
@@ -65,7 +65,7 @@ List<DashboardListOptions> dashboardOptionList = [
       containerColor: AppColor.saasifypurple),
   DashboardListOptions(
       iconName: Icons.discount,
-      routeName: DiscountScreen.routeName,
+      routeName: CouponScreen.routeName,
       title: 'Coupons',
       subtitle: 'Manage Coupons',
       iconColor: AppColor.saasifyPastelOrange,

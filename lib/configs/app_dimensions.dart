@@ -10,6 +10,7 @@ const double kLogoWidth = 253;
 const double kSidebarLogoWidth = 100;
 const double kContainerHeight = 130;
 const double kDashContainerHeight = 120;
+const double kBranchListContainerHeight = 110;
 const double kImageContainerWidth = 150;
 const double kDropdownWidthTwo = 334;
 const double kHelloSpacingHeight = 68;
@@ -30,6 +31,7 @@ const double kPaymentCircleSize = 8;
 const double kCloseIconSize = 20;
 
 const double kBackIconSize = 20;
+const double kBranchLeftPadding = 38;
 
 const double kHeaderIconsSize = 22;
 const double kTextContainerHeight = 280;

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 extension Responsive on BuildContext {
   T responsive<T>(
     T defaultVal, {
+    T? mobile,
     T? tablets,
     T? desktop,
     T? widescreen,
@@ -14,6 +15,8 @@ extension Responsive on BuildContext {
             ? (desktop ?? tablets ?? defaultVal)
             : wd >= 1000
                 ? (tablets ?? defaultVal)
-                : defaultVal;
+                : wd >= 600
+                    ? (mobile ?? defaultVal)
+                    : defaultVal;
   }
 }

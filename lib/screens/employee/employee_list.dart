@@ -35,7 +35,6 @@ class EmployeeListScreen extends StatelessWidget {
             children: [
               context.responsive(
                   TopBar(
-                      backButtonVisible: context.responsive(false),
                       scaffoldKey: _scaffoldKey,
                       headingText: StringConstants.kDashboard),
                   desktop: const Expanded(

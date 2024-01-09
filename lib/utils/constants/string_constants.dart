@@ -48,6 +48,7 @@ class StringConstants {
   static const kAddProduct = 'Add Product';
   static const kAddCategory = 'Add Category';
   static const kAddCoupon = 'Add Coupon';
+  static const kEditCoupon = 'Edit Coupon';
   static const kAddProfile = 'Add Profile';
   static const kEmployees = 'Employees';
   static const kWantToDeactivateProduct = 'Want to deactivate product?';
@@ -111,6 +112,10 @@ class StringConstants {
   static const kWarning = 'Warning';
   static const kCancel = 'Cancel';
   static const kSuccess = 'Success';
+  static const kCHRISTMAS = 'CHRISTMAS';
+  static const k12OFF = '12% OFF';
+  static const kMinimumPurchaseOfRs4000 = 'Minimum purchase of Rs 4000';
+  static const kMinimumPurchaseOfRs8000 = 'Maximum purchase of Rs 8000';
   static const kTheSelectedProducts = 'The selected Products will be deleted';
   static const kSearchHere = 'Search here....';
   static const kNoDataAvailable = 'No Data Available';

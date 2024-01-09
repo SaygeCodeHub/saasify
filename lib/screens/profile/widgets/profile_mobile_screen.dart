@@ -6,7 +6,6 @@ import '../../../configs/app_spacing.dart';
 import '../../../data/models/profile/fetch_profile_details_model.dart';
 import '../../../utils/constants/string_constants.dart';
 import '../../../widgets/primary_button.dart';
-import '../../dashboard/dashboard_screen.dart';
 
 class ProfileMobileScreen extends StatelessWidget {
   const ProfileMobileScreen({super.key, required this.profileData});
@@ -31,18 +30,6 @@ class ProfileMobileScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Row(children: [
-              Align(
-                  alignment: Alignment.centerLeft,
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(
-                            context, DashboardsScreen.routeName);
-                      },
-                      child: const Icon(Icons.arrow_back_ios_new)))
-            ]),
-            const SizedBox(height: spacingStandard),
-            const SizedBox(height: spacingXMedium),
             Container(
               height: kDashContainerHeight,
               width: kImageContainerWidth,

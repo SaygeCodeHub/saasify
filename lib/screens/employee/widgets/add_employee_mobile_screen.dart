@@ -22,7 +22,10 @@ class AddEmployeeMobileScreen extends StatelessWidget {
       bottomNavigationBar:
           Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         SecondaryButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushReplacementNamed(
+                  context, EmployeeListScreen.routeName);
+            },
             buttonWidth: spacingXXXXXHuge,
             buttonTitle: StringConstants.kCancel),
         PrimaryButton(

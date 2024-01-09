@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_theme.dart';
-
 import '../../../configs/app_color.dart';
 import '../../../configs/app_dimensions.dart';
 import '../../../configs/app_spacing.dart';
@@ -11,7 +10,8 @@ import '../../../widgets/secondary_button.dart';
 import '../../../widgets/toggle_switch_widget.dart';
 
 class AddCouponPopUp extends StatelessWidget {
-  const AddCouponPopUp({super.key});
+  const AddCouponPopUp({super.key, required this.editCoupon});
+  final bool editCoupon;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +26,17 @@ class AddCouponPopUp extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(StringConstants.kAddCoupon,
-                            style: Theme.of(context)
-                                .textTheme
-                                .xTiniest
-                                .copyWith(fontWeight: FontWeight.w700)),
+                        (editCoupon == true)
+                            ? Text(StringConstants.kEditCoupon,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .xTiniest
+                                    .copyWith(fontWeight: FontWeight.w700))
+                            : Text(StringConstants.kAddCoupon,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .xTiniest
+                                    .copyWith(fontWeight: FontWeight.w700)),
                         InkWell(
                             onTap: () {
                               Navigator.pop(context);
@@ -61,9 +67,13 @@ class AddCouponPopUp extends StatelessWidget {
                   const SizedBox(height: spacingXXSmall),
                   CustomTextField(onTextFieldChanged: (value) {}),
                   Row(children: [
-                    Text(StringConstants.kDoYouWantToDeactivateCoupon,
-                        style: Theme.of(context).textTheme.xTiniest),
-                    ToggleSwitchWidget(value: true, onChanged: (value) {}),
+                    FittedBox(
+                        child: Text(
+                            StringConstants.kDoYouWantToDeactivateCoupon,
+                            style: Theme.of(context).textTheme.xTiniest)),
+                    Expanded(
+                        child: ToggleSwitchWidget(
+                            value: true, onChanged: (value) {})),
                   ]),
                   const SizedBox(height: spacingXMedium),
                   Row(children: [

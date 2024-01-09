@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_theme.dart';
-import 'package:saasify/screens/settings/widgets/three_dots_edit_delete.dart';
+import 'package:saasify/screens/coupon/widgets/three_dots_edit_delete.dart';
 import '../../../configs/app_color.dart';
 import '../../../configs/app_dimensions.dart';
 import '../../../configs/app_spacing.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/primary_button.dart';
 import 'package:saasify/widgets/secondary_button.dart';
 import '../configs/app_color.dart';
@@ -86,4 +87,59 @@ class AlertDialogueBox extends StatelessWidget {
                   ])
                 ])));
   }
+}
+
+showErrorDialogue(BuildContext context,
+    {required String message,
+    required String primaryButtonTitle,
+    required void Function() primaryOnPressed}) {
+  showDialog(
+      context: context,
+      builder: (context) => AlertDialogueBox(
+          title: StringConstants.kSomethingWentWrong,
+          message: message,
+          primaryButtonTitle: primaryButtonTitle,
+          errorMarkVisible: true,
+          primaryOnPressed: () {
+            Navigator.pop(context);
+            primaryOnPressed();
+          }));
+}
+
+showSuccessDialogue(BuildContext context,
+    {required String message,
+    required String primaryButtonTitle,
+    required void Function() primaryOnPressed}) {
+  showDialog(
+      context: context,
+      builder: (context) => AlertDialogueBox(
+          title: StringConstants.kSuccess,
+          message: message,
+          primaryButtonTitle: primaryButtonTitle,
+          checkMarkVisible: true,
+          primaryOnPressed: () {
+            Navigator.pop(context);
+            primaryOnPressed();
+          }));
+}
+
+showWarningDialogue(BuildContext context,
+    {required String message,
+    required String primaryButtonTitle,
+    String? secondaryButtonTitle,
+    required void Function() primaryOnPressed,
+    void Function()? secondaryOnPressed}) {
+  showDialog(
+      context: context,
+      builder: (context) => AlertDialogueBox(
+          title: StringConstants.kWarning,
+          message: message,
+          primaryButtonTitle: primaryButtonTitle,
+          secondaryButtonTitle: secondaryButtonTitle,
+          secondaryOnPressed: secondaryOnPressed,
+          checkMarkVisible: true,
+          primaryOnPressed: () {
+            Navigator.pop(context);
+            primaryOnPressed();
+          }));
 }

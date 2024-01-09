@@ -41,9 +41,9 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<Map> fetchModules(String id) async{
-
-    DocumentSnapshot<Map<String, dynamic>> modules = await db.doc("clients/$id").get();
+  Future<Map<String, dynamic>> fetchModules(String id) async {
+    DocumentSnapshot<Map<String, dynamic>> modules =
+        await db.doc("clients/$id").get();
 
     return modules.data()!;
   }

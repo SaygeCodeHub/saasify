@@ -11,7 +11,7 @@ abstract class AuthenticationRepository {
 
   Future<UserCredential> signIn(String email, String password);
 
-  Future<Map> fetchModules(String id);
+  Future<Map<String, dynamic>> fetchModules(String id);
 
   Future<AuthenticationModel> authenticateUser(Map userDetailsMap);
 }

@@ -26,44 +26,33 @@ class AuthenticationScreen extends StatelessWidget {
             body: BlocListener<AuthenticationBloc, AuthenticationStates>(
                 listener: (context, state) {
           if (state is AuthenticationError) {
-            showDialog(
-                context: context,
-                builder: (context) => AlertDialogueBox(
-                    title: StringConstants.kSomethingWentWrong,
-                    message: state.error,
-                    primaryButtonTitle: StringConstants.kOk,
-                    primaryOnPressed: () {}));
+            showErrorDialogue(context,
+                message: state.error,
+                primaryButtonTitle: StringConstants.kOk, primaryOnPressed: () {
+              Navigator.pop(context);
+            });
           } else if (state is AuthenticationSuccess) {
-            showDialog(
-                context: context,
-                builder: (context) => AlertDialogueBox(
-                    title: StringConstants.kSuccess,
-                    message: state.authenticationModel.message,
-                    primaryButtonTitle: StringConstants.kOk,
-                    primaryOnPressed: () {
-                      if (state.authenticationModel.data.companies.length > 1) {
-                        Navigator.pushNamed(context, CompanyListScreen.routeName);
-                      } else if (state
-                          .authenticationModel.data.companies.first.branches.length >
-                          1) {
-                        Navigator.pushNamed(context, BranchesListScreen.routeName,
-                            arguments: state
-                                .authenticationModel.data.companies.first.branches.first);
-                      } else {
-                        Navigator.pushNamed(context, DashboardsScreen.routeName);
-                      }
-                    }));
+            showSuccessDialogue(context,
+                message: state.authenticationModel.message,
+                primaryButtonTitle: StringConstants.kOk, primaryOnPressed: () {
+              if (state.authenticationModel.data.companies.length > 1) {
+                Navigator.pushNamed(context, CompanyListScreen.routeName);
+              } else if (state.authenticationModel.data.companies.first.branches
+                      .length >
+                  1) {
+                Navigator.pushNamed(context, BranchesListScreen.routeName,
+                    arguments: state.authenticationModel.data.companies.first
+                        .branches.first);
+              } else {
+                Navigator.pushNamed(context, DashboardsScreen.routeName);
+              }
+            });
           } else if (state is AuthenticationSuccessNoBackend) {
-            showDialog(
-                context: context,
-                builder: (context) => AlertDialogueBox(
-                    title: StringConstants.kSuccess,
-                    message: "Authentication Successful",
-                    primaryButtonTitle: StringConstants.kOk,
-                    primaryOnPressed: () {
-                      Navigator.pop(context);
-                      Navigator.pushReplacementNamed(context, ModulesScreen.routeName);}));
-
+            showSuccessDialogue(context,
+                message: "Authentication Successful",
+                primaryButtonTitle: StringConstants.kOk, primaryOnPressed: () {
+              Navigator.pushReplacementNamed(context, ModulesScreen.routeName);
+            });
           }
         }, child: LayoutBuilder(builder:
                     (BuildContext context, BoxConstraints constraints) {

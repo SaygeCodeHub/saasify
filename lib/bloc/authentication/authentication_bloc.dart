@@ -58,7 +58,8 @@ class AuthenticationBloc
       UserCredential userCredential = await _authenticationRepository.signIn(
           authDetails["email"], authDetails["password"]);
 
-      Map map = await _authenticationRepository.fetchModules(userCredential.user!.uid);
+      Map map = await _authenticationRepository
+          .fetchModules(userCredential.user!.uid);
 
       if (map["activateBackend"]) {
         Map userDetailsMap = {
@@ -67,32 +68,31 @@ class AuthenticationBloc
           'user_contact': "",
           'user_email': authDetails["email"]
         };
-        
+
         AuthenticationModel authenticationModel =
             await _authenticationRepository.authenticateUser(userDetailsMap);
-        
+
         if (authenticationModel.status == 200) {
           _customerCache.setIsLoggedIn(true);
           _customerCache.setUserId(authenticationModel.data.user.userId);
           _customerCache
-              .setUserContact(authenticationModel.data.user.userContact??0);
+              .setUserContact(authenticationModel.data.user.userContact ?? 0);
           _customerCache.setUserName(authenticationModel.data.user.userName);
           if (authenticationModel.data.companies.length == 1) {
-            _customerCache
-                .setCompanyId(authenticationModel.data.companies.first.companyId);
+            _customerCache.setCompanyId(
+                authenticationModel.data.companies.first.companyId);
           }
           if (authenticationModel.data.companies[0].branches.length == 1) {
-            _customerCache.setBranchId(
-                authenticationModel.data.companies.first.branches.first.branchId);
+            _customerCache.setBranchId(authenticationModel
+                .data.companies.first.branches.first.branchId);
           }
           emit(AuthenticationSuccess(authenticationModel: authenticationModel));
         } else {
           emit(AuthenticationError(error: authenticationModel.message));
         }
+      } else {
+        emit(AuthenticationSuccessNoBackend());
       }
-
-      emit(AuthenticationSuccessNoBackend());
-
     } on FirebaseAuthException catch (e) {
       debugPrint(e.toString());
       emit(AuthenticationError(error: e.message ?? e.code));
@@ -190,9 +190,10 @@ class AuthenticationBloc
             _customerCache.setBranchId(
                 authenticationModel.data.companies[0].branches[0].branchId);
             _customerCache
-                .setUserContact(authenticationModel.data.user.userContact??0);
+                .setUserContact(authenticationModel.data.user.userContact ?? 0);
             _customerCache.setUserName(authenticationModel.data.user.userName);
-            SideBar.userContact = authenticationModel.data.user.userContact ?? 0;
+            SideBar.userContact =
+                authenticationModel.data.user.userContact ?? 0;
             SideBar.userName = authenticationModel.data.user.userName;
             emit(PhoneOtpVerified(userData: authenticationModel.data));
           } else if (authenticationModel.status == 404) {

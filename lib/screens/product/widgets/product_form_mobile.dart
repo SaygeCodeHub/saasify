@@ -1,30 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/product/product_bloc.dart';
-import 'package:saasify/bloc/product/product_event.dart';
-import 'package:saasify/bloc/upload/upload_bloc.dart';
-import 'package:saasify/bloc/upload/upload_events.dart';
-import 'package:saasify/configs/app_color.dart';
-import 'package:saasify/configs/app_dimensions.dart';
-import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/products/fetch_all_categories_model.dart';
-import 'package:saasify/data/models/screen_arguments/add_product_screen_arguments.dart';
-import 'package:saasify/screens/product/add_product_screen.dart';
-import 'package:saasify/screens/product/product_list_screen.dart';
 import 'package:saasify/screens/product/widgets/product_form_image_section.dart';
-import 'package:saasify/screens/product/widgets/product_form_section1.dart';
-import 'package:saasify/screens/product/widgets/product_form_section2.dart';
-import 'package:saasify/screens/product/widgets/product_form_section3.dart';
-import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/screens/product/widgets/product_form_mobile_section.dart';
 import 'package:saasify/utils/responsive.dart';
-import 'package:saasify/widgets/alert_dialogue_box.dart';
-import 'package:saasify/widgets/primary_button.dart';
-import 'package:saasify/widgets/secondary_button.dart';
-import 'package:saasify/widgets/toggle_switch_widget.dart';
 
-class ProductForm extends StatelessWidget {
-  const ProductForm(
+import '../../../bloc/product/product_bloc.dart';
+import '../../../bloc/product/product_event.dart';
+import '../../../bloc/upload/upload_bloc.dart';
+import '../../../bloc/upload/upload_events.dart';
+import '../../../configs/app_color.dart';
+import '../../../configs/app_dimensions.dart';
+import '../../../configs/app_spacing.dart';
+import '../../../data/models/screen_arguments/add_product_screen_arguments.dart';
+import '../../../utils/constants/string_constants.dart';
+import '../../../widgets/alert_dialogue_box.dart';
+import '../../../widgets/primary_button.dart';
+import '../../../widgets/secondary_button.dart';
+import '../../../widgets/toggle_switch_widget.dart';
+import '../add_product_screen.dart';
+import '../product_list_screen.dart';
+
+class ProductFormMobile extends StatelessWidget {
+  const ProductFormMobile(
       {super.key,
       required GlobalKey<FormState> formKey,
       required this.isVariant,
@@ -182,29 +181,12 @@ class ProductForm extends StatelessWidget {
                   ])
                 ])),
         const SizedBox(height: spacingXHuge),
-        Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          ProductFormSection1(
-              isVariant: isVariant,
-              isEdit: isEdit,
-              dataMap: dataMap,
-              categoryList: categoryList,
-              isProductDetail: isProductDetail),
-          const SizedBox(width: spacingXXHuge),
-          ProductFormSection2(
-              isVariant: isVariant,
-              isEdit: isEdit,
-              dataMap: dataMap,
-              isProductDetail: isProductDetail,
-              categoryList: categoryList),
-          const SizedBox(width: spacingXXHuge),
-          ProductFormSection3(
-              isVariant: isVariant,
-              isEdit: isEdit,
-              dataMap: dataMap,
-              isProductDetail: isProductDetail,
-              categoryList: categoryList)
-        ]),
-        const SizedBox(height: spacingHuge),
+        ProductFormMobileSection(
+            isVariant: isVariant,
+            isEdit: isEdit,
+            dataMap: dataMap,
+            categoryList: categoryList,
+            isProductDetail: isProductDetail),
         FormImageSection(
             isEdit: isEdit, dataMap: dataMap, isProductDetail: isProductDetail),
         const SizedBox(height: spacingMedium),

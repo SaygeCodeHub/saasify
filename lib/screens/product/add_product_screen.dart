@@ -7,7 +7,8 @@ import 'package:saasify/bloc/upload/upload_bloc.dart';
 import 'package:saasify/bloc/upload/upload_events.dart';
 import 'package:saasify/data/models/screen_arguments/add_product_screen_arguments.dart';
 import 'package:saasify/screens/product/product_list_screen.dart';
-import 'package:saasify/screens/product/widgets/product_form.dart';
+import 'package:saasify/screens/product/widgets/product_form_web.dart';
+import 'package:saasify/screens/product/widgets/product_form_mobile.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/utils/responsive.dart';
@@ -64,140 +65,145 @@ class AddProductScreen extends StatelessWidget {
               Expanded(
                   flex: 5,
                   child: BlocConsumer<ProductBloc, ProductStates>(
-                    listener: (context, state) {
-                      if (state is ErrorFetchingCategories) {
-                        showDialog(
-                            context: context,
-                            builder: (context) => AlertDialogueBox(
-                                title: StringConstants.kSomethingWentWrong,
-                                message: state.message,
-                                primaryButtonTitle: StringConstants.kOk,
-                                errorMarkVisible: true,
-                                primaryOnPressed: () {
-                                  Navigator.pop(context);
-                                  Navigator.of(context).pushReplacementNamed(
-                                      ProductListScreen.routeName);
-                                }));
-                      } else if (state is SavingProduct) {
-                        ProgressBar.show(context);
-                      } else if (state is EditingProduct) {
-                        ProgressBar.show(context);
-                      } else if (state is SavedProduct) {
-                        ProgressBar.dismiss(context);
-                        showDialog(
-                            context: context,
-                            builder: (context) => AlertDialogueBox(
-                                  title: StringConstants.kNewProductAdded,
-                                  message:
-                                      StringConstants.kContinueAddingVariant,
-                                  primaryButtonTitle:
-                                      StringConstants.kAddVariantButton,
-                                  checkMarkVisible: true,
-                                  secondaryButtonTitle: StringConstants.kNo,
-                                  primaryOnPressed: () {
-                                    Navigator.pop(context);
-                                    Navigator.pushReplacementNamed(
-                                        context, AddProductScreen.routeName,
-                                        arguments: AddProductScreenArguments(
-                                            isEdit: false,
-                                            isVariant: true,
-                                            dataMap: {
-                                              'product_name':
-                                                  state.data.productName,
-                                              'category_name':
-                                                  state.data.categoryName,
-                                              'brand_name':
-                                                  state.data.brandName,
-                                              'product_id':
-                                                  state.data.productId,
-                                              'product_description':
-                                                  state.data.productDescription,
-                                            },
-                                            isProductDetail: false));
-                                  },
-                                  secondaryOnPressed: () {
-                                    context
-                                        .read<ProductBloc>()
-                                        .add(FetchProductList());
-                                    Navigator.pop(context);
-                                    Navigator.pushReplacementNamed(
-                                        context, ProductListScreen.routeName);
-                                    // Navigator.pop(context);
-                                  },
-                                ));
-                      } else if (state is EditedProduct) {
-                        ProgressBar.dismiss(context);
-                        showDialog(
-                            context: context,
-                            builder: (dialogueCtx) => AlertDialogueBox(
+                      listener: (context, state) {
+                    if (state is ErrorFetchingCategories) {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialogueBox(
+                              title: StringConstants.kSomethingWentWrong,
+                              message: state.message,
+                              primaryButtonTitle: StringConstants.kOk,
+                              errorMarkVisible: true,
+                              primaryOnPressed: () {
+                                Navigator.pop(context);
+                                Navigator.of(context).pushReplacementNamed(
+                                    ProductListScreen.routeName);
+                              }));
+                    } else if (state is SavingProduct) {
+                      ProgressBar.show(context);
+                    } else if (state is EditingProduct) {
+                      ProgressBar.show(context);
+                    } else if (state is SavedProduct) {
+                      ProgressBar.dismiss(context);
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialogueBox(
                                 title: StringConstants.kNewProductAdded,
-                                message: state.message,
-                                primaryButtonTitle: StringConstants.kOk,
+                                message: StringConstants.kContinueAddingVariant,
+                                primaryButtonTitle:
+                                    StringConstants.kAddVariantButton,
                                 checkMarkVisible: true,
-                                primaryOnPressed: () {
-                                  Navigator.pop(dialogueCtx);
-                                  Navigator.pushReplacementNamed(
-                                      context, ProductListScreen.routeName);
-                                }));
-                      } else if (state is ErrorSavingProduct) {
-                        ProgressBar.dismiss(context);
-                        showDialog(
-                            context: context,
-                            builder: (context) => AlertDialogueBox(
-                                title: StringConstants.kSomethingWentWrong,
-                                message: state.message,
-                                primaryButtonTitle: StringConstants.kOk,
-                                errorMarkVisible: true,
+                                secondaryButtonTitle: StringConstants.kNo,
                                 primaryOnPressed: () {
                                   Navigator.pop(context);
                                   Navigator.pushReplacementNamed(
-                                      context, ProductListScreen.routeName);
-                                }));
-                      } else if (state is ErrorEditingProduct) {
-                        ProgressBar.dismiss(context);
-                        showDialog(
-                            context: context,
-                            builder: (context) => AlertDialogueBox(
-                                title: StringConstants.kSomethingWentWrong,
-                                message: state.message,
-                                primaryButtonTitle: StringConstants.kOk,
-                                errorMarkVisible: true,
-                                primaryOnPressed: () {
+                                      context, AddProductScreen.routeName,
+                                      arguments: AddProductScreenArguments(
+                                          isEdit: false,
+                                          isVariant: true,
+                                          dataMap: {
+                                            'product_name':
+                                                state.data.productName,
+                                            'category_name':
+                                                state.data.categoryName,
+                                            'brand_name': state.data.brandName,
+                                            'product_id': state.data.productId,
+                                            'product_description':
+                                                state.data.productDescription,
+                                          },
+                                          isProductDetail: false));
+                                },
+                                secondaryOnPressed: () {
+                                  context
+                                      .read<ProductBloc>()
+                                      .add(FetchProductList());
                                   Navigator.pop(context);
                                   Navigator.pushReplacementNamed(
                                       context, ProductListScreen.routeName);
-                                }));
-                      }
-                    },
-                    buildWhen: (prev, curr) {
-                      return curr is FetchingCategories ||
-                          curr is FetchedCategories;
-                    },
-                    builder: (context, state) {
-                      if (state is FetchingCategories) {
-                        return const Center(child: CircularProgressIndicator());
-                      }
-                      if (state is FetchedCategories) {
-                        return Padding(
-                            padding: const EdgeInsets.only(
-                                top: spacingXXLarge,
-                                left: spacingXHuge,
-                                right: kHelloSpacingHeight),
-                            child: SingleChildScrollView(
+                                  // Navigator.pop(context);
+                                },
+                              ));
+                    } else if (state is EditedProduct) {
+                      ProgressBar.dismiss(context);
+                      showDialog(
+                          context: context,
+                          builder: (dialogueCtx) => AlertDialogueBox(
+                              title: StringConstants.kNewProductAdded,
+                              message: state.message,
+                              primaryButtonTitle: StringConstants.kOk,
+                              checkMarkVisible: true,
+                              primaryOnPressed: () {
+                                Navigator.pop(dialogueCtx);
+                                Navigator.pushReplacementNamed(
+                                    context, ProductListScreen.routeName);
+                              }));
+                    } else if (state is ErrorSavingProduct) {
+                      ProgressBar.dismiss(context);
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialogueBox(
+                              title: StringConstants.kSomethingWentWrong,
+                              message: state.message,
+                              primaryButtonTitle: StringConstants.kOk,
+                              errorMarkVisible: true,
+                              primaryOnPressed: () {
+                                Navigator.pop(context);
+                                Navigator.pushReplacementNamed(
+                                    context, ProductListScreen.routeName);
+                              }));
+                    } else if (state is ErrorEditingProduct) {
+                      ProgressBar.dismiss(context);
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialogueBox(
+                              title: StringConstants.kSomethingWentWrong,
+                              message: state.message,
+                              primaryButtonTitle: StringConstants.kOk,
+                              errorMarkVisible: true,
+                              primaryOnPressed: () {
+                                Navigator.pop(context);
+                                Navigator.pushReplacementNamed(
+                                    context, ProductListScreen.routeName);
+                              }));
+                    }
+                  }, buildWhen: (prev, curr) {
+                    return curr is FetchingCategories ||
+                        curr is FetchedCategories;
+                  }, builder: (context, state) {
+                    if (state is FetchingCategories) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (state is FetchedCategories) {
+                      return Padding(
+                          padding: const EdgeInsets.only(
+                              top: spacingXXLarge,
+                              left: spacingXHuge,
+                              right: kHelloSpacingHeight),
+                          child: SingleChildScrollView(
                               physics: const BouncingScrollPhysics(),
-                              child: ProductForm(
-                                  formKey: _formKey,
-                                  isVariant: isVariant,
-                                  isEdit: isEdit,
-                                  dataMap: dataMap,
-                                  categoryList: state.categoryList,
-                                  isProductDetail: isProductDetail),
-                            ));
-                      } else {
-                        return const SizedBox.shrink();
-                      }
-                    },
-                  ))
+                              child: LayoutBuilder(builder:
+                                  (BuildContext context,
+                                      BoxConstraints constraints) {
+                                return (constraints.maxWidth < 600)
+                                    ? ProductFormMobile(
+                                        formKey: _formKey,
+                                        isVariant: isVariant,
+                                        isEdit: isEdit,
+                                        dataMap: dataMap,
+                                        categoryList: state.categoryList,
+                                        isProductDetail: isProductDetail)
+                                    : ProductFormWeb(
+                                        formKey: _formKey,
+                                        isVariant: isVariant,
+                                        isEdit: isEdit,
+                                        dataMap: dataMap,
+                                        categoryList: state.categoryList,
+                                        isProductDetail: isProductDetail);
+                              })));
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  }))
             ]));
   }
 }

@@ -9,6 +9,7 @@ import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/screen_arguments/add_product_screen_arguments.dart';
 import 'package:saasify/screens/product/add_product_screen.dart';
 import 'package:saasify/screens/product/widgets/product_list_data_table.dart';
+import 'package:saasify/screens/product/widgets/product_list_mobile.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/utils/responsive.dart';
@@ -136,68 +137,84 @@ class ProductListScreen extends StatelessWidget {
                             return Column(
                               children: [
                                 CustomPageHeader(
-                                  titleText: StringConstants.kProducts,
-                                  buttonVisible: true,
-                                  buttonTitle: StringConstants.kAddProduct,
-                                  utilityVisible: true,
-                                  deleteIconVisible: selectedIds.isNotEmpty,
-                                  deleteOnPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialogueBox(
-                                              title: StringConstants.kWarning,
-                                              message: StringConstants
-                                                  .kTheSelectedProducts,
-                                              primaryButtonTitle:
-                                                  StringConstants.kConfirm,
-                                              secondaryButtonTitle:
-                                                  StringConstants.kCancel,
-                                              checkMarkVisible: false,
-                                              secondaryOnPressed: () {
-                                                Navigator.pop(context);
-                                              },
-                                              primaryOnPressed: () {
-                                                Navigator.pop(context);
-                                                context.read<ProductBloc>().add(
-                                                    DeleteProducts(
-                                                        variantIds:
-                                                            selectedIds));
-                                              },
-                                            ));
-                                  },
-                                  onPressed: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialogueBox(
-                                              title: StringConstants
-                                                  .kAddNewProduct,
-                                              message: StringConstants
-                                                  .kScanTheBarcode,
-                                              primaryButtonTitle:
-                                                  StringConstants.kScanBarcode,
-                                              secondaryButtonTitle:
-                                                  StringConstants.kAddManually,
-                                              checkMarkVisible: false,
-                                              secondaryOnPressed: () {
-                                                Navigator.pop(context);
-                                                Navigator.pushReplacementNamed(
-                                                    context,
-                                                    AddProductScreen.routeName,
-                                                    arguments:
-                                                        AddProductScreenArguments(
-                                                            isEdit: false,
-                                                            isVariant: false,
-                                                            dataMap: {},
-                                                            isProductDetail:
-                                                                false));
-                                              },
-                                              primaryOnPressed: () {},
-                                            ));
-                                  },
-                                ),
+                                    titleText: StringConstants.kProducts,
+                                    buttonVisible: true,
+                                    buttonTitle: StringConstants.kAddProduct,
+                                    utilityVisible: true,
+                                    deleteIconVisible: selectedIds.isNotEmpty,
+                                    deleteOnPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) =>
+                                              AlertDialogueBox(
+                                                title: StringConstants.kWarning,
+                                                message: StringConstants
+                                                    .kTheSelectedProducts,
+                                                primaryButtonTitle:
+                                                    StringConstants.kConfirm,
+                                                secondaryButtonTitle:
+                                                    StringConstants.kCancel,
+                                                checkMarkVisible: false,
+                                                secondaryOnPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                primaryOnPressed: () {
+                                                  Navigator.pop(context);
+                                                  context
+                                                      .read<ProductBloc>()
+                                                      .add(DeleteProducts(
+                                                          variantIds:
+                                                              selectedIds));
+                                                },
+                                              ));
+                                    },
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (context) =>
+                                              AlertDialogueBox(
+                                                title: StringConstants
+                                                    .kAddNewProduct,
+                                                message: StringConstants
+                                                    .kScanTheBarcode,
+                                                primaryButtonTitle:
+                                                    StringConstants
+                                                        .kScanBarcode,
+                                                secondaryButtonTitle:
+                                                    StringConstants
+                                                        .kAddManually,
+                                                checkMarkVisible: false,
+                                                secondaryOnPressed: () {
+                                                  Navigator.pop(context);
+                                                  Navigator.pushReplacementNamed(
+                                                      context,
+                                                      AddProductScreen
+                                                          .routeName,
+                                                      arguments:
+                                                          AddProductScreenArguments(
+                                                              isEdit: false,
+                                                              isVariant: false,
+                                                              dataMap: {},
+                                                              isProductDetail:
+                                                                  false));
+                                                },
+                                                primaryOnPressed: () {},
+                                              ));
+                                    }),
                                 const SizedBox(height: spacingStandard),
-                                ProductListDataTable(
-                                    productList: state.productList),
+                                // ProductListDataTable(
+                                //     productList: state.productList),
+
+                                // ProductListMobile(
+                                //           productList: state.productList),
+                                LayoutBuilder(builder: (BuildContext context,
+                                    BoxConstraints constraints) {
+                                  return (constraints.maxWidth < 600)
+                                      ? ProductListMobile(
+                                          productList: state.productList)
+                                      : ProductListDataTable(
+                                          productList: state.productList);
+                                }),
                                 Visibility(
                                     visible: state.productList.isEmpty,
                                     child: Center(

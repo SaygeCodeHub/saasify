@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saasify/data/models/authentication/authentication_model.dart';
 import 'package:saasify/data/models/screen_arguments/add_product_screen_arguments.dart';
 import 'package:saasify/screens/inventory/inventory_list_screen.dart';
+import 'package:saasify/screens/modules/module_screen.dart';
 import 'package:saasify/screens/onboarding/list_of_branches_screen.dart';
 import 'package:saasify/screens/onboarding/list_of_companies_screen.dart';
 import 'package:saasify/screens/dashboard/dashboard_screen.dart';
@@ -62,6 +63,9 @@ class AppRoutes {
 
       case DiscountScreen.routeName:
         return _createRoute(DiscountScreen());
+
+      case ModulesScreen.routeName:
+        return _createRoute(const ModulesScreen());
 
       case OrderDetailsScreen.routeName:
         return _createRoute(OrderDetailsScreen(

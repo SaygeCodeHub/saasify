@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,36 +60,39 @@ class AuthenticationBloc
 
       Map map = await _authenticationRepository.fetchModules(userCredential.user!.uid);
 
-      log(map.toString());
-
-      Map userDetailsMap = {
-        'user_id': userCredential.user!.uid,
-        'user_name': "",
-        'user_contact': "",
-        'user_email': authDetails["email"]
-      };
-
-      AuthenticationModel authenticationModel =
-          await _authenticationRepository.authenticateUser(userDetailsMap);
-
-      if (authenticationModel.status == 200) {
-        _customerCache.setIsLoggedIn(true);
-        _customerCache.setUserId(authenticationModel.data.user.userId);
-        _customerCache
-            .setUserContact(authenticationModel.data.user.userContact??0);
-        _customerCache.setUserName(authenticationModel.data.user.userName);
-        if (authenticationModel.data.companies.length == 1) {
+      if (map["activateBackend"]) {
+        Map userDetailsMap = {
+          'user_id': userCredential.user!.uid,
+          'user_name': "",
+          'user_contact': "",
+          'user_email': authDetails["email"]
+        };
+        
+        AuthenticationModel authenticationModel =
+            await _authenticationRepository.authenticateUser(userDetailsMap);
+        
+        if (authenticationModel.status == 200) {
+          _customerCache.setIsLoggedIn(true);
+          _customerCache.setUserId(authenticationModel.data.user.userId);
           _customerCache
-              .setCompanyId(authenticationModel.data.companies.first.companyId);
+              .setUserContact(authenticationModel.data.user.userContact??0);
+          _customerCache.setUserName(authenticationModel.data.user.userName);
+          if (authenticationModel.data.companies.length == 1) {
+            _customerCache
+                .setCompanyId(authenticationModel.data.companies.first.companyId);
+          }
+          if (authenticationModel.data.companies[0].branches.length == 1) {
+            _customerCache.setBranchId(
+                authenticationModel.data.companies.first.branches.first.branchId);
+          }
+          emit(AuthenticationSuccess(authenticationModel: authenticationModel));
+        } else {
+          emit(AuthenticationError(error: authenticationModel.message));
         }
-        if (authenticationModel.data.companies[0].branches.length == 1) {
-          _customerCache.setBranchId(
-              authenticationModel.data.companies.first.branches.first.branchId);
-        }
-        emit(AuthenticationSuccess(authenticationModel: authenticationModel));
-      } else {
-        emit(AuthenticationError(error: authenticationModel.message));
       }
+
+      emit(AuthenticationSuccessNoBackend());
+
     } on FirebaseAuthException catch (e) {
       debugPrint(e.toString());
       emit(AuthenticationError(error: e.message ?? e.code));

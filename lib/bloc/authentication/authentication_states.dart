@@ -22,6 +22,8 @@ class AuthenticationSuccess extends AuthenticationStates {
   AuthenticationSuccess({required this.authenticationModel});
 }
 
+class AuthenticationSuccessNoBackend extends AuthenticationStates {}
+
 class IsLoggedIn extends AuthenticationStates {}
 
 class LoggedOut extends AuthenticationStates {}

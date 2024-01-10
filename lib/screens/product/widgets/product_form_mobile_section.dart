@@ -208,6 +208,7 @@ class ProductFormMobileSection extends StatelessWidget {
               onTextFieldChanged: (value) {
                 dataMap['product_description'] = value;
               }),
+      const SizedBox(height: spacingXMedium),
       Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Expanded(
             child:

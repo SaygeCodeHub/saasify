@@ -6,12 +6,12 @@ import 'package:saasify/screens/onboarding/list_of_branches_screen.dart';
 import 'package:saasify/screens/onboarding/list_of_companies_screen.dart';
 import 'package:saasify/screens/dashboard/dashboard_screen.dart';
 import 'package:saasify/screens/pos_new/pos_screen.dart';
-import 'package:saasify/screens/product/product_list_screen.dart';
 import '../data/models/orders/fetch_orders_model.dart';
 import '../screens/categories/categories_screen.dart';
 import '../screens/branches/branches_screen.dart';
 import '../screens/companies/companies_screen.dart';
 import '../screens/product/add_product_screen.dart';
+import '../screens/product/product_screen.dart';
 import '../screens/purchase_order/purchase_order_screen.dart';
 import '../screens/settings/employee_list.dart';
 import '../screens/settings/discount_screen.dart';
@@ -39,8 +39,8 @@ class AppRoutes {
       case CategoriesScreen.routeName:
         return _createRoute(CategoriesScreen());
 
-      case ProductListScreen.routeName:
-        return _createRoute(ProductListScreen());
+      case ProductScreen.routeName:
+        return _createRoute(ProductScreen());
       case InventoryListScreen.routeName:
         return _createRoute(InventoryListScreen());
       case OrdersScreen.routeName:

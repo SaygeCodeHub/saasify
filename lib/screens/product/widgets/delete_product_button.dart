@@ -8,7 +8,7 @@ import '../../../configs/app_dimensions.dart';
 import '../../../utils/constants/string_constants.dart';
 import '../../../utils/progress_bar.dart';
 import '../../../widgets/alert_dialogue_box.dart';
-import '../product_list_screen.dart';
+import '../product_screen.dart';
 
 class DeleteProductButton extends StatelessWidget {
   const DeleteProductButton({super.key});
@@ -31,7 +31,7 @@ class DeleteProductButton extends StatelessWidget {
                     checkMarkVisible: false,
                     primaryOnPressed: () {
                       context.read<ProductBloc>().add(FetchProductList());
-                      ProductListScreen.selectedIds = [];
+                      ProductScreen.selectedIds = [];
                       Navigator.pop(ctx);
                     },
                   ));
@@ -66,7 +66,7 @@ class DeleteProductButton extends StatelessWidget {
                     primaryOnPressed: () {
                       Navigator.pop(context);
                       context.read<ProductBloc>().add(DeleteProducts(
-                          variantIds: ProductListScreen.selectedIds));
+                          variantIds: ProductScreen.selectedIds));
                     }));
           },
           icon: const Icon(Icons.delete,

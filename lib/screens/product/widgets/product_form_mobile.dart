@@ -5,7 +5,6 @@ import 'package:saasify/data/models/products/fetch_all_categories_model.dart';
 import 'package:saasify/screens/product/widgets/product_form_image_section.dart';
 import 'package:saasify/screens/product/widgets/product_form_mobile_section.dart';
 import 'package:saasify/utils/responsive.dart';
-
 import '../../../bloc/product/product_bloc.dart';
 import '../../../bloc/product/product_event.dart';
 import '../../../bloc/upload/upload_bloc.dart';
@@ -20,7 +19,7 @@ import '../../../widgets/primary_button.dart';
 import '../../../widgets/secondary_button.dart';
 import '../../../widgets/toggle_switch_widget.dart';
 import '../add_product_screen.dart';
-import '../product_list_screen.dart';
+import '../product_screen.dart';
 
 class ProductFormMobile extends StatelessWidget {
   const ProductFormMobile(
@@ -56,7 +55,7 @@ class ProductFormMobile extends StatelessWidget {
                       onTap: () {
                         (isProductDetail == true)
                             ? Navigator.pushReplacementNamed(
-                                context, ProductListScreen.routeName)
+                                context, ProductScreen.routeName)
                             : showDialog(
                                 context: context,
                                 builder: (context) => AlertDialogueBox(
@@ -67,8 +66,8 @@ class ProductFormMobile extends StatelessWidget {
                                           StringConstants.kConfirm,
                                       primaryOnPressed: () {
                                         Navigator.pop(context);
-                                        Navigator.pushReplacementNamed(context,
-                                            ProductListScreen.routeName);
+                                        Navigator.pushReplacementNamed(
+                                            context, ProductScreen.routeName);
                                       },
                                       secondaryButtonTitle:
                                           StringConstants.kCancel,

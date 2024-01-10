@@ -9,10 +9,11 @@ import 'package:saasify/configs/app_color.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
-import 'package:saasify/screens/product/product_list_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/widgets/alert_dialogue_box.dart';
+
+import '../product_screen.dart';
 
 class FormImageSection extends StatelessWidget {
   const FormImageSection({
@@ -107,7 +108,7 @@ class FormImageSection extends StatelessWidget {
                                   primaryOnPressed: () {
                                     Navigator.pop(context);
                                     Navigator.pushReplacementNamed(
-                                        context, ProductListScreen.routeName);
+                                        context, ProductScreen.routeName);
                                   })));
                     }
                   },

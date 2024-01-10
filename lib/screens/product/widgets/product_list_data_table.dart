@@ -7,11 +7,12 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/products/product_list_model.dart';
 import 'package:saasify/data/models/screen_arguments/add_product_screen_arguments.dart';
-import 'package:saasify/screens/product/add_product_screen.dart';
-import 'package:saasify/screens/product/product_list_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/custom_table.dart';
 import 'package:saasify/widgets/toggle_switch_widget.dart';
+
+import '../add_product_screen.dart';
+import '../product_screen.dart';
 
 class ProductListDataTable extends StatelessWidget {
   final List<ProductWithVariant> productList;
@@ -32,26 +33,25 @@ class ProductListDataTable extends StatelessWidget {
           '',
           ''
         ],
-        selectedIds: ProductListScreen.selectedIds,
+        selectedIds: ProductScreen.selectedIds,
         dataCount: productList.length,
         dataIds: List.generate(
             productList.length, (index) => productList[index].variantId),
         onHeaderCheckboxChange: () {
-          if (ProductListScreen.selectedIds.length < productList.length) {
-            ProductListScreen.selectedIds =
+          if (ProductScreen.selectedIds.length < productList.length) {
+            ProductScreen.selectedIds =
                 productList.map((e) => e.variantId).toList();
           } else {
-            ProductListScreen.selectedIds.clear();
+            ProductScreen.selectedIds.clear();
           }
           context
               .read<ProductBloc>()
               .add(ProductSelected(productList: productList));
         },
         onRowCheckboxChange: (index) {
-          (ProductListScreen.selectedIds.contains(productList[index].variantId))
-              ? ProductListScreen.selectedIds
-                  .remove(productList[index].variantId)
-              : ProductListScreen.selectedIds.add(productList[index].variantId);
+          (ProductScreen.selectedIds.contains(productList[index].variantId))
+              ? ProductScreen.selectedIds.remove(productList[index].variantId)
+              : ProductScreen.selectedIds.add(productList[index].variantId);
           context
               .read<ProductBloc>()
               .add(ProductSelected(productList: productList));
@@ -201,10 +201,7 @@ class ProductListDataTable extends StatelessWidget {
                           dataMap: productList[index].toJson(),
                           isProductDetail: false));
                 },
-                icon: const Icon(
-                  Icons.edit,
-                  size: spacingStandard,
-                )))
+                icon: const Icon(Icons.edit, size: spacingStandard)))
           ];
         });
   }

@@ -12,10 +12,10 @@ import 'package:saasify/screens/inventory/inventory_list_screen.dart';
 import 'package:saasify/screens/authentication/auhentication_screen.dart';
 import 'package:saasify/screens/orders/orders_screen.dart';
 import 'package:saasify/screens/pos_new/pos_screen.dart';
-import 'package:saasify/screens/product/product_list_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import '../configs/app_dimensions.dart';
 import '../screens/categories/categories_screen.dart';
+import '../screens/product/product_screen.dart';
 import '../screens/purchase_order/purchase_order_screen.dart';
 
 class SideBar extends StatelessWidget {
@@ -129,37 +129,35 @@ class SideBar extends StatelessWidget {
                       }),
                 ),
                 Container(
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(spacingXSmall)),
-                      color: (selectedIndex == 3)
-                          ? AppColor.saasifySkyBlue
-                          : null),
-                  child: ListTile(
-                      leading: Icon(
-                        Icons.production_quantity_limits,
-                        size: kSideBarLeadingIconsSize,
+                    decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(spacingXSmall)),
                         color: (selectedIndex == 3)
-                            ? AppColor.saasifyBlue
-                            : AppColor.saasifyLightBlack,
-                      ),
-                      title: Transform.translate(
-                        offset: const Offset(-20, 0),
-                        child: Text(StringConstants.kProducts,
-                            style: Theme.of(context)
-                                .textTheme
-                                .xTiniest
-                                .copyWith(
-                                    color: (selectedIndex == 3)
-                                        ? AppColor.saasifyBlue
-                                        : AppColor.saasifyLightBlack,
-                                    fontWeight: FontWeight.w600)),
-                      ),
-                      onTap: () {
-                        Navigator.pushReplacementNamed(
-                            context, ProductListScreen.routeName);
-                      }),
-                ),
+                            ? AppColor.saasifySkyBlue
+                            : null),
+                    child: ListTile(
+                        leading: Icon(
+                          Icons.production_quantity_limits,
+                          size: kSideBarLeadingIconsSize,
+                          color: (selectedIndex == 3)
+                              ? AppColor.saasifyBlue
+                              : AppColor.saasifyLightBlack,
+                        ),
+                        title: Transform.translate(
+                            offset: const Offset(-20, 0),
+                            child: Text(StringConstants.kProducts,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .xTiniest
+                                    .copyWith(
+                                        color: (selectedIndex == 3)
+                                            ? AppColor.saasifyBlue
+                                            : AppColor.saasifyLightBlack,
+                                        fontWeight: FontWeight.w600))),
+                        onTap: () {
+                          Navigator.pushReplacementNamed(
+                              context, ProductScreen.routeName);
+                        })),
                 Container(
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.all(

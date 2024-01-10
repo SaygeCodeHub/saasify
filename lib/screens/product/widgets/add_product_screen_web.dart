@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/screens/product/widgets/product_form_mobile.dart';
-import '../../../configs/spacing.dart';
+import 'package:saasify/screens/product/widgets/product_form_web.dart';
+import '../../../configs/app_dimensions.dart';
+import '../../../configs/app_spacing.dart';
 import '../../../data/models/products/fetch_all_categories_model.dart';
 
-class AddProductScreenMobile extends StatelessWidget {
+class AddProductScreenWeb extends StatelessWidget {
   final List<ProductCategory> categoryList;
   final GlobalKey<FormState> _formKey;
   final bool isEdit;
@@ -11,7 +12,7 @@ class AddProductScreenMobile extends StatelessWidget {
   final Map dataMap;
   final bool isProductDetail;
 
-  const AddProductScreenMobile({
+  const AddProductScreenWeb({
     super.key,
     required this.isEdit,
     required this.isVariant,
@@ -24,10 +25,13 @@ class AddProductScreenMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.all(mobileBodyPadding),
+        padding: const EdgeInsets.only(
+            top: spacingXXLarge,
+            left: spacingXHuge,
+            right: kHelloSpacingHeight),
         child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            child: ProductFormMobile(
+            child: ProductFormWeb(
                 formKey: _formKey,
                 isVariant: isVariant,
                 isEdit: isEdit,

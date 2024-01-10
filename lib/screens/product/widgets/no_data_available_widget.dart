@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_theme.dart';
-
 import '../../../configs/app_color.dart';
 import '../../../utils/constants/string_constants.dart';
 

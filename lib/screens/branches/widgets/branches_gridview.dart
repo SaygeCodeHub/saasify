@@ -27,8 +27,8 @@ class BranchesGridView extends StatelessWidget {
     return Expanded(
         child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: (isFromMobile == true) ? 2 : 4,
-                childAspectRatio: 1,
+                crossAxisCount: (isFromMobile == true) ? 2 : 6,
+                childAspectRatio: 2,
                 crossAxisSpacing: spacingLarge,
                 mainAxisSpacing: spacingLarge),
             shrinkWrap: true,
@@ -59,13 +59,15 @@ class BranchesGridView extends StatelessWidget {
                                 child: Image.asset('assets/store.png',
                                     fit: BoxFit.cover)),
                             const SizedBox(height: spacingXXSmall),
-                            Text(branchList[index].branchName,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .xTiniest
-                                    .copyWith(fontWeight: FontWeight.w600))
+                            Expanded(
+                              child: Text(branchList[index].branchName,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .xTiniest
+                                      .copyWith(fontWeight: FontWeight.w600)),
+                            )
                           ])));
             }));
   }

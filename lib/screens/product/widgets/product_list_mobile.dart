@@ -92,19 +92,30 @@ class ProductListMobile extends StatelessWidget {
                                                       TextOverflow.ellipsis,
                                                   softWrap: false)
                                             ]),
-                                            Text(
-                                                productList[index].brandName ??
-                                                    '',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .xTiniest
-                                                    .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: AppColors.black),
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                softWrap: false)
+                                            SizedBox(
+                                                width: MediaQuery.sizeOf(
+                                                            context)
+                                                        .width *
+                                                    0.2,
+                                                child: Text(
+                                                    productList[
+                                                                index]
+                                                            .brandName ??
+                                                        '',
+                                                    style:
+                                                        Theme.of(context)
+                                                            .textTheme
+                                                            .xTiniest
+                                                            .copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                color: AppColors
+                                                                    .black),
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    softWrap: false))
                                           ]),
                                       Text(productList[index].productName,
                                           style: Theme.of(context)

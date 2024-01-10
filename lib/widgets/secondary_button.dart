@@ -39,11 +39,13 @@ class SecondaryButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               (icon == null) ? const SizedBox.shrink() : Icon(icon),
-              Text(buttonTitle,
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.xTiniest.copyWith(
-                      color: AppColor.saasifyBlack,
-                      fontWeight: FontWeight.w600)),
+              FittedBox(
+                child: Text(buttonTitle,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.xTiniest.copyWith(
+                        color: AppColor.saasifyBlack,
+                        fontWeight: FontWeight.w600)),
+              ),
             ]));
   }
 }

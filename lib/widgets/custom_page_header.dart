@@ -7,6 +7,7 @@ import '../configs/app_dimensions.dart';
 import '../configs/app_spacing.dart';
 import '../data/models/pdf/invoice_customer.dart';
 
+import '../screens/product/widgets/delete_product_button.dart';
 import '../services/pdf_service.dart';
 import '../utils/constants/string_constants.dart';
 import 'custom_text_field.dart';
@@ -22,7 +23,6 @@ class CustomPageHeader extends StatelessWidget {
       this.onBack,
       this.backIconVisible = false,
       this.deleteIconVisible = false,
-      this.deleteOnPressed,
       this.utilityVisible = false});
 
   final String titleText;
@@ -33,7 +33,6 @@ class CustomPageHeader extends StatelessWidget {
   final bool backIconVisible;
   final bool utilityVisible;
   final void Function()? onPressed;
-  final void Function()? deleteOnPressed;
   final void Function()? onBack;
 
   @override
@@ -67,11 +66,7 @@ class CustomPageHeader extends StatelessWidget {
           visible: utilityVisible,
           child: Row(children: [
             Visibility(
-                visible: deleteIconVisible,
-                child: IconButton(
-                    onPressed: deleteOnPressed,
-                    icon: const Icon(Icons.delete,
-                        color: AppColor.saasifyRed, size: kHeaderIconsSize))),
+                visible: deleteIconVisible, child: const DeleteProductButton()),
             const SizedBox(width: spacingLarge),
             IconButton(
                 icon: const Icon(Icons.share,

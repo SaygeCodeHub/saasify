@@ -10,7 +10,6 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/products/fetch_all_categories_model.dart';
 import 'package:saasify/data/models/screen_arguments/add_product_screen_arguments.dart';
-import 'package:saasify/screens/product/add_product_screen.dart';
 import 'package:saasify/screens/product/product_list_screen.dart';
 import 'package:saasify/screens/product/widgets/product_form_image_section.dart';
 import 'package:saasify/screens/product/widgets/product_form_section1.dart';
@@ -23,7 +22,7 @@ import 'package:saasify/widgets/primary_button.dart';
 import 'package:saasify/widgets/secondary_button.dart';
 import 'package:saasify/widgets/toggle_switch_widget.dart';
 
-import '../final_add_product_screen.dart';
+import '../add_product_screen.dart';
 
 class ProductFormWeb extends StatelessWidget {
   const ProductFormWeb(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/screens/product/product_list_screen.dart';
-import 'package:saasify/screens/product/widgets/product_form_mobile.dart';
 import 'package:saasify/screens/product/widgets/product_form_web.dart';
 import 'package:saasify/utils/responsive.dart';
 import '../../bloc/product/product_bloc.dart';
@@ -15,7 +14,7 @@ import '../../utils/progress_bar.dart';
 import '../../widgets/alert_dialogue_box.dart';
 import '../../widgets/sidebar.dart';
 import '../../widgets/top_bar.dart';
-import 'final_add_product_screen.dart';
+import 'add_product_screen.dart';
 
 class AddProductScreenWeb extends StatelessWidget {
   final GlobalKey<FormState> _formKey;
@@ -168,24 +167,13 @@ class AddProductScreenWeb extends StatelessWidget {
                           right: kHelloSpacingHeight),
                       child: SingleChildScrollView(
                           physics: const BouncingScrollPhysics(),
-                          child: LayoutBuilder(builder: (BuildContext context,
-                              BoxConstraints constraints) {
-                            return (constraints.maxWidth < 600)
-                                ? ProductFormMobile(
-                                    formKey: _formKey,
-                                    isVariant: isVariant,
-                                    isEdit: isEdit,
-                                    dataMap: dataMap,
-                                    categoryList: state.categoryList,
-                                    isProductDetail: isProductDetail)
-                                : ProductFormWeb(
-                                    formKey: _formKey,
-                                    isVariant: isVariant,
-                                    isEdit: isEdit,
-                                    dataMap: dataMap,
-                                    categoryList: state.categoryList,
-                                    isProductDetail: isProductDetail);
-                          })));
+                          child: ProductFormWeb(
+                              formKey: _formKey,
+                              isVariant: isVariant,
+                              isEdit: isEdit,
+                              dataMap: dataMap,
+                              categoryList: state.categoryList,
+                              isProductDetail: isProductDetail)));
                 } else {
                   return const SizedBox.shrink();
                 }

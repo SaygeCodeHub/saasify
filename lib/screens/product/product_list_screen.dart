@@ -8,7 +8,6 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/screen_arguments/add_product_screen_arguments.dart';
 import 'package:saasify/screens/product/add_product_screen.dart';
-import 'package:saasify/screens/product/widgets/product_list_data_table.dart';
 import 'package:saasify/screens/product/widgets/product_list_mobile.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/utils/progress_bar.dart';
@@ -17,7 +16,6 @@ import 'package:saasify/widgets/custom_page_header.dart';
 import 'package:saasify/widgets/sidebar.dart';
 import 'package:saasify/widgets/top_bar.dart';
 import '../../widgets/alert_dialogue_box.dart';
-import 'final_add_product_screen.dart';
 
 class ProductListScreen extends StatelessWidget {
   static const String routeName = 'ProductListScreen';

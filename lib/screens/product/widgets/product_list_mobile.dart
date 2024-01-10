@@ -12,6 +12,7 @@ import '../../../data/models/products/product_list_model.dart';
 import '../../../data/models/screen_arguments/add_product_screen_arguments.dart';
 import '../../../widgets/toggle_switch_widget.dart';
 import '../add_product_screen.dart';
+import '../final_add_product_screen.dart';
 
 class ProductListMobile extends StatelessWidget {
   final List<ProductWithVariant> productList;

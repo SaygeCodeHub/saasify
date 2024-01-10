@@ -17,6 +17,7 @@ import 'package:saasify/widgets/custom_page_header.dart';
 import 'package:saasify/widgets/sidebar.dart';
 import 'package:saasify/widgets/top_bar.dart';
 import '../../widgets/alert_dialogue_box.dart';
+import 'final_add_product_screen.dart';
 
 class ProductListScreen extends StatelessWidget {
   static const String routeName = 'ProductListScreen';
@@ -205,16 +206,16 @@ class ProductListScreen extends StatelessWidget {
                                 // ProductListDataTable(
                                 //     productList: state.productList),
 
-                                // ProductListMobile(
-                                //           productList: state.productList),
-                                LayoutBuilder(builder: (BuildContext context,
-                                    BoxConstraints constraints) {
-                                  return (constraints.maxWidth < 600)
-                                      ? ProductListMobile(
-                                          productList: state.productList)
-                                      : ProductListDataTable(
-                                          productList: state.productList);
-                                }),
+                                ProductListMobile(
+                                    productList: state.productList),
+                                // LayoutBuilder(builder: (BuildContext context,
+                                //     BoxConstraints constraints) {
+                                //   return (constraints.maxWidth < 600)
+                                //       ? ProductListMobile(
+                                //           productList: state.productList)
+                                //       : ProductListDataTable(
+                                //           productList: state.productList);
+                                // }),
                                 Visibility(
                                     visible: state.productList.isEmpty,
                                     child: Center(

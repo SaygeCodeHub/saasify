@@ -11,6 +11,7 @@ import '../data/models/orders/fetch_orders_model.dart';
 import '../screens/categories/categories_screen.dart';
 import '../screens/branches/branches_screen.dart';
 import '../screens/companies/companies_screen.dart';
+import '../screens/product/final_add_product_screen.dart';
 import '../screens/purchase_order/purchase_order_screen.dart';
 import '../screens/settings/employee_list.dart';
 import '../screens/settings/discount_screen.dart';

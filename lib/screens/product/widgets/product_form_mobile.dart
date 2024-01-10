@@ -20,6 +20,7 @@ import '../../../widgets/primary_button.dart';
 import '../../../widgets/secondary_button.dart';
 import '../../../widgets/toggle_switch_widget.dart';
 import '../add_product_screen.dart';
+import '../final_add_product_screen.dart';
 import '../product_list_screen.dart';
 
 class ProductFormMobile extends StatelessWidget {

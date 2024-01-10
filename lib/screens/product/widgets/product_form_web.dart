@@ -23,6 +23,8 @@ import 'package:saasify/widgets/primary_button.dart';
 import 'package:saasify/widgets/secondary_button.dart';
 import 'package:saasify/widgets/toggle_switch_widget.dart';
 
+import '../final_add_product_screen.dart';
+
 class ProductFormWeb extends StatelessWidget {
   const ProductFormWeb(
       {super.key,

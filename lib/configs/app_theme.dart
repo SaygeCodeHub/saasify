@@ -6,7 +6,7 @@ import 'app_dimensions.dart';
 ThemeData appTheme = ThemeData(
   useMaterial3: false,
   colorScheme: colorScheme,
-  fontFamily: 'Inter',
+  fontFamily: 'PT_Sans',
   splashColor: AppColor.saasifyTransparent,
   hoverColor: AppColor.saasifyTransparent,
   highlightColor: AppColor.saasifyTransparent,

@@ -29,7 +29,7 @@ class AuthenticationScreen extends StatelessWidget {
             showErrorDialogue(context,
                 message: state.error,
                 primaryButtonTitle: StringConstants.kOk, primaryOnPressed: () {
-              Navigator.pop(context);
+                  Navigator.pushReplacementNamed(context, AuthenticationScreen.routeName);
             });
           } else if (state is AuthenticationSuccess) {
             showSuccessDialogue(context,

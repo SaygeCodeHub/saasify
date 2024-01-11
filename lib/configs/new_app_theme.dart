@@ -4,20 +4,32 @@ import 'package:saasify/configs/app_colors.dart';
 import 'app_dimensions.dart';
 
 ThemeData newAppTheme = ThemeData(
-  useMaterial3: false,
-  colorScheme: colorScheme,
-  fontFamily: 'PT_Sans',
-  splashColor: AppColors.transparent,
-  hoverColor: AppColors.transparent,
-  highlightColor: AppColors.transparent,
-  focusColor: AppColors.transparent,
-  scaffoldBackgroundColor: AppColors.white,
-  inputDecorationTheme: inputDecorationTheme,
-);
+    useMaterial3: false,
+    colorScheme: colorScheme,
+    fontFamily: 'PT_Sans',
+    splashColor: AppColors.transparent,
+    hoverColor: AppColors.transparent,
+    highlightColor: AppColors.transparent,
+    focusColor: AppColors.transparent,
+    appBarTheme: appBarTheme,
+    scaffoldBackgroundColor: AppColors.grey,
+    inputDecorationTheme: inputDecorationTheme,
+    drawerTheme: drawerThemeData);
+
+AppBarTheme appBarTheme = const AppBarTheme(
+    color: AppColors.white,
+    elevation: 0,
+    centerTitle: false,
+    iconTheme: IconThemeData(color: AppColors.black),
+    actionsIconTheme: IconThemeData(color: AppColors.black));
 ColorScheme colorScheme = const ColorScheme.light(
-    surface: AppColors.white,
-    background: AppColors.white,
-    primary: AppColors.orange);
+  surface: AppColors.white,
+  background: AppColors.white,
+  primary: AppColors.orange,
+);
+
+DrawerThemeData drawerThemeData =
+    const DrawerThemeData(backgroundColor: AppColors.white);
 
 InputDecorationTheme inputDecorationTheme = InputDecorationTheme(
     enabledBorder: OutlineInputBorder(

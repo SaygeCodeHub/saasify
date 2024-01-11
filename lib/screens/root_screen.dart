@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/app_bar/mobile_appbar.dart';
+import '../widgets/app_bar/web_appbar.dart';
 import '../widgets/drawer/custom_drawer.dart';
 
 class RootScreen extends StatelessWidget {
@@ -11,18 +12,21 @@ class RootScreen extends StatelessWidget {
     return Scaffold(
       appBar: isMobile ? const MobileAppBar() : null,
       drawer: isMobile ? const CustomDrawer() : null,
-      body: isMobile
-          ? const SizedBox.shrink()
-          : const Row(
+      body: Row(
+        children: [
+          isMobile ? const SizedBox() : const CustomDrawer(),
+          Expanded(
+            child: Column(
               children: [
-                CustomDrawer(),
-                Expanded(
-                  child: Center(
-                    child: Text('Main Content'),
-                  ),
+                isMobile ? const SizedBox() : const WebAppBar(),
+                const Center(
+                  child: Text('Main Content'),
                 ),
               ],
             ),
+          ),
+        ],
+      ),
     );
   }
 }

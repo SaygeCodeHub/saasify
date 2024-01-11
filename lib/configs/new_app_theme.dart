@@ -14,6 +14,7 @@ ThemeData newAppTheme = ThemeData(
     appBarTheme: appBarTheme,
     scaffoldBackgroundColor: AppColors.grey,
     inputDecorationTheme: inputDecorationTheme,
+    iconTheme: iconThemeData,
     drawerTheme: drawerThemeData);
 
 AppBarTheme appBarTheme = const AppBarTheme(
@@ -21,7 +22,7 @@ AppBarTheme appBarTheme = const AppBarTheme(
     elevation: 0,
     centerTitle: false,
     iconTheme: IconThemeData(color: AppColors.black),
-    actionsIconTheme: IconThemeData(color: AppColors.black));
+    actionsIconTheme: IconThemeData(color: AppColors.orange));
 ColorScheme colorScheme = const ColorScheme.light(
   surface: AppColors.white,
   background: AppColors.white,
@@ -29,7 +30,9 @@ ColorScheme colorScheme = const ColorScheme.light(
 );
 
 DrawerThemeData drawerThemeData =
-    const DrawerThemeData(backgroundColor: AppColors.white);
+    const DrawerThemeData(backgroundColor: AppColors.white, elevation: 0.0);
+
+IconThemeData iconThemeData = const IconThemeData(color: AppColors.orange);
 
 InputDecorationTheme inputDecorationTheme = InputDecorationTheme(
     enabledBorder: OutlineInputBorder(
@@ -61,5 +64,10 @@ extension AppTextTheme on TextTheme {
   TextStyle get labelTextStyle {
     return const TextStyle(
         fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w600);
+  }
+
+  TextStyle get userNameTextStyle {
+    return const TextStyle(
+        fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w500);
   }
 }

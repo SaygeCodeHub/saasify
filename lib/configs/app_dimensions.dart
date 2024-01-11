@@ -28,9 +28,7 @@ const double kProductImageWidth = 25;
 const double kAvatarRadius = 25;
 const double kPaymentCircleSize = 8;
 const double kCloseIconSize = 20;
-
 const double kBackIconSize = 20;
-
 const double kHeaderIconsSize = 22;
 const double kTextContainerHeight = 280;
 const double kDashboardIconContainerSize = 40;
@@ -38,3 +36,4 @@ const double kSideBarLeadingIconsSize = 20;
 const double kSassifyLogoSize = 50;
 const double kNextButtonWidth = 250;
 const double kCompaniesGridContainerHeight = 50;
+const double kCircleIcon = 8;

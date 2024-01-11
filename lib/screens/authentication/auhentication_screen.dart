@@ -29,30 +29,23 @@ class AuthenticationScreen extends StatelessWidget {
             showErrorDialogue(context,
                 message: state.error,
                 primaryButtonTitle: StringConstants.kOk, primaryOnPressed: () {
-                  Navigator.pushReplacementNamed(context, AuthenticationScreen.routeName);
+              Navigator.pushReplacementNamed(
+                  context, AuthenticationScreen.routeName);
             });
           } else if (state is AuthenticationSuccess) {
-            showSuccessDialogue(context,
-                message: state.authenticationModel.message,
-                primaryButtonTitle: StringConstants.kOk, primaryOnPressed: () {
-              if (state.authenticationModel.data.companies.length > 1) {
-                Navigator.pushNamed(context, CompanyListScreen.routeName);
-              } else if (state.authenticationModel.data.companies.first.branches
-                      .length >
-                  1) {
-                Navigator.pushNamed(context, BranchesListScreen.routeName,
-                    arguments: state.authenticationModel.data.companies.first
-                        .branches.first);
-              } else {
-                Navigator.pushNamed(context, DashboardsScreen.routeName);
-              }
-            });
+            if (state.authenticationModel.data.companies.length > 1) {
+              Navigator.pushNamed(context, CompanyListScreen.routeName);
+            } else if (state
+                    .authenticationModel.data.companies.first.branches.length >
+                1) {
+              Navigator.pushNamed(context, BranchesListScreen.routeName,
+                  arguments: state
+                      .authenticationModel.data.companies.first.branches.first);
+            } else {
+              Navigator.pushNamed(context, DashboardsScreen.routeName);
+            }
           } else if (state is AuthenticationSuccessNoBackend) {
-            showSuccessDialogue(context,
-                message: "Authentication Successful",
-                primaryButtonTitle: StringConstants.kOk, primaryOnPressed: () {
-              Navigator.pushReplacementNamed(context, ModulesScreen.routeName);
-            });
+            Navigator.pushReplacementNamed(context, ModulesScreen.routeName);
           }
         }, child: LayoutBuilder(builder:
                     (BuildContext context, BoxConstraints constraints) {

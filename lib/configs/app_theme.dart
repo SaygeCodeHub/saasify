@@ -11,7 +11,7 @@ ThemeData appTheme = ThemeData(
   hoverColor: AppColor.saasifyTransparent,
   highlightColor: AppColor.saasifyTransparent,
   focusColor: AppColor.saasifyTransparent,
-  scaffoldBackgroundColor: AppColor.saasifyWhite,
+  scaffoldBackgroundColor: AppColors.white,
   inputDecorationTheme: inputDecorationTheme,
 );
 

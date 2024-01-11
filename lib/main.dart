@@ -28,8 +28,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'bloc/orders/orders_bloc.dart';
 import 'bloc/payment/payments_bloc.dart';
 import 'bloc/pos/billing_bloc.dart';
-import 'configs/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'configs/new_app_theme.dart';
 import 'data/database/hive_keys.dart';
 import 'di/app_module.dart';
 
@@ -110,7 +110,7 @@ class MyPosApp extends StatelessWidget {
                 scrollBehavior:
                     const MaterialScrollBehavior().copyWith(scrollbars: false),
                 onGenerateRoute: AppRoutes.routes,
-                theme: appTheme,
+                theme: newAppTheme,
                 home: BlocListener<AuthenticationBloc, AuthenticationStates>(
                     listener: (context, state) {
                       if (state is IsLoggedIn) {

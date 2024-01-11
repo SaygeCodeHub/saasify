@@ -112,6 +112,7 @@ class StringConstants {
   static const kCancel = 'Cancel';
   static const kSuccess = 'Success';
   static const kTheSelectedProducts = 'The selected Products will be deleted';
+  static const kDiscardChanges = 'Do you want to discard the changes';
   static const kSearchHere = 'Search here....';
   static const kNoDataAvailable = 'No Data Available';
   static const kLowStock = 'Low Stock Reminder';

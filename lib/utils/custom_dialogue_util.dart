@@ -211,4 +211,25 @@ class CustomDialogueUtils {
                   .add(DeleteProducts(variantIds: ProductScreen.selectedIds));
             }));
   }
+
+  static void discardChangesWarningDialogue(
+    context,
+  ) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialogueBox(
+              title: StringConstants.kWarning,
+              message: StringConstants.kDiscardChanges,
+              primaryButtonTitle: StringConstants.kConfirm,
+              primaryOnPressed: () {
+                Navigator.pop(context);
+                Navigator.pushReplacementNamed(
+                    context, ProductScreen.routeName);
+              },
+              secondaryButtonTitle: StringConstants.kCancel,
+              secondaryOnPressed: () {
+                Navigator.pop(context);
+              },
+            ));
+  }
 }

@@ -28,7 +28,7 @@ class ProductStatusContainerAndToggleWidgetMobile extends StatelessWidget {
                   : AppColor.saasifyLighterGreen),
           child: Row(mainAxisSize: MainAxisSize.min, children: [
             Icon(Icons.circle,
-                size: kCircleIcon,
+                size: kCircleIconSize,
                 color: (productList.draft)
                     ? AppColor.saasifyLightGrey
                     : AppColor.saasifyGreen),

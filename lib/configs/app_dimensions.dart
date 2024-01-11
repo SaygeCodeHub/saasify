@@ -36,4 +36,4 @@ const double kSideBarLeadingIconsSize = 20;
 const double kSassifyLogoSize = 50;
 const double kNextButtonWidth = 250;
 const double kCompaniesGridContainerHeight = 50;
-const double kCircleIcon = 8;
+const double kCircleIconSize = 8;

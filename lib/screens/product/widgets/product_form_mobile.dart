@@ -9,7 +9,6 @@ import 'package:saasify/screens/product/widgets/save_product_button.dart';
 import 'package:saasify/utils/responsive.dart';
 import '../../../bloc/product/product_bloc.dart';
 import '../../../bloc/product/product_event.dart';
-
 import '../../../configs/app_color.dart';
 import '../../../configs/app_dimensions.dart';
 import '../../../configs/app_spacing.dart';

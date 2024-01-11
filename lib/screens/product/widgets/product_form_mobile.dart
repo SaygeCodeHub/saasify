@@ -4,11 +4,12 @@ import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/products/fetch_all_categories_model.dart';
 import 'package:saasify/screens/product/widgets/product_form_image_section.dart';
 import 'package:saasify/screens/product/widgets/product_form_mobile_section.dart';
+import 'package:saasify/screens/product/widgets/publish_product_button.dart';
+import 'package:saasify/screens/product/widgets/save_product_button.dart';
 import 'package:saasify/utils/responsive.dart';
 import '../../../bloc/product/product_bloc.dart';
 import '../../../bloc/product/product_event.dart';
-import '../../../bloc/upload/upload_bloc.dart';
-import '../../../bloc/upload/upload_events.dart';
+
 import '../../../configs/app_color.dart';
 import '../../../configs/app_dimensions.dart';
 import '../../../configs/app_spacing.dart';
@@ -16,7 +17,6 @@ import '../../../data/models/screen_arguments/add_product_screen_arguments.dart'
 import '../../../utils/constants/string_constants.dart';
 import '../../../widgets/alert_dialogue_box.dart';
 import '../../../widgets/primary_button.dart';
-import '../../../widgets/secondary_button.dart';
 import '../../../widgets/toggle_switch_widget.dart';
 import '../add_product_screen.dart';
 import '../product_screen.dart';
@@ -194,76 +194,14 @@ class ProductFormMobile extends StatelessWidget {
           const SizedBox(height: spacingMedium),
           Row(mainAxisAlignment: MainAxisAlignment.end, children: [
             Visibility(
-              visible: dataMap['draft'] != false,
-              child: SecondaryButton(
-                  onPressed: () {
-                    dataMap['draft'] = true;
-                    if (_formKey.currentState!.validate()) {
-                      if (context
-                          .read<UploadBloc>()
-                          .displayImageList
-                          .isNotEmpty) {
-                        if (context
-                            .read<UploadBloc>()
-                            .pickedImageList
-                            .isNotEmpty) {
-                          context.read<UploadBloc>().add(UploadImage(
-                              multiplePartFileList:
-                                  context.read<UploadBloc>().pickedFiles));
-                        }
-                      } else {
-                        dataMap['images'] = [];
-                        if (isEdit) {
-                          context
-                              .read<ProductBloc>()
-                              .add(EditProduct(productDetailsMap: dataMap));
-                        } else {
-                          context
-                              .read<ProductBloc>()
-                              .add(SaveProduct(productDetailsMap: dataMap));
-                        }
-                      }
-                    }
-                  },
-                  buttonWidth: spacingXXXXHuge,
-                  buttonTitle: StringConstants.kSave),
-            ),
+                visible: dataMap['draft'] != false,
+                child: SaveProductButton(
+                    dataMap: dataMap, formKey: _formKey, isEdit: isEdit)),
             const SizedBox(width: spacingLarge),
             (isProductDetail == true)
                 ? const SizedBox()
-                : PrimaryButton(
-                    onPressed: () {
-                      dataMap['draft'] = false;
-                      if (_formKey.currentState!.validate()) {
-                        if (context
-                            .read<UploadBloc>()
-                            .displayImageList
-                            .isNotEmpty) {
-                          if (context
-                              .read<UploadBloc>()
-                              .pickedImageList
-                              .isNotEmpty) {
-                            context.read<UploadBloc>().add(UploadImage(
-                                multiplePartFileList:
-                                    context.read<UploadBloc>().pickedFiles));
-                          } else {
-                            if (isEdit) {
-                              context
-                                  .read<ProductBloc>()
-                                  .add(EditProduct(productDetailsMap: dataMap));
-                            } else {
-                              context
-                                  .read<ProductBloc>()
-                                  .add(SaveProduct(productDetailsMap: dataMap));
-                            }
-                          }
-                        } else {
-                          context.read<UploadBloc>().add(NoImageSelected());
-                        }
-                      }
-                    },
-                    buttonWidth: spacingXXXXHuge,
-                    buttonTitle: StringConstants.kPublish),
+                : PublishProductButton(
+                    dataMap: dataMap, isEdit: isEdit, formKey: _formKey)
           ]),
           const SizedBox(height: spacingMedium)
         ]));

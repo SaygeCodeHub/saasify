@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/widgets/text/label_text_widget.dart';
 import '../configs/app_colors.dart';
 import '../configs/app_spacing.dart';
 
@@ -48,36 +48,29 @@ class LabelAndFieldWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (label != null)
-          Text(
-            label!,
-            style: Theme.of(context)
-                .textTheme
-                .tiniest
-                .copyWith(fontWeight: FontWeight.w700),
-          ),
+        if (label != null) LabelTextWidget(label: label),
         if (label != null) const SizedBox(height: spacingMedium),
         TextFormField(
-          obscureText: obscureText ?? false,
-          cursorColor: AppColors.orange,
-          decoration: InputDecoration(
-            suffix: suffix,
-            hintText: hintText,
-            prefixIcon: prefixIcon,
-            suffixIcon: suffixIcon,
-            counterText: "",
-          ),
-          validator: (_) {
-            return null;
-          },
-          readOnly: readOnly ?? false,
-          controller: controller,
-          onChanged: onTextFieldChanged,
-          enabled: enabled ?? true,
-          autofocus: autofocus ?? false,
-          keyboardType: keyboardType,
-          textAlign: TextAlign.start,
-        ),
+            obscureText: obscureText ?? false,
+            cursorColor: AppColors.orange,
+            decoration: InputDecoration(
+              suffix: suffix,
+              hintText: hintText,
+              prefixIcon: prefixIcon,
+              suffixIcon: suffixIcon,
+              counterText: "",
+            ),
+            validator: (_) {
+              return null;
+            },
+            readOnly: readOnly ?? false,
+            controller: controller,
+            onChanged: onTextFieldChanged,
+            enabled: enabled ?? true,
+            autofocus: autofocus ?? false,
+            keyboardType: keyboardType,
+            textAlign: TextAlign.start),
+        const SizedBox(height: spacingXSmall)
       ],
     );
   }

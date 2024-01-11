@@ -44,3 +44,10 @@ InputDecorationTheme inputDecorationTheme = InputDecorationTheme(
         borderSide: const BorderSide(color: AppColors.grey)),
     hintStyle: const TextStyle(
         fontSize: 13, color: AppColors.grey, fontWeight: FontWeight.w500));
+
+extension AppTextTheme on TextTheme {
+  TextStyle get labelTextStyle {
+    return const TextStyle(
+        fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w600);
+  }
+}

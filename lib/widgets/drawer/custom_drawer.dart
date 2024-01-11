@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
 
-class WebDrawer extends StatelessWidget {
-  const WebDrawer({super.key});
+class CustomDrawer extends StatelessWidget {
+  const CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {

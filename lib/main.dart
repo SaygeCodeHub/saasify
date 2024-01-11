@@ -23,7 +23,7 @@ import 'package:saasify/data/models/billing/selected_product_model.dart';
 import 'package:saasify/firebase_options.dart';
 import 'package:saasify/screens/dashboard/dashboard_screen.dart';
 import 'package:saasify/screens/authentication/auhentication_screen.dart';
-import 'package:saasify/screens/erp_dashboard_screen.dart';
+import 'package:saasify/screens/root_screen.dart';
 import 'package:saasify/utils/globals.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'bloc/orders/orders_bloc.dart';
@@ -112,7 +112,7 @@ class MyPosApp extends StatelessWidget {
                     const MaterialScrollBehavior().copyWith(scrollbars: false),
                 onGenerateRoute: AppRoutes.routes,
                 theme: newAppTheme,
-                home: const ERPDashboardScreen()
+                home: const RootScreen()
                 // BlocListener<AuthenticationBloc, AuthenticationStates>(
                 //     listener: (context, state) {
                 //       if (state is IsLoggedIn) {

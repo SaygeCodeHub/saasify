@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/product/product_bloc.dart';
-import 'package:saasify/bloc/product/product_event.dart';
-import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/products/fetch_all_categories_model.dart';
-import 'package:saasify/utils/constants/string_constants.dart';
-import 'package:saasify/widgets/custom_dropdown.dart';
-import 'package:saasify/widgets/custom_text_field.dart';
-import '../../../configs/app_color.dart';
+import 'package:saasify/screens/product/widgets/product_name_widget_product_form.dart';
+import 'package:saasify/screens/product/widgets/quantity_and_unit_widget_product_form.dart';
+import 'barcode_widget_product_form.dart';
+import 'gst_widget_product_form.dart';
 
 class ProductFormSection2 extends StatelessWidget {
   const ProductFormSection2({
@@ -32,190 +26,31 @@ class ProductFormSection2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text(StringConstants.kName,
-          style: Theme.of(context)
-              .textTheme
-              .xxTiniest
-              .copyWith(fontWeight: FontWeight.w700)),
-      const SizedBox(height: spacingXMedium),
-      (isProductDetail == true)
-          ? Container(
-              height: kTextFieldHeight,
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                  color: AppColor.saasifyLighterWhite,
-                  borderRadius: BorderRadius.circular(spacingXSmall),
-                  border: Border.all(color: AppColor.saasifyPaleGrey)),
-              child: Padding(
-                  padding: const EdgeInsets.all(spacingSmall),
-                  child: Text(dataMap['product_name'])))
-          : CustomTextField(
-              validator: (value) {
-                if (value == null || value.trim() == '') {
-                  return 'Please Enter the Product Name';
-                }
-                return null;
-              },
-              enabled: !(isVariant && !isEdit),
-              initialValue: dataMap['product_name'] ?? '',
-              onTextFieldChanged: (value) {
-                dataMap['product_name'] = value;
-              }),
+      ProductNameWidgetProductForm(
+          isProductDetail: isProductDetail,
+          categoryList: categoryList,
+          isVariant: isVariant,
+          isEdit: isEdit,
+          dataMap: dataMap),
       const SizedBox(height: spacingHuge),
-      Text(StringConstants.kBarcode,
-          style: Theme.of(context)
-              .textTheme
-              .xxTiniest
-              .copyWith(fontWeight: FontWeight.w700)),
-      const SizedBox(height: spacingXMedium),
-      (isProductDetail == true)
-          ? Container(
-              height: kTextFieldHeight,
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                  color: AppColor.saasifyLighterWhite,
-                  borderRadius: BorderRadius.circular(spacingXSmall),
-                  border: Border.all(color: AppColor.saasifyPaleGrey)),
-              child: Padding(
-                  padding: const EdgeInsets.all(spacingSmall),
-                  child: Text(dataMap['barcode'].toString())))
-          : CustomTextField(
-              validator: (value) {
-                if (value == null || value.trim() == '') {
-                  return 'Please Enter the Product Barcode';
-                }
-                return null;
-              },
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly
-              ],
-              initialValue: dataMap['barcode'] ?? '',
-              onTextFieldChanged: (value) {
-                dataMap['barcode'] = value;
-              }),
+      BarcodeWidgetProductForm(
+          isProductDetail: isProductDetail,
+          categoryList: categoryList,
+          isVariant: isVariant,
+          isEdit: isEdit,
+          dataMap: dataMap),
       const SizedBox(height: spacingHuge),
-      Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Expanded(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(StringConstants.kQuantity,
-              style: Theme.of(context)
-                  .textTheme
-                  .xxTiniest
-                  .copyWith(fontWeight: FontWeight.w700)),
-          const SizedBox(height: spacingXMedium),
-          (isProductDetail == true)
-              ? Container(
-                  height: kTextFieldHeight,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                      color: AppColor.saasifyLighterWhite,
-                      borderRadius: BorderRadius.circular(spacingXSmall),
-                      border: Border.all(color: AppColor.saasifyPaleGrey)),
-                  child: Padding(
-                      padding: const EdgeInsets.all(spacingSmall),
-                      child: Text(dataMap['quantity'].toString())))
-              : CustomTextField(
-                  validator: (value) {
-                    if ((value == null || value.trim() == '') &&
-                        dataMap['draft'] == false) {
-                      return 'This field cannot be blank';
-                    }
-                    return null;
-                  },
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  initialValue: dataMap['quantity'] ?? '',
-                  onTextFieldChanged: (value) {
-                    dataMap['quantity'] = value;
-                  })
-        ])),
-        const SizedBox(width: spacingLarger),
-        Expanded(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(StringConstants.kUnit,
-              overflow: TextOverflow.ellipsis,
-              style: Theme.of(context)
-                  .textTheme
-                  .xxTiniest
-                  .copyWith(fontWeight: FontWeight.w700)),
-          const SizedBox(height: spacingXMedium),
-          (isProductDetail == true)
-              ? Container(
-                  height: kTextFieldHeight,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                      color: AppColor.saasifyLighterWhite,
-                      borderRadius: BorderRadius.circular(kCircularRadius),
-                      border: Border.all(color: AppColor.saasifyPaleGrey)),
-                  child: Padding(
-                      padding: const EdgeInsets.all(spacingSmall),
-                      child: Text(dataMap['unit'] ?? "nos")))
-              : CustomDropdownWidget(
-                  onChanges: () {
-                    context
-                        .read<ProductBloc>()
-                        .add(LoadForm(categoryList: categoryList));
-                  },
-                  initialValue: dataMap['unit'] ?? "nos",
-                  listItems: ["nos", "kg", "l", "gm", "m"] +
-                      ((dataMap['unit'] != null &&
-                              !["nos", "kg", "l", "gm", "m"]
-                                  .contains(dataMap['unit']))
-                          ? [dataMap['unit']]
-                          : []),
-                  dataMap: dataMap,
-                  mapKey: 'unit')
-        ]))
-      ]),
+      QuantityAndUnitWidgetProductForm(
+          isProductDetail: isProductDetail,
+          categoryList: categoryList,
+          isVariant: isVariant,
+          isEdit: isEdit,
+          dataMap: dataMap),
       const SizedBox(height: spacingXXLarge),
-      Text(StringConstants.kGST,
-          style: Theme.of(context)
-              .textTheme
-              .xxTiniest
-              .copyWith(fontWeight: FontWeight.w700)),
-      const SizedBox(height: spacingXMedium),
-      (isProductDetail == true)
-          ? Container(
-              height: kTextFieldHeight,
-              width: double.maxFinite,
-              decoration: BoxDecoration(
-                  color: AppColor.saasifyLighterWhite,
-                  borderRadius: BorderRadius.circular(kCircularRadius),
-                  border: Border.all(color: AppColor.saasifyGrey)),
-              child: Padding(
-                padding: const EdgeInsets.all(spacingSmall),
-                child: Text(
-                    '${(dataMap['CGST'] + dataMap['SGST']).toInt().toString()} %'),
-              ))
-          : CustomDropdownWidget(
-              canEdit: !(dataMap['enableGST'] ?? true),
-              onChanges: () {
-                dataMap['CGST'] = int.parse(dataMap['GST']) / 2;
-                dataMap['SGST'] = int.parse(dataMap['GST']) / 2;
-                context
-                    .read<ProductBloc>()
-                    .add(LoadForm(categoryList: categoryList));
-              },
-              initialValue: (dataMap['CGST'] != null)
-                  ? (dataMap['CGST'] + dataMap['SGST']).toInt().toString()
-                  : '0',
-              listItems: const ['0', '5', '12', '18', '28'],
-              dataMap: dataMap,
-              mapKey: 'GST'),
-      const SizedBox(height: spacingXXSmall),
-      (isProductDetail == true)
-          ? Text(
-              'CGST : ${(dataMap['CGST'] != null) ? dataMap['CGST'] : '0'} % and SGST : ${(dataMap['SGST'] != null) ? dataMap['SGST'] : '0'} %',
-              style: Theme.of(context).textTheme.xxxTiniest)
-          : Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Text(
-                  'CGST : ${(dataMap['CGST'] != null) ? dataMap['CGST'] : '0'} % and SGST : ${(dataMap['SGST'] != null) ? dataMap['SGST'] : '0'} %',
-                  style: Theme.of(context).textTheme.xxxTiniest),
-            ),
+      GstWidgetProductForm(
+          isProductDetail: isProductDetail,
+          categoryList: categoryList,
+          dataMap: dataMap),
     ]));
   }
 }

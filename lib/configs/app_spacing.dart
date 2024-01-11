@@ -17,3 +17,4 @@ const double spacingXExcel = 400.00;
 const double spacingXXXHuge = 100.00;
 const double spacingXXXXXHuge = 150.00;
 const double spacingXXXXHuge = 200.00;
+const double spacingExtra = 70.00;

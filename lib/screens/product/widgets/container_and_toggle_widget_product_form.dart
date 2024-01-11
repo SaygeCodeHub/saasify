@@ -10,12 +10,12 @@ import '../../../data/models/products/fetch_all_categories_model.dart';
 import '../../../utils/constants/string_constants.dart';
 import '../../../widgets/toggle_switch_widget.dart';
 
-class ContainerAndToggleWidgetProductFormMobile extends StatelessWidget {
+class ContainerAndToggleWidgetProductForm extends StatelessWidget {
   final Map dataMap;
   final bool isEdit;
   final List<ProductCategory> categoryList;
 
-  const ContainerAndToggleWidgetProductFormMobile(
+  const ContainerAndToggleWidgetProductForm(
       {super.key,
       required this.dataMap,
       required this.isEdit,

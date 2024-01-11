@@ -5,7 +5,7 @@ import 'package:saasify/screens/product/widgets/product_form_mobile_section.dart
 import 'package:saasify/screens/product/widgets/publish_and_save_button.dart';
 import '../../../configs/app_spacing.dart';
 import 'back_icon_and_heading_widget.dart';
-import 'container_and_toggle_widget_product_form_mobile.dart';
+import 'container_and_toggle_widget_product_form.dart';
 
 class ProductFormMobile extends StatelessWidget {
   const ProductFormMobile(
@@ -36,7 +36,7 @@ class ProductFormMobile extends StatelessWidget {
               isProductDetail: isProductDetail,
               isVariant: isVariant),
           const SizedBox(height: spacingStandard),
-          ContainerAndToggleWidgetProductFormMobile(
+          ContainerAndToggleWidgetProductForm(
               dataMap: dataMap, isEdit: isEdit, categoryList: categoryList),
           const SizedBox(height: spacingXHuge),
           ProductFormMobileSection(

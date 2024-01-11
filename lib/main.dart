@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:saasify/bloc/authentication/authentication_bloc.dart';
 import 'package:saasify/bloc/authentication/authentication_event.dart';
-import 'package:saasify/bloc/authentication/authentication_states.dart';
 import 'package:saasify/bloc/branches/branches_bloc.dart';
 import 'package:saasify/bloc/categories/categories_bloc.dart';
 import 'package:saasify/bloc/customer/customer_bloc.dart';
@@ -21,10 +20,7 @@ import 'package:saasify/data/models/billing/customer_model.dart';
 import 'package:saasify/data/models/billing/fetch_products_by_category_model.dart';
 import 'package:saasify/data/models/billing/selected_product_model.dart';
 import 'package:saasify/firebase_options.dart';
-import 'package:saasify/screens/dashboard/dashboard_screen.dart';
-import 'package:saasify/screens/authentication/auhentication_screen.dart';
 import 'package:saasify/screens/root_screen.dart';
-import 'package:saasify/utils/globals.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'bloc/orders/orders_bloc.dart';
 import 'bloc/payment/payments_bloc.dart';
@@ -80,7 +76,6 @@ class MyPosApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    isMobile = MediaQuery.of(context).size.width < 600;
     return MultiBlocProvider(
         providers: [
           BlocProvider(

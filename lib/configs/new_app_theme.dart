@@ -32,8 +32,7 @@ ColorScheme colorScheme = const ColorScheme.light(
 DrawerThemeData drawerThemeData =
     const DrawerThemeData(backgroundColor: AppColors.white, elevation: 0.0);
 
-IconThemeData iconThemeData = const IconThemeData(color: AppColors.orange);
-
+IconThemeData iconThemeData = const IconThemeData(color: AppColors.black);
 InputDecorationTheme inputDecorationTheme = InputDecorationTheme(
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(kCircularRadius),
@@ -69,5 +68,10 @@ extension AppTextTheme on TextTheme {
   TextStyle get userNameTextStyle {
     return const TextStyle(
         fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w500);
+  }
+
+  TextStyle get drawerModuleTextStyle {
+    return const TextStyle(
+        fontSize: 14, color: AppColors.black, fontWeight: FontWeight.w500);
   }
 }

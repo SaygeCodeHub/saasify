@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
-
+import 'package:saasify/widgets/drawer/module_list_tile.dart';
+import '../../utils/globals.dart';
 import '../user_name_widget.dart';
 import '../user_profile_widget.dart';
 
@@ -10,7 +11,7 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isMobile = MediaQuery.of(context).size.width < 600;
+    bool isMobile = MediaQuery.of(context).size.width < mobileBreakPoint;
     return Container(
       color: AppColors.white,
       width: isMobile
@@ -39,19 +40,22 @@ class CustomDrawer extends StatelessWidget {
                     height: MediaQuery.sizeOf(context).height * 0.057,
                   ),
             const Divider(),
-            ListTile(
-              title: Text('Item 1'),
-              onTap: () {
-                // Handle item 1 tap
-              },
-            ),
-            ListTile(
-              title: Text('Item 2'),
-              onTap: () {
-                // Handle item 2 tap
-              },
-            ),
-            // Add more items as needed
+            ModuleListTile(
+                iconData: Icons.shopping_cart_outlined,
+                title: 'Orders',
+                onTap: () {}),
+            ModuleListTile(
+                iconData: Icons.inventory_outlined,
+                title: 'Inventory Management',
+                onTap: () {}),
+            ModuleListTile(
+                iconData: Icons.supervised_user_circle_sharp,
+                title: 'Users',
+                onTap: () {}),
+            ModuleListTile(
+                iconData: Icons.point_of_sale_outlined,
+                title: 'POS',
+                onTap: () {}),
           ],
         ),
       ),

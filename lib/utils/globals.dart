@@ -1,1 +1,1 @@
-bool isMobile = false;
+double mobileBreakPoint = 1000;

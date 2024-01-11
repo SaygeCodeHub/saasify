@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/screens/product/widgets/product_list_data_table.dart';
+import 'package:saasify/utils/custom_dialogue_util.dart';
 import '../../../configs/app_spacing.dart';
 import '../../../data/models/products/product_list_model.dart';
-import '../../../data/models/screen_arguments/add_product_screen_arguments.dart';
 import '../../../utils/constants/string_constants.dart';
-import '../../../widgets/alert_dialogue_box.dart';
 import '../../../widgets/custom_page_header.dart';
-import '../add_product_screen.dart';
 import '../product_screen.dart';
 import 'no_data_available_widget.dart';
 
@@ -30,25 +28,7 @@ class ProductScreenWeb extends StatelessWidget {
           utilityVisible: true,
           deleteIconVisible: ProductScreen.selectedIds.isNotEmpty,
           onPressed: () {
-            showDialog(
-                context: context,
-                builder: (context) => AlertDialogueBox(
-                    title: StringConstants.kAddNewProduct,
-                    message: StringConstants.kScanTheBarcode,
-                    primaryButtonTitle: StringConstants.kScanBarcode,
-                    secondaryButtonTitle: StringConstants.kAddManually,
-                    checkMarkVisible: false,
-                    secondaryOnPressed: () {
-                      Navigator.pop(context);
-                      Navigator.pushReplacementNamed(
-                          context, AddProductScreen.routeName,
-                          arguments: AddProductScreenArguments(
-                              isEdit: false,
-                              isVariant: false,
-                              dataMap: {},
-                              isProductDetail: false));
-                    },
-                    primaryOnPressed: () {}));
+            CustomDialogueUtils.addNewProductDialogue(context);
           }),
       const SizedBox(height: spacingStandard),
       ProductListDataTable(productList: productList),

@@ -41,8 +41,10 @@ class SecondaryButton extends StatelessWidget {
               (icon == null) ? const SizedBox.shrink() : Icon(icon),
               Text(buttonTitle,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.buttonTextStyle.copyWith(
-                      color: AppColors.black)),
+                  style: Theme.of(context)
+                      .textTheme
+                      .buttonTextStyle
+                      .copyWith(color: AppColors.black)),
             ]));
   }
 }

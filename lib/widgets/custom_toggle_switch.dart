@@ -18,8 +18,6 @@ class CustomToggleSwitch extends StatelessWidget {
     return Transform.scale(
         scale: 0.65,
         child: CupertinoSwitch(
-            value: value,
-            onChanged: onChanged,
-            activeColor: AppColors.black));
+            value: value, onChanged: onChanged, activeColor: AppColors.black));
   }
 }

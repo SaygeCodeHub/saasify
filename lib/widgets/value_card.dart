@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/new_app_theme.dart';
-import '../../../configs/app_spacing.dart';
-import '../../../utils/globals.dart';
+import '../configs/app_spacing.dart';
+import '../utils/globals.dart';
 
 class ValueCard extends StatelessWidget {
   final String cardHeading;

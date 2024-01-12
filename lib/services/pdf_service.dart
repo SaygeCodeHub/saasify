@@ -3,8 +3,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 class PdfService {
-  Future<void> printPOSInvoicePdf(
-  ) async {
+  Future<void> printPOSInvoicePdf() async {
     final pdf = pw.Document();
 
     pdf.addPage(pw.Page(
@@ -40,37 +39,35 @@ class PdfService {
                 style:
                     pw.TextStyle(fontSize: 10, fontWeight: pw.FontWeight.bold)),
             pw.Divider(),
-            pw.Table(
-                columnWidths: {
-                  0: const pw.FlexColumnWidth(1),
-                  1: const pw.FlexColumnWidth(3),
-                  2: const pw.FlexColumnWidth(1),
-                  3: const pw.FlexColumnWidth(1),
-                  4: const pw.FlexColumnWidth(2),
-                  5: const pw.FlexColumnWidth(1),
-                },
-                children: [
-                      pw.TableRow(children: [
-                        pw.Text("Sr no.",
-                            style: pw.TextStyle(
-                                fontSize: 10, fontWeight: pw.FontWeight.bold)),
-                        pw.Text("Description",
-                            style: pw.TextStyle(
-                                fontSize: 10, fontWeight: pw.FontWeight.bold)),
-                        pw.Text("Qty",
-                            style: pw.TextStyle(
-                                fontSize: 10, fontWeight: pw.FontWeight.bold)),
-                        pw.Text("MRP",
-                            style: pw.TextStyle(
-                                fontSize: 10, fontWeight: pw.FontWeight.bold)),
-                        pw.Text("Rate",
-                            style: pw.TextStyle(
-                                fontSize: 10, fontWeight: pw.FontWeight.bold)),
-                        pw.Text("Amt.",
-                            style: pw.TextStyle(
-                                fontSize: 10, fontWeight: pw.FontWeight.bold)),
-                      ])
-                    ]),
+            pw.Table(columnWidths: {
+              0: const pw.FlexColumnWidth(1),
+              1: const pw.FlexColumnWidth(3),
+              2: const pw.FlexColumnWidth(1),
+              3: const pw.FlexColumnWidth(1),
+              4: const pw.FlexColumnWidth(2),
+              5: const pw.FlexColumnWidth(1),
+            }, children: [
+              pw.TableRow(children: [
+                pw.Text("Sr no.",
+                    style: pw.TextStyle(
+                        fontSize: 10, fontWeight: pw.FontWeight.bold)),
+                pw.Text("Description",
+                    style: pw.TextStyle(
+                        fontSize: 10, fontWeight: pw.FontWeight.bold)),
+                pw.Text("Qty",
+                    style: pw.TextStyle(
+                        fontSize: 10, fontWeight: pw.FontWeight.bold)),
+                pw.Text("MRP",
+                    style: pw.TextStyle(
+                        fontSize: 10, fontWeight: pw.FontWeight.bold)),
+                pw.Text("Rate",
+                    style: pw.TextStyle(
+                        fontSize: 10, fontWeight: pw.FontWeight.bold)),
+                pw.Text("Amt.",
+                    style: pw.TextStyle(
+                        fontSize: 10, fontWeight: pw.FontWeight.bold)),
+              ])
+            ]),
             pw.Divider(),
             pw.Row(
                 mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,

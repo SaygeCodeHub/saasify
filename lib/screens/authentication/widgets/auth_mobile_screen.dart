@@ -22,7 +22,7 @@ class AuthMobileScreen extends StatelessWidget {
             const SaasifyLogo(),
             SizedBox(height: MediaQuery.sizeOf(context).height * 0.075),
             LabelAndFieldWidget(
-                label: StringConstants.kLoginId,
+                label: StringConstants.kEmailAddress,
                 onTextFieldChanged: (value) {
                   onEmailChanged(value, context);
                 }),

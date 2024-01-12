@@ -8,7 +8,7 @@ class SaasifyLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset("assets/saasify_logo.svg",
+    return SvgPicture.asset("assets/SaaSify_Logo.svg",
         width: width, height: height);
   }
 }

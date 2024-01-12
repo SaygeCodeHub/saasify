@@ -50,26 +50,36 @@ class LabelAndFieldWidget extends StatelessWidget {
       children: [
         if (label != null) LabelTextWidget(label: label),
         if (label != null) const SizedBox(height: spacingMedium),
-        TextFormField(
-            obscureText: obscureText ?? false,
-            cursorColor: AppColors.orange,
-            decoration: InputDecoration(
-              suffix: suffix,
-              hintText: hintText,
-              prefixIcon: prefixIcon,
-              suffixIcon: suffixIcon,
-              counterText: "",
-            ),
-            validator: (_) {
-              return null;
-            },
-            readOnly: readOnly ?? false,
-            controller: controller,
-            onChanged: onTextFieldChanged,
-            enabled: enabled ?? true,
-            autofocus: autofocus ?? false,
-            keyboardType: keyboardType,
-            textAlign: TextAlign.start),
+        SizedBox(
+          child: TextFormField(
+              obscureText: obscureText ?? false,
+              cursorColor: AppColors.orange,
+              decoration: InputDecoration(
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black12), //<-- SEE HERE
+                ),
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black12), //<-- SEE HERE
+                ),
+                suffix: suffix,
+                hintText: hintText,
+                prefixIcon: prefixIcon,
+                suffixIcon: suffixIcon,
+                counterText: "",
+                contentPadding: const EdgeInsets.symmetric(
+                    vertical: 15, horizontal: 15), // Adjust padding as needed
+              ),
+              validator: (_) {
+                return null;
+              },
+              readOnly: readOnly ?? false,
+              controller: controller,
+              onChanged: onTextFieldChanged,
+              enabled: enabled ?? true,
+              autofocus: autofocus ?? false,
+              keyboardType: keyboardType,
+              textAlign: TextAlign.start),
+        ),
         const SizedBox(height: spacingXSmall)
       ],
     );

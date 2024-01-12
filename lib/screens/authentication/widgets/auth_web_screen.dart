@@ -22,7 +22,7 @@ class AuthWebScreen extends StatelessWidget {
               const SaasifyLogo(),
               const SizedBox(height: spacingBetweenTextFieldAndButton),
               LabelAndFieldWidget(
-                  label: StringConstants.kLoginId,
+                  label: StringConstants.kEmailAddress,
                   onTextFieldChanged: (value) {
                     onEmailChanged(value, context);
                   }),

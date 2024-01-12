@@ -59,6 +59,10 @@ class CustomTextField extends StatelessWidget {
       obscuringCharacter: "*",
       cursorColor: AppColors.orange,
       decoration: InputDecoration(
+        focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black12)),
+        enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.black12)),
         suffix: suffix,
         hintText: hintText,
         hintStyle: hintStyle,

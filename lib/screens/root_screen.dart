@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/utils/globals.dart';
 import '../widgets/app_bar/mobile_appbar.dart';
-import '../widgets/app_bar/web_appbar.dart';
 import '../widgets/drawer/custom_drawer.dart';
+import 'new_dashboard/modules/hrms/hrms_dashboard_screen.dart';
 
 class RootScreen extends StatelessWidget {
   const RootScreen({super.key});
@@ -16,16 +16,7 @@ class RootScreen extends StatelessWidget {
       body: Row(
         children: [
           isMobile ? const SizedBox() : const CustomDrawer(),
-          Expanded(
-            child: Column(
-              children: [
-                isMobile ? const SizedBox() : const WebAppBar(),
-                const Center(
-                  child: Text('Main Content'),
-                ),
-              ],
-            ),
-          ),
+          const Expanded(child: HRMSDashboardScreen())
         ],
       ),
     );

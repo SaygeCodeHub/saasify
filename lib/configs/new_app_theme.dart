@@ -65,6 +65,21 @@ extension AppTextTheme on TextTheme {
         fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w600);
   }
 
+  TextStyle get moduleHeadingTextStyle {
+    return const TextStyle(
+        fontSize: 18, color: AppColors.blue, fontWeight: FontWeight.w600);
+  }
+
+  TextStyle get cardMobileValueTextStyle {
+    return const TextStyle(
+        fontSize: 14, color: AppColors.blue, fontWeight: FontWeight.w800);
+  }
+
+  TextStyle get cardMobileHeadingTextStyle {
+    return const TextStyle(
+        fontSize: 12, color: AppColors.blue, fontWeight: FontWeight.w600);
+  }
+
   TextStyle get userNameTextStyle {
     return const TextStyle(
         fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w500);

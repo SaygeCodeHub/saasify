@@ -50,7 +50,7 @@ class CustomDrawer extends StatelessWidget {
                 onTap: () {}),
             ModuleListTile(
                 iconData: Icons.supervised_user_circle_sharp,
-                title: 'Users',
+                title: 'HRMS',
                 onTap: () {}),
             ModuleListTile(
                 iconData: Icons.point_of_sale_outlined,

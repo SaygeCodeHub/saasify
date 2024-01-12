@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/authentication/authentication_event.dart';
 import 'package:saasify/configs/app_colors.dart';
+import 'package:saasify/screens/authentication/register_screen.dart';
 import '../../../bloc/authentication/authentication_bloc.dart';
 import '../../../bloc/authentication/authentication_states.dart';
 import '../../../configs/app_spacing.dart';
@@ -37,12 +38,16 @@ class AuthVerifyButton extends StatelessWidget {
         } else if (state is AuthenticationLoading) {
           return const Center(child: CircularProgressIndicator());
         } else {
-          return const Column(
+          return Column(
             children: [
-              PrimaryButton(
+              const PrimaryButton(
                   onPressed: null, buttonTitle: StringConstants.kVerify),
               InkWell(
-                child: Padding(
+                onTap: () {
+                  Navigator.pushReplacementNamed(
+                      context, RegisterScreen.routeName);
+                },
+                child: const Padding(
                   padding: EdgeInsets.only(top: spacingStandard),
                   child: Text('New user? Create an account!',
                       style: TextStyle(color: AppColors.orange)),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/screens/authentication/auhentication_screen.dart';
 import '../../../configs/app_colors.dart';
 import '../../../configs/app_spacing.dart';
 import '../../../utils/constants/string_constants.dart';
@@ -14,8 +15,12 @@ class RegisterButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         PrimaryButton(onPressed: () {}, buttonTitle: StringConstants.kRegister),
-        const InkWell(
-          child: Padding(
+        InkWell(
+          onTap: () {
+            Navigator.pushReplacementNamed(
+                context, AuthenticationScreen.routeName);
+          },
+          child: const Padding(
             padding: EdgeInsets.only(top: spacingStandard),
             child: Text('Already have an account? Sign in!',
                 style: TextStyle(color: AppColors.orange)),

@@ -26,7 +26,7 @@ class RegisterWebScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: LabelAndFieldWidget(
-                        label: StringConstants.kLastName,
+                        label: StringConstants.kFirstName,
                         onTextFieldChanged: (value) {
                           onEmailChanged(value, context);
                         }),

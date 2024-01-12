@@ -4,6 +4,8 @@ import 'package:saasify/screens/authentication/widgets/register_web_screen.dart'
 import 'package:saasify/widgets/responsive_layout.dart';
 
 class RegisterScreen extends StatelessWidget {
+  static const routeName = 'RegisterScreen';
+
   const RegisterScreen({super.key});
 
   @override

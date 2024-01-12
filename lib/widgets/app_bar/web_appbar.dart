@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/configs/new_app_theme.dart';
 import 'package:saasify/widgets/user_name_widget.dart';
 import 'package:saasify/widgets/user_profile_widget.dart';
 
 import '../../configs/app_colors.dart';
-import '../icons/notification_icon.dart';
+import '../icons/notification_widget.dart';
+import '../icons/settings_widget.dart';
 
 class WebAppBar extends StatelessWidget {
   const WebAppBar({super.key});
@@ -21,9 +23,16 @@ class WebAppBar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-            child: Container(),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                  left: spacingStandard, top: spacingStandard),
+              child: Text('Dashboard > HRMS > Add New Employee',
+                  style: Theme.of(context).textTheme.churnPathTextStyle),
+            ),
           ),
-          const NotificationIcon(),
+          const SettingsWidget(),
+          const SizedBox(width: spacingXMedium),
+          const NotificationWidget(),
           const SizedBox(width: spacingXMedium),
           const Padding(
             padding: EdgeInsets.only(right: spacingHuge),

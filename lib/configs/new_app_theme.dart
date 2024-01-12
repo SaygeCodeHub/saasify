@@ -21,7 +21,7 @@ AppBarTheme appBarTheme = const AppBarTheme(
     color: AppColors.white,
     elevation: 0,
     centerTitle: false,
-    iconTheme: IconThemeData(color: AppColors.black),
+    iconTheme: IconThemeData(color: AppColors.darkBlue),
     actionsIconTheme: IconThemeData(color: AppColors.orange));
 ColorScheme colorScheme = const ColorScheme.light(
   surface: AppColors.white,
@@ -32,7 +32,7 @@ ColorScheme colorScheme = const ColorScheme.light(
 DrawerThemeData drawerThemeData =
     const DrawerThemeData(backgroundColor: AppColors.white, elevation: 0.0);
 
-IconThemeData iconThemeData = const IconThemeData(color: AppColors.black);
+IconThemeData iconThemeData = const IconThemeData(color: AppColors.darkBlue);
 InputDecorationTheme inputDecorationTheme = InputDecorationTheme(
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(kCircularRadius),
@@ -67,17 +67,21 @@ extension AppTextTheme on TextTheme {
 
   TextStyle get moduleHeadingTextStyle {
     return const TextStyle(
-        fontSize: 18, color: AppColors.blue, fontWeight: FontWeight.w600);
+        fontSize: 18, color: AppColors.darkBlue, fontWeight: FontWeight.w600);
+  }
+
+  TextStyle get churnPathTextStyle {
+    return const TextStyle(fontSize: 12, color: AppColors.lightBlue);
   }
 
   TextStyle get cardMobileValueTextStyle {
     return const TextStyle(
-        fontSize: 14, color: AppColors.blue, fontWeight: FontWeight.w800);
+        fontSize: 14, color: AppColors.darkBlue, fontWeight: FontWeight.w800);
   }
 
   TextStyle get cardMobileHeadingTextStyle {
     return const TextStyle(
-        fontSize: 12, color: AppColors.blue, fontWeight: FontWeight.w600);
+        fontSize: 12, color: AppColors.darkBlue, fontWeight: FontWeight.w600);
   }
 
   TextStyle get userNameTextStyle {

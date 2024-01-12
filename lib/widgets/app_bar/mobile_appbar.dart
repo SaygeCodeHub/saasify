@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../icons/notification_icon.dart';
+import '../icons/notification_widget.dart';
 
 class MobileAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MobileAppBar({super.key});
@@ -8,7 +8,7 @@ class MobileAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      actions: const [NotificationIcon()],
+      actions: const [NotificationWidget()],
     );
   }
 

@@ -36,9 +36,7 @@ class CustomDrawer extends StatelessWidget {
                       ),
                     ),
                   )
-                : SizedBox(
-                    height: MediaQuery.sizeOf(context).height * 0.057,
-                  ),
+                : SizedBox(height: MediaQuery.sizeOf(context).height * 0.057),
             const Divider(),
             ModuleListTile(
                 iconData: Icons.point_of_sale_outlined,
@@ -54,8 +52,8 @@ class CustomDrawer extends StatelessWidget {
                 onTap: () {}),
             ModuleListTile(
                 iconData: Icons.inventory_outlined,
-                title: 'Inventory Management',
-                onTap: () {}),
+                title: 'Inventory',
+                onTap: () {})
           ],
         ),
       ),

@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
-import '../configs/app_color.dart';
+import '../configs/app_colors.dart';
 
-class ToggleSwitchWidget extends StatelessWidget {
+class CustomToggleSwitch extends StatelessWidget {
   final Color? activeColor;
   final bool value;
   final void Function(bool)? onChanged;
 
-  const ToggleSwitchWidget(
+  const CustomToggleSwitch(
       {super.key,
       this.activeColor,
       required this.value,
@@ -20,6 +20,6 @@ class ToggleSwitchWidget extends StatelessWidget {
         child: CupertinoSwitch(
             value: value,
             onChanged: onChanged,
-            activeColor: AppColor.saasifyLightDeepBlue));
+            activeColor: AppColors.black));
   }
 }

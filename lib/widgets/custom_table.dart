@@ -1,7 +1,7 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:saasify/configs/app_color.dart';
-import 'package:saasify/configs/app_theme.dart';
+
+import '../configs/app_colors.dart';
 
 class CustomDataTable extends StatelessWidget {
   final List<String> columnList;
@@ -52,8 +52,8 @@ class CustomDataTable extends StatelessWidget {
                                                     .indeterminate_check_box_outlined
                                                 : Icons.check_box,
                                         color: (selectedIds.isNotEmpty)
-                                            ? AppColor.saasifyLightDeepBlue
-                                            : AppColor.saasifyLightDeepBlue),
+                                            ? AppColors.blue
+                                            : AppColors.blue),
                                   )))))
                 ] +
                 List.generate(
@@ -62,7 +62,7 @@ class CustomDataTable extends StatelessWidget {
                         label: Text(columnList[index],
                             style: Theme.of(context)
                                 .textTheme
-                                .xTiniest
+                                .labelLarge!
                                 .copyWith(fontWeight: FontWeight.w600)))),
             rows: List.generate(
                 dataCount,
@@ -83,8 +83,8 @@ class CustomDataTable extends StatelessWidget {
                                               .check_box_outline_blank_rounded,
                                       color:
                                           (selectedIds.contains(dataIds[index]))
-                                              ? AppColor.saasifyLightDeepBlue
-                                              : AppColor.saasifyLightDeepBlue),
+                                              ? AppColors.blue
+                                              : AppColors.blue),
                                 )),
                           ))
                         ] +

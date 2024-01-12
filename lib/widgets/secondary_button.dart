@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_dimensions.dart';
-import 'package:saasify/configs/app_theme.dart';
-import '../configs/app_color.dart';
+import 'package:saasify/configs/new_app_theme.dart';
+import '../configs/app_colors.dart';
 
 class SecondaryButton extends StatelessWidget {
   final void Function()? onPressed;
@@ -29,9 +29,9 @@ class SecondaryButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(kCircularRadius)),
-            backgroundColor: AppColor.saasifyWhite,
+            backgroundColor: AppColors.white,
             side: (side == null)
-                ? const BorderSide(color: AppColor.saasifyLightDeepBlue)
+                ? const BorderSide(color: AppColors.black)
                 : side,
             minimumSize: Size(buttonWidth ?? double.maxFinite, 50)),
         child: Row(
@@ -41,9 +41,8 @@ class SecondaryButton extends StatelessWidget {
               (icon == null) ? const SizedBox.shrink() : Icon(icon),
               Text(buttonTitle,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.xTiniest.copyWith(
-                      color: AppColor.saasifyBlack,
-                      fontWeight: FontWeight.w600)),
+                  style: Theme.of(context).textTheme.buttonTextStyle.copyWith(
+                      color: AppColors.black)),
             ]));
   }
 }

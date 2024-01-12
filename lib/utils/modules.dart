@@ -1,4 +1,4 @@
-import '../data/models/value_card_model.dart';
+import '../data/models/commonModels/value_card_model.dart';
 
 List<ValueCard> hrmsModules = const [
   ValueCard(

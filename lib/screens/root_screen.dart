@@ -5,6 +5,7 @@ import '../widgets/drawer/custom_drawer.dart';
 import 'new_dashboard/modules/hrms/hrms_dashboard_screen.dart';
 
 class RootScreen extends StatelessWidget {
+  static const routeName = 'RootScreen';
   const RootScreen({super.key});
 
   @override

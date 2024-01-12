@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/configs/app_theme.dart';
-import '../configs/app_color.dart';
+import 'package:saasify/configs/new_app_theme.dart';
 import '../configs/app_colors.dart';
 import '../configs/app_dimensions.dart';
 
@@ -38,8 +37,8 @@ class PrimaryButton extends StatelessWidget {
       child: FittedBox(
           child: Text(buttonTitle,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.xTiniest.copyWith(
-                  color: AppColor.saasifyWhite, fontWeight: FontWeight.w700))),
+              style: Theme.of(context).textTheme.labelTextStyle.copyWith(
+                  color: AppColors.white, fontWeight: FontWeight.w700))),
     );
   }
 }

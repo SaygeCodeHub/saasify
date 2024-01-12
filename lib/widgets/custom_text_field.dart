@@ -64,7 +64,6 @@ class CustomTextField extends StatelessWidget {
         hintStyle: hintStyle,
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        counterText: "",
       ),
       inputFormatters: inputFormatters,
       validator: validator,

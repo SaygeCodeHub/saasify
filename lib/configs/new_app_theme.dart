@@ -89,4 +89,9 @@ extension AppTextTheme on TextTheme {
     return const TextStyle(
         fontSize: 14, color: AppColors.black, fontWeight: FontWeight.w500);
   }
+
+  TextStyle get buttonTextStyle {
+    return const TextStyle(
+        fontSize: 18, color: AppColors.white, fontWeight: FontWeight.w700);
+  }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/primary_button.dart';
 import 'package:saasify/widgets/secondary_button.dart';
-import '../configs/app_color.dart';
+import '../configs/app_colors.dart';
 import '../configs/app_dimensions.dart';
 import '../configs/app_spacing.dart';
 
@@ -44,18 +43,18 @@ class AlertDialogueBox extends StatelessWidget {
                           Visibility(
                               visible: checkMarkVisible,
                               child: const Icon(Icons.check_circle_rounded,
-                                  color: AppColor.saasifyGreen)),
+                                  color: AppColors.successGreen)),
                           Visibility(
                               visible: errorMarkVisible,
                               child: const Icon(Icons.warning,
-                                  color: AppColor.saasifyRed)),
+                                  color: AppColors.errorRed)),
                           Visibility(
                               visible: checkMarkVisible,
                               child: const SizedBox(width: spacingXXSmall)),
                           Text(title,
                               style: Theme.of(context)
                                   .textTheme
-                                  .tiniest
+                                  .labelLarge!
                                   .copyWith(fontWeight: FontWeight.w700))
                         ]),
                         InkWell(
@@ -66,7 +65,7 @@ class AlertDialogueBox extends StatelessWidget {
                                 height: kCloseIconSize, width: kCloseIconSize))
                       ]),
                   const SizedBox(height: spacingXLarge),
-                  Text(message, style: Theme.of(context).textTheme.xxTiniest),
+                  Text(message, style: Theme.of(context).textTheme.labelLarge),
                   const SizedBox(height: spacingXLarge),
                   Row(children: [
                     const Spacer(flex: 2),
@@ -75,7 +74,7 @@ class AlertDialogueBox extends StatelessWidget {
                             ? const SizedBox.shrink()
                             : SecondaryButton(
                                 side: const BorderSide(
-                                    color: AppColor.saasifyLightWhite),
+                                    color: AppColors.lightGrey),
                                 onPressed: secondaryOnPressed,
                                 buttonTitle: secondaryButtonTitle ?? '')),
                     const SizedBox(width: spacingStandard),

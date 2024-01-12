@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/screens/authentication/commonMethods/textfield_methods.dart';
+import 'package:saasify/screens/authentication/forgot_password_screen.dart';
 import 'package:saasify/screens/authentication/widgets/verify_button.dart';
+import '../../../configs/app_colors.dart';
+import '../../../configs/app_spacing.dart';
 import '../../../configs/spacing.dart';
 import '../../../utils/constants/string_constants.dart';
 import '../../../widgets/field_label_widget.dart';
@@ -33,6 +36,19 @@ class AuthWebScreen extends StatelessWidget {
                     onPasswordChanged(value, context);
                   },
                   obscureText: true),
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(context, ForgotPasswordScreen.routeName);
+                },
+                child: const Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: EdgeInsets.only(top: spacingStandard),
+                    child: Text('Forgot Password?',
+                        style: TextStyle(color: AppColors.darkBlue)),
+                  ),
+                ),
+              ),
               const SizedBox(height: spacingBetweenTextFieldAndButton),
               const AuthVerifyButton()
             ],

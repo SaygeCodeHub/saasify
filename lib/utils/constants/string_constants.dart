@@ -7,6 +7,7 @@ class StringConstants {
   static const kConfirmPassword = 'Confirm Password';
   static const kVerify = "Verify";
   static const kRegister = "Register";
+  static const kSendVerificationLink = "Send Verification Link";
   static const kOk = "Ok";
   static const kCancel = "Cancel";
   static const kSuccess = "Success";

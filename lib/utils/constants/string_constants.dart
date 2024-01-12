@@ -12,4 +12,16 @@ class StringConstants {
   static const kSuccess = "Success";
   static const kWarning = "Warning";
   static const kSomethingWentWrong = "Something went wrong";
+
+  //General
+  static const kNext = 'Next';
+
+  // Company
+  static const kCompanyName = 'Company Name';
+  static const kSaveCompany = 'Save Company';
+  static const kCompanyGSTNumber = 'Company GST';
+  static const kCompanyPanNumber = 'Company Pan Number';
+  static const kCompanyAddress = 'Company Pan Number';
+  static const kCompanyBranchName = 'Branch Number';
+  static const kLatLong = 'Company Latitude & Longitude';
 }

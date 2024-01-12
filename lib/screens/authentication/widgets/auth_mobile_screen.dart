@@ -12,31 +12,28 @@ class AuthMobileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(mobileBodyPadding),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(height: MediaQuery.sizeOf(context).height * 0.12),
-            const SaasifyLogo(),
-            SizedBox(height: MediaQuery.sizeOf(context).height * 0.075),
-            LabelAndFieldWidget(
-                label: StringConstants.kEmailAddress,
-                onTextFieldChanged: (value) {
-                  onEmailChanged(value, context);
-                }),
-            const SizedBox(height: spacingBetweenTextFields),
-            LabelAndFieldWidget(
-                label: StringConstants.kPassword,
-                onTextFieldChanged: (value) {
-                  onPasswordChanged(value, context);
-                },
-                obscureText: true),
-            const SizedBox(height: spacingBetweenTextFieldAndButton),
-            const AuthVerifyButton()
-          ],
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(height: MediaQuery.sizeOf(context).height * 0.12),
+          const SaasifyLogo(),
+          SizedBox(height: MediaQuery.sizeOf(context).height * 0.075),
+          LabelAndFieldWidget(
+              label: StringConstants.kEmailAddress,
+              onTextFieldChanged: (value) {
+                onEmailChanged(value, context);
+              }),
+          const SizedBox(height: spacingBetweenTextFields),
+          LabelAndFieldWidget(
+              label: StringConstants.kPassword,
+              onTextFieldChanged: (value) {
+                onPasswordChanged(value, context);
+              },
+              obscureText: true),
+          const SizedBox(height: spacingBetweenTextFieldAndButton),
+          const AuthVerifyButton()
+        ],
       ),
     );
   }

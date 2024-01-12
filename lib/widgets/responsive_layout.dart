@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/utils/globals.dart';
 
+import '../configs/spacing.dart';
+
 class ResponsiveLayout extends StatelessWidget {
   final Widget mobileBody;
   final Widget desktopBody;
@@ -12,7 +14,10 @@ class ResponsiveLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth < mobileBreakPoint) {
-        return mobileBody;
+        return Padding(
+          padding: const EdgeInsets.all(mobileBodyPadding),
+          child: mobileBody,
+        );
       } else {
         return desktopBody;
       }

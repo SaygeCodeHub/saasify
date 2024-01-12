@@ -21,7 +21,6 @@ class ValueCard extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isMobile = MediaQuery.of(context).size.width < mobileBreakPoint;
     return SizedBox(
-      height: MediaQuery.sizeOf(context).height * 0.12,
       child: InkWell(
         onTap: () {
           onTap();
@@ -43,7 +42,7 @@ class ValueCard extends StatelessWidget {
                       SizedBox(
                           width: isMobile
                               ? MediaQuery.sizeOf(context).width * 0.2
-                              : MediaQuery.sizeOf(context).width * 0.05,
+                              : MediaQuery.sizeOf(context).width * 0.07,
                           child: Text(cardHeading, maxLines: 2)),
                       const SizedBox(height: spacingSmall),
                       Text(value.toString(),
@@ -61,8 +60,8 @@ class ValueCard extends StatelessWidget {
                 Flexible(
                   child: Image.asset(iconPath,
                       fit: BoxFit.cover,
-                      height: isMobile ? 20 : 60,
-                      width: isMobile ? 20 : 60),
+                      height: isMobile ? 20 : 40,
+                      width: isMobile ? 20 : 40),
                 )
               ],
             ),

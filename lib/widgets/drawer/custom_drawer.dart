@@ -41,20 +41,20 @@ class CustomDrawer extends StatelessWidget {
                   ),
             const Divider(),
             ModuleListTile(
-                iconData: Icons.shopping_cart_outlined,
-                title: 'Orders',
-                onTap: () {}),
-            ModuleListTile(
-                iconData: Icons.inventory_outlined,
-                title: 'Inventory Management',
+                iconData: Icons.point_of_sale_outlined,
+                title: 'POS',
                 onTap: () {}),
             ModuleListTile(
                 iconData: Icons.supervised_user_circle_sharp,
                 title: 'HRMS',
                 onTap: () {}),
             ModuleListTile(
-                iconData: Icons.point_of_sale_outlined,
-                title: 'POS',
+                iconData: Icons.shopping_cart_outlined,
+                title: 'Orders',
+                onTap: () {}),
+            ModuleListTile(
+                iconData: Icons.inventory_outlined,
+                title: 'Inventory Management',
                 onTap: () {}),
           ],
         ),

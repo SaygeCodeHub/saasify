@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/screens/new_dashboard/widgets/value_cards.dart';
+import 'package:saasify/screens/new_dashboard/widgets/value_card.dart';
 import 'package:saasify/utils/globals.dart';
 import '../../../../../configs/app_spacing.dart';
 import '../../../../../widgets/app_bar/web_appbar.dart';
@@ -29,7 +29,7 @@ class HRMSDashboardScreen extends StatelessWidget {
                 GridView.extent(
                   shrinkWrap: true,
                   maxCrossAxisExtent: 250.0,
-                  childAspectRatio: isMobile ? 1.6 : 2.0,
+                  childAspectRatio: isMobile ? 1.6 : 1.8,
                   mainAxisSpacing: 8.0,
                   crossAxisSpacing: 8.0,
                   children: hrmsModules.map((item) {

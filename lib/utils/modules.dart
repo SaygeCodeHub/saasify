@@ -12,7 +12,7 @@ List<ValueCard> hrmsModules = const [
   ValueCard(
       cardHeading: 'Total Employees',
       value: '20',
-      iconPath: 'assets/total_employee.png'),
+      iconPath: 'assets/employees.png'),
   ValueCard(
       cardHeading: 'Monthly Salary Rollout',
       value: 'Rs. 20,000',
@@ -20,5 +20,7 @@ List<ValueCard> hrmsModules = const [
   ValueCard(
       cardHeading: 'Add New Employee', iconPath: 'assets/add_employee.png'),
   ValueCard(
-      cardHeading: 'View All Employees', iconPath: 'assets/total_employee.png')
+      cardHeading: 'View All Employees', iconPath: 'assets/employees.png'),
+  ValueCard(
+      cardHeading: 'HRMS\nConfigurations', iconPath: 'assets/settings.png')
 ];

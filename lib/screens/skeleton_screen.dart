@@ -5,10 +5,10 @@ import '../widgets/app_bar/mobile_appbar.dart';
 import '../widgets/app_bar/web_appbar.dart';
 import '../widgets/drawer/custom_drawer.dart';
 
-class RootScreen extends StatelessWidget {
+class SkeletonScreen extends StatelessWidget {
   static const routeName = 'RootScreen';
 
-  const RootScreen({super.key});
+  const SkeletonScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

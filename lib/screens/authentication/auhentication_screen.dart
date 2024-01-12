@@ -4,7 +4,7 @@ import 'package:saasify/bloc/authentication/authentication_bloc.dart';
 import 'package:saasify/bloc/authentication/authentication_states.dart';
 import 'package:saasify/screens/authentication/widgets/auth_mobile_screen.dart';
 import 'package:saasify/screens/authentication/widgets/auth_web_screen.dart';
-import 'package:saasify/screens/root_screen.dart';
+import 'package:saasify/screens/skeleton_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/alert_dialogue_box.dart';
 import '../../widgets/responsive_layout.dart';
@@ -41,11 +41,11 @@ class AuthenticationScreen extends StatelessWidget {
                           arguments: state.authenticationModel.data.companies
                               .first.branches.first);
                     } else {
-                      Navigator.pushNamed(context, RootScreen.routeName);
+                      Navigator.pushNamed(context, SkeletonScreen.routeName);
                     }
                   } else if (state is AuthenticationSuccessNoBackend) {
                     Navigator.pushReplacementNamed(
-                        context, RootScreen.routeName);
+                        context, SkeletonScreen.routeName);
                   }
                 },
                 child: const ResponsiveLayout(

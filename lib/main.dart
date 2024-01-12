@@ -6,7 +6,7 @@ import 'package:saasify/bloc/authentication/authentication_event.dart';
 import 'package:saasify/bloc/upload/upload_bloc.dart';
 import 'package:saasify/configs/app_route.dart';
 import 'package:saasify/firebase_options.dart';
-import 'package:saasify/screens/root_screen.dart';
+import 'package:saasify/screens/skeleton_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'configs/new_app_theme.dart';
@@ -51,7 +51,7 @@ class MyPosApp extends StatelessWidget {
                     const MaterialScrollBehavior().copyWith(scrollbars: false),
                 onGenerateRoute: AppRoutes.routes,
                 theme: newAppTheme,
-                home: const RootScreen()
+                home: const SkeletonScreen()
                 // BlocListener<AuthenticationBloc, AuthenticationStates>(
                 //     listener: (context, state) {
                 //       if (state is IsLoggedIn) {

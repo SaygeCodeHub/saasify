@@ -52,8 +52,8 @@ class CustomDataTable extends StatelessWidget {
                                                     .indeterminate_check_box_outlined
                                                 : Icons.check_box,
                                         color: (selectedIds.isNotEmpty)
-                                            ? AppColors.blue
-                                            : AppColors.blue),
+                                            ? AppColors.darkBlue
+                                            : AppColors.darkBlue),
                                   )))))
                 ] +
                 List.generate(
@@ -83,8 +83,8 @@ class CustomDataTable extends StatelessWidget {
                                               .check_box_outline_blank_rounded,
                                       color:
                                           (selectedIds.contains(dataIds[index]))
-                                              ? AppColors.blue
-                                              : AppColors.blue),
+                                              ? AppColors.darkBlue
+                                              : AppColors.darkBlue),
                                 )),
                           ))
                         ] +

@@ -7,6 +7,7 @@ import 'package:saasify/bloc/upload/upload_bloc.dart';
 import 'package:saasify/configs/app_route.dart';
 import 'package:saasify/firebase_options.dart';
 import 'package:saasify/screens/authentication/auhentication_screen.dart';
+import 'package:saasify/screens/skeleton_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'configs/new_app_theme.dart';
@@ -55,6 +56,6 @@ class MyPosApp extends StatelessWidget {
                     listener: (context, state) {
                       if (state is IsLoggedIn) {}
                     },
-                    child: AuthenticationScreen()))));
+                    child: SkeletonScreen()))));
   }
 }

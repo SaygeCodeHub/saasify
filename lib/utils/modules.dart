@@ -22,5 +22,8 @@ List<ValueCard> hrmsModules = const [
   ValueCard(
       cardHeading: 'View All Employees', iconPath: 'assets/employees.png'),
   ValueCard(
-      cardHeading: 'HRMS\nConfigurations', iconPath: 'assets/settings.png')
+      cardHeading: 'HRMS\nConfigurations', iconPath: 'assets/settings.png'),
+  ValueCard(cardHeading: 'Apply Leave', iconPath: 'assets/documents.png'),
+  ValueCard(cardHeading: 'My Leaves', iconPath: 'assets/holiday.png'),
+  ValueCard(cardHeading: 'Timesheet', iconPath: 'assets/attendant-history.png'),
 ];

@@ -74,6 +74,15 @@ extension AppTextTheme on TextTheme {
     return const TextStyle(fontSize: 12, color: AppColors.lightBlue);
   }
 
+  TextStyle get errorTitleTextStyle {
+    return const TextStyle(
+        fontSize: 18, color: AppColors.black, fontWeight: FontWeight.w800);
+  }
+  TextStyle get errorSubtitleTextStyle {
+    return const TextStyle(
+        fontSize: 12, color: AppColors.darkBlue, fontWeight: FontWeight.w300);
+  }
+
   TextStyle get cardMobileValueTextStyle {
     return const TextStyle(
         fontSize: 14, color: AppColors.darkBlue, fontWeight: FontWeight.w800);

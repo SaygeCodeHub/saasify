@@ -25,4 +25,10 @@ class StringConstants {
   static const kCompanyAddress = 'Company Pan Number';
   static const kCompanyBranchName = 'Branch Number';
   static const kLatLong = 'Company Latitude & Longitude';
+
+  //Employees
+
+  static const kAddEmployee = 'Add Employee';
+  static const kInviteMember = 'Invite a team member';
+  static const kAssignRole = 'Assign Role';
 }

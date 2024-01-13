@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/screens/hrms/widgets/add_emp_dialouge.dart';
 import 'package:saasify/widgets/value_card.dart';
 import 'package:saasify/utils/globals.dart';
 import '../../../configs/app_spacing.dart';
@@ -33,7 +34,9 @@ class HRMSDashboardScreen extends StatelessWidget {
                       cardHeading: item.cardHeading,
                       value: item.value,
                       iconPath: item.iconPath,
-                      onTap: () {},
+                      onTap: () {
+                        showAlertDialog(context);
+                      },
                     );
                   }).toList(),
                 )

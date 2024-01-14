@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../configs/app_colors.dart';
+import '../../configs/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
   final int? maxLines;

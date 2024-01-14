@@ -3,8 +3,8 @@ import 'package:saasify/screens/companies/widgets/save_company_button.dart';
 
 import '../../../configs/spacing.dart';
 import '../../../utils/constants/string_constants.dart';
-import '../../../widgets/field_label_widget.dart';
-import '../../../widgets/saasifyLogo.dart';
+import '../../../widgets/text/field_label_widget.dart';
+import '../../../widgets/profile/saasifyLogo.dart';
 
 class AddCompanyWebScreen extends StatelessWidget {
   const AddCompanyWebScreen({super.key});

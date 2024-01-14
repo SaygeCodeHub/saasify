@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/screens/authentication/commonMethods/textfield_methods.dart';
-import 'package:saasify/screens/authentication/widgets/register_button.dart';
-import '../../../configs/spacing.dart';
-import '../../../utils/constants/string_constants.dart';
-import '../../../widgets/field_label_widget.dart';
-import '../../../widgets/saasifyLogo.dart';
+import 'package:saasify/screens/authentication/widgets/register/register_button.dart';
+import '../../../../configs/spacing.dart';
+import '../../../../utils/constants/string_constants.dart';
+import '../../../../widgets/text/field_label_widget.dart';
+import '../../../../widgets/profile/saasifyLogo.dart';
+import '../../generalMethods/textfield_methods.dart';
 
 class RegisterWebScreen extends StatelessWidget {
   const RegisterWebScreen({super.key});

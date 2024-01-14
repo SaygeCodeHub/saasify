@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../utils/constants/string_constants.dart';
-import '../../../widgets/primary_button.dart';
+import '../../../widgets/buttons/primary_button.dart';
 
 class SaveCompanyButton extends StatelessWidget {
   const SaveCompanyButton({super.key});

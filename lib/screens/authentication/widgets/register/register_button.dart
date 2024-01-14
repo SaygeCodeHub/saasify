@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/screens/authentication/auhentication_screen.dart';
-import '../../../configs/app_colors.dart';
-import '../../../configs/app_spacing.dart';
-import '../../../utils/constants/string_constants.dart';
-import '../../../widgets/primary_button.dart';
+import '../../../../configs/app_colors.dart';
+import '../../../../configs/app_spacing.dart';
+import '../../../../utils/constants/string_constants.dart';
+import '../../../../widgets/buttons/primary_button.dart';
 
-class ResetPasswordButton extends StatelessWidget {
-  const ResetPasswordButton({super.key});
+class RegisterButton extends StatelessWidget {
+  const RegisterButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +14,7 @@ class ResetPasswordButton extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        PrimaryButton(
-            onPressed: () {},
-            buttonTitle: StringConstants.kSendVerificationLink),
+        PrimaryButton(onPressed: () {}, buttonTitle: StringConstants.kRegister),
         InkWell(
           onTap: () {
             Navigator.pushReplacementNamed(

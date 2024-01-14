@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/authentication/authentication_event.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/screens/authentication/register_screen.dart';
-import '../../../bloc/authentication/authentication_bloc.dart';
-import '../../../bloc/authentication/authentication_states.dart';
-import '../../../configs/app_spacing.dart';
-import '../../../utils/constants/string_constants.dart';
-import '../../../widgets/primary_button.dart';
+import '../../../../bloc/authentication/authentication_bloc.dart';
+import '../../../../bloc/authentication/authentication_states.dart';
+import '../../../../configs/app_spacing.dart';
+import '../../../../utils/constants/string_constants.dart';
+import '../../../../widgets/buttons/primary_button.dart';
 
 class AuthVerifyButton extends StatelessWidget {
   const AuthVerifyButton({super.key});

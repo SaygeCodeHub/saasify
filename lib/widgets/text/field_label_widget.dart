@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/widgets/text/label_text_widget.dart';
-import '../configs/app_colors.dart';
-import '../configs/app_spacing.dart';
+import '../../configs/app_colors.dart';
+import '../../configs/app_spacing.dart';
 
 class LabelAndFieldWidget extends StatelessWidget {
   final String? label;

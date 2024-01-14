@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/widgets/drawer/module_list_tile.dart';
 import '../../utils/globals.dart';
-import '../user_name_widget.dart';
-import '../user_profile_widget.dart';
+import '../profile/user_name_widget.dart';
+import '../profile/user_profile_widget.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -41,19 +42,27 @@ class CustomDrawer extends StatelessWidget {
             ModuleListTile(
                 iconData: Icons.point_of_sale_outlined,
                 title: 'POS',
-                onTap: () {}),
+                onTap: () {
+                  Navigator.pushNamed(context, 'POS');
+                }),
             ModuleListTile(
                 iconData: Icons.supervised_user_circle_sharp,
                 title: 'HRMS',
-                onTap: () {}),
+                onTap: () {
+                  Navigator.pushNamed(context, HRMSDashboardScreen.routeName);
+                }),
             ModuleListTile(
                 iconData: Icons.shopping_cart_outlined,
                 title: 'Orders',
-                onTap: () {}),
+                onTap: () {
+                  Navigator.pushNamed(context, 'Orders');
+                }),
             ModuleListTile(
                 iconData: Icons.inventory_outlined,
                 title: 'Inventory',
-                onTap: () {})
+                onTap: () {
+                  Navigator.pushNamed(context, 'Inventory');
+                })
           ],
         ),
       ),

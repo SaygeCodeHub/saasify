@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../configs/app_colors.dart';
-import '../configs/app_spacing.dart';
+import '../../configs/app_colors.dart';
+import '../../configs/app_spacing.dart';
 
 class BackgroundCardWidget extends StatelessWidget {
   final Widget childScreen;

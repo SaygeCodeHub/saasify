@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
-import 'package:saasify/widgets/primary_button.dart';
-import 'package:saasify/widgets/secondary_button.dart';
-import '../configs/app_colors.dart';
-import '../configs/app_dimensions.dart';
-import '../configs/app_spacing.dart';
+import 'package:saasify/widgets/buttons/primary_button.dart';
+import 'package:saasify/widgets/buttons/secondary_button.dart';
+import '../../configs/app_colors.dart';
+import '../../configs/app_dimensions.dart';
+import '../../configs/app_spacing.dart';
 
 class AlertDialogueBox extends StatelessWidget {
   const AlertDialogueBox(

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/authentication/authentication_bloc.dart';
 import 'package:saasify/bloc/authentication/authentication_states.dart';
-import 'package:saasify/screens/authentication/widgets/auth_mobile_screen.dart';
-import 'package:saasify/screens/authentication/widgets/auth_web_screen.dart';
-import 'package:saasify/screens/skeleton_screen.dart';
+import 'package:saasify/screens/authentication/widgets/auth/auth_mobile_screen.dart';
+import 'package:saasify/screens/authentication/widgets/auth/auth_web_screen.dart';
+import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
+import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
-import 'package:saasify/widgets/alert_dialogue_box.dart';
-import '../../widgets/responsive_layout.dart';
+import 'package:saasify/widgets/generalWidgets/alert_dialogue_box.dart';
+import '../../widgets/layoutWidgets/responsive_layout.dart';
 
 class AuthenticationScreen extends StatelessWidget {
   static const routeName = 'AuthenticationScreen';
@@ -41,11 +42,11 @@ class AuthenticationScreen extends StatelessWidget {
                           arguments: state.authenticationModel.data.companies
                               .first.branches.first);
                     } else {
-                      Navigator.pushNamed(context, SkeletonScreen.routeName);
+                      Navigator.pushNamed(context, ScreenSkeleton.routeName);
                     }
                   } else if (state is AuthenticationSuccessNoBackend) {
                     Navigator.pushReplacementNamed(
-                        context, SkeletonScreen.routeName);
+                        context, HRMSDashboardScreen.routeName);
                   }
                 },
                 child: const ResponsiveLayout(

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import '../configs/app_colors.dart';
+import '../../configs/app_colors.dart';
 
 class CustomToggleSwitch extends StatelessWidget {
   final Color? activeColor;

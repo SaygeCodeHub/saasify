@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../configs/app_spacing.dart';
+import '../../configs/app_spacing.dart';
 
 class UserProfileWidget extends StatelessWidget {
   final double? size;

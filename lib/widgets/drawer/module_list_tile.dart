@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saasify/configs/new_app_theme.dart';
 
 import '../../configs/app_spacing.dart';
-import '../custom_icon.dart';
+import '../generalWidgets/custom_icon.dart';
 
 class ModuleListTile extends StatelessWidget {
   final IconData iconData;

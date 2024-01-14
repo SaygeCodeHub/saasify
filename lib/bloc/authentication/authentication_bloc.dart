@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -59,6 +60,8 @@ class AuthenticationBloc
       Map map = await _authenticationRepository
           .fetchModules(userCredential.user!.uid);
 
+      _customerCache.setIsLoggedIn(true);
+
       if (map["activateBackend"]) {
         Map userDetailsMap = {
           'user_id': userCredential.user!.uid,
@@ -71,7 +74,7 @@ class AuthenticationBloc
             await _authenticationRepository.authenticateUser(userDetailsMap);
 
         if (authenticationModel.status == 200) {
-          _customerCache.setIsLoggedIn(true);
+
           _customerCache.setUserId(authenticationModel.data.user.userId);
           _customerCache
               .setUserContact(authenticationModel.data.user.userContact ?? 0);
@@ -102,6 +105,7 @@ class AuthenticationBloc
   FutureOr<void> _checkIfLoggedIn(
       CheckIfLoggedIn event, Emitter<AuthenticationStates> emit) async {
     bool? isLoggedIn = await _customerCache.getIsLoggedIn();
+    log(isLoggedIn.toString());
     if (isLoggedIn == true) {
       emit(IsLoggedIn());
     }

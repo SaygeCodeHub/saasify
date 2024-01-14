@@ -16,9 +16,9 @@ class Employee {
 
 List<Employee> employeeData = [
   Employee(
-    id: '1',
-    name: 'John Doe',
-    designation: 'Software Engineer',
-    email: 'johndoe@gmail.com',
-    phone: '0000000000')
+      id: '1',
+      name: 'John Doe',
+      designation: 'Software Engineer',
+      email: 'johndoe@gmail.com',
+      phone: '0000000000')
 ];

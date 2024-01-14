@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../configs/app_colors.dart';
+import '../../configs/app_colors.dart';
 
 class CustomIcon extends StatelessWidget {
   final IconData iconData;

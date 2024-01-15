@@ -36,8 +36,7 @@ List<ValueCardModel> hrmsModules = [
       iconPath: 'assets/employees.png',
       onTap: (context) {
         Navigator.pushNamed(context, EmployeeListScreen.routeName);
-      },
-      routeName: EmployeeListScreen.routeName),
+      }),
   ValueCardModel(
       cardHeading: 'HRMS\nConfigurations',
       iconPath: 'assets/settings.png',

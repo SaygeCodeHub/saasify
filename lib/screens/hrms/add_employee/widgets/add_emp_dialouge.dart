@@ -5,8 +5,8 @@ import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
 import '../../../../configs/app_colors.dart';
 import '../../../../configs/app_spacing.dart';
 import '../../../../utils/constants/string_constants.dart';
+import '../../../../widgets/buttons/primary_button.dart';
 import '../../../../widgets/custom_checkbox.dart';
-import '../../../../widgets/primary_button.dart';
 
 showAlertDialog(BuildContext context) {
   TextButton(
@@ -36,12 +36,18 @@ showAlertDialog(BuildContext context) {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(StringConstants.kInviteMember),
-              Text(
-                "Add Manually?",
-                style: Theme.of(context)
-                    .textTheme
-                    .drawerModuleTextStyle
-                    .copyWith(color: AppColors.orange),
+              InkWell(
+                onTap: () {
+                  Navigator.pushReplacementNamed(
+                      context, AddEmployeeScreen.routeName);
+                },
+                child: Text(
+                  "Add Manually?",
+                  style: Theme.of(context)
+                      .textTheme
+                      .drawerModuleTextStyle
+                      .copyWith(color: AppColors.orange),
+                ),
               ),
             ],
           ),

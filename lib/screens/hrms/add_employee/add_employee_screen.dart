@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/screens/hrms/add_employee/add_employee_web.dart';
+import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 
 import '../../../configs/app_spacing.dart';
 import '../../../widgets/layoutWidgets/responsive_layout.dart';
@@ -13,20 +14,23 @@ class AddEmployeeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(height: spacingMedium),
-        Padding(
-          padding: EdgeInsets.only(left: spacingLarge, top: spacingXXSmall),
-          child: ModuleHeading(label: 'Add New Employee'),
-        ),
-        Expanded(
-          child: ResponsiveLayout(
-              mobileBody: AddEmployeeMobile(), desktopBody: AddEmployeeWeb()),
-        ),
-      ],
-    );
+    return ScreenSkeleton(
+        childScreenBuilder: (isMobile) => const Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(height: spacingMedium),
+                Padding(
+                  padding:
+                      EdgeInsets.only(left: spacingLarge, top: spacingXXSmall),
+                  child: ModuleHeading(label: 'Add New Employee'),
+                ),
+                Expanded(
+                  child: ResponsiveLayout(
+                      mobileBody: AddEmployeeMobile(),
+                      desktopBody: AddEmployeeWeb()),
+                ),
+              ],
+            ));
   }
 }

@@ -33,7 +33,7 @@ class HRMSDashboardScreen extends StatelessWidget {
                             value: item.value,
                             iconPath: item.iconPath,
                             onTap: () {
-                              Navigator.of(context).pushNamed(item.routeName);
+                              item.onTap(context);
                             });
                       }).toList())
                 ]))));

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/screens/authentication/commonMethods/textfield_methods.dart';
-import 'package:saasify/screens/authentication/widgets/verify_button.dart';
-import '../../../configs/spacing.dart';
-import '../../../utils/constants/string_constants.dart';
-import '../../../widgets/field_label_widget.dart';
-import '../../../widgets/saasifyLogo.dart';
-import 'forgot_password_button.dart';
+import 'package:saasify/screens/authentication/widgets/auth/verify_button.dart';
+
+import '../../../../configs/spacing.dart';
+import '../../../../utils/constants/string_constants.dart';
+import '../../../../widgets/profile/saasifyLogo.dart';
+import '../../../../widgets/text/field_label_widget.dart';
+import '../../generalMethods/textfield_methods.dart';
+import '../forgot_password_button.dart';
 
 class AuthWebScreen extends StatelessWidget {
   const AuthWebScreen({super.key});

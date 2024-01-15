@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/authentication/authentication_event.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/screens/authentication/register_screen.dart';
+import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import '../../../../bloc/authentication/authentication_bloc.dart';
 import '../../../../bloc/authentication/authentication_states.dart';
 import '../../../../configs/app_spacing.dart';
@@ -20,12 +20,11 @@ class AuthVerifyButton extends StatelessWidget {
           return Column(
             children: [
               PrimaryButton(
-                  onPressed:
-                      (context.read<AuthenticationBloc>().loginButtonEnabled)
-                          ? () {
-                              context.read<AuthenticationBloc>().add(SignIn());
-                            }
-                          : null,
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                        context, HRMSDashboardScreen.routeName);
+                    // context.read<AuthenticationBloc>().add(SignIn());
+                  },
                   buttonTitle: StringConstants.kVerify),
               const InkWell(
                 child: Padding(
@@ -40,8 +39,12 @@ class AuthVerifyButton extends StatelessWidget {
         } else {
           return Column(
             children: [
-              const PrimaryButton(
-                  onPressed: null, buttonTitle: StringConstants.kVerify),
+              PrimaryButton(
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                        context, HRMSDashboardScreen.routeName);
+                  },
+                  buttonTitle: StringConstants.kVerify),
               InkWell(
                 onTap: () {
                   Navigator.pushReplacementNamed(

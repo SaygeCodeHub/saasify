@@ -2,12 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/authentication/authentication_bloc.dart';
 import 'package:saasify/bloc/authentication/authentication_event.dart';
-import 'package:saasify/bloc/authentication/authentication_states.dart';
 import 'package:saasify/bloc/upload/upload_bloc.dart';
 import 'package:saasify/configs/app_route.dart';
 import 'package:saasify/firebase_options.dart';
 import 'package:saasify/screens/authentication/auhentication_screen.dart';
-import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'configs/new_app_theme.dart';
@@ -52,13 +50,6 @@ class MyPosApp extends StatelessWidget {
                     const MaterialScrollBehavior().copyWith(scrollbars: false),
                 onGenerateRoute: AppRoutes.routes,
                 theme: newAppTheme,
-                home: BlocListener<AuthenticationBloc, AuthenticationStates>(
-                    listener: (context, state) {
-                      if (state is IsLoggedIn) {
-                        Navigator.pushReplacementNamed(
-                            context, HRMSDashboardScreen.routeName);
-                      }
-                    },
-                    child: AuthenticationScreen()))));
+                home: AuthenticationScreen())));
   }
 }

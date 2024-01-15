@@ -5,14 +5,17 @@ import 'package:saasify/widgets/generalWidgets/status_chips.dart';
 
 class TableAvatar extends DataCell {
   TableAvatar({String? avatarUrl})
-      : super(CircleAvatar(
-          backgroundImage: (avatarUrl != null)?NetworkImage(avatarUrl):null,
-          backgroundColor: AppColors.black,
-        ), showEditIcon: false);
+      : super(
+            CircleAvatar(
+              backgroundImage:
+                  (avatarUrl != null) ? NetworkImage(avatarUrl) : null,
+              backgroundColor: AppColors.black,
+            ),
+            showEditIcon: false);
 }
 
 class TableText extends DataCell {
-  TableText(BuildContext context,{required String text})
+  TableText(BuildContext context, {required String text})
       : super(Text(
           text,
           style: Theme.of(context).textTheme.labelTextStyle,
@@ -20,5 +23,6 @@ class TableText extends DataCell {
 }
 
 class TableStatusChips extends DataCell {
-  TableStatusChips() : super(StatusChip(text: 'Active', color: AppColors.successGreen));
+  TableStatusChips()
+      : super(StatusChip(text: 'Active', color: AppColors.successGreen));
 }

@@ -25,12 +25,14 @@ class ScreenSkeleton extends StatelessWidget {
         children: [
           isMobile ? const SizedBox() : const CustomDrawer(),
           Expanded(
-            child: isMobile ?Column(
-              children: [
-                const WebAppBar(),
-                Expanded(child: childScreenBuilder(isMobile)),
-              ],
-            ):childScreenBuilder(isMobile),
+            child: !isMobile
+                ? Column(
+                    children: [
+                      const WebAppBar(),
+                      Expanded(child: childScreenBuilder(isMobile)),
+                    ],
+                  )
+                : childScreenBuilder(isMobile),
           )
         ],
       ),

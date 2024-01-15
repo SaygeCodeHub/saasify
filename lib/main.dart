@@ -55,7 +55,8 @@ class MyPosApp extends StatelessWidget {
                 home: BlocListener<AuthenticationBloc, AuthenticationStates>(
                     listener: (context, state) {
                       if (state is IsLoggedIn) {
-                        Navigator.pushNamed(context, HRMSDashboardScreen.routeName);
+                        Navigator.pushReplacementNamed(
+                            context, HRMSDashboardScreen.routeName);
                       }
                     },
                     child: AuthenticationScreen()))));

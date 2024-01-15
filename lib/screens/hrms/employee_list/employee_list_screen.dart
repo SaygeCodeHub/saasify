@@ -12,13 +12,11 @@ class EmployeeListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenSkeleton(
-        childScreenBuilder: (isMobile) => const Card(
-              child: Padding(
-                padding: EdgeInsets.all(spacingLarge),
-                child: ResponsiveLayout(
-                  mobileBody: EmployeeListMobile(),
-                  desktopBody: EmployeeListWeb(),
-                ),
+        childScreenBuilder: (isMobile) => const Padding(
+              padding: EdgeInsets.all(spacingLarge),
+              child: ResponsiveLayout(
+                mobileBody: EmployeeListMobile(),
+                desktopBody: EmployeeListWeb(),
               ),
             ));
   }

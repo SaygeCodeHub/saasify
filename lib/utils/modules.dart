@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 
 import '../data/models/generalModels/value_card_model.dart';
@@ -23,7 +22,9 @@ List<ValueCardModel> hrmsModules = [
   const ValueCardModel(
       cardHeading: 'Add New Employee', iconPath: 'assets/add_employee.png'),
   ValueCardModel(
-      cardHeading: 'View All Employees', iconPath: 'assets/employees.png',routeName: 'EmployeeListScreen'),
+      cardHeading: 'View All Employees',
+      iconPath: 'assets/employees.png',
+      routeName: 'EmployeeListScreen'),
   const ValueCardModel(
       cardHeading: 'HRMS\nConfigurations', iconPath: 'assets/settings.png')
 ];

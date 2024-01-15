@@ -34,28 +34,30 @@ class CustomDataTable extends StatelessWidget {
         columnSpacing: 0,
         horizontalMargin: 0,
         headingRowHeight: 50,
-        columns: ((checkboxVisible)?[
-              DataColumn2(
-                  size: ColumnSize.S,
-                  label: Center(
-                      child: Visibility(
-                          visible: dataCount > 0,
-                          child: InkWell(
-                              onTap: onHeaderCheckboxChange,
-                              child: Visibility(
-                                visible: checkboxVisible,
-                                child: Icon(
-                                    (selectedIds.isEmpty)
-                                        ? Icons.check_box_outline_blank
-                                        : (selectedIds.length < dataCount)
-                                            ? Icons
-                                                .indeterminate_check_box_outlined
-                                            : Icons.check_box,
-                                    color: (selectedIds.isNotEmpty)
-                                        ? AppColors.darkBlue
-                                        : AppColors.darkBlue),
-                              )))))
-            ]:<DataColumn2>[]) +
+        columns: ((checkboxVisible)
+                ? [
+                    DataColumn2(
+                        size: ColumnSize.S,
+                        label: Center(
+                            child: Visibility(
+                                visible: dataCount > 0,
+                                child: InkWell(
+                                    onTap: onHeaderCheckboxChange,
+                                    child: Visibility(
+                                      visible: checkboxVisible,
+                                      child: Icon(
+                                          (selectedIds.isEmpty)
+                                              ? Icons.check_box_outline_blank
+                                              : (selectedIds.length < dataCount)
+                                                  ? Icons
+                                                      .indeterminate_check_box_outlined
+                                                  : Icons.check_box,
+                                          color: (selectedIds.isNotEmpty)
+                                              ? AppColors.darkBlue
+                                              : AppColors.darkBlue),
+                                    )))))
+                  ]
+                : <DataColumn2>[]) +
             List.generate(
                 columnList.length,
                 (index) => DataColumn2(
@@ -68,27 +70,29 @@ class CustomDataTable extends StatelessWidget {
         rows: List.generate(
             dataCount,
             (index) => DataRow(
-                cells:
-                  ((checkboxVisible)?[DataCell(Align(
-                        alignment: Alignment.center,
-                        child: InkWell(
-                            onTap: () {
-                              onRowCheckboxChange(index);
-                            },
-                            child: Visibility(
-                              visible: showRowCheckBox,
-                              child: Icon(
-                                  (selectedIds.contains(dataIds[index]))
-                                      ? Icons.check_box
-                                      : Icons
-                                          .check_box_outline_blank_rounded,
-                                  color:
-                                      (selectedIds.contains(dataIds[index]))
-                                          ? AppColors.darkBlue
-                                          : AppColors.darkBlue),
-                            )),
-                      ))
-                    ]:<DataCell>[]) +
+                cells: ((checkboxVisible)
+                        ? [
+                            DataCell(Align(
+                              alignment: Alignment.center,
+                              child: InkWell(
+                                  onTap: () {
+                                    onRowCheckboxChange(index);
+                                  },
+                                  child: Visibility(
+                                    visible: showRowCheckBox,
+                                    child: Icon(
+                                        (selectedIds.contains(dataIds[index]))
+                                            ? Icons.check_box
+                                            : Icons
+                                                .check_box_outline_blank_rounded,
+                                        color: (selectedIds
+                                                .contains(dataIds[index]))
+                                            ? AppColors.darkBlue
+                                            : AppColors.darkBlue),
+                                  )),
+                            ))
+                          ]
+                        : <DataCell>[]) +
                     generateData(index))));
   }
 }

@@ -5,7 +5,8 @@ class ValueCardModel {
   final bool? isMobile;
   final String routeName;
 
-  const ValueCardModel({this.routeName = '',
+  const ValueCardModel({
+    this.routeName = '',
     required this.cardHeading,
     this.value = '',
     required this.iconPath,

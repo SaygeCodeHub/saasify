@@ -10,6 +10,7 @@ class ComingSoonScreen extends StatelessWidget {
       appBar: AppBar(),
       body: const Center(
         child: Text('Coming Soon'),
-      ),);
+      ),
+    );
   }
 }

@@ -74,7 +74,6 @@ class AuthenticationBloc
             await _authenticationRepository.authenticateUser(userDetailsMap);
 
         if (authenticationModel.status == 200) {
-
           _customerCache.setUserId(authenticationModel.data.user.userId);
           _customerCache
               .setUserContact(authenticationModel.data.user.userContact ?? 0);

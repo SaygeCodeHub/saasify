@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/screens/authentication/register_screen.dart';
+import 'package:saasify/screens/companies/all_branches_screen.dart';
+import 'package:saasify/screens/companies/all_companies_screen.dart';
 import 'package:saasify/screens/generalScreens/coming_soon_screen.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
@@ -22,6 +24,10 @@ class AppRoutes {
         return _createRoute(const EmployeeListScreen());
       case AddEmployeeScreen.routeName:
         return _createRoute(const AddEmployeeScreen());
+      case AllCompaniesScreen.routeName:
+        return _createRoute(const AllCompaniesScreen());
+      case AllBranchesScreen.routeName:
+        return _createRoute(const AllBranchesScreen(companyName: 'ToolkitX'));
       default:
         return _createRoute(const ComingSoonScreen());
     }

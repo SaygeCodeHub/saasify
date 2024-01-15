@@ -108,4 +108,9 @@ extension AppTextTheme on TextTheme {
     return const TextStyle(
         fontSize: 18, color: AppColors.white, fontWeight: FontWeight.w700);
   }
+
+  TextStyle get headingTextStyle {
+    return const TextStyle(
+        fontSize: 32, color: AppColors.orange, fontWeight: FontWeight.w500);
+  }
 }

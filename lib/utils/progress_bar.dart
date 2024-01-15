@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 
+import '../configs/app_spacing.dart';
+
 class ProgressBar {
   static void show(BuildContext context) {
     showDialog(
         context: context,
-        barrierColor: Colors.transparent,
         barrierDismissible: false,
         builder: (context) {
           return const Center(
               child: SizedBox(
-                  height: 50, width: 50, child: CircularProgressIndicator()));
+                  height: spacingXXHuge,
+                  width: spacingXXHuge,
+                  child: CircularProgressIndicator()));
         });
   }
 

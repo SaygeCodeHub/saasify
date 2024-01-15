@@ -1,7 +1,8 @@
 class CacheKeys {
-  static const companyEmail = "userEmail";
-  static const companyId = "companyId";
-  static const branchId = "branchId";
-  static const isLoggedIn = "isLoggedIn";
-  static const signUpCredentials = "signUpCredentials";
+  static const userId = "user_id";
+  static const userName = "user_name";
+  static const userContact = "user_contact";
+  static const companyId = "company_id";
+  static const branchId = "branch_id";
+  static const isLoggedIn = "is_logged_in";
 }

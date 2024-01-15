@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saasify/screens/authentication/register_screen.dart';
 import '../screens/authentication/auhentication_screen.dart';
 import '../screens/authentication/forgot_password_screen.dart';
+import '../screens/hrms/add_employee/add_employee_screen.dart';
 
 class AppRoutes {
   static Route routes(RouteSettings settings) {
@@ -12,6 +13,8 @@ class AppRoutes {
         return _createRoute(const RegisterScreen());
       case ForgotPasswordScreen.routeName:
         return _createRoute(const ForgotPasswordScreen());
+      case AddEmployeeScreen.routeName:
+        return _createRoute(const AddEmployeeScreen());
       default:
         return _createRoute(AuthenticationScreen());
     }

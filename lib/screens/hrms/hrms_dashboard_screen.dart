@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/screens/hrms/widgets/add_emp_dialouge.dart';
+import 'package:saasify/screens/hrms/add_employee/widgets/add_emp_dialouge.dart';
 import 'package:saasify/widgets/value_card.dart';
 import 'package:saasify/utils/globals.dart';
 import '../../../configs/app_spacing.dart';

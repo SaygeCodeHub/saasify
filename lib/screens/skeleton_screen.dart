@@ -4,6 +4,7 @@ import 'package:saasify/utils/globals.dart';
 import '../widgets/app_bar/mobile_appbar.dart';
 import '../widgets/app_bar/web_appbar.dart';
 import '../widgets/drawer/custom_drawer.dart';
+import 'hrms/add_employee/add_employee_screen.dart';
 
 class SkeletonScreen extends StatelessWidget {
   static const routeName = 'RootScreen';
@@ -25,7 +26,7 @@ class SkeletonScreen extends StatelessWidget {
             child: Column(
               children: [
                 isMobile ? const SizedBox() : const WebAppBar(),
-                const Expanded(child: HRMSDashboardScreen()),
+                const Expanded(child: AddEmployeeScreen()),
               ],
             ),
           )

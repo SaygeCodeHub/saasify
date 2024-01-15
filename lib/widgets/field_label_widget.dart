@@ -18,24 +18,25 @@ class LabelAndFieldWidget extends StatelessWidget {
   final dynamic initialValue;
   final TextInputType? keyboardType;
   final EdgeInsetsGeometry? contentPadding;
+  final int? maxLines;
 
-  const LabelAndFieldWidget({
-    super.key,
-    this.label,
-    this.hintText,
-    this.onTextFieldChanged,
-    this.readOnly,
-    this.enabled,
-    this.controller,
-    this.obscureText,
-    this.suffix,
-    this.prefixIcon,
-    this.suffixIcon,
-    this.autofocus,
-    this.initialValue,
-    this.keyboardType,
-    this.contentPadding,
-  });
+  const LabelAndFieldWidget(
+      {super.key,
+      this.label,
+      this.hintText,
+      this.onTextFieldChanged,
+      this.readOnly,
+      this.enabled,
+      this.controller,
+      this.obscureText,
+      this.suffix,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.autofocus,
+      this.initialValue,
+      this.keyboardType,
+      this.contentPadding,
+      this.maxLines = 1});
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,7 @@ class LabelAndFieldWidget extends StatelessWidget {
         if (label != null) const SizedBox(height: spacingMedium),
         SizedBox(
           child: TextFormField(
+              maxLines: maxLines,
               obscureText: obscureText ?? false,
               cursorColor: AppColors.orange,
               decoration: InputDecoration(

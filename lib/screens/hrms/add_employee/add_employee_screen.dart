@@ -7,6 +7,8 @@ import '../../../widgets/text/module_heading.dart';
 import 'add_employee_mobile.dart';
 
 class AddEmployeeScreen extends StatelessWidget {
+  static const routeName = 'AddEmployeeScreen';
+
   const AddEmployeeScreen({super.key});
 
   @override
@@ -15,8 +17,9 @@ class AddEmployeeScreen extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        SizedBox(height: spacingMedium),
         Padding(
-          padding: EdgeInsets.only(left: spacingLarge, top: spacingMedium),
+          padding: EdgeInsets.only(left: spacingLarge, top: spacingXXSmall),
           child: ModuleHeading(label: 'Add New Employee'),
         ),
         Expanded(

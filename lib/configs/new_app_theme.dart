@@ -62,7 +62,7 @@ InputDecorationTheme inputDecorationTheme = InputDecorationTheme(
 extension AppTextTheme on TextTheme {
   TextStyle get labelTextStyle {
     return const TextStyle(
-        fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w600);
+        fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w300);
   }
 
   TextStyle get moduleHeadingTextStyle {

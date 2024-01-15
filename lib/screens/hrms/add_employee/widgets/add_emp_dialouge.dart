@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/new_app_theme.dart';
+import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
 
-import '../../../configs/app_colors.dart';
-import '../../../configs/app_spacing.dart';
-import '../../../utils/constants/string_constants.dart';
-import '../../../widgets/custom_checkbox.dart';
-import '../../../widgets/primary_button.dart';
+import '../../../../configs/app_colors.dart';
+import '../../../../configs/app_spacing.dart';
+import '../../../../utils/constants/string_constants.dart';
+import '../../../../widgets/custom_checkbox.dart';
+import '../../../../widgets/primary_button.dart';
 
 showAlertDialog(BuildContext context) {
   TextButton(
@@ -18,7 +19,9 @@ showAlertDialog(BuildContext context) {
     actions: [
       PrimaryButton(
           backgroundColor: AppColors.darkBlue,
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, AddEmployeeScreen.routeName);
+          },
           buttonWidth: spacingXXXHuge,
           buttonTitle: 'Invite'),
     ],

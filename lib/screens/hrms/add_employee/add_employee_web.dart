@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/screens/hrms/add_employee/widgets/custom_tab_bar.dart';
+
 import '../../../widgets/background_card_widget.dart';
 
 class AddEmployeeWeb extends StatelessWidget {
@@ -6,10 +8,6 @@ class AddEmployeeWeb extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const BackgroundCardWidget(
-      childScreen: Column(
-        children: [],
-      ),
-    );
+    return const BackgroundCardWidget(childScreen: CustomTabBar());
   }
 }

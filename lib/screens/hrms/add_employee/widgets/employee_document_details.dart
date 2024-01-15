@@ -17,7 +17,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
         children: [
           Padding(
             padding: EdgeInsets.only(bottom: spacingLarge, top: spacingXXSmall),
-            child: ModuleHeading(label: 'Aadhaar Card'),
+            child: ModuleHeading(label: StringConstants.kAadhaar),
           ),
           MultiFieldRow(
             childrenWidgets: [

@@ -7,6 +7,7 @@ class StringConstants {
 
   static const kCurrentAddress = 'Current Address';
   static const kPermanentAddress = 'Permanent Address';
+  static const kAadhaar = 'Aadhaar Details';
   static const kAadhaarNumber = 'Aadhaar Number';
   static const kNameAsAadhaarNumber = 'Name as per Aadhaar';
   static const kPanNumber = 'PAN Number';

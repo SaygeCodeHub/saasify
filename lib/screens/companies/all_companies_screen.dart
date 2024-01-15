@@ -3,10 +3,9 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/new_app_theme.dart';
 import 'package:saasify/screens/companies/all_branches_screen.dart';
-import 'package:saasify/screens/companies/widgets/save_company_button.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import '../../configs/spacing.dart';
-import '../../widgets/common_button.dart';
+import '../../widgets/buttons/primary_button.dart';
 
 class AllCompaniesScreen extends StatefulWidget {
   static const routeName = 'AllCompaniesScreen';
@@ -69,7 +68,7 @@ class _AllCompaniesScreenState extends State<AllCompaniesScreen> {
                           },
                         )),
                     const SizedBox(height: spacingBetweenTextFieldAndButton),
-                    CommonButton(
+                    PrimaryButton(
                         buttonTitle: StringConstants.kNext,
                         onPressed: () {
                           Navigator.pushNamed(

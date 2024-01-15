@@ -3,11 +3,9 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/new_app_theme.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
-import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
-import 'package:saasify/widgets/text/label_text_widget.dart';
 import '../../configs/spacing.dart';
 import '../../utils/constants/string_constants.dart';
-import '../../widgets/common_button.dart';
+import '../../widgets/buttons/primary_button.dart';
 
 class AllBranchesScreen extends StatefulWidget {
   final String companyName;
@@ -84,7 +82,7 @@ class _AllBranchesScreenState extends State<AllBranchesScreen> {
                           },
                         )),
                     const SizedBox(height: spacingBetweenTextFieldAndButton),
-                    CommonButton(
+                    PrimaryButton(
                         buttonTitle: StringConstants.kNext,
                         onPressed: () {
                           Navigator.pushReplacementNamed(

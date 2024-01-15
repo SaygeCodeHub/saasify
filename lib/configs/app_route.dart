@@ -8,6 +8,7 @@ import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import '../screens/authentication/auhentication_screen.dart';
 import '../screens/authentication/forgot_password_screen.dart';
 import '../screens/hrms/add_employee/add_employee_screen.dart';
+import '../screens/hrms/leaves/apply_and_leave_detail_screen.dart';
 
 class AppRoutes {
   static Route routes(RouteSettings settings) {
@@ -24,6 +25,8 @@ class AppRoutes {
         return _createRoute(const EmployeeListScreen());
       case AddEmployeeScreen.routeName:
         return _createRoute(const AddEmployeeScreen());
+      case ApplyAndLeaveDetailScreen.routeName:
+        return _createRoute(const ApplyAndLeaveDetailScreen());
       case AllCompaniesScreen.routeName:
         return _createRoute(const AllCompaniesScreen());
       case AllBranchesScreen.routeName:

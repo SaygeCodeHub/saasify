@@ -30,3 +30,4 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SAASIFY_5DDD8 }}'
           channelId: live
           projectId: saasify-5ddd8
+          target: "saasify-test"

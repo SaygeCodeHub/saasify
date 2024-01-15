@@ -22,8 +22,14 @@ class AddEmployeeScreen extends StatelessWidget {
                 SizedBox(height: spacingMedium),
                 Padding(
                   padding:
-                      EdgeInsets.only(left: spacingLarge, top: spacingXXSmall),
-                  child: ModuleHeading(label: 'Add New Employee'),
+                      EdgeInsets.only(left: spacingMedium),
+                  child: Row(
+                    children: [
+                      BackButton(),
+                      SizedBox(width: spacingXMedium,),
+                      ModuleHeading(label: 'Add New Employee'),
+                    ],
+                  ),
                 ),
                 Expanded(
                   child: ResponsiveLayout(

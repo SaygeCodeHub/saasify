@@ -23,7 +23,6 @@ class WebAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SettingsWidget(),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.only(

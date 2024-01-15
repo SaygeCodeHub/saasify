@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/widgets/drawer/module_list_tile.dart';
 import '../../utils/globals.dart';
+import '../profile/saasifyLogo.dart';
 import '../profile/user_name_widget.dart';
 import '../profile/user_profile_widget.dart';
 
@@ -13,8 +13,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isMobile = MediaQuery.of(context).size.width < mobileBreakPoint;
-    return Container(
-      color: AppColors.white,
+    return SizedBox(
       width: isMobile
           ? MediaQuery.sizeOf(context).width * 0.55
           : MediaQuery.sizeOf(context).width * 0.15,
@@ -37,7 +36,19 @@ class CustomDrawer extends StatelessWidget {
                       ),
                     ),
                   )
-                : SizedBox(height: MediaQuery.sizeOf(context).height * 0.057),
+                : SizedBox(
+                    height: MediaQuery.sizeOf(context).height * 0.057,
+                    child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              left: MediaQuery.sizeOf(context).height * 0.025),
+                          child: const SaasifyLogo(
+                            width: 25,
+                            height: 25,
+                          ),
+                        )),
+                  ),
             const Divider(),
             ModuleListTile(
                 iconData: Icons.point_of_sale_outlined,

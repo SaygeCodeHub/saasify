@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "saasify-test",
     "public": "build/web",
     "ignore": [
       "firebase.json",

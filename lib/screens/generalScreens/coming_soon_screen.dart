@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 
 class ComingSoonScreen extends StatelessWidget {
   static const routeName = 'ComingSoonScreen';
@@ -7,10 +8,9 @@ class ComingSoonScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: const Center(
+      body: ScreenSkeleton(childScreenBuilder: (isMobile) => Center(
         child: Text('Coming Soon'),
-      ),
+      ))
     );
   }
 }

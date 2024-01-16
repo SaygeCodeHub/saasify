@@ -7,7 +7,7 @@ import '../generalWidgets/custom_icon.dart';
 class ModuleListTile extends StatelessWidget {
   final IconData iconData;
   final String title;
-  final Function onTap;
+  final void Function()? onTap;
 
   const ModuleListTile(
       {super.key,
@@ -34,9 +34,7 @@ class ModuleListTile extends StatelessWidget {
           ),
         ],
       ),
-      onTap: () {
-        onTap;
-      },
+      onTap: onTap,
     );
   }
 }

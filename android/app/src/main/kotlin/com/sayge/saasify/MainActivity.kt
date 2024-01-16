@@ -1,4 +1,4 @@
-package com.example.saasify
+package com.sayge.saasify
 
 import io.flutter.embedding.android.FlutterActivity
 

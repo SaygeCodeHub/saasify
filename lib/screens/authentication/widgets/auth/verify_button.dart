@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/screens/authentication/register_screen.dart';
 import 'package:saasify/screens/companies/all_companies_screen.dart';
-import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import '../../../../configs/app_spacing.dart';
 import '../../../../utils/constants/string_constants.dart';
 import '../../../../widgets/buttons/primary_button.dart';

@@ -8,9 +8,9 @@ class EmployeeListMobile extends StatelessWidget {
     return ListView.builder(itemBuilder: (context, index) {
       return Card(
           child: ListTile(
-              title: Text('Employee Name'),
-              subtitle: Text('Employee Designation'),
-              trailing: IconButton(icon: Icon(Icons.edit), onPressed: () {})));
+              title: const Text('Employee Name'),
+              subtitle: const Text('Employee Designation'),
+              trailing: IconButton(icon: const Icon(Icons.edit), onPressed: () {})));
     });
   }
 }

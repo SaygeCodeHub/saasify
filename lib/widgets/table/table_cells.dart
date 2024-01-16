@@ -23,6 +23,6 @@ class TableText extends DataCell {
 }
 
 class TableStatusChips extends DataCell {
-  TableStatusChips()
-      : super(StatusChip(text: 'Active', color: AppColors.successGreen));
+  const TableStatusChips()
+      : super(const StatusChip(text: 'Active', color: AppColors.successGreen));
 }

@@ -1,4 +1,3 @@
-import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:saasify/data/models/table_models/column_data_model.dart';
 import 'package:saasify/widgets/table/custom_table.dart';
@@ -21,9 +20,9 @@ class EmployeeListWeb extends StatelessWidget {
             ColumnData(header: "Employee Phone"),
             ColumnData(header: "Employee Address")
           ],
-          selectedIds: [],
+          selectedIds: const [],
           dataCount: 5,
-          dataIds: ["1", "2", "3", "4", "5", "6"],
+          dataIds: const ["1", "2", "3", "4", "5", "6"],
           onRowCheckboxChange: (value) {},
           generateData: (index) => [
                 TableAvatar(),

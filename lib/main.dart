@@ -1,9 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:saasify/configs/app_route.dart';
 import 'package:saasify/screens/authentication/auhentication_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'configs/new_app_theme.dart';
 import 'di/app_module.dart';
+import 'firebase_options.dart';
 
 void main() async {
   await _initDependencies();
@@ -12,7 +14,7 @@ void main() async {
 }
 
 _initFirebase() async {
-  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 }
 
 _initDependencies() async {

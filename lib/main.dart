@@ -38,6 +38,6 @@ class MyPosApp extends StatelessWidget {
                 const MaterialScrollBehavior().copyWith(scrollbars: false),
             onGenerateRoute: AppRoutes.routes,
             theme: newAppTheme,
-            home: SettingsScreen()));
+            home: const SettingsScreen()));
   }
 }

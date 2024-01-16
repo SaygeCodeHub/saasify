@@ -34,6 +34,6 @@ jobs:
 
       - name: Deploy to Firebase Hosting
         run: |
-          npx firebase-tools hosting:channel:deploy $(if [ "${{ github.event_name }}" == 'pull_request' ]; then echo "${{ github.event.pull_request.head.ref }}"; else echo "${{ github.ref }}"; fi) --project ${{ secrets.FIREBASE_PROJECT_ID }} --token ${{ secrets.FIREBASE_TOKEN }} --json --clear
+          npx firebase-tools hosting:channel:deploy $(if [ "${{ github.event_name }}" == 'pull_request' ]; then echo "${{ github.event.pull_request.head.ref }}"; else echo "${{ github.ref }}"; fi) --project ${{ secrets.FIREBASE_PROJECT_ID }} --token ${{ secrets.FIREBASE_TOKEN }} --json
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}

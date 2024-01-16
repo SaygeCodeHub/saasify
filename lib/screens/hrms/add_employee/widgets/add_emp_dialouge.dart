@@ -6,7 +6,7 @@ import '../../../../configs/app_colors.dart';
 import '../../../../configs/app_spacing.dart';
 import '../../../../utils/constants/string_constants.dart';
 import '../../../../widgets/buttons/primary_button.dart';
-import '../../../../widgets/custom_checkbox.dart';
+import '../../../../widgets/userInput/custom_checkbox.dart';
 
 showAlertDialog(BuildContext context) {
   TextButton(

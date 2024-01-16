@@ -82,7 +82,7 @@ class LabelAndFieldWidget extends StatelessWidget {
               keyboardType: keyboardType,
               textAlign: TextAlign.start),
         ),
-        const SizedBox(height: spacingXSmall)
+        const SizedBox(height: spacingXXSmall)
       ],
     );
   }

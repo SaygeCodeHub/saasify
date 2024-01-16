@@ -15,9 +15,9 @@ class CustomCheckboxState extends State<CustomCheckbox> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(spacingXXSmall),
+      padding: const EdgeInsets.all(spacingXSmall),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(spacingXSmall),
+        borderRadius: BorderRadius.circular(spacingXXSmall),
         color: Colors.white, // Container background color
         border: Border.all(
           color: Colors.black12,

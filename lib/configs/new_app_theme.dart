@@ -104,6 +104,21 @@ extension AppTextTheme on TextTheme {
         fontSize: 14, color: AppColors.black, fontWeight: FontWeight.w500);
   }
 
+  TextStyle get deskTopPageHeader {
+    return const TextStyle(
+        fontSize: 26, color: AppColors.black, fontWeight: FontWeight.w700);
+  }
+
+  TextStyle get statusTextStyle {
+    return const TextStyle(
+        fontSize: 12, color: AppColors.black, fontWeight: FontWeight.w700);
+  }
+
+  TextStyle get employeeCardTextStyle {
+    return const TextStyle(
+        fontSize: 14, color: AppColors.black, fontWeight: FontWeight.w500);
+  }
+
   TextStyle get buttonTextStyle {
     return const TextStyle(
         fontSize: 18, color: AppColors.white, fontWeight: FontWeight.w700);

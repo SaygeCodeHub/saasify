@@ -20,7 +20,7 @@ class HRMSDashboardScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                   const ModuleHeading(label: 'HRMS'),
-                  const SizedBox(height: spacingXXSmall),
+                  const SizedBox(height: spacingXSmall),
                   GridView.extent(
                       shrinkWrap: true,
                       maxCrossAxisExtent: 250.0,

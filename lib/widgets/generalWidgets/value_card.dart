@@ -28,13 +28,13 @@ class ValueCard extends StatelessWidget {
         child: Card(
           elevation: 1.0, // Adjust as needed
           child: Padding(
-            padding: const EdgeInsets.all(spacingXXSmall),
+            padding: const EdgeInsets.all(spacingXSmall),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(spacingXXSmall),
+                  padding: const EdgeInsets.all(spacingXSmall),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,

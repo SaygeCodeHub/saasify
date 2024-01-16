@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import '../../../../utils/constants/string_constants.dart';
-import '../../../../widgets/multifield_row.dart';
+import '../../../../widgets/layoutWidgets/multifield_row.dart';
 import '../../../../widgets/text/field_label_widget.dart';
 
 class EmployeeBasicDetails extends StatelessWidget {

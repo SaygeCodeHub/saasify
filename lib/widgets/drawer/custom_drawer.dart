@@ -25,7 +25,7 @@ class CustomDrawer extends StatelessWidget {
                 ? SizedBox(
                     height: MediaQuery.sizeOf(context).height * 0.1,
                     child: const Padding(
-                      padding: EdgeInsets.only(left: spacingXXSmall),
+                      padding: EdgeInsets.only(left: spacingXSmall),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [

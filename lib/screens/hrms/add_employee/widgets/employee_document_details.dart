@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import '../../../../utils/constants/string_constants.dart';
-import '../../../../widgets/multifield_row.dart';
+import '../../../../widgets/layoutWidgets/multifield_row.dart';
 import '../../../../widgets/text/field_label_widget.dart';
 import '../../../../widgets/text/module_heading.dart';
 
@@ -16,7 +16,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.only(bottom: spacingLarge, top: spacingXXSmall),
+            padding: EdgeInsets.only(bottom: spacingLarge, top: spacingXSmall),
             child: ModuleHeading(label: StringConstants.kAadhaar),
           ),
           MultiFieldRow(

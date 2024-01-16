@@ -1,28 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/new_app_theme.dart';
-import 'package:saasify/widgets/generalWidgets/status_chips.dart';
+import 'package:saasify/widgets/generalWidgets/status_chip.dart';
 
 class TableAvatar extends DataCell {
   TableAvatar({String? avatarUrl})
       : super(
-            CircleAvatar(
-              backgroundImage:
-                  (avatarUrl != null) ? NetworkImage(avatarUrl) : null,
-              backgroundColor: AppColors.black,
+            Center(
+              child: CircleAvatar(
+                backgroundImage:
+                    (avatarUrl != null) ? NetworkImage(avatarUrl) : null,
+                backgroundColor: AppColors.black,
+              ),
             ),
             showEditIcon: false);
 }
 
 class TableText extends DataCell {
-  TableText(BuildContext context, {required String text})
+  TableText({required String text})
       : super(Text(
           text,
-          style: Theme.of(context).textTheme.labelTextStyle,
+          style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500)
         ));
 }
 
 class TableStatusChips extends DataCell {
-  TableStatusChips()
-      : super(StatusChip(text: 'Active', color: AppColors.successGreen));
+  TableStatusChips({required String status, required Color color})
+      : super(StatusChip(text: status, color: color));
 }

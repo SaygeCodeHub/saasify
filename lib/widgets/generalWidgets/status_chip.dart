@@ -14,9 +14,13 @@ class StatusChip extends StatelessWidget {
         color: color.withOpacity(0.2),
         borderRadius: BorderRadius.circular(6),
       ),
-      padding: const EdgeInsets.symmetric(horizontal: spacingMedium, vertical: spacingXXSmall),
-
-      child: Text(text,style:Theme.of(context).textTheme.statusTextStyle.copyWith(color: color)),
+      padding: const EdgeInsets.symmetric(
+          horizontal: spacingMedium, vertical: spacingXXSmall),
+      child: Text(text,
+          style: Theme.of(context)
+              .textTheme
+              .statusTextStyle
+              .copyWith(color: color)),
     );
   }
 }

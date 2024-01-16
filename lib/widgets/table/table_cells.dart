@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
-import 'package:saasify/configs/new_app_theme.dart';
 import 'package:saasify/widgets/generalWidgets/status_chip.dart';
 
 class TableAvatar extends DataCell {
@@ -18,12 +17,8 @@ class TableAvatar extends DataCell {
 
 class TableText extends DataCell {
   TableText({required String text})
-      : super(Text(
-          text,
-          style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w500)
-        ));
+      : super(Text(text,
+            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)));
 }
 
 class TableStatusChips extends DataCell {

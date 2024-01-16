@@ -51,7 +51,8 @@ class CustomDataTable extends StatelessWidget {
                                         child: Icon(
                                             (selectedIds.isEmpty)
                                                 ? Icons.check_box_outline_blank
-                                                : (selectedIds.length < dataCount)
+                                                : (selectedIds.length <
+                                                        dataCount)
                                                     ? Icons
                                                         .indeterminate_check_box_outlined
                                                     : Icons.check_box,
@@ -69,7 +70,9 @@ class CustomDataTable extends StatelessWidget {
                           style: Theme.of(context)
                               .textTheme
                               .labelLarge!
-                              .copyWith(color: AppColors.darkBlue,fontWeight: FontWeight.w700)))),
+                              .copyWith(
+                                  color: AppColors.darkBlue,
+                                  fontWeight: FontWeight.w700)))),
           rows: List.generate(
               dataCount,
               (index) => DataRow(

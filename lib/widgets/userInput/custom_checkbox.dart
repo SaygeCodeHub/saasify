@@ -3,7 +3,8 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/new_app_theme.dart';
 
 class CustomCheckbox extends StatefulWidget {
-  const CustomCheckbox({super.key});
+  final String checkBoxTitle;
+  const CustomCheckbox({super.key, required this.checkBoxTitle});
 
   @override
   CustomCheckboxState createState() => CustomCheckboxState();
@@ -35,7 +36,7 @@ class CustomCheckboxState extends State<CustomCheckbox> {
             },
           ),
           Text(
-            'Manager',
+            widget.checkBoxTitle,
             style: Theme.of(context).textTheme.drawerModuleTextStyle,
           ),
         ],

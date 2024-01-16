@@ -38,10 +38,12 @@ class _CustomDropDownState extends State<CustomDropDown> {
       ),
       child: Row(
         children: [
-          widget.icon != null ? Padding(
-            padding: const EdgeInsets.only(right: spacingSmallest),
-            child: Icon(widget.icon),
-          ) : const SizedBox(),
+          widget.icon != null
+              ? Padding(
+                  padding: const EdgeInsets.only(right: spacingSmallest),
+                  child: Icon(widget.icon),
+                )
+              : const SizedBox(),
           DropdownButton2(
               underline: const SizedBox(),
               isDense: true,
@@ -52,25 +54,25 @@ class _CustomDropDownState extends State<CustomDropDown> {
                   iconEnabledColor: AppColors.black,
                   iconSize: 20),
               dropdownStyleData: DropdownStyleData(
-                offset: const Offset(0, -2),
-                maxHeight: 200,
-                elevation: 2,
-                padding: EdgeInsets.zero,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(4),
-                  color: Colors.white,
-              )),
+                  offset: const Offset(0, -2),
+                  maxHeight: 200,
+                  elevation: 2,
+                  padding: EdgeInsets.zero,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.white,
+                  )),
               menuItemStyleData: MenuItemStyleData(
                 padding: EdgeInsets.only(left: spacingMedium),
                 height: 28,
               ),
               buttonStyleData: ButtonStyleData(
                   padding: EdgeInsets.only(left: spacingXSmall),
-                height: 28,
+                  height: 28,
                   decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4),
-                color: Colors.white,
-              )),
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.white,
+                  )),
               items: List.generate(
                   widget.items.length,
                   (index) => DropdownMenuItem(

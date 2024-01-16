@@ -5,7 +5,7 @@ import '../../configs/app_spacing.dart';
 class UserProfileWidget extends StatelessWidget {
   final double? size;
 
-  const UserProfileWidget({super.key, this.size = spacingXXLarge});
+  const UserProfileWidget({super.key, this.size = spacingXXHuge});
 
   @override
   Widget build(BuildContext context) {

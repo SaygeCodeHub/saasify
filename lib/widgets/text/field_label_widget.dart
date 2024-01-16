@@ -19,6 +19,7 @@ class LabelAndFieldWidget extends StatelessWidget {
   final TextInputType? keyboardType;
   final EdgeInsetsGeometry? contentPadding;
   final int? maxLines;
+  final double? textFieldSize;
 
   const LabelAndFieldWidget(
       {super.key,
@@ -36,7 +37,8 @@ class LabelAndFieldWidget extends StatelessWidget {
       this.initialValue,
       this.keyboardType,
       this.contentPadding,
-      this.maxLines = 1});
+      this.maxLines = 1,
+      this.textFieldSize});
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +54,7 @@ class LabelAndFieldWidget extends StatelessWidget {
         if (label != null) LabelTextWidget(label: label),
         if (label != null) const SizedBox(height: spacingMedium),
         SizedBox(
+          width: textFieldSize ?? MediaQuery.sizeOf(context).width,
           child: TextFormField(
               maxLines: maxLines,
               obscureText: obscureText ?? false,

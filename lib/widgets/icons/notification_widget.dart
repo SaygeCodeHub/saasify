@@ -8,6 +8,7 @@ class NotificationWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
         onPressed: () {},
-        icon: const Icon(Icons.notifications, color: AppColors.orange));
+        icon: const Icon(Icons.notifications_none_outlined,
+            color: AppColors.orange));
   }
 }

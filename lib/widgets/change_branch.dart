@@ -22,7 +22,7 @@ class _ChangeBranchState extends State<ChangeBranch> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Icon(Icons.store, color: AppColors.lightBlue),
+        const Icon(Icons.store, color: AppColors.darkBlue),
         DropdownButtonHideUnderline(
           child: DropdownButton2(
             hint: const Text('Khamla'),

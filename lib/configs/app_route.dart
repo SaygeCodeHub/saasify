@@ -5,6 +5,7 @@ import 'package:saasify/screens/companies/all_companies_screen.dart';
 import 'package:saasify/screens/generalScreens/coming_soon_screen.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
+import 'package:saasify/screens/settings/settings_screen.dart';
 import '../screens/authentication/auhentication_screen.dart';
 import '../screens/authentication/forgot_password_screen.dart';
 import '../screens/hrms/add_employee/add_employee_screen.dart';
@@ -31,6 +32,8 @@ class AppRoutes {
         return _createRoute(const AllCompaniesScreen());
       case AllBranchesScreen.routeName:
         return _createRoute(const AllBranchesScreen(companyName: 'ToolkitX'));
+      case SettingsScreen.routeName:
+        return _createRoute(const SettingsScreen());
       default:
         return _createRoute(const ComingSoonScreen());
     }

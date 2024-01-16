@@ -1,11 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/authentication/authentication_bloc.dart';
-import 'package:saasify/bloc/authentication/authentication_event.dart';
-import 'package:saasify/bloc/upload/upload_bloc.dart';
 import 'package:saasify/configs/app_route.dart';
 import 'package:saasify/firebase_options.dart';
-import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
+import 'package:saasify/screens/settings/settings_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'configs/new_app_theme.dart';
@@ -32,24 +28,16 @@ class MyPosApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(
-              lazy: true,
-              create: (context) =>
-                  AuthenticationBloc()..add(CheckIfLoggedIn())),
-          BlocProvider(lazy: true, create: (context) => UploadBloc())
-        ],
-        child: GestureDetector(
-            onTap: () {
-              FocusManager.instance.primaryFocus?.unfocus();
-            },
-            child: MaterialApp(
-                debugShowCheckedModeBanner: false,
-                scrollBehavior:
-                    const MaterialScrollBehavior().copyWith(scrollbars: false),
-                onGenerateRoute: AppRoutes.routes,
-                theme: newAppTheme,
-                home: HRMSDashboardScreen())));
+    return GestureDetector(
+        onTap: () {
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            scrollBehavior:
+                const MaterialScrollBehavior().copyWith(scrollbars: false),
+            onGenerateRoute: AppRoutes.routes,
+            theme: newAppTheme,
+            home: SettingsScreen()));
   }
 }

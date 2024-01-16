@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/widgets/buttons/primary_button.dart';
+import 'package:saasify/screens/hrms/leaves/apply_leave_button.dart';
 import 'package:saasify/widgets/multifield_row.dart';
 import 'package:saasify/widgets/text/field_label_widget.dart';
 
@@ -29,7 +29,7 @@ class ApplyAndLeaveDetailWebScreen extends StatelessWidget {
                           title: Text("Status"),
                           trailing: Text("Approved"))
                       : const ListTile(
-                          leading: Icon(Icons.medical_services,
+                          leading: Icon(Icons.medical_services_outlined,
                               color: AppColors.orange),
                           title: Text("Balance Medical Leaves"),
                           trailing: Text('12')))),
@@ -45,7 +45,7 @@ class ApplyAndLeaveDetailWebScreen extends StatelessWidget {
                           title: Text("Comments"),
                           trailing: Text("Rejected due to some reason"))
                       : const ListTile(
-                          leading: Icon(Icons.volunteer_activism_rounded,
+                          leading: Icon(Icons.volunteer_activism_outlined,
                               color: AppColors.orange),
                           title: Text("Balance Casual Leaves"),
                           trailing: Text('3')))),
@@ -62,7 +62,7 @@ class ApplyAndLeaveDetailWebScreen extends StatelessWidget {
             SizedBox(width: spacingLarge),
             Expanded(child: LabelAndFieldWidget(label: 'To Date')),
             SizedBox(width: spacingLarge),
-            Expanded(child: LabelAndFieldWidget(label: 'Approver')),
+            Expanded(child: LabelAndFieldWidget(label: 'Approver'))
           ],
         ),
       ),
@@ -70,19 +70,14 @@ class ApplyAndLeaveDetailWebScreen extends StatelessWidget {
         padding: EdgeInsets.all(spacingMedium),
         child: MultiFieldRow(
           childrenWidgets: [
-            Expanded(child: LabelAndFieldWidget(label: 'Reason', maxLines: 5)),
+            Expanded(child: LabelAndFieldWidget(label: 'Reason', maxLines: 5))
           ],
         ),
       ),
-      Padding(
-        padding: const EdgeInsets.all(spacingMedium),
-        child: Align(
-            alignment: Alignment.centerRight,
-            child: PrimaryButton(
-                buttonTitle: 'Apply',
-                onPressed: () {},
-                buttonWidth: MediaQuery.sizeOf(context).width * 0.15)),
-      )
+      const Padding(
+          padding: EdgeInsets.all(spacingMedium),
+          child: Align(
+              alignment: Alignment.centerRight, child: ApplyLeaveButton()))
     ]));
   }
 }

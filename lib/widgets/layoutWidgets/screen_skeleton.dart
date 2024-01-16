@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:saasify/utils/globals.dart';
 import '../app_bar/mobile_appbar.dart';

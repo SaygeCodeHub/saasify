@@ -10,7 +10,8 @@ class EmployeeListMobile extends StatelessWidget {
           child: ListTile(
               title: const Text('Employee Name'),
               subtitle: const Text('Employee Designation'),
-              trailing: IconButton(icon: const Icon(Icons.edit), onPressed: () {})));
+              trailing:
+                  IconButton(icon: const Icon(Icons.edit), onPressed: () {})));
     });
   }
 }

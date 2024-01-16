@@ -1,7 +1,5 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:saasify/configs/app_route.dart';
-import 'package:saasify/firebase_options.dart';
-import 'package:saasify/screens/settings/settings_screen.dart';
+import 'package:saasify/screens/authentication/auhentication_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'configs/new_app_theme.dart';
@@ -14,7 +12,7 @@ void main() async {
 }
 
 _initFirebase() async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 }
 
 _initDependencies() async {
@@ -38,6 +36,6 @@ class MyPosApp extends StatelessWidget {
                 const MaterialScrollBehavior().copyWith(scrollbars: false),
             onGenerateRoute: AppRoutes.routes,
             theme: newAppTheme,
-            home: const SettingsScreen()));
+            home: AuthenticationScreen()));
   }
 }

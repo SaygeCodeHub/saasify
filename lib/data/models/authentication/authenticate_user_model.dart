@@ -9,7 +9,7 @@ String authenticateUserModelToJson(AuthenticateUserModel data) =>
 class AuthenticateUserModel {
   String status;
   String message;
-  Data? data;
+  AuthenticateUserData? data;
 
   AuthenticateUserModel({
     required this.status,
@@ -21,7 +21,9 @@ class AuthenticateUserModel {
       AuthenticateUserModel(
         status: json["status"],
         message: json["message"],
-        data: json["data"] != null ? Data.fromJson(json["data"]) : null,
+        data: json["data"] != null
+            ? AuthenticateUserData.fromJson(json["data"])
+            : null,
       );
 
   Map<String, dynamic> toJson() => {
@@ -31,16 +33,17 @@ class AuthenticateUserModel {
       };
 }
 
-class Data {
+class AuthenticateUserData {
   int? userId;
   List<dynamic>? company;
 
-  Data({
+  AuthenticateUserData({
     required this.userId,
     required this.company,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory AuthenticateUserData.fromJson(Map<String, dynamic> json) =>
+      AuthenticateUserData(
         userId: json["user_id"],
         company: json["company"],
       );

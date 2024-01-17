@@ -4,7 +4,7 @@ import 'package:saasify/repositories/authentication/authentication_repository_im
 import 'package:saasify/repositories/upload/upload_repository.dart';
 import 'package:saasify/repositories/upload/upload_repository_impl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../data/customer_cache/customer_cache.dart';
+import '../caches/cache.dart';
 import '../services/client_services.dart';
 
 final getIt = GetIt.instance;
@@ -14,8 +14,8 @@ configurableDependencies() {
 
   getIt.registerLazySingletonAsync<SharedPreferences>(
       () async => await SharedPreferences.getInstance());
-  getIt.registerLazySingleton<CustomerCache>(
-      () => CustomerCache(sharedPreferences: getIt<SharedPreferences>()));
+  getIt.registerLazySingleton<Cache>(
+      () => Cache(sharedPreferences: getIt<SharedPreferences>()));
   getIt.registerLazySingleton<AuthenticationRepository>(
       () => AuthenticationRepositoryImpl());
   getIt.registerLazySingleton<UploadRepository>(() => UploadRepositoryImpl());

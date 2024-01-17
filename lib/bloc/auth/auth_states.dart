@@ -2,6 +2,12 @@ abstract class AuthStates {}
 
 class InitialiseAuthStates extends AuthStates {}
 
+class CheckingLoggedInSession extends AuthStates {}
+
+class ActiveSession extends AuthStates {}
+
+class InactiveSession extends AuthStates {}
+
 class RegisteringUser extends AuthStates {}
 
 class UserRegistered extends AuthStates {}

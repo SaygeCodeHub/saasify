@@ -11,3 +11,5 @@ class AuthenticateUser extends AuthEvents {
 
   AuthenticateUser({required this.userDetails});
 }
+
+class CheckActiveSession extends AuthEvents {}

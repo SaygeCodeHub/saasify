@@ -36,13 +36,19 @@ jobs:
         run: flutter build web --web-renderer html --release
 
       - name: Install Firebase CLI
-        run: npm install -g firebase-tools@9.23.3
+        run: npm install -g firebase-tools
 
       - name: Debug
         run: |
           echo "GitHub Event Name: ${{ github.event_name }}"
           echo "GitHub Ref: ${{ github.ref }}"
           echo "GitHub PR Head Ref: ${{ github.event.pull_request.head.ref }}"
+
+      - name: List Build Directory Contents
+        run: ls -R build
+
+      - name: Debug Firebase Config
+        run: cat firebase.json
 
       - name: Deploy to Firebase Hosting
         run: |

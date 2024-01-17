@@ -8,10 +8,6 @@
     ],
     "rewrites": [
       {
-        "source": "**/*.+(jpg|jpeg|gif|png|ico)",
-        "destination": "/$0"
-      },
-      {
         "source": "**",
         "destination": "/index.html"
       }

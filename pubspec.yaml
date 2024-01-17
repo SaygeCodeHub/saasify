@@ -13,9 +13,7 @@ dependencies:
   dio:
   intl:
   get_it:
-  pinput:
   flutter_svg:
-  hive_flutter:
   flutter_bloc:
   firebase_auth:
   firebase_core:
@@ -25,7 +23,6 @@ dependencies:
   percent_indicator:
   calendar_date_picker2:
   table_calendar:
-  flutter_switch:
   data_table_2:
   fl_chart:
   pdf:

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class MultiFieldRow extends StatelessWidget {
+class MultiFieldColumn extends StatelessWidget {
   final List<Widget> childrenWidgets;
 
-  const MultiFieldRow({super.key, required this.childrenWidgets});
+  const MultiFieldColumn({super.key, required this.childrenWidgets});
 
   @override
   Widget build(BuildContext context) {

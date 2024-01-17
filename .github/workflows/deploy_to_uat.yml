@@ -32,6 +32,14 @@ jobs:
       - name: Flutter Build Web
         run: flutter build web --web-renderer html --release
 
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Debug
+        run: |
+          echo "GitHub Event Name: ${{ github.event_name }}"
+          echo "GitHub Ref: ${{ github.ref }}"
+
       - name: Deploy to Firebase Hosting
         run: |
           npx firebase-tools hosting:channel:deploy $(if [ "${{ github.event_name }}" == 'pull_request' ]; then echo "${{ github.event.pull_request.head.ref }}"; else echo "${{ github.ref }}"; fi) --project ${{ secrets.FIREBASE_PROJECT_ID }} --token ${{ secrets.FIREBASE_TOKEN }} --json

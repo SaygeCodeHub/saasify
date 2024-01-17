@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/screens/hrms/leaves/apply_leave_button.dart';
-import 'package:saasify/widgets/multifield_row.dart';
 import 'package:saasify/widgets/text/field_label_widget.dart';
 
 import '../../../configs/app_colors.dart';
 import '../../../configs/app_spacing.dart';
 import '../../../widgets/layoutWidgets/background_card_widget.dart';
+import '../../../widgets/layoutWidgets/multifield_row.dart';
 
 class ApplyAndLeaveDetailWebScreen extends StatelessWidget {
   final bool? isDetailScreen;

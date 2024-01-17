@@ -40,13 +40,13 @@ class CustomDrawer extends StatelessWidget {
                     height: MediaQuery.sizeOf(context).height * 0.057,
                     child: Padding(
                       padding: EdgeInsets.only(
-                            left: MediaQuery.sizeOf(context).height * 0.025),
+                          left: MediaQuery.sizeOf(context).height * 0.025),
                       child: const Align(
                         alignment: Alignment.centerLeft,
                         child: SaasifyLogo(
-                            width: 30,
-                            height: 30,
-                          ),
+                          width: 30,
+                          height: 30,
+                        ),
                       ),
                     ),
                   ),
@@ -61,7 +61,8 @@ class CustomDrawer extends StatelessWidget {
                 iconData: Icons.supervised_user_circle_sharp,
                 title: 'HRMS',
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, HRMSDashboardScreen.routeName);
+                  Navigator.pushReplacementNamed(
+                      context, HRMSDashboardScreen.routeName);
                 }),
             ModuleListTile(
                 iconData: Icons.shopping_cart_outlined,

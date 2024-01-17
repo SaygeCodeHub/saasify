@@ -8,9 +8,9 @@ class ComingSoonScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ScreenSkeleton(childScreenBuilder: (isMobile) => Center(
-        child: Text('Coming Soon'),
-      ))
-    );
+        body: ScreenSkeleton(
+            childScreenBuilder: (isMobile) => Center(
+                  child: Text('Coming Soon'),
+                )));
   }
 }

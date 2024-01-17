@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
 import 'package:saasify/widgets/text/field_label_widget.dart';
 import '../../configs/app_spacing.dart';
-import '../../widgets/multifield_row.dart';
+import '../../widgets/layoutWidgets/multifield_row.dart';
 import '../../widgets/text/module_heading.dart';
 
 class SettingsWebScreen extends StatelessWidget {

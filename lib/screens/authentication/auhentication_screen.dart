@@ -9,14 +9,17 @@ class AuthenticationScreen extends StatelessWidget {
 
   AuthenticationScreen({super.key});
 
-  final formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return const PopScope(
+    return PopScope(
         canPop: false,
         child: Scaffold(
-            body: ResponsiveLayout(
-                mobileBody: AuthMobileScreen(), desktopBody: AuthWebScreen())));
+            body: Form(
+                key: formKey,
+                child: ResponsiveLayout(
+                    mobileBody: AuthMobileScreen(formKey: formKey),
+                    desktopBody: AuthWebScreen(formKey: formKey)))));
   }
 }

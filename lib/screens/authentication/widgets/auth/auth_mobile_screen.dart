@@ -5,11 +5,11 @@ import '../../../../configs/spacing.dart';
 import '../../../../utils/constants/string_constants.dart';
 import '../../../../widgets/profile/saasifyLogo.dart';
 import '../../../../widgets/text/field_label_widget.dart';
-import '../../generalMethods/textfield_methods.dart';
 import '../forgot_password_button.dart';
 
 class AuthMobileScreen extends StatelessWidget {
-  const AuthMobileScreen({super.key});
+  final GlobalKey<FormState> formKey;
+  const AuthMobileScreen({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +23,15 @@ class AuthMobileScreen extends StatelessWidget {
           SizedBox(height: MediaQuery.sizeOf(context).height * 0.075),
           LabelAndFieldWidget(
               label: StringConstants.kEmailAddress,
-              onTextFieldChanged: (value) {
-                onEmailChanged(value, context);
-              }),
+              onTextFieldChanged: (value) {}),
           const SizedBox(height: spacingBetweenTextFields),
           LabelAndFieldWidget(
               label: StringConstants.kPassword,
-              onTextFieldChanged: (value) {
-                onPasswordChanged(value, context);
-              },
+              onTextFieldChanged: (value) {},
               obscureText: true),
           const ForgotPasswordButton(),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
-          const AuthVerifyButton()
+          AuthVerifyButton(formKey: formKey)
         ],
       ),
     );

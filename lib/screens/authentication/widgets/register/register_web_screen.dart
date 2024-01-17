@@ -5,7 +5,6 @@ import '../../../../configs/spacing.dart';
 import '../../../../utils/constants/string_constants.dart';
 import '../../../../widgets/text/field_label_widget.dart';
 import '../../../../widgets/profile/saasifyLogo.dart';
-import '../../generalMethods/textfield_methods.dart';
 
 class RegisterWebScreen extends StatelessWidget {
   const RegisterWebScreen({super.key});
@@ -27,38 +26,28 @@ class RegisterWebScreen extends StatelessWidget {
                   Expanded(
                     child: LabelAndFieldWidget(
                         label: StringConstants.kFirstName,
-                        onTextFieldChanged: (value) {
-                          onEmailChanged(value, context);
-                        }),
+                        onTextFieldChanged: (value) {}),
                   ),
                   const SizedBox(width: spacingSmall),
                   Expanded(
                     child: LabelAndFieldWidget(
                         label: StringConstants.kLastName,
-                        onTextFieldChanged: (value) {
-                          onEmailChanged(value, context);
-                        }),
+                        onTextFieldChanged: (value) {}),
                   ),
                 ],
               ),
               const SizedBox(height: spacingBetweenTextFields),
               LabelAndFieldWidget(
                   label: StringConstants.kEmailAddress,
-                  onTextFieldChanged: (value) {
-                    onEmailChanged(value, context);
-                  }),
+                  onTextFieldChanged: (value) {}),
               const SizedBox(height: spacingBetweenTextFields),
               LabelAndFieldWidget(
                   label: StringConstants.kMobileNumber,
-                  onTextFieldChanged: (value) {
-                    onEmailChanged(value, context);
-                  }),
+                  onTextFieldChanged: (value) {}),
               const SizedBox(height: spacingBetweenTextFields),
               LabelAndFieldWidget(
                   label: StringConstants.kPassword,
-                  onTextFieldChanged: (value) {
-                    onPasswordChanged(value, context);
-                  },
+                  onTextFieldChanged: (value) {},
                   obscureText: true),
               const SizedBox(height: spacingBetweenTextFieldAndButton),
               const RegisterButton()

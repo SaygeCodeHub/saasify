@@ -13,6 +13,7 @@ dependencies:
   dio:
   intl:
   get_it:
+  equatable:
   flutter_svg:
   flutter_bloc:
   firebase_auth:

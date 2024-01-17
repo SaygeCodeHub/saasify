@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/auth/auth_bloc.dart';
+import 'package:saasify/bloc/auth/auth_events.dart';
+import 'package:saasify/bloc/auth/auth_states.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/screens/authentication/register_screen.dart';
 import 'package:saasify/screens/companies/all_companies_screen.dart';
@@ -13,12 +17,28 @@ class AuthVerifyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        PrimaryButton(
-            onPressed: () {
-              Navigator.pushReplacementNamed(
-                  context, AllCompaniesScreen.routeName);
-            },
-            buttonTitle: StringConstants.kVerify),
+        BlocConsumer<AuthBloc, AuthStates>(listener: (context, state) {
+          if (state is UserAuthenticated) {
+            Navigator.pushReplacementNamed(
+                context, AllCompaniesScreen.routeName);
+          }
+          if (state is FailedToAuthenticateUser) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: Text(state.errorMessage.toString()),
+            ));
+          }
+        }, builder: (context, state) {
+          if (state is AuthenticatingUser) {
+            return const Center(child: CircularProgressIndicator());
+          } else {
+            return PrimaryButton(
+                onPressed: () {
+                  context.read<AuthBloc>().add(AuthenticateUser(
+                      userDetails: {"email": "a@gmail.com", "password": "13"}));
+                },
+                buttonTitle: StringConstants.kVerify);
+          }
+        }),
         InkWell(
           onTap: () {
             Navigator.pushReplacementNamed(context, RegisterScreen.routeName);

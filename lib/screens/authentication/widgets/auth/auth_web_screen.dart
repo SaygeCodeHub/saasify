@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/screens/authentication/widgets/auth/verify_button.dart';
 
+import '../../../../bloc/auth/auth_bloc.dart';
 import '../../../../configs/spacing.dart';
 import '../../../../utils/constants/string_constants.dart';
 import '../../../../widgets/profile/saasifyLogo.dart';
 import '../../../../widgets/text/field_label_widget.dart';
-import '../../generalMethods/textfield_methods.dart';
 import '../forgot_password_button.dart';
 
 class AuthWebScreen extends StatelessWidget {
-  const AuthWebScreen({super.key});
+  final GlobalKey<FormState> formKey;
+
+  const AuthWebScreen({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -24,20 +27,28 @@ class AuthWebScreen extends StatelessWidget {
               const SaasifyLogo(),
               const SizedBox(height: spacingBetweenTextFieldAndButton),
               LabelAndFieldWidget(
+                  errorText: 'Please enter valid email address',
+                  prefixIcon: const Icon(Icons.email_outlined),
                   label: StringConstants.kEmailAddress,
                   onTextFieldChanged: (value) {
-                    onEmailChanged(value, context);
+                    context
+                        .read<AuthBloc>()
+                        .userInputAuthenticationMap['email'] = value;
                   }),
               const SizedBox(height: spacingBetweenTextFields),
               LabelAndFieldWidget(
+                  errorText: 'Please enter valid password',
+                  prefixIcon: const Icon(Icons.password_outlined),
                   label: StringConstants.kPassword,
                   onTextFieldChanged: (value) {
-                    onPasswordChanged(value, context);
+                    context
+                        .read<AuthBloc>()
+                        .userInputAuthenticationMap['password'] = value;
                   },
                   obscureText: true),
               const ForgotPasswordButton(),
               const SizedBox(height: spacingBetweenTextFieldAndButton),
-              const AuthVerifyButton()
+              AuthVerifyButton(formKey: formKey)
             ],
           ),
         ));

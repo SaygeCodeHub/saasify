@@ -8,10 +8,13 @@ import 'package:saasify/screens/authentication/register_screen.dart';
 import 'package:saasify/screens/companies/all_companies_screen.dart';
 import '../../../../configs/app_spacing.dart';
 import '../../../../utils/constants/string_constants.dart';
+import '../../../../widgets/alertDialogs/custom_alert_dialog.dart';
 import '../../../../widgets/buttons/primary_button.dart';
 
 class AuthVerifyButton extends StatelessWidget {
-  const AuthVerifyButton({super.key});
+  final GlobalKey<FormState> formKey;
+
+  const AuthVerifyButton({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +26,13 @@ class AuthVerifyButton extends StatelessWidget {
                 context, AllCompaniesScreen.routeName);
           }
           if (state is FailedToAuthenticateUser) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text(state.errorMessage.toString()),
-            ));
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return ErrorAlertDialog(
+                    description: state.errorMessage.toString());
+              },
+            );
           }
         }, builder: (context, state) {
           if (state is AuthenticatingUser) {
@@ -33,8 +40,12 @@ class AuthVerifyButton extends StatelessWidget {
           } else {
             return PrimaryButton(
                 onPressed: () {
-                  context.read<AuthBloc>().add(AuthenticateUser(
-                      userDetails: {"email": "a@gmail.com", "password": "13"}));
+                  if (formKey.currentState?.validate() ?? false) {
+                    context.read<AuthBloc>().add(AuthenticateUser(
+                        userDetails: context
+                            .read<AuthBloc>()
+                            .userInputAuthenticationMap));
+                  }
                 },
                 buttonTitle: StringConstants.kVerify);
           }

@@ -11,7 +11,7 @@ import '../../repositories/authentication/authentication_repository.dart';
 class AuthBloc extends Bloc<AuthEvents, AuthStates> {
   final AuthenticationRepository _authenticationRepository =
       getIt<AuthenticationRepository>();
-
+  final Map userInputAuthenticationMap = {};
   AuthStates get initialState => InitialiseAuthStates();
 
   AuthBloc() : super(InitialiseAuthStates()) {
@@ -27,21 +27,17 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
   FutureOr<void> _authenticateUser(
       AuthenticateUser event, Emitter<AuthStates> emit) async {
     emit(AuthenticatingUser());
-    print(' emit(AuthenticatingUser());');
     try {
       AuthenticateUserModel authenticateUserModel =
           await _authenticationRepository.authenticateUser(event.userDetails);
       if (authenticateUserModel.status == '200') {
         emit(UserAuthenticated());
-        print(' emit(UserAuthenticated());');
       } else {
         emit(FailedToAuthenticateUser(
             errorMessage: authenticateUserModel.message));
-        print(' emit(FailedToAuthenticateUser());');
       }
     } catch (e) {
       emit(FailedToAuthenticateUser());
-      print(' error emit(FailedToAuthenticateUser());--- $e');
     }
   }
 }

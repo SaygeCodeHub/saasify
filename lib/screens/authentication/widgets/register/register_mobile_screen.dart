@@ -5,7 +5,6 @@ import '../../../../configs/spacing.dart';
 import '../../../../utils/constants/string_constants.dart';
 import '../../../../widgets/text/field_label_widget.dart';
 import '../../../../widgets/profile/saasifyLogo.dart';
-import '../../generalMethods/textfield_methods.dart';
 
 class RegisterMobileScreen extends StatelessWidget {
   const RegisterMobileScreen({super.key});
@@ -22,33 +21,22 @@ class RegisterMobileScreen extends StatelessWidget {
           const SizedBox(height: spacingBetweenTextFieldAndButton),
           LabelAndFieldWidget(
               label: StringConstants.kFirstName,
-              onTextFieldChanged: (value) {
-                onEmailChanged(value, context);
-              }),
+              onTextFieldChanged: (value) {}),
           const SizedBox(height: spacingBetweenTextFields),
           LabelAndFieldWidget(
-              label: StringConstants.kLastName,
-              onTextFieldChanged: (value) {
-                onEmailChanged(value, context);
-              }),
+              label: StringConstants.kLastName, onTextFieldChanged: (value) {}),
           const SizedBox(height: spacingBetweenTextFields),
           LabelAndFieldWidget(
               label: StringConstants.kEmailAddress,
-              onTextFieldChanged: (value) {
-                onEmailChanged(value, context);
-              }),
+              onTextFieldChanged: (value) {}),
           const SizedBox(height: spacingBetweenTextFields),
           LabelAndFieldWidget(
               label: StringConstants.kMobileNumber,
-              onTextFieldChanged: (value) {
-                onEmailChanged(value, context);
-              }),
+              onTextFieldChanged: (value) {}),
           const SizedBox(height: spacingBetweenTextFields),
           LabelAndFieldWidget(
               label: StringConstants.kPassword,
-              onTextFieldChanged: (value) {
-                onPasswordChanged(value, context);
-              },
+              onTextFieldChanged: (value) {},
               obscureText: true),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
           const RegisterButton()

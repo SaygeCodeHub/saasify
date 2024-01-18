@@ -1,3 +1,5 @@
+import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
+
 abstract class AuthStates {}
 
 class InitialiseAuthStates extends AuthStates {}
@@ -14,7 +16,10 @@ class UserRegistered extends AuthStates {}
 
 class FailedToRegisterUser extends AuthStates {}
 
-class UserAuthenticated extends AuthStates {}
+class UserAuthenticated extends AuthStates {
+  final AuthenticateUserData authenticateUserData;
+  UserAuthenticated({required this.authenticateUserData});
+}
 
 class AuthenticatingUser extends AuthStates {}
 

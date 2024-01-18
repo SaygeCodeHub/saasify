@@ -51,7 +51,8 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
       if (authenticateUserModel.status == '200') {
         cache.setUserLoggedIn(true);
         cache.saveUserLoginDetails(authenticateUserModel.data!);
-        emit(UserAuthenticated());
+        emit(UserAuthenticated(
+            authenticateUserData: authenticateUserModel.data!));
       } else {
         emit(FailedToAuthenticateUser(
             errorMessage: authenticateUserModel.message));

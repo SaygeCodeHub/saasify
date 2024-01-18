@@ -5,6 +5,7 @@ import 'package:saasify/bloc/auth/auth_events.dart';
 import 'package:saasify/bloc/auth/auth_states.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/screens/authentication/register_screen.dart';
+import 'package:saasify/screens/companies/add_company_screen.dart';
 import 'package:saasify/screens/companies/all_companies_screen.dart';
 import '../../../../configs/app_spacing.dart';
 import '../../../../utils/constants/string_constants.dart';
@@ -22,8 +23,13 @@ class AuthVerifyButton extends StatelessWidget {
       children: [
         BlocConsumer<AuthBloc, AuthStates>(listener: (context, state) {
           if (state is UserAuthenticated) {
-            Navigator.pushReplacementNamed(
-                context, AllCompaniesScreen.routeName);
+            if (state.authenticateUserData.company!.isEmpty) {
+              Navigator.pushReplacementNamed(
+                  context, AddCompanyScreen.routeName);
+            } else {
+              Navigator.pushReplacementNamed(
+                  context, AllCompaniesScreen.routeName);
+            }
           }
           if (state is FailedToAuthenticateUser) {
             showDialog(

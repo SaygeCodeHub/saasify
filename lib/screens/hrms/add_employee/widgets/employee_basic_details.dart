@@ -14,78 +14,45 @@ class EmployeeBasicDetails extends StatelessWidget {
         children: [
           MultiFieldRow(
             childrenWidgets: [
-              Expanded(
-                  child:
-                      LabelAndFieldWidget(label: StringConstants.kFirstName)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child:
-                      LabelAndFieldWidget(label: StringConstants.kMiddleName)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child: LabelAndFieldWidget(label: StringConstants.kLastName))
+              LabelAndFieldWidget(label: StringConstants.kFirstName),
+              LabelAndFieldWidget(label: StringConstants.kMiddleName),
+              LabelAndFieldWidget(label: StringConstants.kLastName)
             ],
           ),
           SizedBox(height: spacingLarge),
           MultiFieldRow(
             childrenWidgets: [
-              Expanded(
-                  child: LabelAndFieldWidget(
-                      label: StringConstants.kEmailAddress)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child: LabelAndFieldWidget(
-                      label: StringConstants.kMobileNumber)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child: LabelAndFieldWidget(
-                      label: StringConstants.kAlternateMobileNumber)),
+              LabelAndFieldWidget(label: StringConstants.kEmailAddress),
+              LabelAndFieldWidget(label: StringConstants.kMobileNumber),
+              LabelAndFieldWidget(
+                  label: StringConstants.kAlternateMobileNumber),
             ],
           ),
           SizedBox(height: spacingLarge),
           MultiFieldRow(
             childrenWidgets: [
-              Expanded(
-                  child:
-                      LabelAndFieldWidget(label: StringConstants.kDateOfBirth)),
-              SizedBox(width: spacingLarge),
-              Expanded(child: LabelAndFieldWidget(label: StringConstants.kAge)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child: LabelAndFieldWidget(label: StringConstants.kGender)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child:
-                      LabelAndFieldWidget(label: StringConstants.kNationality)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child: LabelAndFieldWidget(
-                      label: StringConstants.kMaritalStatus)),
+              LabelAndFieldWidget(label: StringConstants.kDateOfBirth),
+              LabelAndFieldWidget(label: StringConstants.kAge),
+              LabelAndFieldWidget(label: StringConstants.kGender),
+              LabelAndFieldWidget(label: StringConstants.kNationality),
+              LabelAndFieldWidget(label: StringConstants.kMaritalStatus),
             ],
           ),
           SizedBox(height: spacingLarge),
           MultiFieldRow(
             childrenWidgets: [
-              Expanded(
-                  child: LabelAndFieldWidget(
-                      label: StringConstants.kCurrentAddress, maxLines: 5)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child: LabelAndFieldWidget(
-                      label: StringConstants.kPermanentAddress, maxLines: 5)),
+              LabelAndFieldWidget(
+                  label: StringConstants.kCurrentAddress, maxLines: 5),
+              LabelAndFieldWidget(
+                  label: StringConstants.kPermanentAddress, maxLines: 5),
             ],
           ),
           SizedBox(height: spacingLarge),
           MultiFieldRow(
             childrenWidgets: [
-              Expanded(
-                  child: LabelAndFieldWidget(label: StringConstants.kCity)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child: LabelAndFieldWidget(label: StringConstants.kState)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child: LabelAndFieldWidget(label: StringConstants.kPinCode)),
+              LabelAndFieldWidget(label: StringConstants.kCity),
+              LabelAndFieldWidget(label: StringConstants.kState),
+              LabelAndFieldWidget(label: StringConstants.kPinCode),
             ],
           ),
         ],

@@ -5,6 +5,7 @@ import 'package:saasify/configs/new_app_theme.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import '../../configs/spacing.dart';
 import '../../utils/constants/string_constants.dart';
+import '../../utils/globals.dart';
 import '../../widgets/buttons/primary_button.dart';
 
 class AllBranchesScreen extends StatefulWidget {
@@ -23,13 +24,15 @@ class _AllBranchesScreenState extends State<AllBranchesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isMobile = MediaQuery.of(context).size.width < mobileBreakPoint;
     return PopScope(
       canPop: false,
       child: Scaffold(
           body: Align(
               alignment: Alignment.center,
               child: SizedBox(
-                width: MediaQuery.sizeOf(context).width * 0.30,
+                width:
+                    MediaQuery.sizeOf(context).width * (isMobile ? 0.8 : 0.30),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,

@@ -18,6 +18,8 @@ class TableAvatar extends DataCell {
 class TableText extends DataCell {
   TableText({required String text})
       : super(Text(text,
+            maxLines: 1,
+            overflow: TextOverflow.fade,
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)));
 }
 

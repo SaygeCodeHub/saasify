@@ -9,19 +9,15 @@ class AddEmployeeMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTabBar(
-      tabData: [
-        TabData(label: 'Personal Info', content: const EmployeeBasicDetails()),
-        TabData(label: 'Documents', content: const EmployeeDocumentDetails()),
-        TabData(
-            label: 'Education & Experience',
-            content: const Center(child: Text('Education & Experience'))),
-        TabData(
-            label: 'Financial',
-            content: const Center(child: Text('Financial'))),
-        TabData(
-            label: 'Official', content: const Center(child: Text('Official')))
-      ],
-    );
+    return CustomTabBar(tabData: [
+      TabData(label: 'Personal Info', content: const EmployeeBasicDetails()),
+      TabData(label: 'Documents', content: const EmployeeDocumentDetails()),
+      TabData(
+          label: 'Education & Experience',
+          content: const Center(child: Text('Education & Experience'))),
+      TabData(
+          label: 'Financial', content: const Center(child: Text('Financial'))),
+      TabData(label: 'Official', content: const Center(child: Text('Official')))
+    ]);
   }
 }

@@ -30,11 +30,12 @@ class CustomDataTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Theme(
-      data: Theme.of(context).copyWith(dividerColor: AppColors.darkGrey),
+      data: Theme.of(context).copyWith(dividerColor: Colors.black12),
       child: DataTable2(
           smRatio: 0.5,
-          columnSpacing: 0,
+          columnSpacing: 10,
           horizontalMargin: 0,
+          dividerThickness: 0.7,
           dataRowHeight: 55,
           headingRowHeight: 50,
           columns: ((checkboxVisible)

@@ -21,16 +21,9 @@ class EmployeeDocumentDetails extends StatelessWidget {
           ),
           MultiFieldRow(
             childrenWidgets: [
-              Expanded(
-                  child: LabelAndFieldWidget(
-                      label: StringConstants.kAadhaarNumber)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child: LabelAndFieldWidget(
-                      label: StringConstants.kNameAsAadhaarNumber)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child: LabelAndFieldWidget(label: StringConstants.kPanNumber))
+              LabelAndFieldWidget(label: StringConstants.kAadhaarNumber),
+              LabelAndFieldWidget(label: StringConstants.kNameAsAadhaarNumber),
+              LabelAndFieldWidget(label: StringConstants.kPanNumber)
             ],
           ),
           SizedBox(height: spacingHuge),
@@ -42,43 +35,24 @@ class EmployeeDocumentDetails extends StatelessWidget {
           ),
           MultiFieldRow(
             childrenWidgets: [
-              Expanded(
-                  child: LabelAndFieldWidget(
-                      label: StringConstants.kPassportNumber)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child:
-                      LabelAndFieldWidget(label: StringConstants.kFirstName)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child: LabelAndFieldWidget(label: StringConstants.kLastName)),
+              LabelAndFieldWidget(label: StringConstants.kPassportNumber),
+              LabelAndFieldWidget(label: StringConstants.kFirstName),
+              LabelAndFieldWidget(label: StringConstants.kLastName),
             ],
           ),
           SizedBox(height: spacingLarge),
           MultiFieldRow(
             childrenWidgets: [
-              Expanded(
-                  child:
-                      LabelAndFieldWidget(label: StringConstants.kExpiryDate)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child:
-                      LabelAndFieldWidget(label: StringConstants.kIssueDate)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child: LabelAndFieldWidget(
-                      label: StringConstants.kMobileNumber)),
-              SizedBox(width: spacingLarge),
-              Expanded(
-                  child: LabelAndFieldWidget(label: StringConstants.kAddress))
+              LabelAndFieldWidget(label: StringConstants.kExpiryDate),
+              LabelAndFieldWidget(label: StringConstants.kIssueDate),
+              LabelAndFieldWidget(label: StringConstants.kMobileNumber),
+              LabelAndFieldWidget(label: StringConstants.kAddress)
             ],
           ),
           SizedBox(height: spacingLarge),
           MultiFieldRow(
             childrenWidgets: [
-              Expanded(
-                  child: LabelAndFieldWidget(
-                      label: StringConstants.kAddress, maxLines: 5))
+              LabelAndFieldWidget(label: StringConstants.kAddress, maxLines: 5)
             ],
           ),
         ],

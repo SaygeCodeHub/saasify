@@ -4,6 +4,7 @@ import 'package:saasify/configs/app_spacing.dart';
 
 class CustomTabBar extends StatelessWidget {
   final List<TabData> tabData;
+
   const CustomTabBar({super.key, required this.tabData});
 
   @override
@@ -21,7 +22,7 @@ class CustomTabBar extends StatelessWidget {
               unselectedLabelStyle: const TextStyle(fontSize: 14.0),
               indicatorPadding:
                   const EdgeInsets.symmetric(horizontal: 5.0, vertical: 1.0),
-              tabs: tabData.map((e) => Tab(text: e.label)).toList()),
+              tabs: tabData.map((e) => e.header).toList()),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(spacingLarger),
@@ -37,8 +38,13 @@ class CustomTabBar extends StatelessWidget {
 }
 
 class TabData {
-  final String label;
   final Widget content;
+  final Widget header;
+  final String label;
+  final IconData? icon;
 
-  TabData({required this.label, required this.content});
+  TabData({this.icon, this.label = "", required this.content})
+      : header = (icon != null)
+      ? Icon(icon, size: 20.0, color: AppColors.darkBlue)
+      : Text(label, style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: AppColors.darkBlue));
 }

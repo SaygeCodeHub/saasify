@@ -4,9 +4,8 @@ import '../../../../utils/constants/string_constants.dart';
 import '../../../../widgets/buttons/primary_button.dart';
 
 class SelectBranchButton extends StatelessWidget {
-  const SelectBranchButton({
-    super.key, required this.company, required this.branch
-  });
+  const SelectBranchButton(
+      {super.key, required this.company, required this.branch});
 
   final String company;
   final String branch;
@@ -16,8 +15,7 @@ class SelectBranchButton extends StatelessWidget {
     return PrimaryButton(
         buttonTitle: StringConstants.kNext,
         onPressed: () {
-          Navigator.pushNamed(
-              context, HRMSDashboardScreen.routeName);
+          Navigator.pushNamed(context, HRMSDashboardScreen.routeName);
         });
   }
 }

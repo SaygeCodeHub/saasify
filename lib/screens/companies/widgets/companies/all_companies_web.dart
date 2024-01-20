@@ -34,14 +34,14 @@ class _AllCompaniesWebState extends State<AllCompaniesWeb> {
                 width: MediaQuery.sizeOf(context).width * 0.18,
                 child: SizedBox(
                     height: MediaQuery.sizeOf(context).height,
-                    child: Image.asset('assets/abstract.png',
-                        fit: BoxFit.fill)),
+                    child:
+                        Image.asset('assets/abstract.png', fit: BoxFit.fill)),
               ),
               const VerticalDivider(),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(
-                      spacingBetweenTextFieldAndButton),
+                  padding:
+                      const EdgeInsets.all(spacingBetweenTextFieldAndButton),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -52,8 +52,7 @@ class _AllCompaniesWebState extends State<AllCompaniesWeb> {
                               .headingTextStyle
                               .copyWith(color: AppColors.black)),
                       const SizedBox(height: spacingMedium),
-                      const Text(
-                          'You have access to the following companies'),
+                      const Text('You have access to the following companies'),
                       const SizedBox(height: spacingMedium),
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height * 0.30,
@@ -62,12 +61,11 @@ class _AllCompaniesWebState extends State<AllCompaniesWeb> {
                             itemCount: widget.cardData.length,
                             // Number of items in your grid
                             gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 4,
-                                crossAxisSpacing: 8.0,
-                                mainAxisSpacing: 8.0),
-                            itemBuilder:
-                                (BuildContext context, int index) {
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 4,
+                                    crossAxisSpacing: 8.0,
+                                    mainAxisSpacing: 8.0),
+                            itemBuilder: (BuildContext context, int index) {
                               return GestureDetector(
                                 onTap: () {
                                   setState(() {
@@ -82,16 +80,16 @@ class _AllCompaniesWebState extends State<AllCompaniesWeb> {
                                                 ? AppColors.orange
                                                 : Colors.transparent),
                                         borderRadius:
-                                        BorderRadius.circular(5.0)),
+                                            BorderRadius.circular(5.0)),
                                     child: Column(
                                       crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                          CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                      MainAxisAlignment.start,
+                                          MainAxisAlignment.start,
                                       children: [
                                         const Padding(
-                                          padding: EdgeInsets.all(
-                                              spacingXXSmall),
+                                          padding:
+                                              EdgeInsets.all(spacingXXSmall),
                                           child: Icon(Icons.store),
                                         ),
                                         Padding(
@@ -106,9 +104,9 @@ class _AllCompaniesWebState extends State<AllCompaniesWeb> {
                           ),
                         ),
                       ),
-                      const SizedBox(
-                          height: spacingBetweenTextFieldAndButton),
-                      SelectCompanyButton(company: widget.cardData[selectedIndex])
+                      const SizedBox(height: spacingBetweenTextFieldAndButton),
+                      SelectCompanyButton(
+                          company: widget.cardData[selectedIndex])
                     ],
                   ),
                 ),

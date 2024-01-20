@@ -31,20 +31,17 @@ class _AllCompaniesMobileState extends State<AllCompaniesMobile> {
                   .headingTextStyle
                   .copyWith(color: AppColors.black)),
           const SizedBox(height: spacingMedium),
-          const Text(
-              'You have access to the following companies'),
+          const Text('You have access to the following companies'),
           const SizedBox(height: spacingMedium),
           SizedBox(
             height: 240,
             child: GridView.builder(
               itemCount: widget.cardData.length,
-              gridDelegate:
-              const SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 8.0,
                   mainAxisSpacing: 8.0),
-              itemBuilder:
-                  (BuildContext context, int index) {
+              itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () {
                     setState(() {
@@ -58,24 +55,20 @@ class _AllCompaniesMobileState extends State<AllCompaniesMobile> {
                               color: selectedIndex == index
                                   ? AppColors.orange
                                   : Colors.transparent),
-                          borderRadius:
-                          BorderRadius.circular(5.0)),
+                          borderRadius: BorderRadius.circular(5.0)),
                       child: Column(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                        mainAxisAlignment:
-                        MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           const Expanded(
                             child: Padding(
-                              padding: EdgeInsets.all(
-                                  spacingLarger),
-                              child: FittedBox(child: Icon(Icons.store_outlined)),
+                              padding: EdgeInsets.all(spacingLarger),
+                              child:
+                                  FittedBox(child: Icon(Icons.store_outlined)),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(
-                                spacingXMedium),
+                            padding: const EdgeInsets.all(spacingXMedium),
                             child: Text(widget.cardData[index]),
                           )
                         ],
@@ -84,8 +77,7 @@ class _AllCompaniesMobileState extends State<AllCompaniesMobile> {
               },
             ),
           ),
-          const SizedBox(
-              height: spacingBetweenTextFieldAndButton),
+          const SizedBox(height: spacingBetweenTextFieldAndButton),
           SelectCompanyButton(company: widget.cardData[selectedIndex]),
           const SizedBox(height: spacingXXHuge)
         ],

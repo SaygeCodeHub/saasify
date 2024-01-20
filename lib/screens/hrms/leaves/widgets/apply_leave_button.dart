@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../widgets/buttons/primary_button.dart';
+import '../../../../widgets/buttons/primary_button.dart';
 
 class ApplyLeaveButton extends StatelessWidget {
   const ApplyLeaveButton({super.key});

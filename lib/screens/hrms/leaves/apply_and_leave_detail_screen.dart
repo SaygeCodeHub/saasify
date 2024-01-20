@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/screens/hrms/leaves/apply_and_leave_detail_mobile_screen.dart';
-import 'package:saasify/screens/hrms/leaves/apply_and_leave_detail_web_screen.dart';
+import 'package:saasify/screens/hrms/leaves/widgets/apply_and_leave_detail_mobile_screen.dart';
+import 'package:saasify/screens/hrms/leaves/widgets/apply_and_leave_detail_web_screen.dart';
 
 import '../../../configs/app_spacing.dart';
 import '../../../widgets/layoutWidgets/responsive_layout.dart';

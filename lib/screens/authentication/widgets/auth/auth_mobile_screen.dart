@@ -21,16 +21,14 @@ class AuthMobileScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SaasifyLogo(height: 45),
-            const SizedBox(
-                height: spacingBetweenTextFieldAndButton),
+            const SizedBox(height: spacingBetweenTextFieldAndButton),
             LabelAndFieldWidget(
                 errorText: 'Please enter valid email address',
                 prefixIcon: const Icon(Icons.email_outlined),
                 label: StringConstants.kEmailAddress,
                 onTextFieldChanged: (value) {
-                  context
-                      .read<AuthBloc>()
-                      .userInputAuthenticationMap['email'] = value;
+                  context.read<AuthBloc>().userInputAuthenticationMap['email'] =
+                      value;
                 }),
             const SizedBox(height: spacingBetweenTextFields),
             LabelAndFieldWidget(
@@ -40,13 +38,11 @@ class AuthMobileScreen extends StatelessWidget {
                 onTextFieldChanged: (value) {
                   context
                       .read<AuthBloc>()
-                      .userInputAuthenticationMap['password'] =
-                      value;
+                      .userInputAuthenticationMap['password'] = value;
                 },
                 obscureText: true),
             const ForgotPasswordButton(),
-            const SizedBox(
-                height: spacingBetweenTextFieldAndButton),
+            const SizedBox(height: spacingBetweenTextFieldAndButton),
             AuthVerifyButton(formKey: formKey)
           ],
         ),

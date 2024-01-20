@@ -34,7 +34,8 @@ class AppRoutes {
       case AllCompaniesScreen.routeName:
         return _createRoute(AllCompaniesScreen());
       case AllBranchesScreen.routeName:
-        return _createRoute(AllBranchesScreen(companyName: settings.arguments as String));
+        return _createRoute(
+            AllBranchesScreen(companyName: settings.arguments as String));
       case SettingsScreen.routeName:
         return _createRoute(const SettingsScreen());
       default:

@@ -45,6 +45,10 @@ class TabData {
 
   TabData({this.icon, this.label = "", required this.content})
       : header = (icon != null)
-      ? Icon(icon, size: 20.0, color: AppColors.darkBlue)
-      : Text(label, style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w600, color: AppColors.darkBlue));
+            ? Icon(icon, size: 20.0, color: AppColors.darkBlue)
+            : Text(label,
+                style: const TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.darkBlue));
 }

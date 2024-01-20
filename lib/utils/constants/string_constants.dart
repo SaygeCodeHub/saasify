@@ -25,7 +25,7 @@ class StringConstants {
   static const kCity = 'City';
   static const kState = 'State';
   static const kPinCode = 'PIN Code';
-  static const kEmailAddress = 'Email Address';
+  static const kEmailAddress = 'Email';
   static const kMobileNumber = 'Mobile Number';
   static const kAlternateMobileNumber = 'Alternate Mobile Number';
 

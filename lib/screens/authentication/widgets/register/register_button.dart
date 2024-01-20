@@ -4,6 +4,7 @@ import '../../../../configs/app_colors.dart';
 import '../../../../configs/app_spacing.dart';
 import '../../../../utils/constants/string_constants.dart';
 import '../../../../widgets/buttons/primary_button.dart';
+import '../../../companies/all_companies_screen.dart';
 
 class RegisterButton extends StatelessWidget {
   const RegisterButton({super.key});
@@ -14,7 +15,12 @@ class RegisterButton extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        PrimaryButton(onPressed: () {}, buttonTitle: StringConstants.kRegister),
+        PrimaryButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(
+                  context, AllCompaniesScreen.routeName);
+            },
+            buttonTitle: StringConstants.kRegister),
         InkWell(
           onTap: () {
             Navigator.pushReplacementNamed(

@@ -19,78 +19,121 @@ class AllBranchesScreen extends StatefulWidget {
 
 class _AllBranchesScreenState extends State<AllBranchesScreen> {
   int selectedIndex = 0;
-  List<String> cardData = ["Card 1", "Card 2", "Card 3", "Card 4"];
+  List<String> cardData = [
+    "Branch 1",
+    "Branch 2",
+    "Branch 3",
+    "Branch 4",
+    "Branch 5",
+    "Branch 6"
+  ];
 
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
-      child: Scaffold(
-          body: Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                width: MediaQuery.sizeOf(context).width * 0.30,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.arrow_back_ios,
-                              color: AppColors.darkBlue),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                        Text(widget.companyName,
-                            style:
-                                Theme.of(context).textTheme.headingTextStyle),
-                        const SizedBox(width: spacingMedium),
-                      ],
-                    ),
-                    const SizedBox(height: spacingBetweenTextFieldAndButton),
-                    const Text('Please select a branch'),
-                    const SizedBox(height: spacingMedium),
-                    SizedBox(
-                        height: MediaQuery.sizeOf(context).height * 0.30,
-                        child: ListView.builder(
-                          itemCount: cardData.length,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    selectedIndex = index;
-                                  });
+        canPop: false,
+        child: Scaffold(
+            body: Align(
+          alignment: Alignment.center,
+          child: Padding(
+            padding: const EdgeInsets.all(spacingBetweenTextFieldAndButton),
+            child: Container(
+              height: MediaQuery.sizeOf(context).height * 0.80,
+              width: MediaQuery.sizeOf(context).width * 0.60,
+              decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.grey, width: 5.0)),
+              child: Row(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.sizeOf(context).width * 0.18,
+                    child: SizedBox(
+                        height: MediaQuery.sizeOf(context).height,
+                        child: Image.asset('assets/abstract.png',
+                            fit: BoxFit.fill)),
+                  ),
+                  const VerticalDivider(),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(
+                          spacingBetweenTextFieldAndButton),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Company 1',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headingTextStyle
+                                  .copyWith(color: AppColors.black)),
+                          const SizedBox(height: spacingMedium),
+                          const Text('Select a branch'),
+                          const SizedBox(height: spacingMedium),
+                          SizedBox(
+                            height: MediaQuery.sizeOf(context).height * 0.30,
+                            child: Scrollbar(
+                              child: GridView.builder(
+                                itemCount: cardData
+                                    .length, // Number of items in your grid
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 4,
+                                        crossAxisSpacing: 8.0,
+                                        mainAxisSpacing: 8.0),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return GestureDetector(
+                                    onTap: (){
+                                      setState(() {
+                                        selectedIndex = index;
+                                      });
+                                    },
+                                    child: Card(
+                                        elevation: 1,
+                                        shape: RoundedRectangleBorder(
+                                            side: BorderSide(
+                                                color: selectedIndex == index
+                                                    ? AppColors.orange
+                                                    : Colors.transparent),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0)),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            const Padding(
+                                              padding:
+                                                  EdgeInsets.all(spacingXXSmall),
+                                              child: Icon(Icons.store),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(
+                                                  spacingXMedium),
+                                              child: Text(cardData[index]),
+                                            )
+                                          ],
+                                        )),
+                                  );
                                 },
-                                child: Card(
-                                    elevation: 1,
-                                    shape: RoundedRectangleBorder(
-                                      side: BorderSide(
-                                          color: selectedIndex == index
-                                              ? AppColors.orange
-                                              : Colors.transparent),
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    child: Padding(
-                                        padding: const EdgeInsets.all(
-                                            spacingSmallest),
-                                        child: ListTile(
-                                            leading: const Icon(Icons.store,
-                                                color: AppColors.darkBlue),
-                                            title: Text("ToolkitX$index")))));
-                          },
-                        )),
-                    const SizedBox(height: spacingBetweenTextFieldAndButton),
-                    PrimaryButton(
-                        buttonTitle: StringConstants.kNext,
-                        onPressed: () {
-                          Navigator.pushReplacementNamed(
-                              context, HRMSDashboardScreen.routeName);
-                        })
-                  ],
-                ),
-              ))),
-    );
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                              height: spacingBetweenTextFieldAndButton),
+                          PrimaryButton(
+                              buttonTitle: StringConstants.kNext,
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, HRMSDashboardScreen.routeName);
+                              })
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        )));
   }
 }

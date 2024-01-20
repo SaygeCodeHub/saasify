@@ -12,7 +12,7 @@ ThemeData newAppTheme = ThemeData(
     highlightColor: AppColors.transparent,
     focusColor: AppColors.transparent,
     appBarTheme: appBarTheme,
-    scaffoldBackgroundColor: AppColors.grey,
+    scaffoldBackgroundColor: AppColors.white,
     inputDecorationTheme: inputDecorationTheme,
     iconTheme: iconThemeData,
     drawerTheme: drawerThemeData);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/screens/authentication/widgets/auth/verify_button.dart';
-
+import '../../../../bloc/auth/auth_bloc.dart';
 import '../../../../configs/spacing.dart';
 import '../../../../utils/constants/string_constants.dart';
 import '../../../../widgets/profile/saasifyLogo.dart';
@@ -13,26 +14,42 @@ class AuthMobileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          SizedBox(height: MediaQuery.sizeOf(context).height * 0.12),
-          const SaasifyLogo(),
-          SizedBox(height: MediaQuery.sizeOf(context).height * 0.075),
-          LabelAndFieldWidget(
-              label: StringConstants.kEmailAddress,
-              onTextFieldChanged: (value) {}),
-          const SizedBox(height: spacingBetweenTextFields),
-          LabelAndFieldWidget(
-              label: StringConstants.kPassword,
-              onTextFieldChanged: (value) {},
-              obscureText: true),
-          const ForgotPasswordButton(),
-          const SizedBox(height: spacingBetweenTextFieldAndButton),
-          AuthVerifyButton(formKey: formKey)
-        ],
+    return Center(
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SaasifyLogo(height: 45),
+            const SizedBox(
+                height: spacingBetweenTextFieldAndButton),
+            LabelAndFieldWidget(
+                errorText: 'Please enter valid email address',
+                prefixIcon: const Icon(Icons.email_outlined),
+                label: StringConstants.kEmailAddress,
+                onTextFieldChanged: (value) {
+                  context
+                      .read<AuthBloc>()
+                      .userInputAuthenticationMap['email'] = value;
+                }),
+            const SizedBox(height: spacingBetweenTextFields),
+            LabelAndFieldWidget(
+                errorText: 'Please enter valid password',
+                prefixIcon: const Icon(Icons.password_outlined),
+                label: StringConstants.kPassword,
+                onTextFieldChanged: (value) {
+                  context
+                      .read<AuthBloc>()
+                      .userInputAuthenticationMap['password'] =
+                      value;
+                },
+                obscureText: true),
+            const ForgotPasswordButton(),
+            const SizedBox(
+                height: spacingBetweenTextFieldAndButton),
+            AuthVerifyButton(formKey: formKey)
+          ],
+        ),
       ),
     );
   }

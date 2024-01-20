@@ -16,36 +16,40 @@ class ApplyAndLeaveDetailMobileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(children: [
-        MultiFieldRow(childrenWidgets: [
-          Card(
-              elevation: 0,
-              child: Padding(
-                  padding: const EdgeInsets.all(spacingSmallest),
-                  child: (isDetailScreen!)
-                      ? const ListTile(
-                          leading:
-                              Icon(Icons.approval, color: AppColors.orange),
-                          title: Text("Status"),
-                          trailing: Text("Approved"))
-                      : const ListTile(
-                          leading: Icon(Icons.medical_services_outlined,
-                              color: AppColors.orange),
-                          title: Text("Balance Medical Leaves"),
-                          trailing: Text('12')))),
-          Card(
-              elevation: 0,
-              child: Padding(
-                  padding: const EdgeInsets.all(spacingSmallest),
-                  child: (isDetailScreen!)
-                      ? const ListTile(
-                          leading: Icon(Icons.comment, color: AppColors.orange),
-                          title: Text("Comments"),
-                          trailing: Text("Rejected due to some reason"))
-                      : const ListTile(
-                          leading: Icon(Icons.volunteer_activism_outlined,
-                              color: AppColors.orange),
-                          title: Text("Balance Casual Leaves"),
-                          trailing: Text('3'))))
+        Row(children: [
+          Expanded(
+            child: Card(
+                elevation: 0,
+                child: Padding(
+                    padding: const EdgeInsets.all(spacingSmallest),
+                    child: (isDetailScreen!)
+                        ? const ListTile(
+                            leading:
+                                Icon(Icons.approval, color: AppColors.orange),
+                            title: Text("Status"),
+                            trailing: Text("Approved"))
+                        : const ListTile(
+                            leading: Icon(Icons.medical_services_outlined,
+                                color: AppColors.orange),
+                            title: Text("Balance Medical Leaves"),
+                            trailing: Text('12')))),
+          ),
+          Expanded(
+            child: Card(
+                elevation: 0,
+                child: Padding(
+                    padding: const EdgeInsets.all(spacingSmallest),
+                    child: (isDetailScreen!)
+                        ? const ListTile(
+                            leading: Icon(Icons.comment, color: AppColors.orange),
+                            title: Text("Comments"),
+                            trailing: Text("Rejected due to some reason"))
+                        : const ListTile(
+                            leading: Icon(Icons.volunteer_activism_outlined,
+                                color: AppColors.orange),
+                            title: Text("Balance Casual Leaves"),
+                            trailing: Text('3')))),
+          )
         ]),
         const Divider(),
         const Padding(

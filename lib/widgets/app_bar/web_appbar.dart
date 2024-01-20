@@ -13,7 +13,7 @@ class WebAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.white,
+      color: AppColors.grey,
       width: MediaQuery.sizeOf(context).width,
       height: MediaQuery.sizeOf(context).height * 0.065,
       child: const Row(

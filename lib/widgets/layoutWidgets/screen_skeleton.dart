@@ -21,6 +21,7 @@ class ScreenSkeleton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           isMobile ? const SizedBox() : const CustomDrawer(),
+          isMobile ? const SizedBox() : const VerticalDivider(),
           Expanded(
             child: !isMobile
                 ? Column(

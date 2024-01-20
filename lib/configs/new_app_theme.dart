@@ -12,7 +12,7 @@ ThemeData newAppTheme = ThemeData(
     highlightColor: AppColors.transparent,
     focusColor: AppColors.transparent,
     appBarTheme: appBarTheme,
-    scaffoldBackgroundColor: AppColors.grey,
+    scaffoldBackgroundColor: AppColors.white,
     inputDecorationTheme: inputDecorationTheme,
     iconTheme: iconThemeData,
     drawerTheme: drawerThemeData);
@@ -81,7 +81,7 @@ extension AppTextTheme on TextTheme {
 
   TextStyle get errorSubtitleTextStyle {
     return const TextStyle(
-        fontSize: 12, color: AppColors.darkBlue, fontWeight: FontWeight.w300);
+        fontSize: 12, color: AppColors.errorRed, fontWeight: FontWeight.w300);
   }
 
   TextStyle get cardMobileValueTextStyle {

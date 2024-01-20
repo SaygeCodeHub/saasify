@@ -1,5 +1,5 @@
 name: saasify
-description: A new Flutter project.
+description: This ERP software integrates HR, POS, and Accounting modules to streamline business processes. Manage employee data, automate sales transactions, and handle accounting seamlessly for enhanced organizational efficiency.
 publish_to: 'none'
 version: 1.0.0+1
 
@@ -13,6 +13,7 @@ dependencies:
   dio:
   intl:
   get_it:
+  equatable:
   flutter_svg:
   flutter_bloc:
   firebase_auth:
@@ -25,19 +26,18 @@ dependencies:
   table_calendar:
   data_table_2:
   fl_chart:
-  pdf:
   file_picker:
   cloud_firestore:
   responsive_framework: ^1.1.1
   dropdown_button2: ^2.3.9
+  change_app_package_name: ^1.1.0
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints:
-  hive_generator:
-  build_runner:
+  build_runner: ^2.0.5
 
 flutter:
 

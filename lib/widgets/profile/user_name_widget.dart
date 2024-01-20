@@ -6,6 +6,6 @@ class UserNameWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text('Aditya', style: Theme.of(context).textTheme.userNameTextStyle);
+    return Text('Deep', style: Theme.of(context).textTheme.userNameTextStyle);
   }
 }

@@ -5,7 +5,6 @@ import '../../../../configs/spacing.dart';
 import '../../../../utils/constants/string_constants.dart';
 import '../../../../widgets/text/field_label_widget.dart';
 import '../../../../widgets/profile/saasifyLogo.dart';
-import '../../generalMethods/textfield_methods.dart';
 
 class ForgotPasswordMobileScreen extends StatelessWidget {
   const ForgotPasswordMobileScreen({super.key});
@@ -26,9 +25,7 @@ class ForgotPasswordMobileScreen extends StatelessWidget {
           const SizedBox(height: spacingBetweenTextFields),
           LabelAndFieldWidget(
               label: StringConstants.kEmailAddress,
-              onTextFieldChanged: (value) {
-                onEmailChanged(value, context);
-              }),
+              onTextFieldChanged: (value) {}),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
           const ResetPasswordButton()
         ],

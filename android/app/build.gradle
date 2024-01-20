@@ -23,7 +23,6 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.example.saasify"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 

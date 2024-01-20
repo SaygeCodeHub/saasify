@@ -8,6 +8,7 @@ import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/screens/settings/settings_screen.dart';
 import '../screens/authentication/auhentication_screen.dart';
 import '../screens/authentication/forgot_password_screen.dart';
+import '../screens/companies/add_company_screen.dart';
 import '../screens/hrms/add_employee/add_employee_screen.dart';
 import '../screens/hrms/leaves/apply_and_leave_detail_screen.dart';
 
@@ -20,6 +21,8 @@ class AppRoutes {
         return _createRoute(const RegisterScreen());
       case ForgotPasswordScreen.routeName:
         return _createRoute(const ForgotPasswordScreen());
+      case AddCompanyScreen.routeName:
+        return _createRoute(const AddCompanyScreen());
       case HRMSDashboardScreen.routeName:
         return _createRoute(const HRMSDashboardScreen());
       case EmployeeListScreen.routeName:

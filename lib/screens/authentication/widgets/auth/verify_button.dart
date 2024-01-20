@@ -23,12 +23,13 @@ class AuthVerifyButton extends StatelessWidget {
       children: [
         BlocConsumer<AuthBloc, AuthStates>(listener: (context, state) {
           if (state is UserAuthenticated) {
-            if (state.authenticateUserData.company!.isEmpty) {
+            if (state.authenticateUserData.company.isEmpty) {
               Navigator.pushReplacementNamed(
                   context, AddCompanyScreen.routeName);
             } else {
               Navigator.pushReplacementNamed(
-                  context, AllCompaniesScreen.routeName);
+                  context, AllCompaniesScreen.routeName,
+                  arguments: state.authenticateUserData);
             }
           }
           if (state is FailedToAuthenticateUser) {
@@ -46,13 +47,12 @@ class AuthVerifyButton extends StatelessWidget {
           } else {
             return PrimaryButton(
                 onPressed: () {
-                  if (formKey.currentState?.validate() ?? false) {
-                    context.read<AuthBloc>().add(AuthenticateUser(
-                        userDetails: context
-                            .read<AuthBloc>()
-                            .userInputAuthenticationMap));
-                  }
+                  //  if (formKey.currentState?.validate() ?? false) {
+                  context.read<AuthBloc>().add(AuthenticateUser(
+                      userDetails:
+                          context.read<AuthBloc>().userInputAuthenticationMap));
                 },
+                //   },
                 buttonTitle: StringConstants.kVerify);
           }
         }),

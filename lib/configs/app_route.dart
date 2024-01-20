@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
 import 'package:saasify/screens/authentication/register_screen.dart';
 import 'package:saasify/screens/companies/all_branches_screen.dart';
 import 'package:saasify/screens/companies/all_companies_screen.dart';
@@ -32,9 +33,12 @@ class AppRoutes {
       case ApplyAndLeaveDetailScreen.routeName:
         return _createRoute(const ApplyAndLeaveDetailScreen());
       case AllCompaniesScreen.routeName:
-        return _createRoute(const AllCompaniesScreen());
+        return _createRoute(AllCompaniesScreen(
+            authenticateUserData: settings.arguments as AuthenticateUserData));
       case AllBranchesScreen.routeName:
-        return _createRoute(const AllBranchesScreen(companyName: 'ToolkitX'));
+        return _createRoute(AllBranchesScreen(
+          branches: settings.arguments as List<Branch>,
+        ));
       case SettingsScreen.routeName:
         return _createRoute(const SettingsScreen());
       default:

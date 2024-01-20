@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/new_app_theme.dart';
+import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
 import 'package:saasify/screens/companies/all_branches_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import '../../configs/spacing.dart';
@@ -9,8 +10,9 @@ import '../../widgets/buttons/primary_button.dart';
 
 class AllCompaniesScreen extends StatefulWidget {
   static const routeName = 'AllCompaniesScreen';
+  final AuthenticateUserData authenticateUserData;
 
-  const AllCompaniesScreen({super.key});
+  const AllCompaniesScreen({super.key, required this.authenticateUserData});
 
   @override
   State<AllCompaniesScreen> createState() => _AllCompaniesScreenState();
@@ -18,14 +20,6 @@ class AllCompaniesScreen extends StatefulWidget {
 
 class _AllCompaniesScreenState extends State<AllCompaniesScreen> {
   int selectedIndex = 0;
-  List<String> cardData = [
-    "Company 1",
-    "Company 2",
-    "Company 3",
-    "Company 4",
-    "Company 5",
-    "Company 6"
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +66,7 @@ class _AllCompaniesScreenState extends State<AllCompaniesScreen> {
                             height: MediaQuery.sizeOf(context).height * 0.30,
                             child: Scrollbar(
                               child: GridView.builder(
-                                itemCount: cardData
+                                itemCount: widget.authenticateUserData.company
                                     .length, // Number of items in your grid
                                 gridDelegate:
                                     const SliverGridDelegateWithFixedCrossAxisCount(
@@ -109,7 +103,10 @@ class _AllCompaniesScreenState extends State<AllCompaniesScreen> {
                                             Padding(
                                               padding: const EdgeInsets.all(
                                                   spacingXMedium),
-                                              child: Text(cardData[index]),
+                                              child: Text(widget
+                                                  .authenticateUserData
+                                                  .company[index]
+                                                  .companyName),
                                             )
                                           ],
                                         )),
@@ -124,7 +121,9 @@ class _AllCompaniesScreenState extends State<AllCompaniesScreen> {
                               buttonTitle: StringConstants.kNext,
                               onPressed: () {
                                 Navigator.pushNamed(
-                                    context, AllBranchesScreen.routeName);
+                                    context, AllBranchesScreen.routeName,
+                                    arguments: widget.authenticateUserData
+                                        .company[selectedIndex].branches);
                               })
                         ],
                       ),

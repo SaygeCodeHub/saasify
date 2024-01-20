@@ -47,12 +47,12 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
     emit(AuthenticatingUser());
     try {
       AuthenticateUserModel authenticateUserModel =
-          await _authenticationRepository.authenticateUser(event.userDetails);
+          await _authenticationRepository
+              .authenticateUser({"email": "a@gmail.com", "password": "123"});
       if (authenticateUserModel.status == '200') {
-        cache.setUserLoggedIn(true);
-        cache.saveUserLoginDetails(authenticateUserModel.data!);
+        cache.saveUserLoginDetails(authenticateUserModel.data);
         emit(UserAuthenticated(
-            authenticateUserData: authenticateUserModel.data!));
+            authenticateUserData: authenticateUserModel.data));
       } else {
         emit(FailedToAuthenticateUser(
             errorMessage: authenticateUserModel.message));

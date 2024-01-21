@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/configs/new_app_theme.dart';
+import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/widgets/icons/icon_with_card.dart';
 
 import '../../../../configs/app_colors.dart';

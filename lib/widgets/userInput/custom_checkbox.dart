@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/configs/new_app_theme.dart';
+import 'package:saasify/configs/app_theme.dart';
 
 class CustomCheckbox extends StatefulWidget {
   final String checkBoxTitle;

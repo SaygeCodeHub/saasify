@@ -3,9 +3,9 @@ import 'package:saasify/data/models/authentication/authenticate_user_model.dart'
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/authentication/forgotPassword/forgot_password_screen.dart';
 import 'package:saasify/screens/authentication/register/register_screen.dart';
-import 'package:saasify/screens/companies/add_company_screen.dart';
-import 'package:saasify/screens/companies/all_branches_screen.dart';
-import 'package:saasify/screens/companies/all_companies_screen.dart';
+import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.dart';
+import 'package:saasify/screens/companies/widgets/branches/all_branches_screen.dart';
+import 'package:saasify/screens/companies/widgets/companies/all_companies_screen.dart';
 import 'package:saasify/screens/generalScreens/coming_soon_screen.dart';
 import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';

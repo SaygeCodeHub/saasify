@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/screens/companies/widgets/branches/all_branches_mobile.dart';
 import 'package:saasify/screens/companies/widgets/branches/all_branches_web.dart';
-import '../../data/models/authentication/authenticate_user_model.dart';
-import '../../widgets/layoutWidgets/responsive_layout.dart';
+import '../../../../data/models/authentication/authenticate_user_model.dart';
+import '../../../../widgets/layoutWidgets/responsive_layout.dart';
 
 class AllBranchesScreen extends StatelessWidget {
   static const routeName = 'AllBranchesScreen';

@@ -49,7 +49,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
       AuthenticateUserModel authenticateUserModel =
           await _authenticationRepository.authenticateUser(event.userDetails);
       if (authenticateUserModel.status == '200') {
-        cache.saveUserLoginDetails(authenticateUserModel.data);
+        await saveUserSelections(authenticateUserModel.data);
         emit(UserAuthenticated(
             authenticateUserData: authenticateUserModel.data));
       } else {
@@ -58,6 +58,18 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
       }
     } catch (e) {
       emit(FailedToAuthenticateUser());
+    }
+  }
+
+  saveUserSelections(AuthenticateUserData authenticateUserData) async {
+    cache.setUserLoggedIn(true);
+    if (authenticateUserData.company.length <= 1) {
+      getIt<Cache>()
+          .setCompanyId(authenticateUserData.company[0].companyId as String);
+      if (authenticateUserData.company[0].branches.length <= 1) {
+        getIt<Cache>()
+            .setBranchId(authenticateUserData.company[0].branches[0] as String);
+      }
     }
   }
 }

@@ -80,7 +80,9 @@ class _AllBranchesMobileState extends State<AllBranchesMobile> {
           ),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
           SelectBranchButton(
-              selectedBranchId: widget.branches[selectedIndex].branchId),
+              selectedBranchId:
+                  widget.branches[selectedIndex].branchId.toString(),
+              roles: widget.branches[selectedIndex].role),
           const SizedBox(height: spacingXXHuge)
         ],
       ),

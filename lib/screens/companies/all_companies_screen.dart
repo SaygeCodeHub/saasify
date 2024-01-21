@@ -1,24 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/configs/app_colors.dart';
-import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/configs/new_app_theme.dart';
-import 'package:saasify/screens/companies/all_branches_screen.dart';
-import 'package:saasify/utils/constants/string_constants.dart';
-import '../../configs/spacing.dart';
-import '../../widgets/buttons/primary_button.dart';
+import 'package:saasify/screens/companies/widgets/companies/all_companies_mobile.dart';
+import 'package:saasify/screens/companies/widgets/companies/all_companies_web.dart';
+import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 
-class AllCompaniesScreen extends StatefulWidget {
+class AllCompaniesScreen extends StatelessWidget {
   static const routeName = 'AllCompaniesScreen';
-
-  const AllCompaniesScreen({super.key});
-
-  @override
-  State<AllCompaniesScreen> createState() => _AllCompaniesScreenState();
-}
-
-class _AllCompaniesScreenState extends State<AllCompaniesScreen> {
-  int selectedIndex = 0;
-  List<String> cardData = [
+  final List<String> cardData = [
     "Company 1",
     "Company 2",
     "Company 3",
@@ -27,113 +14,16 @@ class _AllCompaniesScreenState extends State<AllCompaniesScreen> {
     "Company 6"
   ];
 
+  AllCompaniesScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
         canPop: false,
         child: Scaffold(
-            body: Align(
-          alignment: Alignment.center,
-          child: Padding(
-            padding: const EdgeInsets.all(spacingBetweenTextFieldAndButton),
-            child: Container(
-              height: MediaQuery.sizeOf(context).height * 0.80,
-              width: MediaQuery.sizeOf(context).width * 0.60,
-              decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.grey, width: 5.0)),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: MediaQuery.sizeOf(context).width * 0.18,
-                    child: SizedBox(
-                        height: MediaQuery.sizeOf(context).height,
-                        child: Image.asset('assets/abstract.png',
-                            fit: BoxFit.fill)),
-                  ),
-                  const VerticalDivider(),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(
-                          spacingBetweenTextFieldAndButton),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text('hello, Aditya!',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headingTextStyle
-                                  .copyWith(color: AppColors.black)),
-                          const SizedBox(height: spacingMedium),
-                          const Text(
-                              'You have access to the following companies'),
-                          const SizedBox(height: spacingMedium),
-                          SizedBox(
-                            height: MediaQuery.sizeOf(context).height * 0.30,
-                            child: Scrollbar(
-                              child: GridView.builder(
-                                itemCount: cardData
-                                    .length, // Number of items in your grid
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 4,
-                                        crossAxisSpacing: 8.0,
-                                        mainAxisSpacing: 8.0),
-                                itemBuilder: (BuildContext context, int index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        selectedIndex = index;
-                                      });
-                                    },
-                                    child: Card(
-                                        elevation: 1,
-                                        shape: RoundedRectangleBorder(
-                                            side: BorderSide(
-                                                color: selectedIndex == index
-                                                    ? AppColors.orange
-                                                    : Colors.transparent),
-                                            borderRadius:
-                                                BorderRadius.circular(5.0)),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            const Padding(
-                                              padding: EdgeInsets.all(
-                                                  spacingXXSmall),
-                                              child: Icon(Icons.store),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(
-                                                  spacingXMedium),
-                                              child: Text(cardData[index]),
-                                            )
-                                          ],
-                                        )),
-                                  );
-                                },
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                              height: spacingBetweenTextFieldAndButton),
-                          PrimaryButton(
-                              buttonTitle: StringConstants.kNext,
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, AllBranchesScreen.routeName);
-                              })
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+            body: ResponsiveLayout(
+          mobileBody: AllCompaniesMobile(cardData: cardData),
+          desktopBody: AllCompaniesWeb(cardData: cardData),
         )));
   }
 }

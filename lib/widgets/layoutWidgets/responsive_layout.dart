@@ -14,9 +14,11 @@ class ResponsiveLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth < mobileBreakPoint) {
-        return Padding(
-          padding: const EdgeInsets.all(mobileBodyPadding),
-          child: mobileBody,
+        return SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(mobileBodyPadding),
+            child: mobileBody,
+          ),
         );
       } else {
         return desktopBody;

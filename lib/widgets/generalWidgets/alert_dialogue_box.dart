@@ -50,7 +50,7 @@ class AlertDialogueBox extends StatelessWidget {
                                   color: AppColors.errorRed)),
                           Visibility(
                               visible: checkMarkVisible,
-                              child: const SizedBox(width: spacingXXSmall)),
+                              child: const SizedBox(width: spacingXSmall)),
                           Text(title,
                               style: Theme.of(context)
                                   .textTheme

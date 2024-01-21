@@ -32,9 +32,10 @@ class AppRoutes {
       case ApplyAndLeaveDetailScreen.routeName:
         return _createRoute(const ApplyAndLeaveDetailScreen());
       case AllCompaniesScreen.routeName:
-        return _createRoute(const AllCompaniesScreen());
+        return _createRoute(AllCompaniesScreen());
       case AllBranchesScreen.routeName:
-        return _createRoute(const AllBranchesScreen(companyName: 'ToolkitX'));
+        return _createRoute(
+            AllBranchesScreen(companyName: settings.arguments as String));
       case SettingsScreen.routeName:
         return _createRoute(const SettingsScreen());
       default:

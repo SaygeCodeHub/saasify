@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/new_app_theme.dart';
+import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
 import 'package:saasify/screens/companies/widgets/companies/select_company_button.dart';
 
 import '../../../../configs/app_colors.dart';
@@ -7,8 +8,8 @@ import '../../../../configs/app_spacing.dart';
 import '../../../../configs/spacing.dart';
 
 class AllCompaniesWeb extends StatefulWidget {
-  final List<String> cardData;
-  const AllCompaniesWeb({super.key, required this.cardData});
+  final List<Company> companies;
+  const AllCompaniesWeb({super.key, required this.companies});
 
   @override
   State<AllCompaniesWeb> createState() => _AllCompaniesWebState();
@@ -58,7 +59,7 @@ class _AllCompaniesWebState extends State<AllCompaniesWeb> {
                         height: MediaQuery.sizeOf(context).height * 0.30,
                         child: Scrollbar(
                           child: GridView.builder(
-                            itemCount: widget.cardData.length,
+                            itemCount: widget.companies.length,
                             // Number of items in your grid
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
@@ -95,7 +96,7 @@ class _AllCompaniesWebState extends State<AllCompaniesWeb> {
                                         Padding(
                                           padding: const EdgeInsets.all(
                                               spacingXMedium),
-                                          child: Text(widget.cardData[index]),
+                                          child: Text(widget.companies[index].companyName),
                                         )
                                       ],
                                     )),
@@ -106,7 +107,7 @@ class _AllCompaniesWebState extends State<AllCompaniesWeb> {
                       ),
                       const SizedBox(height: spacingBetweenTextFieldAndButton),
                       SelectCompanyButton(
-                          company: widget.cardData[selectedIndex])
+                          company: widget.companies[selectedIndex].companyName)
                     ],
                   ),
                 ),

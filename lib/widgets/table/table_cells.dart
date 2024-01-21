@@ -20,7 +20,7 @@ class TableText extends DataCell {
       : super(Text(text,
             maxLines: 1,
             overflow: TextOverflow.fade,
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)));
+            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)));
 }
 
 class TableStatusChips extends DataCell {

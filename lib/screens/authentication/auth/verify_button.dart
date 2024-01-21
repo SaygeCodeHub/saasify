@@ -4,13 +4,13 @@ import 'package:saasify/bloc/auth/auth_bloc.dart';
 import 'package:saasify/bloc/auth/auth_events.dart';
 import 'package:saasify/bloc/auth/auth_states.dart';
 import 'package:saasify/configs/app_colors.dart';
-import 'package:saasify/screens/authentication/register_screen.dart';
+import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/screens/authentication/register/register_screen.dart';
 import 'package:saasify/screens/companies/add_company_screen.dart';
 import 'package:saasify/screens/companies/all_companies_screen.dart';
-import '../../../../configs/app_spacing.dart';
-import '../../../../utils/constants/string_constants.dart';
-import '../../../../widgets/alertDialogs/custom_alert_dialog.dart';
-import '../../../../widgets/buttons/primary_button.dart';
+import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/widgets/alertDialogs/custom_alert_dialog.dart';
+import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class AuthVerifyButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -23,12 +23,13 @@ class AuthVerifyButton extends StatelessWidget {
       children: [
         BlocConsumer<AuthBloc, AuthStates>(listener: (context, state) {
           if (state is UserAuthenticated) {
-            if (state.authenticateUserData.company!.isEmpty) {
+            if (state.authenticateUserData.company.isEmpty) {
               Navigator.pushReplacementNamed(
                   context, AddCompanyScreen.routeName);
             } else {
               Navigator.pushReplacementNamed(
-                  context, AllCompaniesScreen.routeName);
+                  context, AllCompaniesScreen.routeName,
+                  arguments: state.authenticateUserData);
             }
           }
           if (state is FailedToAuthenticateUser) {
@@ -46,13 +47,12 @@ class AuthVerifyButton extends StatelessWidget {
           } else {
             return PrimaryButton(
                 onPressed: () {
-                  if (formKey.currentState?.validate() ?? false) {
-                    context.read<AuthBloc>().add(AuthenticateUser(
-                        userDetails: context
-                            .read<AuthBloc>()
-                            .userInputAuthenticationMap));
-                  }
+                  //  if (formKey.currentState?.validate() ?? false) {
+                  context.read<AuthBloc>().add(AuthenticateUser(
+                      userDetails:
+                          context.read<AuthBloc>().userInputAuthenticationMap));
                 },
+                //   },
                 buttonTitle: StringConstants.kVerify);
           }
         }),

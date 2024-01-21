@@ -34,7 +34,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4),
-        border: Border.all(color: AppColors.darkGrey, width: 1.0),
+        border: Border.all(color: AppColors.grey, width: 1.0),
       ),
       child: Row(
         children: [
@@ -49,7 +49,7 @@ class _CustomDropDownState extends State<CustomDropDown> {
               isDense: true,
               value: selectedValue,
               hint: const Text('Select'),
-              iconStyleData: IconStyleData(
+              iconStyleData: const IconStyleData(
                   icon: Icon(Icons.keyboard_arrow_down),
                   iconEnabledColor: AppColors.black,
                   iconSize: 20),
@@ -62,12 +62,12 @@ class _CustomDropDownState extends State<CustomDropDown> {
                     borderRadius: BorderRadius.circular(4),
                     color: Colors.white,
                   )),
-              menuItemStyleData: MenuItemStyleData(
+              menuItemStyleData: const MenuItemStyleData(
                 padding: EdgeInsets.only(left: spacingMedium),
                 height: 28,
               ),
               buttonStyleData: ButtonStyleData(
-                  padding: EdgeInsets.only(left: spacingXSmall),
+                  padding: const EdgeInsets.only(left: spacingXSmall),
                   height: 28,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
 
-import '../../../configs/app_spacing.dart';
-import '../forgot_password_screen.dart';
+import '../../../../configs/app_spacing.dart';
+import 'forgot_password_screen.dart';
 
 class ForgotPasswordButton extends StatelessWidget {
   const ForgotPasswordButton({super.key});

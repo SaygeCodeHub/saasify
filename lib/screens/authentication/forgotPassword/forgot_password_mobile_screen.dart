@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/screens/authentication/widgets/forgotPassword/reset_password_button.dart';
-
-import '../../../../configs/spacing.dart';
-import '../../../../utils/constants/string_constants.dart';
-import '../../../../widgets/text/field_label_widget.dart';
-import '../../../../widgets/profile/saasifyLogo.dart';
+import 'package:saasify/configs/spacing.dart';
+import 'package:saasify/screens/authentication/forgotPassword/reset_password_button.dart';
+import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/widgets/profile/saasifyLogo.dart';
+import 'package:saasify/widgets/text/field_label_widget.dart';
 
 class ForgotPasswordMobileScreen extends StatelessWidget {
   const ForgotPasswordMobileScreen({super.key});

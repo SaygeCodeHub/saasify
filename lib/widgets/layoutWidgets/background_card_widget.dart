@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../configs/app_colors.dart';
 import '../../configs/app_spacing.dart';
 
 class BackgroundCardWidget extends StatelessWidget {
@@ -12,7 +11,7 @@ class BackgroundCardWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(spacingXMedium),
       child: Card(
-        color: AppColors.white,
+        elevation: 2,
         child: childScreen,
       ),
     );

@@ -12,6 +12,7 @@ dependencies:
 
   dio:
   intl:
+  http:
   get_it:
   equatable:
   flutter_svg:

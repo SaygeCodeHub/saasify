@@ -13,3 +13,5 @@ class AuthenticateUser extends AuthEvents {
 }
 
 class CheckActiveSession extends AuthEvents {}
+
+class LogoutSession extends AuthEvents {}

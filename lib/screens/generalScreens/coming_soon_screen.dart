@@ -9,7 +9,7 @@ class ComingSoonScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: ScreenSkeleton(
-            childScreenBuilder: (isMobile) => Center(
+            childScreenBuilder: (isMobile) => const Center(
                   child: Text('Coming Soon'),
                 )));
   }

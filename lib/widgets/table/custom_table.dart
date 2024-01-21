@@ -1,8 +1,8 @@
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
+import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/data/models/table_models/column_data_model.dart';
 
-import '../../configs/app_colors.dart';
 
 class CustomDataTable extends StatelessWidget {
   final List<ColumnData> columnList;

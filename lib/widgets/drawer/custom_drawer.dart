@@ -25,7 +25,7 @@ class CustomDrawer extends StatelessWidget {
                 ? SizedBox(
                     height: MediaQuery.sizeOf(context).height * 0.1,
                     child: const Padding(
-                      padding: EdgeInsets.only(left: spacingXXSmall),
+                      padding: EdgeInsets.only(left: spacingXSmall),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -38,41 +38,43 @@ class CustomDrawer extends StatelessWidget {
                   )
                 : SizedBox(
                     height: MediaQuery.sizeOf(context).height * 0.057,
-                    child: Align(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                          left: MediaQuery.sizeOf(context).height * 0.025),
+                      child: const Align(
                         alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                              left: MediaQuery.sizeOf(context).height * 0.025),
-                          child: const SaasifyLogo(
-                            width: 25,
-                            height: 25,
-                          ),
-                        )),
+                        child: SaasifyLogo(
+                          width: 30,
+                          height: 30,
+                        ),
+                      ),
+                    ),
                   ),
             const Divider(),
             ModuleListTile(
                 iconData: Icons.point_of_sale_outlined,
                 title: 'POS',
                 onTap: () {
-                  Navigator.pushNamed(context, 'POS');
+                  Navigator.pushReplacementNamed(context, 'POS');
                 }),
             ModuleListTile(
                 iconData: Icons.supervised_user_circle_sharp,
                 title: 'HRMS',
                 onTap: () {
-                  Navigator.pushNamed(context, HRMSDashboardScreen.routeName);
+                  Navigator.pushReplacementNamed(
+                      context, HRMSDashboardScreen.routeName);
                 }),
             ModuleListTile(
                 iconData: Icons.shopping_cart_outlined,
                 title: 'Orders',
                 onTap: () {
-                  Navigator.pushNamed(context, 'Orders');
+                  Navigator.pushReplacementNamed(context, 'Orders');
                 }),
             ModuleListTile(
                 iconData: Icons.inventory_outlined,
                 title: 'Inventory',
                 onTap: () {
-                  Navigator.pushNamed(context, 'Inventory');
+                  Navigator.pushReplacementNamed(context, 'Inventory');
                 })
           ],
         ),

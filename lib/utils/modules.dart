@@ -30,7 +30,7 @@ List<ValueCardModel> hrmsModules = [
       cardHeading: 'Add New Employee',
       iconPath: 'assets/add_employee.png',
       onTap: (context) {
-        showAlertDialog(context);
+        showAddEmployeeDialog(context);
       }),
   ValueCardModel(
       cardHeading: 'View All Employees',

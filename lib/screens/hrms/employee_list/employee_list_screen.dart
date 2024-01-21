@@ -31,9 +31,7 @@ class EmployeeListScreen extends StatelessWidget {
                           isMobile
                               ? const SizedBox.shrink()
                               : const BackButton(),
-                          isMobile
-                              ? const SizedBox.shrink()
-                              : const SizedBox(width: spacingXMedium),
+                          const SizedBox(width: spacingXMedium),
                           const ModuleHeading(label: 'Employee List'),
                         ],
                       ),

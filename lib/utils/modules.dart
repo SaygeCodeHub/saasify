@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:saasify/screens/hrms/add_employee/widgets/add_emp_dialouge.dart';
+import 'package:saasify/screens/hrms/attendance/attendance_screen.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';
 import 'package:saasify/screens/hrms/leaves/apply_and_leave_detail_screen.dart';
 
@@ -55,5 +56,7 @@ List<ValueCardModel> hrmsModules = [
   ValueCardModel(
       cardHeading: 'Timesheet',
       iconPath: 'assets/attendant-history.png',
-      onTap: (BuildContext context) {}),
+      onTap: (BuildContext context) {
+        Navigator.pushNamed(context, AttendanceScreen.routeName);
+      }),
 ];

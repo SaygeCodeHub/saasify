@@ -7,6 +7,7 @@ import 'package:saasify/screens/companies/all_branches_screen.dart';
 import 'package:saasify/screens/companies/all_companies_screen.dart';
 import 'package:saasify/screens/generalScreens/coming_soon_screen.dart';
 import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
+import 'package:saasify/screens/hrms/attendance/attendance_screen.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/screens/hrms/leaves/apply_and_leave_detail_screen.dart';
@@ -33,6 +34,8 @@ class AppRoutes {
         return _createRoute(const ApplyAndLeaveDetailScreen());
       case AllCompaniesScreen.routeName:
         return _createRoute(AllCompaniesScreen());
+      case AttendanceScreen.routeName:
+        return _createRoute(const AttendanceScreen());
       case AllBranchesScreen.routeName:
         return _createRoute(
             AllBranchesScreen(companyName: settings.arguments as String));

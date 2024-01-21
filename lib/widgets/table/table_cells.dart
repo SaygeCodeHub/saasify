@@ -19,6 +19,7 @@ class TableText extends DataCell {
   TableText({required String text})
       : super(Text(text,
             maxLines: 1,
+            softWrap: false,
             overflow: TextOverflow.fade,
             style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w500)));
 }

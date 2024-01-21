@@ -18,7 +18,6 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
   AuthStates get initialState => InitialiseAuthStates();
 
   AuthBloc() : super(InitialiseAuthStates()) {
-    on<RegisterUser>(_registerUser);
     on<AuthenticateUser>(_authenticateUser);
     on<CheckActiveSession>(_checkActiveSession);
   }
@@ -35,11 +34,6 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
     } catch (e) {
       emit(InactiveSession());
     }
-  }
-
-  FutureOr<void> _registerUser(
-      RegisterUser event, Emitter<AuthStates> emit) async {
-    emit(RegisteringUser());
   }
 
   FutureOr<void> _authenticateUser(

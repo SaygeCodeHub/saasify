@@ -96,7 +96,8 @@ class _AllCompaniesWebState extends State<AllCompaniesWeb> {
                                         Padding(
                                           padding: const EdgeInsets.all(
                                               spacingXMedium),
-                                          child: Text(widget.companies[index].companyName),
+                                          child: Text(widget
+                                              .companies[index].companyName),
                                         )
                                       ],
                                     )),
@@ -107,7 +108,9 @@ class _AllCompaniesWebState extends State<AllCompaniesWeb> {
                       ),
                       const SizedBox(height: spacingBetweenTextFieldAndButton),
                       SelectCompanyButton(
-                          company: widget.companies[selectedIndex].companyName)
+                          companyName:
+                              widget.companies[selectedIndex].companyName,
+                          branches: widget.companies[selectedIndex].branches)
                     ],
                   ),
                 ),

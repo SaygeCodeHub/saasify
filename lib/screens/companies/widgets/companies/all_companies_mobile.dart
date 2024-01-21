@@ -9,6 +9,7 @@ import '../../../../configs/spacing.dart';
 
 class AllCompaniesMobile extends StatefulWidget {
   final List<Company> companies;
+
   const AllCompaniesMobile({super.key, required this.companies});
 
   @override
@@ -79,7 +80,9 @@ class _AllCompaniesMobileState extends State<AllCompaniesMobile> {
             ),
           ),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
-          SelectCompanyButton(company: widget.companies[selectedIndex].companyName),
+          SelectCompanyButton(
+              companyName: widget.companies[selectedIndex].companyName,
+              branches: widget.companies[selectedIndex].branches),
           const SizedBox(height: spacingXXHuge)
         ],
       ),

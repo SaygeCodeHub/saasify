@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
 
 import '../../../../utils/constants/string_constants.dart';
 import '../../../../widgets/buttons/primary_button.dart';
 import '../../all_branches_screen.dart';
 
 class SelectCompanyButton extends StatelessWidget {
-  const SelectCompanyButton({super.key, required this.company});
+  const SelectCompanyButton(
+      {super.key, required this.companyName, required this.branches});
 
-  final String company;
+  final List<Branch> branches;
+  final String companyName;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,7 @@ class SelectCompanyButton extends StatelessWidget {
         buttonTitle: StringConstants.kNext,
         onPressed: () {
           Navigator.pushNamed(context, AllBranchesScreen.routeName,
-              arguments: company);
+              arguments: [companyName, branches]);
         });
   }
 }

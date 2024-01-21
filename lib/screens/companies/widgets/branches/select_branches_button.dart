@@ -4,11 +4,9 @@ import '../../../../utils/constants/string_constants.dart';
 import '../../../../widgets/buttons/primary_button.dart';
 
 class SelectBranchButton extends StatelessWidget {
-  const SelectBranchButton(
-      {super.key, required this.company, required this.branch});
+  const SelectBranchButton({super.key, required this.selectedBranchId});
 
-  final String company;
-  final String branch;
+  final int selectedBranchId;
 
   @override
   Widget build(BuildContext context) {

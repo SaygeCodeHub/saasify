@@ -36,8 +36,9 @@ class AppRoutes {
         return _createRoute(AllCompaniesScreen(
             authenticateUserData: settings.arguments as AuthenticateUserData));
       case AllBranchesScreen.routeName:
-        return _createRoute(
-            AllBranchesScreen(companyName: settings.arguments as String));
+        List<dynamic> args = settings.arguments as List<dynamic>;
+        return _createRoute(AllBranchesScreen(
+            companyName: args[0] as String, branches: args[1] as List<Branch>));
       case SettingsScreen.routeName:
         return _createRoute(const SettingsScreen());
       default:

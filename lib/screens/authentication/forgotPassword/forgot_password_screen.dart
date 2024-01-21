@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/screens/authentication/widgets/forgotPassword/forgot_password_mobile_screen.dart';
-import 'package:saasify/screens/authentication/widgets/forgotPassword/forgot_password_web_screen.dart';
+import 'package:saasify/screens/authentication/forgotPassword/forgot_password_mobile_screen.dart';
+import 'package:saasify/screens/authentication/forgotPassword/forgot_password_web_screen.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {

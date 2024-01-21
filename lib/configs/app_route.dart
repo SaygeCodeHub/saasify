@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/screens/authentication/register_screen.dart';
+import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
+import 'package:saasify/screens/authentication/forgotPassword/forgot_password_screen.dart';
+import 'package:saasify/screens/authentication/register/register_screen.dart';
+import 'package:saasify/screens/companies/add_company_screen.dart';
 import 'package:saasify/screens/companies/all_branches_screen.dart';
 import 'package:saasify/screens/companies/all_companies_screen.dart';
 import 'package:saasify/screens/generalScreens/coming_soon_screen.dart';
+import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
+import 'package:saasify/screens/hrms/leaves/apply_and_leave_detail_screen.dart';
 import 'package:saasify/screens/settings/settings_screen.dart';
-import '../screens/authentication/auhentication_screen.dart';
-import '../screens/authentication/forgot_password_screen.dart';
-import '../screens/companies/add_company_screen.dart';
-import '../screens/hrms/add_employee/add_employee_screen.dart';
-import '../screens/hrms/leaves/apply_and_leave_detail_screen.dart';
 
 class AppRoutes {
   static Route routes(RouteSettings settings) {

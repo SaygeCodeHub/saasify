@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/auth/auth_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
-import 'package:saasify/screens/authentication/widgets/auth/verify_button.dart';
 
-import '../../../../bloc/auth/auth_bloc.dart';
-import '../../../../configs/spacing.dart';
-import '../../../../utils/constants/string_constants.dart';
-import '../../../../widgets/profile/saasifyLogo.dart';
-import '../../../../widgets/text/field_label_widget.dart';
-import '../forgot_password_button.dart';
+import 'package:saasify/configs/spacing.dart';
+import 'package:saasify/screens/authentication/auth/verify_button.dart';
+import 'package:saasify/screens/authentication/forgotPassword/forgot_password_button.dart';
+import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/widgets/profile/saasifyLogo.dart';
+import 'package:saasify/widgets/text/field_label_widget.dart';
 
 class AuthWebScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey;

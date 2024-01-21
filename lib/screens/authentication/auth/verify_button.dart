@@ -4,13 +4,13 @@ import 'package:saasify/bloc/auth/auth_bloc.dart';
 import 'package:saasify/bloc/auth/auth_events.dart';
 import 'package:saasify/bloc/auth/auth_states.dart';
 import 'package:saasify/configs/app_colors.dart';
-import 'package:saasify/screens/authentication/register_screen.dart';
+import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/screens/authentication/register/register_screen.dart';
 import 'package:saasify/screens/companies/add_company_screen.dart';
 import 'package:saasify/screens/companies/all_companies_screen.dart';
-import '../../../../configs/app_spacing.dart';
-import '../../../../utils/constants/string_constants.dart';
-import '../../../../widgets/alertDialogs/custom_alert_dialog.dart';
-import '../../../../widgets/buttons/primary_button.dart';
+import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/widgets/alertDialogs/custom_alert_dialog.dart';
+import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class AuthVerifyButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;

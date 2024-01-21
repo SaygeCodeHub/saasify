@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
-
-import '../../screens/authentication/auhentication_screen.dart';
+import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 
 class LogoutIconWidget extends StatelessWidget {
   const LogoutIconWidget({super.key});
@@ -13,6 +12,9 @@ class LogoutIconWidget extends StatelessWidget {
           Navigator.pushNamedAndRemoveUntil(
               context, AuthenticationScreen.routeName, (route) => false);
         },
-        icon: const Icon(Icons.logout_rounded,color: AppColors.errorRed,));
+        icon: const Icon(
+          Icons.logout_rounded,
+          color: AppColors.errorRed,
+        ));
   }
 }

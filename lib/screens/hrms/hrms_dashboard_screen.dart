@@ -12,6 +12,7 @@ class HRMSDashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenSkeleton(
+        isHome: true,
         childScreenBuilder: (isMobile) => Padding(
             padding: const EdgeInsets.all(spacingLarge),
             child: SingleChildScrollView(

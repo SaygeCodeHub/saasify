@@ -17,24 +17,24 @@ class ApplyAndLeaveDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ScreenSkeleton(
-        childScreenBuilder: (bool isMobile) => const Column(
+        childScreenBuilder: (bool isMobile) => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(height: spacingMedium),
+            const SizedBox(height: spacingMedium),
             Padding(
-              padding: EdgeInsets.only(left: spacingMedium),
+              padding: const EdgeInsets.only(left: spacingMedium),
               child: Row(
                 children: [
-                  BackButton(),
-                  SizedBox(
-                    width: spacingXMedium,
-                  ),
-                  ModuleHeading(label: 'Apply Leave'),
+                  isMobile ? const SizedBox.shrink() : const BackButton(),
+                  isMobile
+                      ? const SizedBox.shrink()
+                      : const SizedBox(width: spacingXMedium),
+                  const ModuleHeading(label: 'Apply Leave'),
                 ],
               ),
             ),
-            Expanded(
+            const Expanded(
               child: ResponsiveLayout(
                   mobileBody:
                       ApplyAndLeaveDetailMobileScreen(isDetailScreen: false),

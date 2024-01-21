@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/new_app_theme.dart';
-import 'package:saasify/widgets/icons/icon_with_card.dart';
+import 'package:saasify/widgets/icons/circle_card_icon.dart';
 
 import '../../../../configs/app_colors.dart';
 import '../../../../configs/app_spacing.dart';

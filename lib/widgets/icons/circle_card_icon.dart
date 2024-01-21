@@ -5,9 +5,13 @@ import '../../configs/app_colors.dart';
 
 class CircleCardIcon extends StatelessWidget {
   final IconData icon;
-  final Color cardColor;
+  final Color color;
+  final double size;
   const CircleCardIcon(
-      {super.key, required this.icon, this.cardColor = AppColors.orange});
+      {super.key,
+      required this.icon,
+      this.color = AppColors.orange,
+      this.size = 20});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +20,7 @@ class CircleCardIcon extends StatelessWidget {
       shape: const CircleBorder(),
       child: Padding(
         padding: const EdgeInsets.all(spacingXSmall),
-        child: Icon(icon, color: cardColor, size: 20),
+        child: Icon(icon, color: color, size: size),
       ),
     );
   }

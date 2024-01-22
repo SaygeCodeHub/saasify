@@ -5,17 +5,23 @@ import '../app_bar/web_appbar.dart';
 import '../drawer/custom_drawer.dart';
 
 class ScreenSkeleton extends StatelessWidget {
+  final bool isHome;
   final Widget Function(bool isMobile) childScreenBuilder;
   static const routeName = 'RootScreen';
 
-  const ScreenSkeleton({super.key, required this.childScreenBuilder});
+  const ScreenSkeleton(
+      {super.key, required this.childScreenBuilder, this.isHome = false});
 
   @override
   Widget build(BuildContext context) {
     bool isMobile = MediaQuery.of(context).size.width < mobileBreakPoint;
     return Scaffold(
       appBar: isMobile ? const MobileAppBar() : null,
-      drawer: isMobile ? const CustomDrawer() : null,
+      drawer: isMobile
+          ? isHome
+              ? const CustomDrawer()
+              : null
+          : null,
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,

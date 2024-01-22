@@ -19,6 +19,23 @@ class Cache {
     return sharedPreferences.getBool(CacheKeys.isLoggedIn) ?? false;
   }
 
+  void setLatLong(double latitude, double longitude) async {
+    await sharedPreferences.setDouble(CacheKeys.latitude, latitude);
+    await sharedPreferences.setDouble(CacheKeys.longitude, longitude);
+  }
+
+  Future<List<double?>> getLatLong() async {
+    double? latitude = sharedPreferences.getDouble(CacheKeys.latitude);
+    double? longitude = sharedPreferences.getDouble(CacheKeys.longitude);
+    return [latitude, longitude];
+  }
+
+  Future<void> saveUserLoginDetails(
+      AuthenticateUserData authenticateUserData) async {
+    final String serializedModel = json.encode(authenticateUserData.toJson());
+    await sharedPreferences.setString(CacheKeys.userDetails, serializedModel);
+  }
+
   void setCompanyId(String companyId) async {
     await sharedPreferences.setString(CacheKeys.companyId, companyId);
   }

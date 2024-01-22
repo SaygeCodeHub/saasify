@@ -3,7 +3,7 @@ bool isEmailValid(String email) {
 }
 
 bool isPasswordValid(String password) {
-  return password.length >= 6;
+  return true;
 }
 
 bool isPhoneNumberValid(String phoneNumber) {

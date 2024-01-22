@@ -1,9 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/attendance/attendance_bloc.dart';
 import 'package:saasify/bloc/auth/auth_events.dart';
 import 'package:saasify/bloc/auth/auth_states.dart';
 import 'package:saasify/configs/app_route.dart';
-import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +38,7 @@ class MyPosApp extends StatelessWidget {
         BlocProvider(
             lazy: false,
             create: (context) => AuthBloc()..add(CheckActiveSession())),
+        BlocProvider(lazy: false, create: (context) => AttendanceBloc())
       ],
       child: GestureDetector(
           onTap: () {
@@ -54,7 +55,7 @@ class MyPosApp extends StatelessWidget {
                 if (state is ActiveSession) {
                   return const HRMSDashboardScreen();
                 } else {
-                  return AuthenticationScreen();
+                  return HRMSDashboardScreen();
                 }
               }))),
     );

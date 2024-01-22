@@ -5,48 +5,30 @@ import 'attendance_repository.dart';
 
 class AttendanceRepositoryImpl implements AttendanceRepository {
   @override
-  Future<CheckInModel> checkIn(int employeeId, int branchId) async {
+  Future<CheckInModel> checkIn(
+      int employeeId, int branchId, String time) async {
     final response = {
-      "status": "success",
+      "status": 200,
       "message": "Attendance marked successfully",
-      "data": {
-        "attendance": {
-          "id": 1,
-          "employee_id": 1,
-          "branch_id": 1,
-          "check_in": "2021-09-30T10:00:00.000000Z",
-          "check_out": null,
-          "created_at": "2021-09-30T10:00:00.000000Z",
-          "updated_at": "2021-09-30T10:00:00.000000Z"
-        }
-      }
+      "data": {}
     };
     return CheckInModel.fromJson(response);
   }
 
   @override
-  Future<CheckOutModel> checkOut(int employeeId, int branchId) async {
+  Future<CheckOutModel> checkOut(
+      int employeeId, int branchId, String time) async {
     final response = {
-      "status": "success",
+      "status": 200,
       "message": "Attendance marked successfully",
-      "data": {
-        "attendance": {
-          "id": 1,
-          "employee_id": 1,
-          "branch_id": 1,
-          "check_in": "2021-09-30T10:00:00.000000Z",
-          "check_out": "2021-09-30T10:00:00.000000Z",
-          "created_at": "2021-09-30T10:00:00.000000Z",
-          "updated_at": "2021-09-30T10:00:00.000000Z"
-        }
-      }
+      "data": {}
     };
     return CheckOutModel.fromJson(response);
   }
 
   @override
   Future<List<double>> getLatLong() async {
-    final response = [19.0760, 72.8777];
+    final response = [21.13126113476847, 79.15072233182553];
     return response;
   }
 }

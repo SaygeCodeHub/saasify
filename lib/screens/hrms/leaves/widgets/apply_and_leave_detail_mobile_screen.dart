@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/configs/app_colors.dart';
+import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
-import 'package:saasify/widgets/icons/icon_with_card.dart';
-
-import '../../../../configs/app_colors.dart';
-import '../../../../configs/app_spacing.dart';
-import '../../../../widgets/layoutWidgets/multifield_row.dart';
-import '../../../../widgets/text/field_label_widget.dart';
+import 'package:saasify/widgets/icons/circle_card_icon.dart';
+import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
+import 'package:saasify/widgets/text/field_label_widget.dart';
 import 'apply_leave_button.dart';
 
 class ApplyAndLeaveDetailMobileScreen extends StatelessWidget {

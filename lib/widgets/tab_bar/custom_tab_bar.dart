@@ -27,6 +27,7 @@ class CustomTabBar extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(spacingLarger),
               child: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
                 children: tabData.map((e) => e.content).toList(),
               ),
             ),
@@ -45,7 +46,10 @@ class TabData {
 
   TabData({this.icon, this.label = "", required this.content})
       : header = (icon != null)
-            ? Icon(icon, size: 20.0, color: AppColors.darkBlue)
+            ? Padding(
+                padding: const EdgeInsets.symmetric(vertical: spacingSmall),
+                child: Icon(icon, size: 20.0, color: AppColors.darkBlue),
+              )
             : Text(label,
                 style: const TextStyle(
                     fontSize: 16.0,

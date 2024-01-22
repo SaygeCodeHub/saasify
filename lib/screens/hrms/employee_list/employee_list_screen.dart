@@ -26,13 +26,13 @@ class EmployeeListScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Row(
+                      Row(
                         children: [
-                          BackButton(),
-                          SizedBox(
-                            width: spacingXMedium,
-                          ),
-                          ModuleHeading(label: 'Employee List'),
+                          isMobile
+                              ? const SizedBox.shrink()
+                              : const BackButton(),
+                          const SizedBox(width: spacingXMedium),
+                          const ModuleHeading(label: 'Employee List'),
                         ],
                       ),
                       Padding(

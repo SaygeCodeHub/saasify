@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:saasify/repositories/attendance/attendance_repository.dart';
+import 'package:saasify/repositories/attendance/attendance_repository_impl.dart';
 import 'package:saasify/repositories/authentication/authentication_repository.dart';
 import 'package:saasify/repositories/authentication/authentication_repository_impl.dart';
 import 'package:saasify/repositories/register/register_repository.dart';
@@ -23,4 +25,6 @@ configurableDependencies() {
   getIt.registerLazySingleton<UploadRepository>(() => UploadRepositoryImpl());
   getIt.registerLazySingleton<RegisterRepository>(
       () => RegisterRepositoryImpl());
+  getIt.registerLazySingleton<AttendanceRepository>(
+      () => AttendanceRepositoryImpl());
 }

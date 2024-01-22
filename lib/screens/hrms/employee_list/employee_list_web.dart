@@ -17,13 +17,11 @@ class EmployeeListWeb extends StatelessWidget {
             checkboxVisible: false,
             showRowCheckBox: false,
             columnList: [
-              ColumnData(header: "", width: 100),
-              ColumnData(header: "Name", width: 100),
-              ColumnData(header: "Status"),
+              ColumnData(header: "", width: 200),
+              ColumnData(header: "Name", width: 250),
               ColumnData(header: "Email"),
               ColumnData(header: "Phone"),
               ColumnData(header: "Address", width: 350),
-              ColumnData(header: "Age", width: 50),
             ],
             selectedIds: const [],
             dataCount: 5,
@@ -32,11 +30,9 @@ class EmployeeListWeb extends StatelessWidget {
             generateData: (index) => [
                   TableAvatar(avatarUrl: "https://picsum.photos/200"),
                   TableText(text: "John Doeeeeeeeee"),
-                  TableStatusChips(status: "Inactive", color: Colors.red),
                   TableText(text: "employee@mail.com"),
                   TableText(text: "9999988888"),
                   TableText(text: "222, 2nd Floor, State, City, Country"),
-                  TableText(text: "22"),
                 ]),
       ),
     );

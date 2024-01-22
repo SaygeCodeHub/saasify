@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:saasify/caches/cache.dart';
@@ -31,35 +29,31 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
     emit(CheckingIn());
 
     try {
-      List<double?> officePosition = await cache.getLatLong();
 
-      if (officePosition.first != null) {
-        officeLatitude = officePosition.first ?? 0;
-        officeLongitude = officePosition.last ?? 0;
-      } else {
-        officePosition = await _attendanceRepository.getLatLong();
-        officeLatitude = officePosition.first ?? 0;
-        officeLongitude = officePosition.last ?? 0;
+      List<double?> officePosition = await _getOfficeLocation();
+      if (officePosition.first == null) {
+        emit(ErrorCheckingIn(message: 'Error getting office location'));
+        return;
       }
+      officeLatitude = officePosition.first ?? 0;
+      officeLongitude = officePosition.last ?? 0;
 
       LocationPermissionStatus locationPermissionStatus =
-          await checkLocationPermission();
+          await _checkLocationPermission();
 
       if (!locationPermissionStatus.hasPermission) {
-        emit(ErrorCheckingIn(message: 'Location permission not granted'));
+        emit(ErrorCheckingIn(message: locationPermissionStatus.message));
         return;
       }
 
       Position position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
+
       currentLatitude = position.latitude;
       currentLongitude = position.longitude;
-      log(currentLatitude.toString());
-      log(currentLongitude.toString());
+
       double distance = Geolocator.distanceBetween(
           officeLatitude, officeLongitude, currentLatitude, currentLongitude);
-
-      log(distance.toString());
 
       if (distance < 20) {
         CheckInModel checkInModel = await _attendanceRepository.checkIn(
@@ -67,10 +61,12 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
         if (checkInModel.status == 200) {
           emit(CheckedIn());
         } else {
-          emit(ErrorCheckingIn(message: 'Error checking in'));
+          emit(ErrorCheckingIn(message: checkInModel.message));
+          return;
         }
       } else {
         emit(ErrorCheckingIn(message: 'You are not in office premises'));
+        return;
       }
     } catch (e) {
       emit(ErrorCheckingIn(message: e.toString()));
@@ -80,26 +76,25 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
   void _onCheckOut(CheckOut event, Emitter<AttendanceStates> emit) async {
     emit(CheckingOut());
 
-    CheckOutModel checkOutModel =
-        await _attendanceRepository.checkOut(1, 1, DateTime.now().toString());
+    try {
+      CheckOutModel checkOutModel =
+          await _attendanceRepository.checkOut(1, 1, DateTime.now().toString());
 
-    if (checkOutModel.status == 200) {
-      emit(CheckedOut());
-    } else {
-      emit(ErrorCheckingOut());
+      if (checkOutModel.status == 200) {
+        emit(CheckedOut());
+      } else {
+        emit(ErrorCheckingOut(
+            message: checkOutModel.message
+        ));
+        return;
+      }
+    }  catch (e) {
+      emit(ErrorCheckingOut(message: e.toString()));
     }
   }
 
-  Future<LocationPermissionStatus> checkLocationPermission() async {
+  Future<LocationPermissionStatus> _checkLocationPermission() async {
     try {
-      // bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
-      // if (!serviceEnabled) {
-      //   return LocationPermissionStatus(
-      //     hasPermission: false,
-      //     message: 'Location services are disabled. Please enable them.',
-      //   );
-      // }
-
       LocationPermission permission = await Geolocator.checkPermission();
       if (permission == LocationPermission.denied) {
         permission = await Geolocator.requestPermission();
@@ -127,6 +122,18 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
         hasPermission: false,
         message: 'Error checking location permissions: $e',
       );
+    }
+  }
+
+  Future<List<double?>> _getOfficeLocation() async {
+    try {
+      List<double?> officePosition = await cache.getLatLong();
+      if (officePosition.first == null) {
+        officePosition = await _attendanceRepository.getLatLong();
+      }
+      return officePosition;
+    } catch (e) {
+      rethrow;
     }
   }
 }

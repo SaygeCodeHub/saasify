@@ -15,4 +15,7 @@ class CheckingOut extends AttendanceStates {}
 
 class CheckedOut extends AttendanceStates {}
 
-class ErrorCheckingOut extends AttendanceStates {}
+class ErrorCheckingOut extends AttendanceStates {
+  final String message;
+  ErrorCheckingOut({required this.message});
+}

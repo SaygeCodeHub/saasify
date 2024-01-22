@@ -12,7 +12,7 @@ class CustomTextField extends StatelessWidget {
   final void Function(String)? onTextFieldChanged;
   final bool? readOnly;
   final bool? enabled;
-  final TextEditingController controller = TextEditingController();
+  final TextEditingController? controller;
   final bool obscureText;
   final String? Function(String?)? validator;
   final Widget? suffix;
@@ -21,11 +21,12 @@ class CustomTextField extends StatelessWidget {
   final bool autofocus;
   final dynamic initialValue;
   final TextInputType? keyboardType;
+  final void Function()? onTap;
   final List<TextInputFormatter>? inputFormatters;
   final EdgeInsetsGeometry? contentPadding;
   final TextStyle? hintStyle;
 
-  CustomTextField(
+  const CustomTextField(
       {super.key,
       this.maxLines,
       this.textInputAction,
@@ -46,11 +47,12 @@ class CustomTextField extends StatelessWidget {
       this.hintStyle,
       this.suffixIcon,
       this.autofocus = false,
-      this.enabled});
+      this.enabled,
+      this.controller,
+      this.onTap});
 
   @override
   Widget build(BuildContext context) {
-    initialValue == null ? null : controller.text = initialValue.toString();
     return TextFormField(
       key: key,
       enabled: enabled,
@@ -58,6 +60,7 @@ class CustomTextField extends StatelessWidget {
       obscureText: obscureText,
       obscuringCharacter: "*",
       cursorColor: AppColors.orange,
+      onTap: onTap,
       decoration: InputDecoration(
         focusedBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.black12)),

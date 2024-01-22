@@ -12,11 +12,10 @@ class AttendanceScreen extends StatelessWidget {
       return ResponsiveLayout(
           mobileBody: Column(
             children: [
-              ElevatedButton(onPressed: (){}, child: Text('Mark Attendance')),
+              ElevatedButton(onPressed: () {}, child: Text('Mark Attendance')),
             ],
           ),
           desktopBody: const SizedBox());
     });
   }
 }
-

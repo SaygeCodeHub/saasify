@@ -16,26 +16,22 @@ class AddEmployeeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenSkeleton(
         childScreenBuilder: (isMobile) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: spacingMedium),
-                Padding(
-                  padding: const EdgeInsets.only(left: spacingMedium),
-                  child: Row(
-                    children: [
-                      isMobile ? const SizedBox.shrink() : const BackButton(),
-                      const SizedBox(width: spacingXMedium),
-                      const ModuleHeading(label: 'Add New Employee'),
-                    ],
-                  ),
-                ),
-                const Expanded(
-                  child: ResponsiveLayout(
-                      mobileBody: AddEmployeeMobile(),
-                      desktopBody: AddEmployeeWeb()),
-                ),
-              ],
-            ));
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(height: spacingMedium),
+                  Padding(
+                      padding: const EdgeInsets.only(left: spacingMedium),
+                      child: Row(children: [
+                        isMobile ? const SizedBox.shrink() : const BackButton(),
+                        const SizedBox(width: spacingXMedium),
+                        const ModuleHeading(label: 'Add New Employee'),
+                      ])),
+                  const Expanded(
+                    child: ResponsiveLayout(
+                        mobileBody: AddEmployeeMobile(),
+                        desktopBody: AddEmployeeWeb()),
+                  )
+                ]));
   }
 }

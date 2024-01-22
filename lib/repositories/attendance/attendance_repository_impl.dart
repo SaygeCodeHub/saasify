@@ -4,7 +4,6 @@ import 'package:saasify/data/models/attendance/check_out_model.dart';
 import 'attendance_repository.dart';
 
 class AttendanceRepositoryImpl implements AttendanceRepository {
-
   @override
   Future<CheckInModel> checkIn(int employeeId, int branchId) async {
     final response = {
@@ -43,5 +42,11 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
       }
     };
     return CheckOutModel.fromJson(response);
+  }
+
+  @override
+  Future<List<double>> getLatLong() async {
+    final response = [19.0760, 72.8777];
+    return response;
   }
 }

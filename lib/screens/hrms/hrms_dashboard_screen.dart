@@ -25,7 +25,7 @@ class HRMSDashboardScreen extends StatelessWidget {
                   GridView.extent(
                       shrinkWrap: true,
                       maxCrossAxisExtent: 250.0,
-                      childAspectRatio: isMobile ? 1.4 : 1.8,
+                      childAspectRatio: isMobile ? 1.4 : 2,
                       mainAxisSpacing: 8.0,
                       crossAxisSpacing: 8.0,
                       children: hrmsModules.map((item) {

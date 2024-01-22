@@ -47,9 +47,9 @@ class TabData {
   TabData({this.icon, this.label = "", required this.content})
       : header = (icon != null)
             ? Padding(
-              padding: const EdgeInsets.symmetric(vertical: spacingSmall),
-              child: Icon(icon, size: 20.0, color: AppColors.darkBlue),
-            )
+                padding: const EdgeInsets.symmetric(vertical: spacingSmall),
+                child: Icon(icon, size: 20.0, color: AppColors.darkBlue),
+              )
             : Text(label,
                 style: const TextStyle(
                     fontSize: 16.0,

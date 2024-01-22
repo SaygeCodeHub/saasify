@@ -5,10 +5,12 @@ import 'package:saasify/configs/new_app_theme.dart';
 import 'package:saasify/data/enums/employee_type_enum.dart';
 import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/utils/globals.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 import 'package:saasify/widgets/userInput/custom_checkbox.dart';
 
 showAddEmployeeDialog(BuildContext context) {
+  bool isMobile = MediaQuery.of(context).size.width < mobileBreakPoint;
   AlertDialog alert = AlertDialog(
       actions: [
         PrimaryButton(
@@ -19,27 +21,28 @@ showAddEmployeeDialog(BuildContext context) {
       ],
       title: SizedBox(
           width: MediaQuery.sizeOf(context).width * 0.30,
+          child:
+              OverflowBar(alignment: MainAxisAlignment.spaceBetween, children: [
+            const Text(StringConstants.kInviteMember),
+            InkWell(
+              onTap: () {
+                Navigator.pushReplacementNamed(
+                    context, AddEmployeeScreen.routeName);
+              },
+              child: Text("Add Manually?",
+                  style: Theme.of(context)
+                      .textTheme
+                      .drawerModuleTextStyle
+                      .copyWith(color: AppColors.orange)),
+            )
+          ])),
+      content: SizedBox(
+          width: MediaQuery.sizeOf(context).width * 0.30,
+          height: isMobile ? MediaQuery.sizeOf(context).height * 0.60 : null,
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                OverflowBar(
-                    alignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(StringConstants.kInviteMember),
-                      InkWell(
-                        onTap: () {
-                          Navigator.pushReplacementNamed(
-                              context, AddEmployeeScreen.routeName);
-                        },
-                        child: Text("Add Manually?",
-                            style: Theme.of(context)
-                                .textTheme
-                                .drawerModuleTextStyle
-                                .copyWith(color: AppColors.orange)),
-                      )
-                    ]),
-                const SizedBox(height: spacingSmall),
                 const Divider(),
                 const SizedBox(height: spacingHuge),
                 Text(StringConstants.kEmailAddress,
@@ -58,22 +61,26 @@ showAddEmployeeDialog(BuildContext context) {
                 Text(StringConstants.kAssignRole,
                     style: Theme.of(context).textTheme.userNameTextStyle),
                 const SizedBox(height: spacingMedium),
-                Column(
-                    children: List.generate(
-                        EmployeeType.values.length,
-                        (index) => Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: spacingSmall),
-                            child: Row(children: [
-                              Expanded(
-                                  child: CustomCheckbox(
-                                      checkBoxTitle:
-                                          EmployeeType.values[index].name)),
-                              const SizedBox(width: spacingXMedium),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.info))
-                            ]))))
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                        children: List.generate(
+                            EmployeeType.values.length,
+                            (index) => Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: spacingSmall),
+                                child: Row(children: [
+                                  Expanded(
+                                      child: CustomCheckbox(
+                                          checkBoxTitle:
+                                              EmployeeType.values[index].name)),
+                                  const SizedBox(width: spacingXMedium),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.info))
+                                ])))),
+                  ),
+                )
               ])));
   showDialog(
       context: context,

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/data/models/table_models/column_data_model.dart';
 
-
 class CustomDataTable extends StatelessWidget {
   final List<ColumnData> columnList;
   final List selectedIds;

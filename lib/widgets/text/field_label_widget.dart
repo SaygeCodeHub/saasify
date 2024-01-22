@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/widgets/text/custom_text_field.dart';
 import 'package:saasify/widgets/text/label_text_widget.dart';
-import '../../configs/app_colors.dart';
 import '../../configs/app_spacing.dart';
 
 class LabelAndFieldWidget extends StatelessWidget {
   final String? label;
   final String? hintText;
   final String? errorText;
-  final void Function(String)? onTextFieldChanged;
+  final void Function()? onTap;
+  final bool isRequired;
+  final void Function(String?)? onTextFieldChanged;
   final bool? readOnly;
+  final String? Function(String?)? validator;
   final bool? enabled;
   final TextEditingController? controller;
   final bool? obscureText;
@@ -18,6 +23,7 @@ class LabelAndFieldWidget extends StatelessWidget {
   final bool? autofocus;
   final dynamic initialValue;
   final TextInputType? keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
   final EdgeInsetsGeometry? contentPadding;
   final int? maxLines;
   final double? textFieldSize;
@@ -40,7 +46,11 @@ class LabelAndFieldWidget extends StatelessWidget {
       this.contentPadding,
       this.maxLines = 1,
       this.textFieldSize,
-      this.errorText = ''});
+      this.errorText = '',
+      this.validator,
+      this.isRequired = false,
+      this.onTap,
+      this.inputFormatters});
 
   @override
   Widget build(BuildContext context) {
@@ -57,42 +67,31 @@ class LabelAndFieldWidget extends StatelessWidget {
         if (label != null) const SizedBox(height: spacingMedium),
         SizedBox(
           width: textFieldSize ?? MediaQuery.sizeOf(context).width,
-          child: TextFormField(
+          child: CustomTextField(
               maxLines: maxLines,
+              suffix: suffix,
+              hintText: hintText,
+              prefixIcon: prefixIcon,
+              contentPadding: contentPadding,
+              inputFormatters: inputFormatters,
+              onTap: onTap,
+              suffixIcon: suffixIcon,
               obscureText: obscureText ?? false,
-              cursorColor: AppColors.orange,
-              decoration: InputDecoration(
-                focusedBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black12)),
-                enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black12)),
-                errorBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.errorRed)),
-                focusedErrorBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.errorRed)),
-                border: const OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black12)),
-                suffix: suffix,
-                hintText: hintText,
-                prefixIcon: prefixIcon,
-                suffixIcon: suffixIcon,
-                counterText: "",
-                contentPadding: const EdgeInsets.symmetric(
-                    vertical: 15, horizontal: 15), // Adjust padding as needed
-              ),
               validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return errorText;
+                if ((value == null || value.isEmpty) && isRequired) {
+                  return StringConstants.kFieldCannotBeEmpty;
+                }
+                if (validator != null) {
+                  return validator!(value);
                 }
                 return null;
               },
               readOnly: readOnly ?? false,
               controller: controller,
-              onChanged: onTextFieldChanged,
+              onTextFieldChanged: onTextFieldChanged,
               enabled: enabled ?? true,
               autofocus: autofocus ?? false,
-              keyboardType: keyboardType,
-              textAlign: TextAlign.start),
+              keyboardType: keyboardType),
         ),
         const SizedBox(height: spacingXXSmall)
       ],

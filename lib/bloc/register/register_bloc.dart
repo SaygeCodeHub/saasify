@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/register/register_events.dart';
 import 'package:saasify/bloc/register/register_states.dart';
 import 'package:saasify/caches/cache.dart';
-import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
+import 'package:saasify/data/models/register/register_user_model.dart';
 import 'package:saasify/di/app_module.dart';
+import 'package:saasify/repositories/register/register_repository.dart';
 
 class RegisterBloc extends Bloc<RegisterEvents, RegisterStates> {
   final Cache cache = getIt<Cache>();
   final Map userInputAuthenticationMap = {};
+  final RegisterRepository _registerRepository = getIt<RegisterRepository>();
 
   RegisterStates get initialState => InitialiseRegisterStates();
 
@@ -19,17 +21,22 @@ class RegisterBloc extends Bloc<RegisterEvents, RegisterStates> {
   FutureOr<void> _registerUser(
       RegisterUser event, Emitter<RegisterStates> emit) async {
     emit(RegisteringUser());
+    try {
+      RegisterUserModel registerUserModel =
+          await _registerRepository.registerUser(event.userDetails);
+      if (registerUserModel.status == 200) {
+        saveUserSelections(registerUserModel.data);
+        emit(UserRegistered(registerData: registerUserModel.data));
+      } else {
+        emit(FailedToRegisterUser(errorMessage: registerUserModel.message));
+      }
+    } catch (e) {
+      emit(FailedToRegisterUser(errorMessage: e.toString()));
+    }
   }
 
-  saveUserSelections(AuthenticateUserData authenticateUserData) async {
+  saveUserSelections(RegisterData registerData) async {
     cache.setUserLoggedIn(true);
-    if (authenticateUserData.company.length <= 1) {
-      getIt<Cache>()
-          .setCompanyId(authenticateUserData.company[0].companyId as String);
-      if (authenticateUserData.company[0].branches.length <= 1) {
-        getIt<Cache>()
-            .setBranchId(authenticateUserData.company[0].branches[0] as String);
-      }
-    }
+    cache.setUserId(registerData.userId.toString());
   }
 }

@@ -34,6 +34,28 @@ class Cache {
       AuthenticateUserData authenticateUserData) async {
     final String serializedModel = json.encode(authenticateUserData.toJson());
     await sharedPreferences.setString(CacheKeys.userDetails, serializedModel);
+  void setCompanyId(String companyId) async {
+    await sharedPreferences.setString(CacheKeys.companyId, companyId);
+  }
+
+  Future<String> getCompanyId() async {
+    return sharedPreferences.getString(CacheKeys.companyId) ?? '';
+  }
+
+  void setBranchId(String branchId) async {
+    await sharedPreferences.setString(CacheKeys.branchId, branchId);
+  }
+
+  Future<String> getBranchId() async {
+    return sharedPreferences.getString(CacheKeys.companyId) ?? '';
+  }
+
+  void setRole(List<String> roles) async {
+    await sharedPreferences.setStringList(CacheKeys.roles, roles);
+  }
+
+  Future<List<String>?> getRoles() async {
+    return sharedPreferences.getStringList(CacheKeys.roles);
   }
 
   Future<AuthenticateUserData?> getUserLoginDetails() async {
@@ -52,19 +74,6 @@ class Cache {
   Future<void> saveUserSelections(UserSelections userSelections) async {
     final String serializedModel = json.encode(userSelections.toJson());
     await sharedPreferences.setString(CacheKeys.userDetails, serializedModel);
-  }
-
-  Future<UserSelections?> getUserSelections() async {
-    String? serializedModel =
-        sharedPreferences.getString(CacheKeys.userDetails);
-
-    if (serializedModel != null) {
-      Map<String, dynamic> jsonMap = json.decode(serializedModel);
-      UserSelections userSelections = UserSelections.fromJson(jsonMap);
-      return userSelections;
-    } else {
-      return null;
-    }
   }
 
   clearSharedPreferences() async {

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/configs/new_app_theme.dart';
+import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
 import 'package:saasify/screens/companies/widgets/branches/select_branches_button.dart';
 import '../../../../configs/app_colors.dart';
 import '../../../../configs/app_spacing.dart';
 import '../../../../configs/spacing.dart';
 
 class AllBranchesMobile extends StatefulWidget {
-  final List<String> cardData;
+  final List<Branch> branches;
   final String companyName;
+
   const AllBranchesMobile(
-      {super.key, required this.cardData, required this.companyName});
+      {super.key, required this.branches, required this.companyName});
 
   @override
   State<AllBranchesMobile> createState() => _AllBranchesMobileState();
@@ -37,7 +39,7 @@ class _AllBranchesMobileState extends State<AllBranchesMobile> {
           SizedBox(
             height: 240,
             child: GridView.builder(
-              itemCount: widget.cardData.length,
+              itemCount: widget.branches.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 8.0,
@@ -58,30 +60,29 @@ class _AllBranchesMobileState extends State<AllBranchesMobile> {
                                   : Colors.transparent),
                           borderRadius: BorderRadius.circular(5.0)),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.all(spacingLarger),
-                              child: FittedBox(
-                                  child: Icon(Icons.storefront_outlined)),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(spacingXMedium),
-                            child: Text(widget.cardData[index]),
-                          )
-                        ],
-                      )),
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Expanded(
+                                child: Padding(
+                                    padding: EdgeInsets.all(spacingLarger),
+                                    child: FittedBox(
+                                        child:
+                                            Icon(Icons.storefront_outlined)))),
+                            Padding(
+                              padding: const EdgeInsets.all(spacingXMedium),
+                              child: Text(widget.branches[index].branchName),
+                            )
+                          ])),
                 );
               },
             ),
           ),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
           SelectBranchButton(
-              company: widget.companyName,
-              branch: widget.cardData[selectedIndex]),
+              selectedBranchId:
+                  widget.branches[selectedIndex].branchId.toString(),
+              roles: widget.branches[selectedIndex].role),
           const SizedBox(height: spacingXXHuge)
         ],
       ),

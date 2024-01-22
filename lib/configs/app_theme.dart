@@ -3,7 +3,7 @@ import 'package:saasify/configs/app_colors.dart';
 
 import 'app_dimensions.dart';
 
-ThemeData newAppTheme = ThemeData(
+ThemeData appTheme = ThemeData(
     useMaterial3: false,
     colorScheme: colorScheme,
     fontFamily: 'PT_Sans',

@@ -4,4 +4,7 @@ class CacheKeys {
   static const isLoggedIn = "isLoggedIn";
   static const latitude = "latitude";
   static const longitude = "longitude";
+  static const companyId = 'companyId';
+  static const branchId = 'branchId';
+  static const roles = 'roles';
 }

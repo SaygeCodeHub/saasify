@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/configs/new_app_theme.dart';
+import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
 import 'package:saasify/screens/companies/widgets/companies/select_company_button.dart';
 
 import '../../../../configs/app_colors.dart';
@@ -7,8 +8,9 @@ import '../../../../configs/app_spacing.dart';
 import '../../../../configs/spacing.dart';
 
 class AllCompaniesMobile extends StatefulWidget {
-  final List<String> cardData;
-  const AllCompaniesMobile({super.key, required this.cardData});
+  final List<Company> companies;
+
+  const AllCompaniesMobile({super.key, required this.companies});
 
   @override
   State<AllCompaniesMobile> createState() => _AllCompaniesMobileState();
@@ -36,7 +38,7 @@ class _AllCompaniesMobileState extends State<AllCompaniesMobile> {
           SizedBox(
             height: 240,
             child: GridView.builder(
-              itemCount: widget.cardData.length,
+              itemCount: widget.companies.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   crossAxisSpacing: 8.0,
@@ -69,7 +71,7 @@ class _AllCompaniesMobileState extends State<AllCompaniesMobile> {
                           ),
                           Padding(
                             padding: const EdgeInsets.all(spacingXMedium),
-                            child: Text(widget.cardData[index]),
+                            child: Text(widget.companies[index].companyName),
                           )
                         ],
                       )),
@@ -78,7 +80,9 @@ class _AllCompaniesMobileState extends State<AllCompaniesMobile> {
             ),
           ),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
-          SelectCompanyButton(company: widget.cardData[selectedIndex]),
+          SelectCompanyButton(
+              companyName: widget.companies[selectedIndex].companyName,
+              branches: widget.companies[selectedIndex].branches),
           const SizedBox(height: spacingXXHuge)
         ],
       ),

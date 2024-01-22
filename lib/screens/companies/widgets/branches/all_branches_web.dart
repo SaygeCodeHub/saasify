@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/configs/new_app_theme.dart';
+import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
 import 'package:saasify/screens/companies/widgets/branches/select_branches_button.dart';
 import '../../../../configs/app_colors.dart';
 import '../../../../configs/app_spacing.dart';
 import '../../../../configs/spacing.dart';
 
 class AllBranchesWeb extends StatefulWidget {
-  final List<String> cardData;
+  final List<Branch> branches;
   final String companyName;
+
   const AllBranchesWeb(
-      {super.key, required this.cardData, required this.companyName});
+      {super.key, required this.branches, required this.companyName});
 
   @override
   State<AllBranchesWeb> createState() => _AllBranchesWebState();
@@ -59,8 +61,7 @@ class _AllBranchesWebState extends State<AllBranchesWeb> {
                         height: MediaQuery.sizeOf(context).height * 0.30,
                         child: Scrollbar(
                           child: GridView.builder(
-                            itemCount: widget.cardData.length,
-                            // Number of items in your grid
+                            itemCount: widget.branches.length,
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 4,
@@ -96,7 +97,8 @@ class _AllBranchesWebState extends State<AllBranchesWeb> {
                                         Padding(
                                           padding: const EdgeInsets.all(
                                               spacingXMedium),
-                                          child: Text(widget.cardData[index]),
+                                          child: Text(widget
+                                              .branches[index].branchName),
                                         )
                                       ],
                                     )),
@@ -107,8 +109,10 @@ class _AllBranchesWebState extends State<AllBranchesWeb> {
                       ),
                       const SizedBox(height: spacingBetweenTextFieldAndButton),
                       SelectBranchButton(
-                          company: widget.companyName,
-                          branch: widget.cardData[selectedIndex])
+                          selectedBranchId: widget
+                              .branches[selectedIndex].branchId
+                              .toString(),
+                          roles: widget.branches[selectedIndex].role),
                     ],
                   ),
                 ),

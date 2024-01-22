@@ -8,7 +8,7 @@ import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'bloc/auth/auth_bloc.dart';
-import 'configs/new_app_theme.dart';
+import 'configs/app_theme.dart';
 import 'di/app_module.dart';
 import 'firebase_options.dart';
 
@@ -48,7 +48,7 @@ class MyPosApp extends StatelessWidget {
               scrollBehavior:
                   const MaterialScrollBehavior().copyWith(scrollbars: false),
               onGenerateRoute: AppRoutes.routes,
-              theme: newAppTheme,
+              theme: appTheme,
               home:
                   BlocBuilder<AuthBloc, AuthStates>(builder: (context, state) {
                 if (state is ActiveSession) {

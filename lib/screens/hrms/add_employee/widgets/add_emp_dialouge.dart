@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/configs/new_app_theme.dart';
+import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/enums/employee_type_enum.dart';
 import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';

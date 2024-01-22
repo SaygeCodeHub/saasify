@@ -34,6 +34,8 @@ class Cache {
       AuthenticateUserData authenticateUserData) async {
     final String serializedModel = json.encode(authenticateUserData.toJson());
     await sharedPreferences.setString(CacheKeys.userDetails, serializedModel);
+  }
+
   void setCompanyId(String companyId) async {
     await sharedPreferences.setString(CacheKeys.companyId, companyId);
   }

@@ -34,11 +34,11 @@ class AppRoutes {
       case ApplyAndLeaveDetailScreen.routeName:
         return _createRoute(const ApplyAndLeaveDetailScreen());
       case AllCompaniesScreen.routeName:
-        return _createRoute(AllCompaniesScreen());
-      case AttendanceScreen.routeName:
-        return _createRoute(const AttendanceScreen());
         return _createRoute(AllCompaniesScreen(
             authenticateUserData: settings.arguments as AuthenticateUserData));
+      case AttendanceScreen.routeName:
+        return _createRoute(const AttendanceScreen());
+
       case AllBranchesScreen.routeName:
         List<dynamic> args = settings.arguments as List<dynamic>;
         return _createRoute(AllBranchesScreen(

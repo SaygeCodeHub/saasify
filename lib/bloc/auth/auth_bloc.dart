@@ -59,10 +59,10 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
     cache.setUserLoggedIn(true);
     if (authenticateUserData.company.length <= 1) {
       getIt<Cache>()
-          .setCompanyId(authenticateUserData.company[0].companyId as String);
+          .setCompanyId(authenticateUserData.company[0].companyId.toString());
       if (authenticateUserData.company[0].branches.length <= 1) {
-        getIt<Cache>()
-            .setBranchId(authenticateUserData.company[0].branches[0] as String);
+        getIt<Cache>().setBranchId(
+            authenticateUserData.company[0].branches[0].toString());
       }
     }
   }

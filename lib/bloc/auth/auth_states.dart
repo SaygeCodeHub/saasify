@@ -12,14 +12,9 @@ class InactiveSession extends AuthStates {}
 
 class LogoutSession extends AuthStates {}
 
-class RegisteringUser extends AuthStates {}
-
-class UserRegistered extends AuthStates {}
-
-class FailedToRegisterUser extends AuthStates {}
-
 class UserAuthenticated extends AuthStates {
   final AuthenticateUserData authenticateUserData;
+
   UserAuthenticated({required this.authenticateUserData});
 }
 

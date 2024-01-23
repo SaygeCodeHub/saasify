@@ -36,6 +36,14 @@ class Cache {
     await sharedPreferences.setString(CacheKeys.userDetails, serializedModel);
   }
 
+  void setUserId(String userId) async {
+    await sharedPreferences.setString(CacheKeys.userId, userId);
+  }
+
+  Future<String> getUserId() async {
+    return sharedPreferences.getString(CacheKeys.userId) ?? '';
+  }
+
   void setCompanyId(String companyId) async {
     await sharedPreferences.setString(CacheKeys.companyId, companyId);
   }

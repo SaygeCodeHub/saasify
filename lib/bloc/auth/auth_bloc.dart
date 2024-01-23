@@ -57,7 +57,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
 
   saveUserSelections(AuthenticateUserData authenticateUserData) async {
     cache.setUserLoggedIn(true);
-    if (authenticateUserData.company.length <= 1) {
+    if (authenticateUserData.company.isNotEmpty) {
       getIt<Cache>()
           .setCompanyId(authenticateUserData.company[0].companyId.toString());
       if (authenticateUserData.company[0].branches.length <= 1) {

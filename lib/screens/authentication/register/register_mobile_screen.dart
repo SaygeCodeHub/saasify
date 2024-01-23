@@ -6,7 +6,9 @@ import 'package:saasify/widgets/profile/saasifyLogo.dart';
 import 'package:saasify/widgets/text/field_label_widget.dart';
 
 class RegisterMobileScreen extends StatelessWidget {
-  const RegisterMobileScreen({super.key});
+  final GlobalKey<FormState> formKey;
+
+  const RegisterMobileScreen({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +40,7 @@ class RegisterMobileScreen extends StatelessWidget {
               onTextFieldChanged: (value) {},
               obscureText: true),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
-          const RegisterButton()
+          RegisterButton(formKey: formKey)
         ],
       ),
     );

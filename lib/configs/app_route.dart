@@ -20,7 +20,7 @@ class AppRoutes {
       case AuthenticationScreen.routeName:
         return _createRoute(AuthenticationScreen());
       case RegisterScreen.routeName:
-        return _createRoute(const RegisterScreen());
+        return _createRoute(RegisterScreen());
       case ForgotPasswordScreen.routeName:
         return _createRoute(const ForgotPasswordScreen());
       case AddCompanyScreen.routeName:

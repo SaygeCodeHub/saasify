@@ -5,14 +5,19 @@ import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 
 class RegisterScreen extends StatelessWidget {
   static const routeName = 'RegisterScreen';
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  const RegisterScreen({super.key});
+  RegisterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: ResponsiveLayout(
-          mobileBody: RegisterMobileScreen(), desktopBody: RegisterWebScreen()),
+    return Scaffold(
+      body: Form(
+        key: formKey,
+        child: ResponsiveLayout(
+            mobileBody: RegisterMobileScreen(formKey: formKey),
+            desktopBody: RegisterWebScreen(formKey: formKey)),
+      ),
     );
   }
 }

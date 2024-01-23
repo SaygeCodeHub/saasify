@@ -18,7 +18,6 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
   AuthStates get initialState => InitialiseAuthStates();
 
   AuthBloc() : super(InitialiseAuthStates()) {
-    on<RegisterUser>(_registerUser);
     on<AuthenticateUser>(_authenticateUser);
     on<CheckActiveSession>(_checkActiveSession);
   }
@@ -35,11 +34,6 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
     } catch (e) {
       emit(InactiveSession());
     }
-  }
-
-  FutureOr<void> _registerUser(
-      RegisterUser event, Emitter<AuthStates> emit) async {
-    emit(RegisteringUser());
   }
 
   FutureOr<void> _authenticateUser(
@@ -63,12 +57,12 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
 
   saveUserSelections(AuthenticateUserData authenticateUserData) async {
     cache.setUserLoggedIn(true);
-    if (authenticateUserData.company.length <= 1) {
+    if (authenticateUserData.company.isNotEmpty) {
       getIt<Cache>()
-          .setCompanyId(authenticateUserData.company[0].companyId as String);
+          .setCompanyId(authenticateUserData.company[0].companyId.toString());
       if (authenticateUserData.company[0].branches.length <= 1) {
-        getIt<Cache>()
-            .setBranchId(authenticateUserData.company[0].branches[0] as String);
+        getIt<Cache>().setBranchId(
+            authenticateUserData.company[0].branches[0].toString());
       }
     }
   }

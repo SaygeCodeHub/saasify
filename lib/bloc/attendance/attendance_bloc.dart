@@ -2,7 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/attendance/check_in_model.dart';
-import 'package:saasify/data/models/attendance/check_out_model.dart';
 import 'package:saasify/data/models/attendance/location_permission_status.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/attendance/attendance_repository.dart';
@@ -21,18 +20,17 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
   late double currentLongitude;
 
   AttendanceBloc() : super(AttendanceInitial()) {
-    on<CheckIn>(_onCheckIn);
-    on<CheckOut>(_onCheckOut);
+    on<MarkAttendance>(_onMarkAttendance);
   }
 
-  void _onCheckIn(CheckIn event, Emitter<AttendanceStates> emit) async {
-    emit(CheckingIn());
+  void _onMarkAttendance(
+      MarkAttendance event, Emitter<AttendanceStates> emit) async {
+    emit(MarkingAttendance());
 
     try {
-
       List<double?> officePosition = await _getOfficeLocation();
       if (officePosition.first == null) {
-        emit(ErrorCheckingIn(message: 'Error getting office location'));
+        emit(ErrorMarkingAttendance(message: 'Error getting office location'));
         return;
       }
       officeLatitude = officePosition.first ?? 0;
@@ -42,7 +40,7 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
           await _checkLocationPermission();
 
       if (!locationPermissionStatus.hasPermission) {
-        emit(ErrorCheckingIn(message: locationPermissionStatus.message));
+        emit(ErrorMarkingAttendance(message: locationPermissionStatus.message));
         return;
       }
 
@@ -59,37 +57,17 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
         CheckInModel checkInModel = await _attendanceRepository.checkIn(
             1, 1, DateTime.now().toString());
         if (checkInModel.status == 200) {
-          emit(CheckedIn());
+          emit(MarkedAttendance());
         } else {
-          emit(ErrorCheckingIn(message: checkInModel.message));
+          emit(ErrorMarkingAttendance(message: checkInModel.message));
           return;
         }
       } else {
-        emit(ErrorCheckingIn(message: 'You are not in office premises'));
+        emit(ErrorMarkingAttendance(message: 'You are not in office premises'));
         return;
       }
     } catch (e) {
-      emit(ErrorCheckingIn(message: e.toString()));
-    }
-  }
-
-  void _onCheckOut(CheckOut event, Emitter<AttendanceStates> emit) async {
-    emit(CheckingOut());
-
-    try {
-      CheckOutModel checkOutModel =
-          await _attendanceRepository.checkOut(1, 1, DateTime.now().toString());
-
-      if (checkOutModel.status == 200) {
-        emit(CheckedOut());
-      } else {
-        emit(ErrorCheckingOut(
-            message: checkOutModel.message
-        ));
-        return;
-      }
-    }  catch (e) {
-      emit(ErrorCheckingOut(message: e.toString()));
+      emit(ErrorMarkingAttendance(message: e.toString()));
     }
   }
 

@@ -29,6 +29,7 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
   @override
   Future<List<double>> getLatLong() async {
     final response = [21.13126113476847, 79.15072233182553];
+    // final response = [21.109362094865876, 79.08030722771204];
     return response;
   }
 }

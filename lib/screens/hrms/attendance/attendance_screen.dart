@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_bloc.dart';
@@ -18,28 +16,29 @@ class AttendanceScreen extends StatelessWidget {
       return ResponsiveLayout(
           mobileBody: BlocBuilder<AttendanceBloc, AttendanceStates>(
               builder: (BuildContext context, state) {
-            log(state.toString());
-            if (state is CheckingIn || state is CheckingOut) {
+            if (state is MarkingAttendance) {
               return const Center(child: CircularProgressIndicator());
-            } else if (state is ErrorCheckingIn) {
+            } else if (state is ErrorMarkingAttendance) {
               return Center(child: Text(state.message));
-            } else if (state is CheckedIn) {
+            } else if (state is MarkedAttendance) {
               return ElevatedButton(
                   onPressed: () {
-                    context.read<AttendanceBloc>().add(CheckOut());
+                    context.read<AttendanceBloc>().add(MarkAttendance());
                   },
                   child: const Text('Check Out'));
-            } else if (state is CheckedOut) {
-              return const Center(child: Text("Day Completed"));
             } else {
               return ElevatedButton(
                   onPressed: () {
-                    context.read<AttendanceBloc>().add(CheckIn());
+                    context.read<AttendanceBloc>().add(MarkAttendance());
                   },
                   child: const Text('Check In'));
             }
           }),
-          desktopBody: const SizedBox());
+          desktopBody: Center(
+              child: Text(
+            'Only Mobile is supported',
+            style: Theme.of(context).textTheme.headlineMedium,
+          )));
     });
   }
 }

@@ -2,20 +2,11 @@ abstract class AttendanceStates {}
 
 class AttendanceInitial extends AttendanceStates {}
 
-class CheckingIn extends AttendanceStates {}
+class MarkingAttendance extends AttendanceStates {}
 
-class CheckedIn extends AttendanceStates {}
+class MarkedAttendance extends AttendanceStates {}
 
-class ErrorCheckingIn extends AttendanceStates {
+class ErrorMarkingAttendance extends AttendanceStates {
   final String message;
-  ErrorCheckingIn({required this.message});
-}
-
-class CheckingOut extends AttendanceStates {}
-
-class CheckedOut extends AttendanceStates {}
-
-class ErrorCheckingOut extends AttendanceStates {
-  final String message;
-  ErrorCheckingOut({required this.message});
+  ErrorMarkingAttendance({required this.message});
 }

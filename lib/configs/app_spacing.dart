@@ -17,3 +17,10 @@ const double spacingXExcel = 400.00;
 const double spacingXXXHuge = 100.00;
 const double spacingXXXXXHuge = 150.00;
 const double spacingXXXXHuge = 200.00;
+
+// General
+
+const double webBodyPadding = 100.0;
+const double mobileBodyPadding = 24.0;
+const double spacingBetweenTextFields = 16.0;
+const double spacingBetweenTextFieldAndButton = 48.0;

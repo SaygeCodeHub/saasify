@@ -9,7 +9,7 @@ class EmailTextField extends LabelAndFieldWidget {
   EmailTextField({
     super.key,
     super.onTextFieldChanged,
-    super.isRequired = true,
+    super.isRequired,
   }) : super(
             label: StringConstants.kEmailAddress,
             keyboardType: TextInputType.emailAddress,

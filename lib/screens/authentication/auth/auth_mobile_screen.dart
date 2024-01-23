@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/auth/auth_bloc.dart';
-import 'package:saasify/configs/spacing.dart';
+import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/authentication/auth/verify_button.dart';
+import 'package:saasify/screens/authentication/forgotPassword/forgot_password_button.dart';
 import 'package:saasify/widgets/form/form_input_fields.dart';
 import 'package:saasify/widgets/profile/saasifyLogo.dart';
-import '../forgotPassword/forgot_password_button.dart';
 
 class AuthMobileScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey;

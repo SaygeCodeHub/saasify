@@ -21,18 +21,18 @@ class RegisterBloc extends Bloc<RegisterEvents, RegisterStates> {
   FutureOr<void> _registerUser(
       RegisterUser event, Emitter<RegisterStates> emit) async {
     emit(RegisteringUser());
-    try {
-      RegisterUserModel registerUserModel =
-          await _registerRepository.registerUser(event.userDetails);
-      if (registerUserModel.status == 200) {
-        saveUserSelections(registerUserModel.data);
-        emit(UserRegistered(registerData: registerUserModel.data));
-      } else {
-        emit(FailedToRegisterUser(errorMessage: registerUserModel.message));
-      }
-    } catch (e) {
-      emit(FailedToRegisterUser(errorMessage: e.toString()));
+    // try {
+    RegisterUserModel registerUserModel =
+        await _registerRepository.registerUser(event.userDetails);
+    if (registerUserModel.status == 200) {
+      saveUserSelections(registerUserModel.data);
+      emit(UserRegistered(registerData: registerUserModel.data));
+    } else {
+      emit(FailedToRegisterUser(errorMessage: registerUserModel.message));
     }
+    // } catch (e) {
+    //   emit(FailedToRegisterUser(errorMessage: e.toString()));
+    // }
   }
 
   saveUserSelections(RegisterData registerData) async {

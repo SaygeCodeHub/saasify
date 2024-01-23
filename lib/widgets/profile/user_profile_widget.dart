@@ -12,7 +12,7 @@ class UserProfileWidget extends StatelessWidget {
     return Center(
       child: ClipOval(
         child: Image.asset(
-          'human.png',
+          'user.png',
           width: size, // Set the desired width
           height: size, // Set the desired height
           fit: BoxFit.cover,

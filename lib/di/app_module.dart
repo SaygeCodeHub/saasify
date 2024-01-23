@@ -23,6 +23,8 @@ configurableDependencies() {
   getIt.registerLazySingleton<AuthenticationRepository>(
       () => AuthenticationRepositoryImpl());
   getIt.registerLazySingleton<UploadRepository>(() => UploadRepositoryImpl());
+  getIt.registerLazySingleton<RegisterRepository>(
+      () => RegisterRepositoryImpl());
   getIt.registerLazySingleton<AttendanceRepository>(
       () => AttendanceRepositoryImpl());
   getIt.registerLazySingleton<RegisterRepository>(

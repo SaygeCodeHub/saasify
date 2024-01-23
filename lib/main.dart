@@ -6,6 +6,7 @@ import 'package:saasify/bloc/auth/auth_events.dart';
 import 'package:saasify/bloc/auth/auth_states.dart';
 import 'package:saasify/bloc/register/register_bloc.dart';
 import 'package:saasify/configs/app_route.dart';
+import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/firebase_options.dart';

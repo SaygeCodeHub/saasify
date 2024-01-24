@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 
 class CustomCheckbox extends StatefulWidget {
   final String checkBoxTitle;
+
   const CustomCheckbox({super.key, required this.checkBoxTitle});
 
   @override
@@ -27,18 +29,29 @@ class CustomCheckboxState extends State<CustomCheckbox> {
       ),
       child: Row(
         children: [
-          Checkbox(
-            value: isChecked,
-            onChanged: (value) {
-              setState(() {
-                isChecked = value!;
-              });
-            },
+          Expanded(
+            child: Row(
+              children: [
+                Checkbox(
+                  isError: true,
+                  hoverColor: AppColors.grey,
+                  activeColor: AppColors.orange,
+                  value: isChecked,
+                  onChanged: (value) {
+                    setState(() {
+                      isChecked = value!;
+                    });
+                  },
+                ),
+                Text(
+                  widget.checkBoxTitle,
+                  style: Theme.of(context).textTheme.drawerModuleTextStyle,
+                ),
+              ],
+            ),
           ),
-          Text(
-            widget.checkBoxTitle,
-            style: Theme.of(context).textTheme.drawerModuleTextStyle,
-          ),
+          const SizedBox(width: spacingXMedium),
+          IconButton(onPressed: () {}, icon: const Icon(Icons.info))
         ],
       ),
     );

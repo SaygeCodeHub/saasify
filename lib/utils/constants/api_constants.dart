@@ -3,4 +3,5 @@ class ApiConstants {
 
   static const authenticateUser = 'authenticateUser';
   static const registerUser = 'registerUser';
+  static const sendInvite = 'sendInvite';
 }

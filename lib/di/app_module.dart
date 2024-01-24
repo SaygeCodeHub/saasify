@@ -3,6 +3,8 @@ import 'package:saasify/repositories/attendance/attendance_repository.dart';
 import 'package:saasify/repositories/attendance/attendance_repository_impl.dart';
 import 'package:saasify/repositories/authentication/authentication_repository.dart';
 import 'package:saasify/repositories/authentication/authentication_repository_impl.dart';
+import 'package:saasify/repositories/employee/employee_reporistory_impl.dart';
+import 'package:saasify/repositories/employee/employee_repository.dart';
 import 'package:saasify/repositories/register/register_repository.dart';
 import 'package:saasify/repositories/register/register_repository_impl.dart';
 import 'package:saasify/repositories/upload/upload_repository.dart';
@@ -27,4 +29,6 @@ configurableDependencies() {
       () => RegisterRepositoryImpl());
   getIt.registerLazySingleton<AttendanceRepository>(
       () => AttendanceRepositoryImpl());
+  getIt.registerLazySingleton<EmployeeRepository>(
+      () => EmployeeRepositoryImpl());
 }

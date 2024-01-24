@@ -22,36 +22,37 @@ class ValueCard extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isMobile = MediaQuery.of(context).size.width < mobileBreakPoint;
     return InkWell(
-      onTap: () {
-        onTap();
-      },
-      child: Card(
-        child: Padding(
-          padding: EdgeInsets.all(isMobile ? spacingSmall : spacingMedium),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Expanded(
-              child: Image.asset(iconPath, fit: BoxFit.cover),
-            ),
-            const SizedBox(height: spacingSmall),
-            Text(cardHeading,
-                softWrap: false,
-                maxLines: 1,
-                overflow: TextOverflow.fade,
-                style: Theme.of(context)
-                    .textTheme
-                    .cardMobileHeadingTextStyle
-                    .copyWith(color: AppColors.darkBlue)),
-            const SizedBox(height: spacingXSmall),
-            Text(value ?? '',
-                textScaler: TextScaler.linear(isMobile ? 1 : 1.3),
-                style: Theme.of(context)
-                    .textTheme
-                    .cardMobileValueTextStyle
-                    .copyWith(color: AppColors.orange))
-          ]),
-        ),
-      ),
-    );
+        onTap: () {
+          onTap();
+        },
+        child: Card(
+          elevation: 2,
+          child: Padding(
+            padding: EdgeInsets.all(isMobile ? spacingSmall : spacingMedium),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Expanded(
+                child: Image.asset(iconPath, fit: BoxFit.cover),
+              ),
+              const SizedBox(height: spacingSmall),
+              Text(cardHeading,
+                  softWrap: false,
+                  maxLines: 1,
+                  overflow: TextOverflow.fade,
+                  style: Theme.of(context)
+                      .textTheme
+                      .cardMobileHeadingLarge
+                      .copyWith(
+                          color: AppColors.black, fontWeight: FontWeight.w500)),
+              const SizedBox(height: spacingXSmall),
+              Text(value ?? '',
+                  textScaler: TextScaler.linear(isMobile ? 1 : 1.3),
+                  style: Theme.of(context)
+                      .textTheme
+                      .cardMobileValueTextStyle
+                      .copyWith(color: AppColors.orange))
+            ]),
+          ),
+        ));
   }
 }

@@ -1,29 +1,19 @@
-import 'package:saasify/data/models/attendance/check_in_model.dart';
-import 'package:saasify/data/models/attendance/check_out_model.dart';
+import 'package:saasify/data/models/attendance/attendance_model.dart';
 
 import 'attendance_repository.dart';
 
 class AttendanceRepositoryImpl implements AttendanceRepository {
   @override
-  Future<CheckInModel> checkIn(
+  Future<AttendanceModel> markAttendance(
       int employeeId, int branchId, String time) async {
     final response = {
       "status": 200,
       "message": "Attendance marked successfully",
-      "data": {}
+      "data": {
+        "time": "2021-09-30T11:00:00.000000Z",
+      }
     };
-    return CheckInModel.fromJson(response);
-  }
-
-  @override
-  Future<CheckOutModel> checkOut(
-      int employeeId, int branchId, String time) async {
-    final response = {
-      "status": 200,
-      "message": "Attendance marked successfully",
-      "data": {}
-    };
-    return CheckOutModel.fromJson(response);
+    return AttendanceModel.fromJson(response);
   }
 
   @override

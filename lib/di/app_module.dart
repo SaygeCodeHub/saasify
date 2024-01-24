@@ -27,6 +27,4 @@ configurableDependencies() {
       () => RegisterRepositoryImpl());
   getIt.registerLazySingleton<AttendanceRepository>(
       () => AttendanceRepositoryImpl());
-  getIt.registerLazySingleton<RegisterRepository>(
-      () => RegisterRepositoryImpl());
 }

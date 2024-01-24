@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:saasify/caches/cache.dart';
-import 'package:saasify/data/models/attendance/check_in_model.dart';
+import 'package:saasify/data/models/attendance/attendance_model.dart';
 import 'package:saasify/data/models/attendance/location_permission_status.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/attendance/attendance_repository.dart';
@@ -19,8 +21,21 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
   late double currentLatitude;
   late double currentLongitude;
 
+  bool isCheckedIn = true;
+
   AttendanceBloc() : super(AttendanceInitial()) {
     on<MarkAttendance>(_onMarkAttendance);
+    on<CheckAttendance>(_onCheckAttendance);
+  }
+
+  void _onCheckAttendance(
+      CheckAttendance event, Emitter<AttendanceStates> emit) async {
+    if (event.checkInTime != null && event.checkOutTime == null) {
+      isCheckedIn = true;
+    }
+    else {
+      isCheckedIn = false;
+    }
   }
 
   void _onMarkAttendance(
@@ -53,10 +68,17 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
       double distance = Geolocator.distanceBetween(
           officeLatitude, officeLongitude, currentLatitude, currentLongitude);
 
+      log(officeLatitude.toString());
+      log(officeLongitude.toString());
+      log(currentLatitude.toString());
+      log(currentLongitude.toString());
+      log(distance.toString());
+
       if (distance < 20) {
-        CheckInModel checkInModel = await _attendanceRepository.checkIn(
+        AttendanceModel checkInModel = await _attendanceRepository.markAttendance(
             1, 1, DateTime.now().toString());
         if (checkInModel.status == 200) {
+          isCheckedIn = !isCheckedIn;
           emit(MarkedAttendance());
         } else {
           emit(ErrorMarkingAttendance(message: checkInModel.message));

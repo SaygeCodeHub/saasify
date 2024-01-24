@@ -34,7 +34,7 @@ class AuthMobileScreen extends StatelessWidget {
             }),
             const ForgotPasswordButton(),
             const SizedBox(height: spacingBetweenTextFieldAndButton),
-            AuthVerifyButton(formKey: formKey)
+            AuthVerifyButton(formKey: formKey),
           ],
         ),
       ),

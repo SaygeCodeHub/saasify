@@ -10,7 +10,6 @@ import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/firebase_options.dart';
-import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +58,7 @@ class MyPosApp extends StatelessWidget {
                 if (state is ActiveSession) {
                   return const HRMSDashboardScreen();
                 } else {
-                  return AuthenticationScreen();
+                  return HRMSDashboardScreen();
                 }
               }))),
     );

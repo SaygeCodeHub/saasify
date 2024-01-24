@@ -6,6 +6,7 @@ import '../../configs/app_dimensions.dart';
 class PrimaryButton extends StatelessWidget {
   final void Function()? onPressed;
   final double? buttonWidth;
+  final double? buttonHeight;
   final ButtonStyle? style;
   final Color? backgroundColor;
   final BorderSide? side;
@@ -22,7 +23,7 @@ class PrimaryButton extends StatelessWidget {
       this.side,
       required this.buttonTitle,
       this.icon,
-      this.shape});
+      this.shape, this.buttonHeight});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class PrimaryButton extends StatelessWidget {
               RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(kCircularRadius)),
           backgroundColor: backgroundColor ?? AppColors.orange,
-          minimumSize: Size(buttonWidth ?? double.maxFinite, 50)),
+          minimumSize: Size(buttonWidth ?? double.maxFinite,buttonHeight ?? 50)),
       child: FittedBox(
           child: Text(buttonTitle,
               textAlign: TextAlign.center,

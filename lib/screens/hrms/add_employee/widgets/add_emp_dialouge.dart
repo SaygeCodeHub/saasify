@@ -83,6 +83,9 @@ showAddEmployeeDialog(BuildContext context) {
                 style: Theme.of(context).textTheme.userNameTextStyle),
             const SizedBox(height: spacingSmall),
             TextFormField(
+                onChanged: (value) {
+                  context.read<EmployeeBloc>().inviteDetails['email'] = value;
+                },
                 decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black12)),

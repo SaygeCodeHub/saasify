@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/screens/companies/widgets/addCompany/save_company_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/companies/companies_bloc.dart';
+import 'package:saasify/screens/companies/widgets/addCompany/add_company_button.dart';
 
 import '../../../../configs/spacing.dart';
 import '../../../../utils/constants/string_constants.dart';
@@ -7,7 +9,9 @@ import '../../../../widgets/text/field_label_widget.dart';
 import '../../../../widgets/profile/saasifyLogo.dart';
 
 class AddCompanyMobileScreen extends StatelessWidget {
-  const AddCompanyMobileScreen({super.key});
+  final GlobalKey<FormState> formKey;
+
+  const AddCompanyMobileScreen({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +25,15 @@ class AddCompanyMobileScreen extends StatelessWidget {
           const SizedBox(height: spacingBetweenTextFieldAndButton),
           LabelAndFieldWidget(
               label: StringConstants.kCompanyName,
-              onTextFieldChanged: (value) {}),
+              prefixIcon: const Icon(Icons.store),
+              errorText: 'Please enter a valid name',
+              onTextFieldChanged: (value) {
+                context
+                    .read<CompaniesBloc>()
+                    .companyDetailsMap['company_name'] = value;
+              }),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
-          const SaveCompanyButton()
+          AddCompanyButton(formKey: formKey)
         ],
       ),
     );

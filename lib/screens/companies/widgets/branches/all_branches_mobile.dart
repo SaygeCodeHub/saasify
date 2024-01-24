@@ -82,7 +82,7 @@ class _AllBranchesMobileState extends State<AllBranchesMobile> {
           SelectBranchButton(
               selectedBranchId:
                   widget.branches[selectedIndex].branchId.toString(),
-              roles: widget.branches[selectedIndex].role),
+              roles: widget.branches[selectedIndex].roles),
           const SizedBox(height: spacingXXHuge)
         ],
       ),

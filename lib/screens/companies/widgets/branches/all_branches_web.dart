@@ -112,7 +112,7 @@ class _AllBranchesWebState extends State<AllBranchesWeb> {
                           selectedBranchId: widget
                               .branches[selectedIndex].branchId
                               .toString(),
-                          roles: widget.branches[selectedIndex].role),
+                          roles: widget.branches[selectedIndex].roles),
                     ],
                   ),
                 ),

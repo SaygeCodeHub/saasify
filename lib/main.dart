@@ -3,10 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_bloc.dart';
 import 'package:saasify/bloc/auth/auth_events.dart';
 import 'package:saasify/bloc/auth/auth_states.dart';
+import 'package:saasify/bloc/companies/companies_bloc.dart';
 import 'package:saasify/bloc/employee/employee_bloc.dart';
 import 'package:saasify/bloc/register/register_bloc.dart';
 import 'package:saasify/configs/app_route.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
+import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +46,7 @@ class MyPosApp extends StatelessWidget {
         BlocProvider(lazy: false, create: (context) => AttendanceBloc()),
         BlocProvider(create: (context) => RegisterBloc()),
         BlocProvider(create: (context) => EmployeeBloc()),
+        BlocProvider(create: (context) => CompaniesBloc()),
       ],
       child: GestureDetector(
           onTap: () {
@@ -59,6 +62,8 @@ class MyPosApp extends StatelessWidget {
                   BlocBuilder<AuthBloc, AuthStates>(builder: (context, state) {
                 if (state is ActiveSession) {
                   return const HRMSDashboardScreen();
+                } else if (state is NoCompanySelected) {
+                  return AddCompanyScreen();
                 } else {
                   return AuthenticationScreen();
                 }

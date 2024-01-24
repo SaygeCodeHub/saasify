@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/employee/employee_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
@@ -41,6 +43,7 @@ class CustomCheckboxState extends State<CustomCheckbox> {
                     setState(() {
                       isChecked = value!;
                     });
+                    // context.read<EmployeeBloc>().inviteDetails['role'] = ;
                   },
                 ),
                 Text(

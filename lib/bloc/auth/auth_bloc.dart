@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/auth/auth_events.dart';
 import 'package:saasify/bloc/auth/auth_states.dart';
 import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
+import 'package:saasify/utils/globals.dart';
 
 import '../../caches/cache.dart';
 import '../../di/app_module.dart';
@@ -39,30 +40,33 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
   FutureOr<void> _authenticateUser(
       AuthenticateUser event, Emitter<AuthStates> emit) async {
     emit(AuthenticatingUser());
-    try {
-      AuthenticateUserModel authenticateUserModel =
-          await _authenticationRepository.authenticateUser(event.userDetails);
-      if (authenticateUserModel.status == '200') {
-        await saveUserSelections(authenticateUserModel.data);
-        emit(UserAuthenticated(
-            authenticateUserData: authenticateUserModel.data));
-      } else {
-        emit(FailedToAuthenticateUser(
-            errorMessage: authenticateUserModel.message));
-      }
-    } catch (e) {
-      emit(FailedToAuthenticateUser());
+    //try {
+    AuthenticateUserModel authenticateUserModel =
+        await _authenticationRepository.authenticateUser(event.userDetails);
+    if (authenticateUserModel.status == 200) {
+      await saveUserSelections(authenticateUserModel.data);
+      emit(UserAuthenticated(authenticateUserData: authenticateUserModel.data));
+    } else {
+      emit(FailedToAuthenticateUser(
+          errorMessage: authenticateUserModel.message));
     }
+    // } catch (e) {
+    //   emit(FailedToAuthenticateUser());
+    // }
   }
 
   saveUserSelections(AuthenticateUserData authenticateUserData) async {
+    userId = authenticateUserData.userId.toString();
+    getIt<Cache>().setCompanyId(authenticateUserData.userId.toString());
     cache.setUserLoggedIn(true);
     if (authenticateUserData.company.isNotEmpty) {
       getIt<Cache>()
           .setCompanyId(authenticateUserData.company[0].companyId.toString());
+      companyId = authenticateUserData.company[0].companyId.toString();
       if (authenticateUserData.company[0].branches.length <= 1) {
         getIt<Cache>().setBranchId(
             authenticateUserData.company[0].branches[0].toString());
+        branchId = authenticateUserData.company[0].branches[0].toString();
       }
     }
   }

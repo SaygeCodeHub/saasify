@@ -7,7 +7,7 @@ String authenticateUserModelToJson(AuthenticateUserModel data) =>
     json.encode(data.toJson());
 
 class AuthenticateUserModel {
-  String status;
+  int status;
   String message;
   AuthenticateUserData data;
 

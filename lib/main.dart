@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_bloc.dart';
 import 'package:saasify/bloc/auth/auth_events.dart';
 import 'package:saasify/bloc/auth/auth_states.dart';
+import 'package:saasify/bloc/employee/employee_bloc.dart';
 import 'package:saasify/bloc/register/register_bloc.dart';
 import 'package:saasify/configs/app_route.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
@@ -42,6 +43,7 @@ class MyPosApp extends StatelessWidget {
             create: (context) => AuthBloc()..add(CheckActiveSession())),
         BlocProvider(lazy: false, create: (context) => AttendanceBloc()),
         BlocProvider(create: (context) => RegisterBloc()),
+        BlocProvider(create: (context) => EmployeeBloc()),
       ],
       child: GestureDetector(
           onTap: () {

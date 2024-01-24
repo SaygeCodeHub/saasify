@@ -1,3 +1,5 @@
 double mobileBreakPoint = 1000;
 
-List<String> locationBreadcrumbs = [];
+var companyId = '';
+var branchId = '';
+var userId = '';

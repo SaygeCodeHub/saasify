@@ -23,7 +23,8 @@ class PrimaryButton extends StatelessWidget {
       this.side,
       required this.buttonTitle,
       this.icon,
-      this.shape, this.buttonHeight});
+      this.shape,
+      this.buttonHeight});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,8 @@ class PrimaryButton extends StatelessWidget {
               RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(kCircularRadius)),
           backgroundColor: backgroundColor ?? AppColors.orange,
-          minimumSize: Size(buttonWidth ?? double.maxFinite,buttonHeight ?? 50)),
+          minimumSize:
+              Size(buttonWidth ?? double.maxFinite, buttonHeight ?? 50)),
       child: FittedBox(
           child: Text(buttonTitle,
               textAlign: TextAlign.center,

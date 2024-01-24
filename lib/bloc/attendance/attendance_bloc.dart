@@ -18,8 +18,8 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
 
   late double officeLatitude;
   late double officeLongitude;
-  late double currentLatitude;
-  late double currentLongitude;
+  double currentLatitude = 0;
+  double currentLongitude = 0;
 
   bool isCheckedIn = true;
 
@@ -32,8 +32,7 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
       CheckAttendance event, Emitter<AttendanceStates> emit) async {
     if (event.checkInTime != null && event.checkOutTime == null) {
       isCheckedIn = true;
-    }
-    else {
+    } else {
       isCheckedIn = false;
     }
   }
@@ -60,7 +59,7 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
       }
 
       Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
+          desiredAccuracy: LocationAccuracy.bestForNavigation);
 
       currentLatitude = position.latitude;
       currentLongitude = position.longitude;
@@ -75,8 +74,8 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
       log(distance.toString());
 
       if (distance < 20) {
-        AttendanceModel checkInModel = await _attendanceRepository.markAttendance(
-            1, 1, DateTime.now().toString());
+        AttendanceModel checkInModel = await _attendanceRepository
+            .markAttendance(1, 1, DateTime.now().toString());
         if (checkInModel.status == 200) {
           isCheckedIn = !isCheckedIn;
           emit(MarkedAttendance());

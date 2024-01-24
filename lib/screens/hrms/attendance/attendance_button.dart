@@ -14,41 +14,34 @@ class AttendanceButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AttendanceBloc, AttendanceStates>(
         listener: (BuildContext context, state) {
-          if (state is ErrorMarkingAttendance) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return ErrorAlertDialog(
-                    description: state.message);
-              },
-            );
-          }
-          if (state is ErrorMarkingAttendance) {
-            // Home Screen API
-          }
-        },
-        builder: (BuildContext context, state) {
-          if (state is MarkingAttendance) {
-            return const Center(child: SizedBox(width:30,height:30,child: CircularProgressIndicator()));
-          } else {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: PrimaryButton(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                  buttonHeight: 40,
-                  buttonWidth: 200,
-                  backgroundColor: context
-                      .read<AttendanceBloc>()
-                      .isCheckedIn ? AppColors.successGreen : AppColors
-                      .errorRed,
-                  onPressed: () {
-                    context.read<AttendanceBloc>().add(MarkAttendance());
-                  },
-                  buttonTitle: context
-                      .read<AttendanceBloc>()
-                      .isCheckedIn ? 'Check In' : 'Check Out'),
-            );
-          }
-        });
+      if (state is ErrorMarkingAttendance) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return ErrorAlertDialog(description: state.message);
+          },
+        );
+      }
+      if (state is ErrorMarkingAttendance) {
+        // Home Screen API
+      }
+    }, builder: (BuildContext context, state) {
+      if (state is MarkingAttendance) {
+        return const Center(
+            child: SizedBox(
+                width: 25, height: 25, child: CircularProgressIndicator()));
+      } else {
+        return PrimaryButton(
+            backgroundColor: context.read<AttendanceBloc>().isCheckedIn
+                ? AppColors.successGreen
+                : AppColors.errorRed,
+            onPressed: () {
+              context.read<AttendanceBloc>().add(MarkAttendance());
+            },
+            buttonTitle: context.read<AttendanceBloc>().isCheckedIn
+                ? 'Check In'
+                : 'Check Out');
+      }
+    });
   }
 }

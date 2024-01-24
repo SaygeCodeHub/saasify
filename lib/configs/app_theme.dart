@@ -65,6 +65,11 @@ extension AppTextTheme on TextTheme {
         fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w300);
   }
 
+  TextStyle get smallWarningTextStyle {
+    return const TextStyle(
+        fontSize: 8, color: AppColors.orange, fontWeight: FontWeight.w500);
+  }
+
   TextStyle get moduleHeadingTextStyle {
     return const TextStyle(
         fontSize: 18, color: AppColors.darkBlue, fontWeight: FontWeight.w600);

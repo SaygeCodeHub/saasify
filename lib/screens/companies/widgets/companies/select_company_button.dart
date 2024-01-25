@@ -21,7 +21,7 @@ class SelectCompanyButton extends StatelessWidget {
         onPressed: () {
           getIt<Cache>().setCompanyId(companyName);
           if (branches.length <= 1) {
-            getIt<Cache>().setBranchId(branches[0].branchId.toString());
+            getIt<Cache>().setBranchId(branches.first.branchId.toString());
             Future.delayed(const Duration(seconds: 1));
             Navigator.pushNamed(context, HRMSDashboardScreen.routeName);
           } else {

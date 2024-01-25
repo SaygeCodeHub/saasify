@@ -8,6 +8,7 @@ import 'package:saasify/widgets/text/custom_text_field.dart';
 class EmailTextField extends CustomTextField {
   EmailTextField({
     super.key,
+    super.initialValue,
     super.onTextFieldChanged,
     super.isRequired,
   }) : super(
@@ -24,6 +25,7 @@ class EmailTextField extends CustomTextField {
 class PasswordTextField extends CustomTextField {
   PasswordTextField({
     super.key,
+    super.initialValue,
     super.onTextFieldChanged,
     super.isRequired = true,
   }) : super(
@@ -41,6 +43,7 @@ class PasswordTextField extends CustomTextField {
 class ContactTextField extends CustomTextField {
   ContactTextField({
     super.key,
+    super.initialValue,
     super.onTextFieldChanged,
     super.isRequired,
   }) : super(
@@ -58,6 +61,7 @@ class ContactTextField extends CustomTextField {
 class DatePickerField extends CustomTextField {
   DatePickerField({
     super.key,
+    super.initialValue,
     required BuildContext context,
     super.onTextFieldChanged,
     super.isRequired,
@@ -79,6 +83,7 @@ class DatePickerField extends CustomTextField {
 class TimePickerField extends CustomTextField {
   TimePickerField({
     super.key,
+    super.initialValue,
     required BuildContext context,
     super.onTextFieldChanged,
     super.isRequired,

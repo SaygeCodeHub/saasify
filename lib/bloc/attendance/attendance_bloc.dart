@@ -14,7 +14,7 @@ import 'attendance_state.dart';
 class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
   final AttendanceRepository _attendanceRepository =
       getIt<AttendanceRepository>();
-  final Cache cache = getIt<Cache>();
+  final Cache _cache = getIt<Cache>();
 
   late double officeLatitude;
   late double officeLongitude;
@@ -74,8 +74,12 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
       log(distance.toString());
 
       if (distance < 20) {
+        String companyId = await _cache.getCompanyId();
+        String branchId = await _cache.getBranchId();
+        String userId = await _cache.getUserId();
+
         AttendanceModel checkInModel = await _attendanceRepository
-            .markAttendance(1, 1, DateTime.now().toString());
+            .markAttendance(companyId, branchId, userId);
         if (checkInModel.status == 200) {
           isCheckedIn = !isCheckedIn;
           emit(MarkedAttendance());
@@ -126,7 +130,7 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
 
   Future<List<double?>> _getOfficeLocation() async {
     try {
-      List<double?> officePosition = await cache.getLatLong();
+      List<double?> officePosition = await _cache.getLatLong();
       if (officePosition.first == null) {
         officePosition = await _attendanceRepository.getLatLong();
       }

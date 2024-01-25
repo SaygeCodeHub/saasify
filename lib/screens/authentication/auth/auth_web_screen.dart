@@ -48,6 +48,9 @@ class AuthWebScreen extends StatelessWidget {
                             label: StringConstants.kEmailAddress,
                             textField: EmailTextField(
                                 isRequired: true,
+                                initialValue: context
+                                    .read<AuthBloc>()
+                                    .userInputAuthenticationMap['email'],
                                 onTextFieldChanged: (value) {
                                   context
                                           .read<AuthBloc>()
@@ -57,6 +60,9 @@ class AuthWebScreen extends StatelessWidget {
                         const SizedBox(height: spacingBetweenTextFields),
                         LabelAndFieldWidget(
                             label: StringConstants.kPassword,
+                            initialValue: context
+                                .read<AuthBloc>()
+                                .userInputAuthenticationMap['password'],
                             textField:
                                 PasswordTextField(onTextFieldChanged: (value) {
                               context

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/widgets/icons/logout_icon.dart';
 
 import '../icons/notification_widget.dart';
 
@@ -13,6 +14,10 @@ class MobileAppBar extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: EdgeInsets.only(right: spacingSmall),
           child: NotificationWidget(),
+        ),
+        Padding(
+          padding: EdgeInsets.only(right: spacingSmall),
+          child: LogoutIconWidget(),
         )
       ],
     );

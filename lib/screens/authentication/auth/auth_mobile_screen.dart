@@ -28,6 +28,9 @@ class AuthMobileScreen extends StatelessWidget {
                 label: StringConstants.kEmailAddress,
                 textField: EmailTextField(
                     isRequired: true,
+                    initialValue: context
+                        .read<AuthBloc>()
+                        .userInputAuthenticationMap['email'],
                     onTextFieldChanged: (value) {
                       context
                           .read<AuthBloc>()
@@ -36,11 +39,15 @@ class AuthMobileScreen extends StatelessWidget {
             const SizedBox(height: spacingBetweenTextFields),
             LabelAndFieldWidget(
                 label: StringConstants.kPassword,
-                textField: PasswordTextField(onTextFieldChanged: (value) {
-                  context
-                      .read<AuthBloc>()
-                      .userInputAuthenticationMap['password'] = value;
-                })),
+                textField: PasswordTextField(
+                    initialValue: context
+                        .read<AuthBloc>()
+                        .userInputAuthenticationMap['password'],
+                    onTextFieldChanged: (value) {
+                      context
+                          .read<AuthBloc>()
+                          .userInputAuthenticationMap['password'] = value;
+                    })),
             const ForgotPasswordButton(),
             const SizedBox(height: spacingBetweenTextFieldAndButton),
             AuthVerifyButton(formKey: formKey),

@@ -10,7 +10,7 @@ import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.
 import 'package:saasify/screens/companies/widgets/companies/all_companies_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
-import 'package:saasify/widgets/alertDialogs/custom_alert_dialog.dart';
+import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class AuthVerifyButton extends StatelessWidget {

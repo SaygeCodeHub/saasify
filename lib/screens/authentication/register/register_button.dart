@@ -8,7 +8,7 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
-import 'package:saasify/widgets/alertDialogs/custom_alert_dialog.dart';
+import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class RegisterButton extends StatelessWidget {

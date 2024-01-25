@@ -4,7 +4,7 @@ import 'package:saasify/bloc/companies/companies_bloc.dart';
 import 'package:saasify/bloc/companies/companies_event.dart';
 import 'package:saasify/bloc/companies/companies_states.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
-import 'package:saasify/widgets/alertDialogs/custom_alert_dialog.dart';
+import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import '../../../../utils/constants/string_constants.dart';
 import '../../../../widgets/buttons/primary_button.dart';
 

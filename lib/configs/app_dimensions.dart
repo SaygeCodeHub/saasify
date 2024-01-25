@@ -25,7 +25,7 @@ const double kStockContainerSize = 50;
 const double kGeneralActionButtonWidth = 180;
 const double kProductImageHeight = 25;
 const double kProductImageWidth = 25;
-const double kAvatarRadius = 25;
+const double kAvatarRadius = 30;
 const double kPaymentCircleSize = 8;
 const double kCloseIconSize = 20;
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/text/custom_text_field.dart';
 import 'package:saasify/widgets/text/label_text_widget.dart';
-import '../../configs/app_spacing.dart';
 
 class LabelAndFieldWidget extends StatelessWidget {
   final String? label;
@@ -60,12 +60,10 @@ class LabelAndFieldWidget extends StatelessWidget {
       controller.text = initialValue.toString();
     }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (label != null) LabelTextWidget(label: label),
-        if (label != null) const SizedBox(height: spacingMedium),
-        SizedBox(
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      if (label != null) LabelTextWidget(label: label),
+      if (label != null) const SizedBox(height: spacingMedium),
+      SizedBox(
           width: textFieldSize ?? MediaQuery.sizeOf(context).width,
           child: CustomTextField(
               maxLines: maxLines,
@@ -91,10 +89,7 @@ class LabelAndFieldWidget extends StatelessWidget {
               onTextFieldChanged: onTextFieldChanged,
               enabled: enabled ?? true,
               autofocus: autofocus ?? false,
-              keyboardType: keyboardType),
-        ),
-        const SizedBox(height: spacingXXSmall)
-      ],
-    );
+              keyboardType: keyboardType))
+    ]);
   }
 }

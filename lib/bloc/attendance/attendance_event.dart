@@ -1,5 +1,10 @@
 abstract class AttendanceEvents {}
 
-class CheckIn extends AttendanceEvents {}
+class MarkAttendance extends AttendanceEvents {}
 
-class CheckOut extends AttendanceEvents {}
+class CheckAttendance extends AttendanceEvents {
+  final String? checkInTime;
+  final String? checkOutTime;
+
+  CheckAttendance({this.checkInTime, this.checkOutTime});
+}

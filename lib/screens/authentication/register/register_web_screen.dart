@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/register/register_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/configs/spacing.dart';
 import 'package:saasify/screens/authentication/register/register_button.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/profile/saasifyLogo.dart';

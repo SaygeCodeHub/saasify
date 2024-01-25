@@ -50,9 +50,12 @@ class TabData {
                 padding: const EdgeInsets.symmetric(vertical: spacingSmall),
                 child: Icon(icon, size: 20.0, color: AppColors.darkBlue),
               )
-            : Text(label,
-                style: const TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.darkBlue));
+            : Padding(
+                padding: const EdgeInsets.symmetric(vertical: spacingSmall),
+                child: Text(label,
+                    style: const TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.darkBlue)),
+              );
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/utils/globals.dart';
-
-import '../../configs/spacing.dart';
 
 class ResponsiveLayout extends StatelessWidget {
   final Widget mobileBody;

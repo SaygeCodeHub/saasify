@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/configs/spacing.dart';
 import 'package:saasify/screens/authentication/register/register_button.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/profile/saasifyLogo.dart';

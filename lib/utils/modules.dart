@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:saasify/data/enums/modules_enum.dart';
 import 'package:saasify/screens/hrms/add_employee/widgets/add_emp_dialouge.dart';
-import 'package:saasify/screens/hrms/attendance/attendance_screen.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';
 import 'package:saasify/screens/hrms/leaves/apply_and_leave_detail_screen.dart';
 
@@ -8,55 +8,59 @@ import '../data/models/generalModels/value_card_model.dart';
 
 List<ValueCardModel> hrmsModules = [
   ValueCardModel(
-      cardHeading: 'Pending Leave Approvals',
+      cardHeading: Modules.pendingLeaveApprovals.name,
       value: '10',
       iconPath: 'assets/leave.png',
       onTap: (BuildContext context) {}),
   ValueCardModel(
-      cardHeading: 'Today’s Absentees',
+      cardHeading: Modules.todaysAbsentees.name,
       value: '3',
       iconPath: 'assets/absence.png',
       onTap: (BuildContext context) {}),
   ValueCardModel(
-      cardHeading: 'Total Employees',
+      cardHeading: Modules.totalEmployees.name,
       value: '20',
       iconPath: 'assets/employees.png',
       onTap: (BuildContext context) {}),
   ValueCardModel(
-      cardHeading: 'Monthly Salary Rollout',
+      cardHeading: Modules.monthlySalaryRollout.name,
       value: 'Rs. 20,000',
       iconPath: 'assets/wages.png',
       onTap: (BuildContext context) {}),
   ValueCardModel(
-      cardHeading: 'Add New Employee',
+      cardHeading: Modules.addNewEmployee.name,
       iconPath: 'assets/add_employee.png',
       onTap: (context) {
         showAddEmployeeDialog(context);
       }),
   ValueCardModel(
-      cardHeading: 'View All Employees',
+      cardHeading: Modules.viewAllEmployees.name,
       iconPath: 'assets/employees.png',
       onTap: (context) {
         Navigator.pushNamed(context, EmployeeListScreen.routeName);
       }),
   ValueCardModel(
-      cardHeading: 'HRMS Configurations',
+      cardHeading: Modules.hrmsConfigurations.name,
       iconPath: 'assets/settings.png',
       onTap: (BuildContext context) {}),
   ValueCardModel(
-      cardHeading: 'Apply Leave',
+      cardHeading: Modules.applyLeave.name,
       iconPath: 'assets/documents.png',
       onTap: (BuildContext context) {
         Navigator.pushNamed(context, ApplyAndLeaveDetailScreen.routeName);
       }),
   ValueCardModel(
-      cardHeading: 'My Leaves',
+      cardHeading: Modules.myLeaves.name,
       iconPath: 'assets/holiday.png',
       onTap: (BuildContext context) {}),
   ValueCardModel(
-      cardHeading: 'Timesheet',
+      cardHeading: Modules.timesheet.name,
       iconPath: 'assets/attendant-history.png',
-      onTap: (BuildContext context) {
-        Navigator.pushNamed(context, AttendanceScreen.routeName);
-      }),
+      onTap: (BuildContext context) {})
 ];
+
+List<ValueCardModel> ownerModules = hrmsModules;
+
+List<ValueCardModel> employeeModules = hrmsModules.sublist(
+  7,
+);

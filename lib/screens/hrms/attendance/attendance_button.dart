@@ -4,11 +4,15 @@ import 'package:saasify/bloc/attendance/attendance_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_event.dart';
 import 'package:saasify/bloc/attendance/attendance_state.dart';
 import 'package:saasify/configs/app_colors.dart';
+import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class AttendanceButton extends StatelessWidget {
-  const AttendanceButton({super.key});
+  final String? checkInTime;
+  final String? checkOutTime;
+
+  const AttendanceButton({super.key, this.checkInTime, this.checkOutTime});
 
   @override
   Widget build(BuildContext context) {
@@ -31,16 +35,17 @@ class AttendanceButton extends StatelessWidget {
             child: SizedBox(
                 width: 25, height: 25, child: CircularProgressIndicator()));
       } else {
-        return PrimaryButton(
-            backgroundColor: context.read<AttendanceBloc>().isCheckedIn
-                ? AppColors.successGreen
-                : AppColors.errorRed,
-            onPressed: () {
-              context.read<AttendanceBloc>().add(MarkAttendance());
-            },
-            buttonTitle: context.read<AttendanceBloc>().isCheckedIn
-                ? 'Check In'
-                : 'Check Out');
+        return (checkInTime != null && checkOutTime != null)
+            ? const SizedBox.shrink()
+            : PrimaryButton(
+                buttonWidth: kGeneralActionButtonWidth,
+                backgroundColor: (checkInTime == null)
+                    ? AppColors.successGreen
+                    : AppColors.errorRed,
+                onPressed: () {
+                  context.read<AttendanceBloc>().add(MarkAttendance());
+                },
+                buttonTitle: (checkInTime == null) ? 'Check In' : 'Check Out');
       }
     });
   }

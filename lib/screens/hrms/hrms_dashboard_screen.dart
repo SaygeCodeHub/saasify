@@ -30,10 +30,9 @@ class HRMSDashboardScreen extends StatelessWidget {
                       future: getIt<Cache>().getRoles(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          return snapshot.data!.contains('0')
+                          return !snapshot.data!.contains('0')
                               ? const SizedBox.shrink()
-                              : const AttendanceCard(
-                                  checkInTime: null, checkOutTime: null);
+                              : const AttendanceCard();
                         } else {
                           return const SizedBox.shrink();
                         }

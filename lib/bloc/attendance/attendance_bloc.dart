@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/attendance/attendance_model.dart';
 import 'package:saasify/data/models/attendance/location_permission_status.dart';
@@ -21,26 +22,50 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
   double currentLatitude = 0;
   double currentLongitude = 0;
 
-  bool isCheckedIn = true;
+  String? checkInTime;
+  String? checkOutTime;
+
+  bool markingAttendance = true;
 
   AttendanceBloc() : super(AttendanceInitial()) {
     on<MarkAttendance>(_onMarkAttendance);
-    on<CheckAttendance>(_onCheckAttendance);
+    on<FetchAttendance>(_onFetchAttendance);
+    // on<CheckAttendance>(_onCheckAttendance);
   }
 
-  void _onCheckAttendance(
-      CheckAttendance event, Emitter<AttendanceStates> emit) async {
-    if (event.checkInTime != null && event.checkOutTime == null) {
-      isCheckedIn = true;
-    } else {
-      isCheckedIn = false;
+  // void _onCheckAttendance(
+  //     CheckAttendance event, Emitter<AttendanceStates> emit) async {
+  //   if (event.checkInTime != null && event.checkOutTime == null) {
+  //     isCheckedIn = true;
+  //   } else {
+  //     isCheckedIn = false;
+  //   }
+  // }
+
+  void _onFetchAttendance(
+      FetchAttendance event, Emitter<AttendanceStates> emit) async {
+    try{
+      String companyId = await _cache.getCompanyId();
+      String branchId = await _cache.getBranchId();
+      String userId = await _cache.getUserId();
+
+      AttendanceModel attendanceModel = await _attendanceRepository
+          .getAttendance(companyId, branchId, userId);
+
+      if (attendanceModel.status == 200){
+        checkInTime = formatDate(attendanceModel.data.checkIn);
+        checkOutTime = formatDate(attendanceModel.data.checkOut);
+        emit(AttendanceFetched());
+      }
+    }catch(e){
+      emit(ErrorFetchingAttendance(message: e.toString()));
     }
   }
 
   void _onMarkAttendance(
       MarkAttendance event, Emitter<AttendanceStates> emit) async {
     emit(MarkingAttendance());
-
+    markingAttendance =  true;
     try {
       List<double?> officePosition = await _getOfficeLocation();
       if (officePosition.first == null) {
@@ -78,13 +103,17 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
         String branchId = await _cache.getBranchId();
         String userId = await _cache.getUserId();
 
-        AttendanceModel checkInModel = await _attendanceRepository
+        AttendanceModel attendanceModel = await _attendanceRepository
             .markAttendance(companyId, branchId, userId);
-        if (checkInModel.status == 200) {
-          isCheckedIn = !isCheckedIn;
+        if (attendanceModel.status == 200) {
+          // isCheckedIn = !isCheckedIn;
+          checkInTime = formatDate(attendanceModel.data.checkIn);
+          checkOutTime = formatDate(attendanceModel.data.checkOut);
+          log(checkInTime.toString());
+          log(checkOutTime.toString());
           emit(MarkedAttendance());
         } else {
-          emit(ErrorMarkingAttendance(message: checkInModel.message));
+          emit(ErrorMarkingAttendance(message: attendanceModel.message));
           return;
         }
       } else {
@@ -138,5 +167,12 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
     } catch (e) {
       rethrow;
     }
+  }
+
+  String? formatDate(DateTime? date){
+    if(date != null){
+      return DateFormat("HH:mm").format(date);
+    }
+    return null;
   }
 }

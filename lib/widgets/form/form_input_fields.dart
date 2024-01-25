@@ -10,8 +10,8 @@ class EmailTextField extends LabelAndFieldWidget {
     super.key,
     super.onTextFieldChanged,
     super.isRequired,
+    super.label = StringConstants.kEmailAddress,
   }) : super(
-            label: StringConstants.kEmailAddress,
             keyboardType: TextInputType.emailAddress,
             prefixIcon: const Icon(Icons.email_outlined),
             validator: (String? email) {

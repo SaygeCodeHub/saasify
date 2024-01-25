@@ -23,7 +23,7 @@ class AttendanceCard extends StatelessWidget {
             child: Row(
               children: [
                 const CircleAvatar(
-                    radius: 20,
+                    radius: 30,
                     backgroundColor: AppColors.orange,
                     child:
                         Icon(Icons.person, color: AppColors.white, size: 18)),

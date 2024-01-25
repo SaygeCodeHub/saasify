@@ -6,7 +6,7 @@ import 'package:saasify/screens/hrms/leaves/apply_and_leave_detail_screen.dart';
 
 import '../data/models/generalModels/value_card_model.dart';
 
-List<ValueCardModel> hrmsModules = [
+List<ValueCardModel> statisticsModules = [
   ValueCardModel(
       cardHeading: Modules.pendingLeaveApprovals.name,
       value: '10',
@@ -27,6 +27,8 @@ List<ValueCardModel> hrmsModules = [
       value: 'Rs. 20,000',
       iconPath: 'assets/wages.png',
       onTap: (BuildContext context) {}),
+];
+List<ValueCardModel> hrmsModules = [
   ValueCardModel(
       cardHeading: Modules.addNewEmployee.name,
       iconPath: 'assets/add_employee.png',
@@ -58,9 +60,3 @@ List<ValueCardModel> hrmsModules = [
       iconPath: 'assets/attendant-history.png',
       onTap: (BuildContext context) {})
 ];
-
-List<ValueCardModel> ownerModules = hrmsModules;
-
-List<ValueCardModel> employeeModules = hrmsModules.sublist(
-  7,
-);

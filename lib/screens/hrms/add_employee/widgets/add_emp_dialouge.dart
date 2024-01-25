@@ -10,7 +10,9 @@ import 'package:saasify/data/enums/employee_type_enum.dart';
 import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
-import 'package:saasify/widgets/alertDialogs/custom_alert_dialog.dart';
+import 'package:saasify/utils/progress_bar.dart';
+import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
+import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 import 'package:saasify/widgets/userInput/custom_checkbox.dart';
 
@@ -20,13 +22,25 @@ showAddEmployeeDialog(BuildContext context) {
         BlocListener<EmployeeBloc, EmployeeStates>(
           listener: (context, state) {
             if (state is InvitingEmployee) {
-              const CircularProgressIndicator();
+              return ProgressBar.show(context);
             }
             if (state is InvitationSent) {
-              Navigator.pushReplacementNamed(
-                  context, HRMSDashboardScreen.routeName);
+              ProgressBar.dismiss(context);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return SuccessAlertDialog(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(
+                            context, HRMSDashboardScreen.routeName);
+                      },
+                      description:
+                          '${state.inviteEmployeeModel.message} on ${context.read<EmployeeBloc>().inviteDetails['user_email']} ✅');
+                },
+              );
             }
             if (state is InvitingFailed) {
+              ProgressBar.dismiss(context);
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -44,7 +58,9 @@ showAddEmployeeDialog(BuildContext context) {
                   context
                       .read<EmployeeBloc>()
                       .add(InviteEmployee(inviteDetails: {
-                        "user_email": "adityaranawork@gmail.com",
+                        "user_email": context
+                            .read<EmployeeBloc>()
+                            .inviteDetails['user_email'],
                         "roles": [3],
                         "approvers": []
                       }));
@@ -84,7 +100,8 @@ showAddEmployeeDialog(BuildContext context) {
             const SizedBox(height: spacingSmall),
             TextFormField(
                 onChanged: (value) {
-                  context.read<EmployeeBloc>().inviteDetails['email'] = value;
+                  context.read<EmployeeBloc>().inviteDetails['user_email'] =
+                      value;
                 },
                 decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(

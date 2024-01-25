@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/configs/app_colors.dart';
 
 import '../configs/app_spacing.dart';
 
@@ -7,6 +8,7 @@ class ProgressBar {
     showDialog(
         context: context,
         barrierDismissible: false,
+        barrierColor: AppColors.transparent,
         builder: (context) {
           return const Center(
               child: SizedBox(

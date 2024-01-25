@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/text/custom_text_field.dart';
 import 'package:saasify/widgets/text/label_text_widget.dart';
 
@@ -27,6 +26,7 @@ class LabelAndFieldWidget extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
   final int? maxLines;
   final double? textFieldSize;
+  final CustomTextField? textField;
 
   const LabelAndFieldWidget(
       {super.key,
@@ -50,7 +50,8 @@ class LabelAndFieldWidget extends StatelessWidget {
       this.validator,
       this.isRequired = false,
       this.onTap,
-      this.inputFormatters});
+      this.inputFormatters,
+      this.textField});
 
   @override
   Widget build(BuildContext context) {
@@ -65,31 +66,26 @@ class LabelAndFieldWidget extends StatelessWidget {
       if (label != null) const SizedBox(height: spacingMedium),
       SizedBox(
           width: textFieldSize ?? MediaQuery.sizeOf(context).width,
-          child: CustomTextField(
-              maxLines: maxLines,
-              suffix: suffix,
-              hintText: hintText,
-              prefixIcon: prefixIcon,
-              contentPadding: contentPadding,
-              inputFormatters: inputFormatters,
-              onTap: onTap,
-              suffixIcon: suffixIcon,
-              obscureText: obscureText ?? false,
-              validator: (value) {
-                if ((value == null || value.isEmpty) && isRequired) {
-                  return StringConstants.kFieldCannotBeEmpty;
-                }
-                if (validator != null) {
-                  return validator!(value);
-                }
-                return null;
-              },
-              readOnly: readOnly ?? false,
-              controller: controller,
-              onTextFieldChanged: onTextFieldChanged,
-              enabled: enabled ?? true,
-              autofocus: autofocus ?? false,
-              keyboardType: keyboardType))
+          child: textField ??
+              CustomTextField(
+                maxLines: maxLines,
+                suffix: suffix,
+                hintText: hintText,
+                prefixIcon: prefixIcon,
+                contentPadding: contentPadding,
+                inputFormatters: inputFormatters,
+                onTap: onTap,
+                suffixIcon: suffixIcon,
+                obscureText: obscureText ?? false,
+                validator: validator,
+                readOnly: readOnly ?? false,
+                controller: controller,
+                onTextFieldChanged: onTextFieldChanged,
+                enabled: enabled ?? true,
+                autofocus: autofocus ?? false,
+                keyboardType: keyboardType,
+                isRequired: isRequired,
+              ))
     ]);
   }
 }

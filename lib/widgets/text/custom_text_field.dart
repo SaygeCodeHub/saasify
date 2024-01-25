@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:saasify/utils/constants/string_constants.dart';
 import '../../configs/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -9,7 +10,8 @@ class CustomTextField extends StatelessWidget {
   final String? hintText;
   final String? getText;
   final bool? firstCall;
-  final void Function(String)? onTextFieldChanged;
+  final bool isRequired;
+  final void Function(String?)? onTextFieldChanged;
   final bool? readOnly;
   final bool? enabled;
   final TextEditingController? controller;
@@ -49,7 +51,8 @@ class CustomTextField extends StatelessWidget {
       this.autofocus = false,
       this.enabled,
       this.controller,
-      this.onTap});
+      this.onTap,
+      this.isRequired = false});
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +83,15 @@ class CustomTextField extends StatelessWidget {
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon),
         inputFormatters: inputFormatters,
-        validator: validator,
+        validator: (value) {
+          if ((value == null || value.isEmpty) && isRequired) {
+            return StringConstants.kFieldCannotBeEmpty;
+          }
+          if (validator != null) {
+            return validator!(value);
+          }
+          return null;
+        },
         readOnly: readOnly!,
         controller: controller,
         onChanged: onTextFieldChanged,

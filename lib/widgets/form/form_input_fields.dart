@@ -3,14 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/utils/text_validation_util.dart';
-import 'package:saasify/widgets/text/field_label_widget.dart';
+import 'package:saasify/widgets/text/custom_text_field.dart';
 
-class EmailTextField extends LabelAndFieldWidget {
+class EmailTextField extends CustomTextField {
   EmailTextField({
     super.key,
     super.onTextFieldChanged,
     super.isRequired,
-    super.label = StringConstants.kEmailAddress,
   }) : super(
             keyboardType: TextInputType.emailAddress,
             prefixIcon: const Icon(Icons.email_outlined),
@@ -22,13 +21,12 @@ class EmailTextField extends LabelAndFieldWidget {
             });
 }
 
-class PasswordTextField extends LabelAndFieldWidget {
+class PasswordTextField extends CustomTextField {
   PasswordTextField({
     super.key,
     super.onTextFieldChanged,
     super.isRequired = true,
   }) : super(
-            label: StringConstants.kPassword,
             keyboardType: TextInputType.visiblePassword,
             prefixIcon: const Icon(Icons.password_outlined),
             validator: (String? password) {
@@ -40,13 +38,12 @@ class PasswordTextField extends LabelAndFieldWidget {
             obscureText: true);
 }
 
-class ContactTextField extends LabelAndFieldWidget {
+class ContactTextField extends CustomTextField {
   ContactTextField({
     super.key,
     super.onTextFieldChanged,
     super.isRequired,
   }) : super(
-            label: StringConstants.kMobileNumber,
             keyboardType: TextInputType.phone,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             prefixIcon: const Icon(Icons.phone_android_outlined),
@@ -58,12 +55,11 @@ class ContactTextField extends LabelAndFieldWidget {
             });
 }
 
-class DatePickerField extends LabelAndFieldWidget {
+class DatePickerField extends CustomTextField {
   DatePickerField({
     super.key,
     required BuildContext context,
-    super.label,
-    required super.onTextFieldChanged,
+    super.onTextFieldChanged,
     super.isRequired,
   }) : super(
             readOnly: true,
@@ -80,11 +76,10 @@ class DatePickerField extends LabelAndFieldWidget {
             suffixIcon: const Icon(Icons.calendar_today_outlined));
 }
 
-class TimePickerField extends LabelAndFieldWidget {
+class TimePickerField extends CustomTextField {
   TimePickerField({
     super.key,
     required BuildContext context,
-    super.label,
     super.onTextFieldChanged,
     super.isRequired,
   }) : super(

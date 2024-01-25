@@ -4,7 +4,7 @@ import 'package:saasify/bloc/attendance/attendance_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_event.dart';
 import 'package:saasify/bloc/attendance/attendance_state.dart';
 import 'package:saasify/configs/app_colors.dart';
-import 'package:saasify/widgets/alertDialogs/custom_alert_dialog.dart';
+import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class AttendanceButton extends StatelessWidget {

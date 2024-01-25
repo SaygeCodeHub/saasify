@@ -68,6 +68,10 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
       if (authenticateUserData.company[0].branches.length <= 1) {
         getIt<Cache>().setBranchId(
             authenticateUserData.company[0].branches[0].toString());
+        List<int> intList = authenticateUserData.company[0].branches[0].roles;
+        List<String> stringList =
+            intList.map((int number) => number.toString()).toList();
+        getIt<Cache>().setRole(stringList);
       }
     }
   }

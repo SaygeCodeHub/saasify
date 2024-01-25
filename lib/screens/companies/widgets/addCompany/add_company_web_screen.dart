@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/companies/companies_bloc.dart';
+import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/companies/widgets/addCompany/add_company_button.dart';
-
-import '../../../../configs/spacing.dart';
-import '../../../../utils/constants/string_constants.dart';
-import '../../../../widgets/text/field_label_widget.dart';
-import '../../../../widgets/profile/saasifyLogo.dart';
+import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/widgets/profile/saasifyLogo.dart';
+import 'package:saasify/widgets/text/field_label_widget.dart';
 
 class AddCompanyWebScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey;

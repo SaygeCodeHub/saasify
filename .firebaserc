@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "saasify-dev"
-  }
+    "default": "saasify-production",
+    "production": "saasify-production"
+  },
+  "targets": {},
+  "etags": {}
 }

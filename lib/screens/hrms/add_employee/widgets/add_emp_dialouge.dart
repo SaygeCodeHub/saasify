@@ -19,7 +19,7 @@ showAddEmployeeDialog(BuildContext context) {
       actions: [
         BlocListener<EmployeeBloc, EmployeeStates>(
           listener: (context, state) {
-            if (state is InvitationSent) {
+            if (state is InvitingEmployee) {
               const CircularProgressIndicator();
             }
             if (state is InvitationSent) {
@@ -27,7 +27,6 @@ showAddEmployeeDialog(BuildContext context) {
                   context, HRMSDashboardScreen.routeName);
             }
             if (state is InvitingFailed) {
-              Navigator.pop(context);
               showDialog(
                 context: context,
                 builder: (BuildContext context) {
@@ -44,7 +43,11 @@ showAddEmployeeDialog(BuildContext context) {
                 onPressed: () {
                   context
                       .read<EmployeeBloc>()
-                      .add(InviteEmployee(inviteDetails: {}));
+                      .add(InviteEmployee(inviteDetails: {
+                        "user_email": "adityaranawork@gmail.com",
+                        "roles": [3],
+                        "approvers": []
+                      }));
                 },
                 buttonWidth: spacingXXXHuge,
                 buttonTitle: 'Invite'),
@@ -80,6 +83,9 @@ showAddEmployeeDialog(BuildContext context) {
                 style: Theme.of(context).textTheme.userNameTextStyle),
             const SizedBox(height: spacingSmall),
             TextFormField(
+                onChanged: (value) {
+                  context.read<EmployeeBloc>().inviteDetails['email'] = value;
+                },
                 decoration: const InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black12)),

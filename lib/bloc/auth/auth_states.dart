@@ -10,6 +10,8 @@ class ActiveSession extends AuthStates {}
 
 class InactiveSession extends AuthStates {}
 
+class NoCompanySelected extends AuthStates {}
+
 class LogoutSession extends AuthStates {}
 
 class UserAuthenticated extends AuthStates {

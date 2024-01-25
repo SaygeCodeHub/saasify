@@ -23,7 +23,7 @@ class AppRoutes {
       case ForgotPasswordScreen.routeName:
         return _createRoute(const ForgotPasswordScreen());
       case AddCompanyScreen.routeName:
-        return _createRoute(const AddCompanyScreen());
+        return _createRoute(AddCompanyScreen());
       case HRMSDashboardScreen.routeName:
         return _createRoute(const HRMSDashboardScreen());
       case EmployeeListScreen.routeName:

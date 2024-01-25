@@ -5,17 +5,21 @@ import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 
 class AddCompanyScreen extends StatelessWidget {
   static const routeName = 'AddCompanyScreen';
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  const AddCompanyScreen({super.key});
+  AddCompanyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const PopScope(
+    return PopScope(
       canPop: false,
       child: Scaffold(
-        body: ResponsiveLayout(
-            mobileBody: AddCompanyMobileScreen(),
-            desktopBody: AddCompanyWebScreen()),
+        body: Form(
+          key: formKey,
+          child: ResponsiveLayout(
+              mobileBody: AddCompanyMobileScreen(formKey: formKey),
+              desktopBody: AddCompanyWebScreen(formKey: formKey)),
+        ),
       ),
     );
   }

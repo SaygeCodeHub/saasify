@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/auth/auth_events.dart';
 import 'package:saasify/bloc/auth/auth_states.dart';
 import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
-
 import '../../caches/cache.dart';
 import '../../di/app_module.dart';
 import '../../repositories/authentication/authentication_repository.dart';
@@ -26,8 +25,13 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
       CheckActiveSession event, Emitter<AuthStates> emit) async {
     try {
       bool? isLoggedIn = await cache.isLoggedIn();
+      var companyId = await cache.getCompanyId();
       if (isLoggedIn == true) {
-        emit(ActiveSession());
+        if (companyId != '' || companyId.isNotEmpty) {
+          emit(ActiveSession());
+        } else {
+          emit(NoCompanySelected());
+        }
       } else {
         emit(InactiveSession());
       }
@@ -42,7 +46,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
     try {
       AuthenticateUserModel authenticateUserModel =
           await _authenticationRepository.authenticateUser(event.userDetails);
-      if (authenticateUserModel.status == '200') {
+      if (authenticateUserModel.status == 200) {
         await saveUserSelections(authenticateUserModel.data);
         emit(UserAuthenticated(
             authenticateUserData: authenticateUserModel.data));
@@ -56,6 +60,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
   }
 
   saveUserSelections(AuthenticateUserData authenticateUserData) async {
+    getIt<Cache>().setUserId(authenticateUserData.userId.toString());
     cache.setUserLoggedIn(true);
     if (authenticateUserData.company.isNotEmpty) {
       getIt<Cache>()

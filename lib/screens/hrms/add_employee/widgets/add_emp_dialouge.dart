@@ -14,9 +14,12 @@ import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
+import 'package:saasify/widgets/text/field_label_widget.dart';
 import 'package:saasify/widgets/userInput/custom_checkbox.dart';
 
 showAddEmployeeDialog(BuildContext context) {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   AlertDialog alert = AlertDialog(
       actions: [
         BlocListener<EmployeeBloc, EmployeeStates>(
@@ -55,15 +58,17 @@ showAddEmployeeDialog(BuildContext context) {
             child: PrimaryButton(
                 backgroundColor: AppColors.darkBlue,
                 onPressed: () {
-                  context
-                      .read<EmployeeBloc>()
-                      .add(InviteEmployee(inviteDetails: {
-                        "user_email": context
-                            .read<EmployeeBloc>()
-                            .inviteDetails['user_email'],
-                        "roles": [3],
-                        "approvers": []
-                      }));
+                  if (formKey.currentState?.validate() ?? false) {
+                    context
+                        .read<EmployeeBloc>()
+                        .add(InviteEmployee(inviteDetails: {
+                          "user_email": context
+                              .read<EmployeeBloc>()
+                              .inviteDetails['user_email'],
+                          "roles": [3],
+                          "approvers": []
+                        }));
+                  }
                 },
                 buttonWidth: spacingXXXHuge,
                 buttonTitle: 'Invite'),
@@ -88,42 +93,44 @@ showAddEmployeeDialog(BuildContext context) {
             )
           ])),
       content: SizedBox(
-          child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-            const Divider(),
-            const SizedBox(height: spacingHuge),
-            Text(StringConstants.kEmailAddress,
-                style: Theme.of(context).textTheme.userNameTextStyle),
-            const SizedBox(height: spacingSmall),
-            TextFormField(
-                onChanged: (value) {
-                  context.read<EmployeeBloc>().inviteDetails['user_email'] =
-                      value;
-                },
-                decoration: const InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black12)),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black12)),
-                    counterText: "",
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 15, horizontal: 15))),
-            const SizedBox(height: spacingHuge),
-            Text(StringConstants.kAssignRole,
-                style: Theme.of(context).textTheme.userNameTextStyle),
-            const SizedBox(height: spacingMedium),
-            Column(
-                children: List.generate(
-                    EmployeeType.values.length,
-                    (index) => Padding(
-                        padding:
-                            const EdgeInsets.symmetric(vertical: spacingSmall),
-                        child: CustomCheckbox(
-                            checkBoxTitle: EmployeeType.values[index].name))))
-          ])));
+          width: MediaQuery.sizeOf(context).width * 0.30,
+          child: Form(
+            key: formKey,
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Divider(),
+                  const SizedBox(height: spacingHuge),
+                  LabelAndFieldWidget(
+                      label: StringConstants.kEmailAddress,
+                      onTextFieldChanged: (value) {
+                        context
+                            .read<EmployeeBloc>()
+                            .inviteDetails['user_email'] = value;
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return StringConstants.kFieldCannotBeEmpty;
+                        }
+                        return null;
+                      }),
+                  const SizedBox(height: spacingHuge),
+                  Text(StringConstants.kAssignRole,
+                      style: Theme.of(context).textTheme.userNameTextStyle),
+                  const SizedBox(height: spacingMedium),
+                  Column(
+                      children: List.generate(
+                          EmployeeType.values.length,
+                          (index) => Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: spacingSmall),
+                              child: CustomCheckbox(
+                                  checkBoxTitle:
+                                      EmployeeType.values[index].name))))
+                ]),
+          )));
   showDialog(
       context: context,
       builder: (BuildContext context) {

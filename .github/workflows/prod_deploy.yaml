@@ -1,21 +1,33 @@
 name: Deploy to Firebase Hosting on merge
-'on':
+
+on:
   push:
     branches:
       - dev
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - uses: subosito/flutter-action@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - run: flutter pub get
-      - run: flutter build web
-      - uses: FirebaseExtended/action-hosting-deploy@v0
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Build Flutter web
+        run: flutter build web
+
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: '$'
-          firebaseServiceAccount: '$'
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SAASIFY_PRODUCTION }}
           channelId: live
           projectId: website-xxw23

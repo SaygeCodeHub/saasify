@@ -7,7 +7,6 @@ import 'package:saasify/bloc/companies/companies_bloc.dart';
 import 'package:saasify/bloc/employee/employee_bloc.dart';
 import 'package:saasify/bloc/register/register_bloc.dart';
 import 'package:saasify/configs/app_route.dart';
-import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -65,7 +64,7 @@ class MyPosApp extends StatelessWidget {
                 } else if (state is NoCompanySelected) {
                   return AddCompanyScreen();
                 } else {
-                  return AuthenticationScreen();
+                  return HRMSDashboardScreen();
                 }
               }))),
     );

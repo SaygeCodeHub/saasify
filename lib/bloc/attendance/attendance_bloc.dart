@@ -1,5 +1,4 @@
-import 'dart:developer';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
@@ -22,25 +21,15 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
   double currentLatitude = 0;
   double currentLongitude = 0;
 
-  String? checkInTime;
-  String? checkOutTime;
+  ValueNotifier<String?> checkInTime = ValueNotifier<String?>(null);
+  ValueNotifier<String?> checkOutTime = ValueNotifier<String?>(null);
 
   bool markingAttendance = true;
 
   AttendanceBloc() : super(AttendanceInitial()) {
     on<MarkAttendance>(_onMarkAttendance);
     on<FetchAttendance>(_onFetchAttendance);
-    // on<CheckAttendance>(_onCheckAttendance);
   }
-
-  // void _onCheckAttendance(
-  //     CheckAttendance event, Emitter<AttendanceStates> emit) async {
-  //   if (event.checkInTime != null && event.checkOutTime == null) {
-  //     isCheckedIn = true;
-  //   } else {
-  //     isCheckedIn = false;
-  //   }
-  // }
 
   void _onFetchAttendance(
       FetchAttendance event, Emitter<AttendanceStates> emit) async {
@@ -53,8 +42,8 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
           .getAttendance(companyId, branchId, userId);
 
       if (attendanceModel.status == 200){
-        checkInTime = formatDate(attendanceModel.data.checkIn);
-        checkOutTime = formatDate(attendanceModel.data.checkOut);
+        checkInTime.value = formatDate(attendanceModel.data.checkIn);
+        checkOutTime.value = formatDate(attendanceModel.data.checkOut);
         emit(AttendanceFetched());
       }
     }catch(e){
@@ -92,12 +81,6 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
       double distance = Geolocator.distanceBetween(
           officeLatitude, officeLongitude, currentLatitude, currentLongitude);
 
-      log(officeLatitude.toString());
-      log(officeLongitude.toString());
-      log(currentLatitude.toString());
-      log(currentLongitude.toString());
-      log(distance.toString());
-
       if (distance < 20) {
         String companyId = await _cache.getCompanyId();
         String branchId = await _cache.getBranchId();
@@ -106,11 +89,8 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
         AttendanceModel attendanceModel = await _attendanceRepository
             .markAttendance(companyId, branchId, userId);
         if (attendanceModel.status == 200) {
-          // isCheckedIn = !isCheckedIn;
-          checkInTime = formatDate(attendanceModel.data.checkIn);
-          checkOutTime = formatDate(attendanceModel.data.checkOut);
-          log(checkInTime.toString());
-          log(checkOutTime.toString());
+          checkInTime.value = formatDate(attendanceModel.data.checkIn);
+          checkOutTime.value = formatDate(attendanceModel.data.checkOut);
           emit(MarkedAttendance());
         } else {
           emit(ErrorMarkingAttendance(message: attendanceModel.message));

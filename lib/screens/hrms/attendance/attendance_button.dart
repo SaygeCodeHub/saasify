@@ -9,13 +9,25 @@ import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class AttendanceButton extends StatelessWidget {
-  final String? checkInTime;
-  final String? checkOutTime;
 
-  const AttendanceButton({super.key, this.checkInTime, this.checkOutTime});
+  const AttendanceButton({super.key});
 
   @override
   Widget build(BuildContext context) {
+    bool checkInTimeExists() {
+      if (context.read<AttendanceBloc>().checkInTime.value == null) {
+        return false;
+      } else {
+        return true;
+      }
+    }
+    bool checkOutTimeExists() {
+      if (context.read<AttendanceBloc>().checkOutTime.value == null) {
+        return false;
+      } else {
+        return true;
+      }
+    }
     return BlocConsumer<AttendanceBloc, AttendanceStates>(
         listener: (BuildContext context, state) {
       if (state is ErrorMarkingAttendance) {
@@ -35,18 +47,21 @@ class AttendanceButton extends StatelessWidget {
             child: SizedBox(
                 width: 25, height: 25, child: CircularProgressIndicator()));
       } else {
-        return (checkInTime != null && checkOutTime != null)
+        return (checkInTimeExists() && checkOutTimeExists())
             ? const SizedBox.shrink()
             : PrimaryButton(
                 buttonWidth: kGeneralActionButtonWidth,
-                backgroundColor: (checkInTime == null)
+                backgroundColor: (!checkInTimeExists())
                     ? AppColors.successGreen
                     : AppColors.errorRed,
                 onPressed: () {
                   context.read<AttendanceBloc>().add(MarkAttendance());
                 },
-                buttonTitle: (checkInTime == null) ? 'Check In' : 'Check Out');
+                buttonTitle: !checkInTimeExists() ? 'Check In' : 'Check Out');
       }
     });
   }
+
+
 }
+

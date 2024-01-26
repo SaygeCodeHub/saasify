@@ -15,8 +15,8 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
         "2024-01-25T22:40:49.888987+05:30"
         ,
         "check_out":
-            // null
-        "2024-01-25T22:41:05.263917+05:30"
+            null
+        // "2024-01-25T22:41:05.263917+05:30"
       }
     };
     // await ClientServices().post(
@@ -27,7 +27,7 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
 
   @override
   Future<List<double>> getLatLong() async {
-    final response = [21.1458004,79.0881546];
+    final response = [21.1291499,79.1153367];
     // final response = [21.1093896, 79.0802884];
     return response;
   }

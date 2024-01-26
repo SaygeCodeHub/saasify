@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/attendance/attendance_bloc.dart';
+import 'package:saasify/bloc/attendance/attendance_event.dart';
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/di/app_module.dart';
@@ -29,13 +32,16 @@ class HRMSDashboardScreen extends StatelessWidget {
                     FutureBuilder<List<String>?>(
                       future: getIt<Cache>().getRoles(),
                       builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return !snapshot.data!.contains('0')
-                              ? const SizedBox.shrink()
-                              : const AttendanceCard();
-                        } else {
-                          return const SizedBox.shrink();
-                        }
+                        // if (snapshot.hasData) {
+                          context.read<AttendanceBloc>().add(FetchAttendance());
+                          return
+                            // snapshot.data!.contains('0')
+                            //   ? const SizedBox.shrink()
+                            //   :
+                            const AttendanceCard();
+                        // } else {
+                        //   return const SizedBox.shrink();
+                        // }
                       },
                     ),
                     const SizedBox(height: spacingXSmall),

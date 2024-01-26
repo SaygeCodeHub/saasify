@@ -7,7 +7,7 @@ String getAttendanceModelToJson(AttendanceModel data) => json.encode(data.toJson
 class AttendanceModel {
   final int status;
   final String message;
-  final Data data;
+  final AttendanceData data;
 
   AttendanceModel({
     required this.status,
@@ -18,7 +18,7 @@ class AttendanceModel {
   factory AttendanceModel.fromJson(Map<String, dynamic> json) => AttendanceModel(
     status: json["status"],
     message: json["message"],
-    data: Data.fromJson(json["data"]),
+    data: AttendanceData.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -28,16 +28,16 @@ class AttendanceModel {
   };
 }
 
-class Data {
+class AttendanceData {
   final DateTime? checkIn;
   final DateTime? checkOut;
 
-  Data({
+  AttendanceData({
     required this.checkIn,
     required this.checkOut,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory AttendanceData.fromJson(Map<String, dynamic> json) => AttendanceData(
     checkIn: json["check_in"] == null ? null : DateTime.parse(json["check_in"]),
     checkOut: json["check_out"] == null ? null : DateTime.parse(json["check_out"]),
   );

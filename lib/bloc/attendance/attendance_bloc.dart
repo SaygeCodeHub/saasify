@@ -24,8 +24,6 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
   ValueNotifier<String?> checkInTime = ValueNotifier<String?>(null);
   ValueNotifier<String?> checkOutTime = ValueNotifier<String?>(null);
 
-  bool markingAttendance = true;
-
   AttendanceBloc() : super(AttendanceInitial()) {
     on<MarkAttendance>(_onMarkAttendance);
     on<FetchAttendance>(_onFetchAttendance);
@@ -54,7 +52,6 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
   void _onMarkAttendance(
       MarkAttendance event, Emitter<AttendanceStates> emit) async {
     emit(MarkingAttendance());
-    markingAttendance =  true;
     try {
       List<double?> officePosition = await _getOfficeLocation();
       if (officePosition.first == null) {

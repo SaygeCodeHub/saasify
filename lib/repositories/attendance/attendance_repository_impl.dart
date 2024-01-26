@@ -12,11 +12,11 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
       "data": {
         "check_in":
             // null
-        "2024-01-25T22:40:49.888987+05:30"
+        DateTime.now().toIso8601String()
         ,
         "check_out":
-            null
-        // "2024-01-25T22:41:05.263917+05:30"
+            // null
+        DateTime.now().toIso8601String()
       }
     };
     // await ClientServices().post(
@@ -38,7 +38,7 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
       "status": 200,
       "message": "Attendance fetched successfully",
       "data": {
-        "check_in": null,
+        "check_in": DateTime.now().toIso8601String(),
         "check_out": null
       }
     };

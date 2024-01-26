@@ -42,7 +42,6 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
       if (attendanceModel.status == 200){
         checkInTime.value = formatDate(attendanceModel.data.checkIn);
         checkOutTime.value = formatDate(attendanceModel.data.checkOut);
-        emit(AttendanceFetched());
       }
     }catch(e){
       emit(ErrorFetchingAttendance(message: e.toString()));

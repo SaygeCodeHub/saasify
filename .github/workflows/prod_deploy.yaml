@@ -1,45 +1,21 @@
-name: Deploy to Firebase
-
-on:
+name: Deploy to Firebase Hosting on merge
+'on':
   push:
     branches:
-      - dev  # Adjust this according to your main branch name
-
+      - dev
 jobs:
-  build:
+  build_and_deploy:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v2
         with:
-          node-version: '14'
-
-      - name: Cache dependencies
-        uses: actions/cache@v2
+          channel: 'stable'
+      - run: flutter pub get
+      - run: flutter build web
+      - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          path: ~/.pub-cache
-          key: ${{ runner.os }}-pub-${{ hashFiles('**/pubspec.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pub-
-
-      - name: Get Flutter SDK
-        uses: subosito/flutter-action@v2
-        with:
-          flutter-version: 'stable'
-
-      - name: Install dependencies
-        run: flutter pub get
-
-      - name: Build web
-        run: flutter build web
-
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          repoToken: '$'
+          firebaseServiceAccount: '$'
+          channelId: live
+          projectId: website-xxw23

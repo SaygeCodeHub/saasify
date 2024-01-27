@@ -8,25 +8,18 @@ import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class AttendanceButton extends StatelessWidget {
-
   const AttendanceButton({super.key});
 
   @override
   Widget build(BuildContext context) {
     bool checkInTimeExists() {
-      if (context.read<AttendanceBloc>().checkInTime.value == null) {
-        return false;
-      } else {
-        return true;
-      }
+      return (context.read<AttendanceBloc>().checkInTime.value != null);
     }
+
     bool checkOutTimeExists() {
-      if (context.read<AttendanceBloc>().checkOutTime.value == null) {
-        return false;
-      } else {
-        return true;
-      }
+      return (context.read<AttendanceBloc>().checkOutTime.value != null);
     }
+
     return BlocConsumer<AttendanceBloc, AttendanceStates>(
         listener: (BuildContext context, state) {
       if (state is ErrorMarkingAttendance) {
@@ -36,9 +29,6 @@ class AttendanceButton extends StatelessWidget {
             return ErrorAlertDialog(description: state.message);
           },
         );
-      }
-      if (state is ErrorMarkingAttendance) {
-        // Home Screen API
       }
     }, builder: (BuildContext context, state) {
       if (state is MarkingAttendance) {
@@ -60,7 +50,4 @@ class AttendanceButton extends StatelessWidget {
       }
     });
   }
-
-
 }
-

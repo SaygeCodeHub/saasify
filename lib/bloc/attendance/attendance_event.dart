@@ -9,4 +9,4 @@ class CheckAttendance extends AttendanceEvents {
   CheckAttendance({this.checkInTime, this.checkOutTime});
 }
 
-class FetchAttendance extends AttendanceEvents{}
+class FetchAttendance extends AttendanceEvents {}

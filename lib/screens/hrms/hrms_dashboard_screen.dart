@@ -33,8 +33,8 @@ class HRMSDashboardScreen extends StatelessWidget {
                       future: getIt<Cache>().getRoles(),
                       builder: (context, snapshot) {
                         // if (snapshot.hasData) {
-                          context.read<AttendanceBloc>().add(FetchAttendance());
-                          return
+                        context.read<AttendanceBloc>().add(FetchAttendance());
+                        return
                             // snapshot.data!.contains('0')
                             //   ? const SizedBox.shrink()
                             //   :

@@ -1,8 +1,10 @@
 import 'dart:convert';
 
-AttendanceModel getAttendanceModelFromJson(String str) => AttendanceModel.fromJson(json.decode(str));
+AttendanceModel getAttendanceModelFromJson(String str) =>
+    AttendanceModel.fromJson(json.decode(str));
 
-String getAttendanceModelToJson(AttendanceModel data) => json.encode(data.toJson());
+String getAttendanceModelToJson(AttendanceModel data) =>
+    json.encode(data.toJson());
 
 class AttendanceModel {
   final int status;
@@ -15,17 +17,18 @@ class AttendanceModel {
     required this.data,
   });
 
-  factory AttendanceModel.fromJson(Map<String, dynamic> json) => AttendanceModel(
-    status: json["status"],
-    message: json["message"],
-    data: AttendanceData.fromJson(json["data"]),
-  );
+  factory AttendanceModel.fromJson(Map<String, dynamic> json) =>
+      AttendanceModel(
+        status: json["status"],
+        message: json["message"],
+        data: AttendanceData.fromJson(json["data"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "message": message,
-    "data": data.toJson(),
-  };
+        "status": status,
+        "message": message,
+        "data": data.toJson(),
+      };
 }
 
 class AttendanceData {
@@ -38,12 +41,15 @@ class AttendanceData {
   });
 
   factory AttendanceData.fromJson(Map<String, dynamic> json) => AttendanceData(
-    checkIn: json["check_in"] == null ? null : DateTime.parse(json["check_in"]),
-    checkOut: json["check_out"] == null ? null : DateTime.parse(json["check_out"]),
-  );
+        checkIn:
+            json["check_in"] == null ? null : DateTime.parse(json["check_in"]),
+        checkOut: json["check_out"] == null
+            ? null
+            : DateTime.parse(json["check_out"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "check_in": checkIn?.toIso8601String(),
-    "check_out": checkOut?.toIso8601String(),
-  };
+        "check_in": checkIn?.toIso8601String(),
+        "check_out": checkOut?.toIso8601String(),
+      };
 }

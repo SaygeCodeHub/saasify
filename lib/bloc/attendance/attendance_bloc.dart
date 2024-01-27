@@ -31,7 +31,7 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
 
   void _onFetchAttendance(
       FetchAttendance event, Emitter<AttendanceStates> emit) async {
-    try{
+    try {
       String companyId = await _cache.getCompanyId();
       String branchId = await _cache.getBranchId();
       String userId = await _cache.getUserId();
@@ -39,11 +39,11 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
       AttendanceModel attendanceModel = await _attendanceRepository
           .getAttendance(companyId, branchId, userId);
 
-      if (attendanceModel.status == 200){
+      if (attendanceModel.status == 200) {
         checkInTime.value = formatDate(attendanceModel.data.checkIn);
         checkOutTime.value = formatDate(attendanceModel.data.checkOut);
       }
-    }catch(e){
+    } catch (e) {
       emit(ErrorFetchingAttendance(message: e.toString()));
     }
   }
@@ -77,7 +77,7 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
       double distance = Geolocator.distanceBetween(
           officeLatitude, officeLongitude, currentLatitude, currentLongitude);
 
-      if (distance < 20) {
+      if (distance < 100) {
         String companyId = await _cache.getCompanyId();
         String branchId = await _cache.getBranchId();
         String userId = await _cache.getUserId();
@@ -145,8 +145,8 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
     }
   }
 
-  String? formatDate(DateTime? date){
-    if(date != null){
+  String? formatDate(DateTime? date) {
+    if (date != null) {
       return DateFormat("HH:mm").format(date);
     }
     return null;

@@ -5,4 +5,3 @@ class SendVerificationLink extends ResetPasswordEvents {
 
   SendVerificationLink({required this.userDetails});
 }
-

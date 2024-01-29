@@ -13,6 +13,8 @@ import 'package:saasify/repositories/upload/upload_repository_impl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../caches/cache.dart';
 import '../repositories/companies/companies_repository_impl.dart';
+import '../repositories/leaves/leaves_repository.dart';
+import '../repositories/leaves/leaves_repository_impl.dart';
 import '../services/client_services.dart';
 
 final getIt = GetIt.instance;
@@ -35,4 +37,6 @@ configurableDependencies() {
       () => EmployeeRepositoryImpl());
   getIt.registerLazySingleton<CompaniesRepository>(
       () => CompaniesRepositoryImpl());
+  getIt.registerLazySingleton<LeavesRepository>(
+      () => LeavesRepositoryImpl());
 }

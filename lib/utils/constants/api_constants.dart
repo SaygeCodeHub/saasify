@@ -5,4 +5,5 @@ class ApiConstants {
   static const registerUser = 'registerUser';
   static const sendInvite = 'sendInvite';
   static const createCompany = 'createCompany';
+  static const loadApplyLeaveScreen = 'loadApplyLeaveScreen';
 }

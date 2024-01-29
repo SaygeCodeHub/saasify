@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/leaves/load_apply_leave_bloc.dart';
+import 'package:saasify/bloc/leaves/leave_bloc.dart';
 import 'package:saasify/screens/hrms/leaves/widgets/apply_and_leave_detail_mobile_screen.dart';
 import 'package:saasify/screens/hrms/leaves/widgets/apply_and_leave_detail_web_screen.dart';
 
-import '../../../bloc/leaves/load_apply_leave_event.dart';
-import '../../../bloc/leaves/load_apply_leave_state.dart';
+import '../../../bloc/leaves/leave_event.dart';
+import '../../../bloc/leaves/leave_state.dart';
 import '../../../configs/app_spacing.dart';
 import '../../../widgets/layoutWidgets/responsive_layout.dart';
 import '../../../widgets/layoutWidgets/screen_skeleton.dart';
@@ -19,7 +19,7 @@ class ApplyAndLeaveDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<LoadApplyLeaveBloc>().add(LoadApplyLeave());
+    context.read<LeaveBloc>().add(LoadApplyLeaveScreen());
     return Scaffold(
       body: ScreenSkeleton(
         childScreenBuilder: (bool isMobile) => Column(
@@ -38,17 +38,17 @@ class ApplyAndLeaveDetailScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: BlocBuilder<LoadApplyLeaveBloc, LoadApplyLeaveState>(
+              child: BlocBuilder<LeaveBloc, LeaveState>(
                 builder: (context, state) {
-                  if (state is LoadingApplyLeave) {
+                  if (state is LoadingApplyLeaveScreen) {
                     return const Center(child: CircularProgressIndicator());
-                  } else if (state is LoadedApplyLeave) {
+                  } else if (state is LoadedApplyLeaveScreen) {
                     return ResponsiveLayout(
                         mobileBody: ApplyAndLeaveDetailMobileScreen(
-                            isDetailScreen: false, applyLeaveData: state.loadApplyLeaveModel.data),
+                            isDetailScreen: false, applyLeaveData: state.loadApplyLeaveScreenModel.data),
                         desktopBody: ApplyAndLeaveDetailWebScreen(
-                          isDetailScreen: false, applyLeaveData: state.loadApplyLeaveModel.data));
-                  } else if (state is ErrorLoadingApplyLeave){
+                          isDetailScreen: false, applyLeaveData: state.loadApplyLeaveScreenModel.data));
+                  } else if (state is ErrorLoadingApplyLeaveScreen){
                     return const Center(child: Text("No data Found"));
                   }else {
                     return const SizedBox.shrink();

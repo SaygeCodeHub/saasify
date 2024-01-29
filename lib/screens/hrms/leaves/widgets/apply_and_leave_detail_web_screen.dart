@@ -5,7 +5,7 @@ import 'package:saasify/widgets/text/field_label_widget.dart';
 
 import '../../../../configs/app_colors.dart';
 import '../../../../configs/app_spacing.dart';
-import '../../../../data/models/leaves/load_apply_leave_model.dart';
+import '../../../../data/models/leaves/load_apply_leave_screen_model.dart';
 import '../../../../widgets/layoutWidgets/background_card_widget.dart';
 import '../../../../widgets/layoutWidgets/multifield_row.dart';
 

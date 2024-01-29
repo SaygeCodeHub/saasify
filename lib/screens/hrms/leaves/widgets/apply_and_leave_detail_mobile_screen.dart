@@ -6,7 +6,7 @@ import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/widgets/icons/circle_card_icon.dart';
 import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
 import 'package:saasify/widgets/text/field_label_widget.dart';
-import '../../../../data/models/leaves/load_apply_leave_model.dart';
+import '../../../../data/models/leaves/load_apply_leave_screen_model.dart';
 import 'apply_leave_button.dart';
 
 class ApplyAndLeaveDetailMobileScreen extends StatelessWidget {

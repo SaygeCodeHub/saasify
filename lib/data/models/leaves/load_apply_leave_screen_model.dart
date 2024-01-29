@@ -1,21 +1,21 @@
 import 'dart:convert';
 
-LoadApplyLeaveModel loadApplyLeaveModelFromJson(String str) => LoadApplyLeaveModel.fromJson(json.decode(str));
+LoadApplyLeaveScreenModel loadApplyLeaveModelFromJson(String str) => LoadApplyLeaveScreenModel.fromJson(json.decode(str));
 
-String loadApplyLeaveModelToJson(LoadApplyLeaveModel data) => json.encode(data.toJson());
+String loadApplyLeaveModelToJson(LoadApplyLeaveScreenModel data) => json.encode(data.toJson());
 
-class LoadApplyLeaveModel {
+class LoadApplyLeaveScreenModel {
   int status;
   String message;
   ApplyLeaveData data;
 
-  LoadApplyLeaveModel({
+  LoadApplyLeaveScreenModel({
     required this.status,
     required this.message,
     required this.data,
   });
 
-  factory LoadApplyLeaveModel.fromJson(Map<String, dynamic> json) => LoadApplyLeaveModel(
+  factory LoadApplyLeaveScreenModel.fromJson(Map<String, dynamic> json) => LoadApplyLeaveScreenModel(
     status: json["status"],
     message: json["message"],
     data: ApplyLeaveData.fromJson(json["data"]),

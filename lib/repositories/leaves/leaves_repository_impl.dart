@@ -1,15 +1,15 @@
+import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/leaves/load_apply_leave_screen_model.dart';
-import '../../caches/cache.dart';
-import '../../di/app_module.dart';
-import '../../services/client_services.dart';
-import '../../utils/constants/api_constants.dart';
-import 'leaves_repository.dart';
+import 'package:saasify/di/app_module.dart';
+import 'package:saasify/repositories/leaves/leaves_repository.dart';
+import 'package:saasify/services/client_services.dart';
+import 'package:saasify/utils/constants/api_constants.dart';
 
 class LeavesRepositoryImpl implements LeavesRepository {
   final Cache cache = getIt<Cache>();
 
   @override
-  Future<LoadApplyLeaveScreenModel> loadApplyLeave() async {
+  Future<LoadApplyLeaveScreenModel> loadApplyLeaveScreen() async {
     try {
       var companyId = await cache.getCompanyId();
       var branchId = await cache.getBranchId();

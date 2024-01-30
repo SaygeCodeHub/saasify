@@ -7,9 +7,9 @@ import 'package:saasify/configs/app_spacing.dart';
 class CustomDropdownButton extends StatelessWidget {
   final bool? showBorder;
   final String hint;
-  final List<String> items;
+  final List items;
   final String? selectedValue;
-  final ValueChanged<String?> onChanged;
+  final ValueChanged onChanged;
 
   const CustomDropdownButton({
     super.key,
@@ -23,46 +23,43 @@ class CustomDropdownButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.sizeOf(context).width * 0.15,
-      child: DropdownButtonFormField2<String>(
-        isExpanded: true,
-        decoration: InputDecoration(
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                    color: (showBorder == false)
-                        ? AppColors.transparent
-                        : AppColors.black12)),
-            contentPadding:
-            const EdgeInsets.symmetric(vertical: spacingStandard),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(kCardRadius))),
-        hint: Text(hint, style: Theme.of(context).textTheme.titleSmall),
-        items: items
-            .map((item) => DropdownMenuItem<String>(
-          value: item,
-          child: Text(item,
-              style: const TextStyle(fontSize: spacingMedium)),
-        ))
-            .toList(),
-        validator: (value) {
-          if (value == null) {
-            return 'Please select Leave Type';
-          }
-          return null;
-        },
-        onChanged: (value) {},
-        buttonStyleData: const ButtonStyleData(
-          padding: EdgeInsets.only(right: spacingXSmall),
-        ),
-        iconStyleData: const IconStyleData(
-            icon: Icon(Icons.arrow_drop_down, color: AppColors.darkBlue),
-            iconSize: kBackIconSize),
-        dropdownStyleData: DropdownStyleData(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(spacingStandard))),
-        menuItemStyleData: const MenuItemStyleData(
-            padding: EdgeInsets.symmetric(horizontal: spacingStandard)),
-      ),
-    );
+        width: MediaQuery.sizeOf(context).width * 0.15,
+        child: DropdownButtonFormField2(
+            isExpanded: true,
+            decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: (showBorder == false)
+                            ? AppColors.transparent
+                            : AppColors.lighterBlack)),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: spacingStandard),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(kCardRadius))),
+            hint: Text(hint, style: Theme.of(context).textTheme.titleSmall),
+            items: items
+                .map((item) => DropdownMenuItem(
+                      value: item,
+                      child: Text(item,
+                          style: const TextStyle(fontSize: spacingMedium)),
+                    ))
+                .toList(),
+            validator: (value) {
+              if (value == null) {
+                return 'Please select Leave Type';
+              }
+              return null;
+            },
+            onChanged: onChanged,
+            buttonStyleData: const ButtonStyleData(
+                padding: EdgeInsets.only(right: spacingXSmall)),
+            iconStyleData: const IconStyleData(
+                icon: Icon(Icons.arrow_drop_down, color: AppColors.darkBlue),
+                iconSize: kBackIconSize),
+            dropdownStyleData: DropdownStyleData(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(spacingStandard))),
+            menuItemStyleData: const MenuItemStyleData(
+                padding: EdgeInsets.symmetric(horizontal: spacingStandard))));
   }
 }

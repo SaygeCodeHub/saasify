@@ -1,18 +1,18 @@
 import 'package:saasify/data/models/leaves/load_apply_leave_screen_model.dart';
 
-abstract class LeaveState {}
+abstract class LeaveStates {}
 
-class LoadApplyLeaveInitial extends LeaveState {}
+class LoadLeaveInitialise extends LeaveStates {}
 
-class LoadingApplyLeaveScreen extends LeaveState {}
+class LoadingApplyLeaveScreen extends LeaveStates {}
 
-class LoadedApplyLeaveScreen extends LeaveState {
+class ApplyLeaveScreenLoaded extends LeaveStates {
   final LoadApplyLeaveScreenModel loadApplyLeaveScreenModel;
 
-  LoadedApplyLeaveScreen({required this.loadApplyLeaveScreenModel});
+  ApplyLeaveScreenLoaded({required this.loadApplyLeaveScreenModel});
 }
 
-class ErrorLoadingApplyLeaveScreen extends LeaveState {
+class ErrorLoadingApplyLeaveScreen extends LeaveStates {
   final String? message;
   ErrorLoadingApplyLeaveScreen({this.message});
 }

@@ -7,7 +7,7 @@ class DropdownLabelWidget extends StatefulWidget {
   final String? label;
   final double? textFieldSize;
   final String hint;
-  final List<String> items;
+  final List items;
   final ValueChanged<String?> onChanged;
 
   const DropdownLabelWidget({
@@ -41,6 +41,7 @@ class _DropdownLabelWidgetState extends State<DropdownLabelWidget> {
               setState(() {
                 selectedValue = value;
               });
+              widget.onChanged(selectedValue);
             },
           ))
     ]);

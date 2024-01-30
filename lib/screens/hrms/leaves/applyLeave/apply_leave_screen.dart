@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/leaves/leave_bloc.dart';
+import 'package:saasify/bloc/leaves/leaves_bloc.dart';
 import 'package:saasify/bloc/leaves/leave_event.dart';
 import 'package:saasify/bloc/leaves/leave_state.dart';
 import 'package:saasify/configs/app_spacing.dart';
@@ -19,7 +19,7 @@ class ApplyLeaveScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<LeaveBloc>().add(LoadApplyLeaveScreen());
+    context.read<LeavesBloc>().add(LoadApplyLeaveScreen());
     return Scaffold(
       body: ScreenSkeleton(
         childScreenBuilder: (bool isMobile) => Column(
@@ -38,7 +38,7 @@ class ApplyLeaveScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: BlocConsumer<LeaveBloc, LeaveState>(
+              child: BlocConsumer<LeavesBloc, LeaveStates>(
                 listener: (context, state) {
                   if (state is ErrorLoadingApplyLeaveScreen) {
                     showDialog(
@@ -56,7 +56,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                 builder: (context, state) {
                   if (state is LoadingApplyLeaveScreen) {
                     return const Center(child: CircularProgressIndicator());
-                  } else if (state is LoadedApplyLeaveScreen) {
+                  } else if (state is ApplyLeaveScreenLoaded) {
                     return ResponsiveLayout(
                         mobileBody: ApplyLeaveMobileScreen(
                             isDetailScreen: false,

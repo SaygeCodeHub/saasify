@@ -1,3 +1,3 @@
-abstract class LeaveEvent {}
+abstract class LeaveEvents {}
 
-class LoadApplyLeaveScreen extends LeaveEvent {}
+class LoadApplyLeaveScreen extends LeaveEvents {}

@@ -38,7 +38,7 @@ class CalendarDropDownLabelWidget extends StatelessWidget {
           controller: dateController,
           decoration: InputDecoration(
             enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: AppColors.black12)),
+                borderSide: BorderSide(color: AppColors.lighterBlack)),
             hintText: hintText,
             suffixIcon: IconButton(
               onPressed: () => _selectDate(context, dateController),

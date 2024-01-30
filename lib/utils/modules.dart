@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:saasify/data/enums/modules_enum.dart';
+import 'package:saasify/data/models/generalModels/value_card_model.dart';
 import 'package:saasify/screens/hrms/add_employee/widgets/add_emp_dialouge.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';
-import 'package:saasify/screens/hrms/leaves/apply_and_leave_detail_screen.dart';
-
-import '../data/models/generalModels/value_card_model.dart';
+import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_screen.dart';
 
 List<ValueCardModel> statisticsModules = [
   ValueCardModel(
@@ -49,7 +48,7 @@ List<ValueCardModel> hrmsModules = [
       cardHeading: Modules.applyLeave.name,
       iconPath: 'assets/documents.png',
       onTap: (BuildContext context) {
-        Navigator.pushNamed(context, ApplyAndLeaveDetailScreen.routeName);
+        Navigator.pushNamed(context, ApplyLeaveScreen.routeName);
       }),
   ValueCardModel(
       cardHeading: Modules.myLeaves.name,

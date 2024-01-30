@@ -45,7 +45,7 @@ class ApplyLeaveMobileScreen extends StatelessWidget {
               DropdownLabelWidget(
                 label: 'Leave Type',
                 hint: 'Leave Type',
-                items: const ['Medical Leaves', 'Casual Leaves'],
+                items: const ['Medical Leaves','Casual Leaves'],
                 onChanged: (String? value) {},
               ),
               CalendarDropDownLabelWidget(

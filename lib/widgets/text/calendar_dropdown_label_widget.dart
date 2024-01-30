@@ -6,15 +6,7 @@ class CalendarDropDownLabelWidget extends StatelessWidget {
   final String text;
   final String hintText;
   final TextEditingController dateController;
-  final ValueChanged<String?> onChanged;
-
-
-  const CalendarDropDownLabelWidget(
-      {super.key,
-      required this.text,
-      required this.hintText,
-      required this.dateController,
-      required this.onChanged});
+  const CalendarDropDownLabelWidget({super.key, required this.text, required this.hintText, required this.dateController});
 
   Future<void> _selectDate(
       BuildContext context, TextEditingController dateController) async {
@@ -32,22 +24,21 @@ class CalendarDropDownLabelWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
         padding: const EdgeInsets.all(spacingSmallest),
         child: Text(
           text,
-          style: const TextStyle(
-              color: AppColors.black, fontSize: spacingStandard),
+          style: const TextStyle(color: AppColors.black, fontSize: spacingStandard),
         ),
       ),
       const SizedBox(height: spacingXMedium),
       TextFormField(
           controller: dateController,
-          onChanged: onChanged,
           decoration: InputDecoration(
             enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: AppColors.black12)),
+                borderSide: BorderSide(color: AppColors.lighterBlack)),
             hintText: hintText,
             suffixIcon: IconButton(
               onPressed: () => _selectDate(context, dateController),

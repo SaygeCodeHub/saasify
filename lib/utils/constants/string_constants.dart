@@ -65,5 +65,5 @@ class StringConstants {
   static const kEnterValidPassword = 'Please enter valid password';
 
 //Leaves
-static const kApply = 'Apply';
+  static const kApply = 'Apply';
 }

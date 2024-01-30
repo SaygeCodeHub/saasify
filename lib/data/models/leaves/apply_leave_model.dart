@@ -1,8 +1,10 @@
 import 'dart:convert';
 
-ApplyLeaveModel applyLeaveModelFromJson(String str) => ApplyLeaveModel.fromJson(json.decode(str));
+ApplyLeaveModel applyLeaveModelFromJson(String str) =>
+    ApplyLeaveModel.fromJson(json.decode(str));
 
-String applyLeaveModelToJson(ApplyLeaveModel data) => json.encode(data.toJson());
+String applyLeaveModelToJson(ApplyLeaveModel data) =>
+    json.encode(data.toJson());
 
 class ApplyLeaveModel {
   int status;
@@ -15,17 +17,18 @@ class ApplyLeaveModel {
     required this.data,
   });
 
-  factory ApplyLeaveModel.fromJson(Map<String, dynamic> json) => ApplyLeaveModel(
-    status: json["status"],
-    message: json["message"],
-    data: LeaveData.fromJson(json["data"]),
-  );
+  factory ApplyLeaveModel.fromJson(Map<String, dynamic> json) =>
+      ApplyLeaveModel(
+        status: json["status"],
+        message: json["message"],
+        data: LeaveData.fromJson(json["data"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "message": message,
-    "data": data.toJson(),
-  };
+        "status": status,
+        "message": message,
+        "data": data.toJson(),
+      };
 }
 
 class LeaveData {
@@ -42,16 +45,16 @@ class LeaveData {
   });
 
   factory LeaveData.fromJson(Map<String, dynamic> json) => LeaveData(
-    leaveId: json["leave_id"],
-    leaveStatus: json["leave_status"],
-    isLeaveApproved: json["is_leave_approved"],
-    comment: json["comment"],
-  );
+        leaveId: json["leave_id"],
+        leaveStatus: json["leave_status"],
+        isLeaveApproved: json["is_leave_approved"],
+        comment: json["comment"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "leave_id": leaveId,
-    "leave_status": leaveStatus,
-    "is_leave_approved": isLeaveApproved,
-    "comment": comment,
-  };
+        "leave_id": leaveId,
+        "leave_status": leaveStatus,
+        "is_leave_approved": isLeaveApproved,
+        "comment": comment,
+      };
 }

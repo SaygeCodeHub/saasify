@@ -18,9 +18,7 @@ class AuthBloc extends Bloc<ResetPasswordEvents, ResetPasswordStates> {
 
   FutureOr<void> _sendVerificationLink(
       SendVerificationLink event, Emitter<ResetPasswordStates> emit) async {
-    try {
-
-    } catch (e) {
+    try {} catch (e) {
       emit(FailedToSendVerificationLink());
     }
   }

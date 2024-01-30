@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/leaves/leave_bloc.dart';
+import 'package:saasify/bloc/leaves/leaves_bloc.dart';
 import 'package:saasify/bloc/leaves/leave_event.dart';
 import 'package:saasify/bloc/leaves/leave_state.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
@@ -16,7 +16,7 @@ class ApplyLeaveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LeaveBloc, LeaveState>(
+    return BlocConsumer<LeavesBloc, LeaveStates>(
       listener: (context, state) {
         if (state is LeaveApplied) {
           Navigator.pushReplacementNamed(
@@ -40,7 +40,8 @@ class ApplyLeaveButton extends StatelessWidget {
               buttonTitle: StringConstants.kApply,
               onPressed: () {
                 if (formKey.currentState?.validate() ?? false) {
-                  context.read<LeaveBloc>().add(ApplyLeave(leaveDetailsMap: ApplyLeaveScreen.leavesMap));
+                  context.read<LeavesBloc>().add(
+                      ApplyLeave(leaveDetailsMap: ApplyLeaveScreen.leavesMap));
                 }
               },
               buttonWidth: MediaQuery.sizeOf(context).width * 0.15);

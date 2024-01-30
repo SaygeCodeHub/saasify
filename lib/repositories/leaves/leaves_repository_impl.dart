@@ -1,4 +1,5 @@
 import 'package:saasify/caches/cache.dart';
+import 'package:saasify/data/models/leaves/apply_leave_model.dart';
 import 'package:saasify/data/models/leaves/load_apply_leave_screen_model.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/leaves/leaves_repository.dart';
@@ -17,6 +18,21 @@ class LeavesRepositoryImpl implements LeavesRepository {
       final response = await ClientServices().get(
           "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.loadApplyLeaveScreen}");
       return LoadApplyLeaveScreenModel.fromJson(response);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ApplyLeaveModel> applyLeave(Map leaveDetails) async {
+    var companyId = await cache.getCompanyId();
+    var branchId = await cache.getBranchId();
+    var userId = await cache.getUserId();
+    try {
+      final response = await ClientServices().post(
+          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.applyLeave}",
+          leaveDetails);
+      return ApplyLeaveModel.fromJson(response);
     } catch (error) {
       rethrow;
     }

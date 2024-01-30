@@ -14,6 +14,7 @@ import 'package:saasify/widgets/text/module_heading.dart';
 class ApplyLeaveScreen extends StatelessWidget {
   static const routeName = 'ApplyLeaveScreen';
   final bool? isDetailScreen;
+  static Map leavesMap = {};
 
   const ApplyLeaveScreen({super.key, this.isDetailScreen = false});
 

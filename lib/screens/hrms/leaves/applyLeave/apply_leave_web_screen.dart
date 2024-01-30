@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/models/leaves/load_apply_leave_screen_model.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_button.dart';
+import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_screen.dart';
 import 'package:saasify/screens/hrms/leaves/widgets/leave_statistic_card.dart';
 import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
 import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
@@ -9,11 +10,13 @@ import 'package:saasify/widgets/text/calendar_dropdown_label_widget.dart';
 import 'package:saasify/widgets/text/dropdown_label_widget.dart';
 import 'package:saasify/widgets/text/textfield_label_widget.dart';
 
+
 class ApplyLeaveWebScreen extends StatelessWidget {
   final bool? isDetailScreen;
   final ApplyLeaveData applyLeaveData;
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  const ApplyLeaveWebScreen(
+  ApplyLeaveWebScreen(
       {super.key, this.isDetailScreen = false, required this.applyLeaveData});
 
   @override
@@ -53,30 +56,46 @@ class ApplyLeaveWebScreen extends StatelessWidget {
             CalendarDropDownLabelWidget(
                 text: 'From Date',
                 hintText: 'From Date',
-                dateController: fromDateController),
+                dateController: fromDateController,
+                onChanged: (value) {
+                  ApplyLeaveScreen.leavesMap['start_date'] = value;
+                }),
             CalendarDropDownLabelWidget(
-                text: 'To Date',
-                hintText: 'To Date',
-                dateController: toDateController),
+              text: 'To Date',
+              hintText: 'To Date',
+              dateController: toDateController,
+              onChanged: (String? value) {
+                ApplyLeaveScreen.leavesMap['end_date'] = value;
+              },
+            ),
             DropdownLabelWidget(
               label: 'Approver',
               hint: 'Approver',
-              items: const ['1', '2', '3'],
+              items: const ['1'],
               onChanged: (String? value) {},
             ),
           ],
         ),
       ),
       const SizedBox(height: spacingXMedium),
-      const Padding(
-        padding: EdgeInsets.all(spacingMedium),
-        child: TextfieldLabelWidget(label: 'Reason', maxLines: 5),
+      Padding(
+        padding: const EdgeInsets.all(spacingMedium),
+        child: TextfieldLabelWidget(
+          label: 'Reason',
+          maxLines: 5,
+          onTextFieldChanged: (text) {
+            ApplyLeaveScreen.leavesMap["leave_reason"] = text;
+          },
+        ),
       ),
       const SizedBox(height: spacingXMedium),
-      const Padding(
-          padding: EdgeInsets.all(spacingMedium),
+      Padding(
+          padding: const EdgeInsets.all(spacingMedium),
           child: Align(
-              alignment: Alignment.centerRight, child: ApplyLeaveButton())),
+              alignment: Alignment.centerRight,
+              child: ApplyLeaveButton(
+                formKey: formKey,
+              ))),
     ]));
   }
 }

@@ -11,7 +11,6 @@ import 'package:saasify/repositories/leaves/leaves_repository.dart';
 class LeavesBloc extends Bloc<LeaveEvents, LeaveStates> {
   final LeavesRepository _leavesRepository = getIt<LeavesRepository>();
   final Cache cache = getIt<Cache>();
-  List<String> typeOfLeaves = ['Medical Leave', 'Casual Leave'];
 
   LeaveStates get initialState => LoadLeaveInitialise();
 
@@ -46,7 +45,7 @@ class LeavesBloc extends Bloc<LeaveEvents, LeaveStates> {
         "leave_type": event.leaveDetailsMap["leave_type"],
         "start_date": event.leaveDetailsMap["start_date"],
         "end_date": event.leaveDetailsMap["end_date"],
-        "approvers": event.leaveDetailsMap["approvers"].id,
+        "approvers": [event.leaveDetailsMap["approvers"]],
         "leave_reason": event.leaveDetailsMap["leave_reason"]
       };
       ApplyLeaveModel applyLeaveModel =

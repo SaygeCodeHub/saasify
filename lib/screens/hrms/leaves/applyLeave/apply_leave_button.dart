@@ -16,37 +16,31 @@ class ApplyLeaveButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LeavesBloc, LeaveStates>(
-      listener: (context, state) {
-        if (state is LeaveApplied) {
-          Navigator.pushReplacementNamed(
-              context, HRMSDashboardScreen.routeName);
-        }
-        if (state is ApplyLeaveFailed) {
-          showDialog(
+    return BlocConsumer<LeavesBloc, LeaveStates>(listener: (context, state) {
+      if (state is LeaveApplied) {
+        Navigator.pushReplacementNamed(context, HRMSDashboardScreen.routeName);
+      }
+      if (state is ApplyLeaveFailed) {
+        showDialog(
             context: context,
             builder: (BuildContext context) {
               return ErrorAlertDialog(
                   description: state.errorMessage.toString());
+            });
+      }
+    }, builder: (context, state) {
+      if (state is ApplyingLeave) {
+        return const Center(child: CircularProgressIndicator());
+      } else {
+        return PrimaryButton(
+            buttonTitle: StringConstants.kApply,
+            onPressed: () {
+              context
+                  .read<LeavesBloc>()
+                  .add(ApplyLeave(leaveDetailsMap: ApplyLeaveScreen.leavesMap));
             },
-          );
-        }
-      },
-      builder: (context, state) {
-        if (state is ApplyingLeave) {
-          return const Center(child: CircularProgressIndicator());
-        } else {
-          return PrimaryButton(
-              buttonTitle: StringConstants.kApply,
-              onPressed: () {
-                if (formKey.currentState?.validate() ?? false) {
-                  context.read<LeavesBloc>().add(
-                      ApplyLeave(leaveDetailsMap: ApplyLeaveScreen.leavesMap));
-                }
-              },
-              buttonWidth: MediaQuery.sizeOf(context).width * 0.15);
-        }
-      },
-    );
+            buttonWidth: MediaQuery.sizeOf(context).width * 0.15);
+      }
+    });
   }
 }

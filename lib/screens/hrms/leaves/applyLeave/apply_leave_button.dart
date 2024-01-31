@@ -38,6 +38,7 @@ class ApplyLeaveButton extends StatelessWidget {
               context
                   .read<LeavesBloc>()
                   .add(ApplyLeave(leaveDetailsMap: ApplyLeaveScreen.leavesMap));
+              Navigator.pushNamed(context, HRMSDashboardScreen.routeName);
             },
             buttonWidth: MediaQuery.sizeOf(context).width * 0.15);
       }

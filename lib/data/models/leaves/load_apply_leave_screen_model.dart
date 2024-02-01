@@ -42,7 +42,7 @@ class ApplyLeaveData {
   factory ApplyLeaveData.fromJson(Map<String, dynamic> json) => ApplyLeaveData(
     casualLeaves: json["casual_leaves"] ?? "",
     medicalLeaves: json["medical_leaves"] ?? "",
-    approvers: List<Approver>.from(json["approvers"].map((x) => Approver.fromJson(x))),
+    approvers: List<Approver>.from(json["approvers"].map((x) => Approver.fromJson(x)) ?? []),
   );
 
   Map<String, dynamic> toJson() => {

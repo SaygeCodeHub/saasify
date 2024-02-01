@@ -31,3 +31,4 @@ class ApplyLeaveFailed extends LeaveStates {
 
   ApplyLeaveFailed({required this.errorMessage});
 }
+

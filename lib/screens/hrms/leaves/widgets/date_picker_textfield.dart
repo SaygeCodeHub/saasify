@@ -6,29 +6,36 @@ import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/hrms/leaves/widgets/custom_text_button.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/widgets/text/label_text_widget.dart';
+final GlobalKey<FormState> formKeys = GlobalKey<FormState>();
 
 typedef StringCallBack = Function(String date);
 
 class DatePickerTextField extends StatefulWidget {
   final DateTime? initialDate;
   final StringCallBack onDateChanged;
+  final double? textFieldSize;
   final DateTime? maxDate;
   final String editDate;
   final String? hintText;
-  final String text;
+  final String? label;
   final DateTime? minimumDate;
   final String? Function(String?)? validator;
+  final TextEditingController dateInputController ;
+
 
   const DatePickerTextField({
     super.key,
     this.initialDate,
     this.maxDate,
+    this.textFieldSize,
     this.editDate = '',
     this.hintText,
-    required this.text,
+    this.label,
     this.minimumDate,
     required this.onDateChanged,
     this.validator,
+    required this.dateInputController
   });
 
   @override
@@ -36,12 +43,11 @@ class DatePickerTextField extends StatefulWidget {
 }
 
 class _DatePickerTextFieldState extends State<DatePickerTextField> {
-  final TextEditingController dateInputController = TextEditingController();
   bool isFirstTime = true;
 
   @override
   void initState() {
-    dateInputController.text = widget.editDate;
+    widget.dateInputController.text = widget.editDate;
     super.initState();
   }
 
@@ -62,12 +68,12 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
                             initialDateTime: (isFirstTime != false)
                                 ? widget.initialDate
                                 : DateFormat("yyyy-MM-dd")
-                                    .parse(dateInputController.text),
+                                    .parse(widget.dateInputController.text),
                             onDateTimeChanged: (value) {
                               setState(() {
                                 String formattedDate =
                                     DateFormat('yyyy-MM-dd').format(value);
-                                dateInputController.text = formattedDate;
+                                widget.dateInputController.text = formattedDate;
                                 widget.onDateChanged(
                                     DateFormat('yyyy-MM-dd').format(value));
                                 isFirstTime = false;
@@ -78,13 +84,13 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
                         onPressed: () {
                           if (isFirstTime != false) {
                             if (widget.initialDate == null) {
-                              dateInputController.text =
+                              widget.dateInputController.text =
                                   DateFormat('yyyy-MM-dd')
                                       .format(DateTime.now());
                               widget.onDateChanged(DateFormat('yyyy-MM-dd')
                                   .format(DateTime.now()));
                             } else {
-                              dateInputController.text =
+                              widget.dateInputController.text =
                                   DateFormat('yyyy-MM-dd')
                                       .format(widget.initialDate!);
                               widget.onDateChanged(DateFormat('yyyy-MM-dd')
@@ -100,32 +106,36 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-        padding: const EdgeInsets.all(spacingSmallest),
-        child: Text(
-          widget.text,
-          style: const TextStyle(
-              color: AppColors.black, fontSize: spacingStandard),
-        ),
-      ),
-      const SizedBox(height: spacingXMedium),
-      TextFormField(
-          validator: widget.validator,
-          readOnly: true,
-          controller: dateInputController,
-          decoration: InputDecoration(
-            enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: AppColors.lighterBlack)),
-            hintText: widget.hintText,
-            suffixIcon: IconButton(
-              onPressed: () async {
-                showDatePicker(context);
+    return Form(key: formKeys,
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        if (widget.label != null) LabelTextWidget(label: widget.label),
+        if (widget.label != null) const SizedBox(height: spacingMedium),
+        SizedBox(
+          width: widget.textFieldSize ?? MediaQuery.sizeOf(context).width,
+          height: widget.textFieldSize ?? MediaQuery.sizeOf(context).height * 0.071,
+          child: TextFormField(
+              validator: (value) {
+                if (value == null) {
+                  return 'Please select a value';
+                }
+                return null;
               },
-              icon: const Icon(Icons.calendar_month_rounded,
-                  color: AppColors.black),
-            ),
-          )),
-    ]);
+              readOnly: true,
+              controller:widget.dateInputController,
+              decoration: InputDecoration(
+                enabledBorder: const OutlineInputBorder(
+                    borderSide: BorderSide(color: AppColors.lighterBlack)),
+                hintText: widget.hintText,
+                suffixIcon: IconButton(
+                  onPressed: () async {
+                    showDatePicker(context);
+                  },
+                  icon: const Icon(Icons.calendar_month_rounded,
+                      color: AppColors.black),
+                ),
+              )),
+        ),
+      ]),
+    );
   }
 }

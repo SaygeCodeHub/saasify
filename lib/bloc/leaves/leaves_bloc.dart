@@ -22,7 +22,7 @@ class LeavesBloc extends Bloc<LeaveEvents, LeaveStates> {
   FutureOr<void> _loadApplyLeaveScreen(
       LoadApplyLeaveScreen event, Emitter<LeaveStates> emit) async {
     emit(LoadingApplyLeaveScreen());
-    try {
+   try {
       LoadApplyLeaveScreenModel loadApplyLeaveScreenModel =
           await _leavesRepository.loadApplyLeaveScreen();
       if (loadApplyLeaveScreenModel.status == 200) {

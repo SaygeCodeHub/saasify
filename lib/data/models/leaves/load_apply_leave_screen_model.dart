@@ -29,8 +29,8 @@ class LoadApplyLeaveScreenModel {
 }
 
 class ApplyLeaveData {
-  dynamic casualLeaves;
-  dynamic medicalLeaves;
+  int casualLeaves;
+  int medicalLeaves;
   List<Approver> approvers;
 
   ApplyLeaveData({

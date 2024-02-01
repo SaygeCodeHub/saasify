@@ -65,8 +65,7 @@ class ApplyLeaveWebScreen extends StatelessWidget {
                     }
                     return null;
                   },
-                  text: StringConstants.kFromDate,
-                  hintText: StringConstants.kFromDate,
+                  label: StringConstants.kFromDate,
                   dateController: fromDateController),
               // CalendarPopUpLabelWidget(
               //     text: StringConstants.kToDate,
@@ -100,7 +99,7 @@ class ApplyLeaveWebScreen extends StatelessWidget {
                 onTextFieldChanged: (text) {
                   ApplyLeaveScreen.leavesMap["leave_reason"] = text;
                 })),
-        const SizedBox(height: spacingXMedium),
+        const SizedBox(height: spacingSmall),
         Padding(
             padding: const EdgeInsets.all(spacingMedium),
             child: Align(

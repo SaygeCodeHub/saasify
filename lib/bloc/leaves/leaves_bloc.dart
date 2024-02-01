@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/leaves/leave_event.dart';
 import 'package:saasify/bloc/leaves/leave_state.dart';
@@ -22,19 +23,20 @@ class LeavesBloc extends Bloc<LeaveEvents, LeaveStates> {
   FutureOr<void> _loadApplyLeaveScreen(
       LoadApplyLeaveScreen event, Emitter<LeaveStates> emit) async {
     emit(LoadingApplyLeaveScreen());
-    try {
+    // try {
       LoadApplyLeaveScreenModel loadApplyLeaveScreenModel =
           await _leavesRepository.loadApplyLeaveScreen();
-      if (loadApplyLeaveScreenModel.status == 200) {
+      // if (loadApplyLeaveScreenModel.status == 200) {
         emit(ApplyLeaveScreenLoaded(
             loadApplyLeaveScreenModel: loadApplyLeaveScreenModel));
-      } else {
-        emit(ErrorLoadingApplyLeaveScreen(
-            message: loadApplyLeaveScreenModel.message));
-      }
-    } catch (e) {
-      emit(ErrorLoadingApplyLeaveScreen());
-    }
+        log("la==========>$loadApplyLeaveScreenModel");
+      // } else {
+      //   emit(ErrorLoadingApplyLeaveScreen(
+      //       message: loadApplyLeaveScreenModel.message));
+      // }
+    // } catch (e) {
+    //   emit(ErrorLoadingApplyLeaveScreen());
+    // }
   }
 
   FutureOr<void> _applyLeave(

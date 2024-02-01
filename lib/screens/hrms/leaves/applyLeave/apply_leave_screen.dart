@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/leaves/leaves_bloc.dart';
@@ -40,6 +42,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                       Expanded(
                           child: BlocConsumer<LeavesBloc, LeaveStates>(
                               listener: (context, state) {
+                                log("er==========>$state");
                         if (state is ErrorLoadingApplyLeaveScreen) {
                           showDialog(
                               context: context,

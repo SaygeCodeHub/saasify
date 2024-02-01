@@ -16,9 +16,9 @@ class LoadApplyLeaveScreenModel {
   });
 
   factory LoadApplyLeaveScreenModel.fromJson(Map<String, dynamic> json) => LoadApplyLeaveScreenModel(
-    status: json["status"] ?? "",
+    status: json["status"],
     message: json["message"] ?? "",
-    data: ApplyLeaveData.fromJson(json["data"]),
+    data: ApplyLeaveData.fromJson(json["data"] ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
@@ -29,8 +29,8 @@ class LoadApplyLeaveScreenModel {
 }
 
 class ApplyLeaveData {
-  int casualLeaves;
-  int medicalLeaves;
+  dynamic casualLeaves;
+  dynamic medicalLeaves;
   List<Approver> approvers;
 
   ApplyLeaveData({

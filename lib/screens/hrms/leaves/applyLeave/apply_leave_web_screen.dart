@@ -55,14 +55,14 @@ class ApplyLeaveWebScreen extends StatelessWidget {
                   ApplyLeaveScreen.leavesMap["leave_type"] = leaveId;
                 }),
             DatePickerTextField(
-                text: StringConstants.kFromDate,
+                label: StringConstants.kFromDate,
                 hintText: StringConstants.kFromDate,
                 onDateChanged: (String date) {
                   ApplyLeaveScreen.leavesMap['start_date'] = date;
                 }),
             DatePickerTextField(
-                text: StringConstants.kFromDate,
-                hintText: StringConstants.kFromDate,
+                label: StringConstants.kToDate,
+                hintText: StringConstants.kToDate,
                 onDateChanged: (String date) {
                   ApplyLeaveScreen.leavesMap['end_date'] = date;
                 }),

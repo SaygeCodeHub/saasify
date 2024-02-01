@@ -6,16 +6,18 @@ import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/hrms/leaves/widgets/custom_text_button.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/widgets/text/label_text_widget.dart';
 
 typedef StringCallBack = Function(String date);
 
 class DatePickerTextField extends StatefulWidget {
   final DateTime? initialDate;
   final StringCallBack onDateChanged;
+  final double? textFieldSize;
   final DateTime? maxDate;
   final String editDate;
   final String? hintText;
-  final String text;
+  final String? label;
   final DateTime? minimumDate;
   final String? Function(String?)? validator;
 
@@ -23,9 +25,10 @@ class DatePickerTextField extends StatefulWidget {
     super.key,
     this.initialDate,
     this.maxDate,
+    this.textFieldSize,
     this.editDate = '',
     this.hintText,
-    required this.text,
+    this.label,
     this.minimumDate,
     required this.onDateChanged,
     this.validator,
@@ -101,31 +104,27 @@ class _DatePickerTextFieldState extends State<DatePickerTextField> {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Padding(
-        padding: const EdgeInsets.all(spacingSmallest),
-        child: Text(
-          widget.text,
-          style: const TextStyle(
-              color: AppColors.black, fontSize: spacingStandard),
-        ),
+      if (widget.label != null) LabelTextWidget(label: widget.label),
+      if (widget.label != null) const SizedBox(height: spacingMedium),
+      SizedBox(
+        width: widget.textFieldSize ?? MediaQuery.sizeOf(context).width,
+        child: TextFormField(
+            validator: widget.validator,
+            readOnly: true,
+            controller: dateInputController,
+            decoration: InputDecoration(
+              enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: AppColors.lighterBlack)),
+              hintText: widget.hintText,
+              suffixIcon: IconButton(
+                onPressed: () async {
+                  showDatePicker(context);
+                },
+                icon: const Icon(Icons.calendar_month_rounded,
+                    color: AppColors.black),
+              ),
+            )),
       ),
-      const SizedBox(height: spacingXMedium),
-      TextFormField(
-          validator: widget.validator,
-          readOnly: true,
-          controller: dateInputController,
-          decoration: InputDecoration(
-            enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: AppColors.lighterBlack)),
-            hintText: widget.hintText,
-            suffixIcon: IconButton(
-              onPressed: () async {
-                showDatePicker(context);
-              },
-              icon: const Icon(Icons.calendar_month_rounded,
-                  color: AppColors.black),
-            ),
-          )),
     ]);
   }
 }

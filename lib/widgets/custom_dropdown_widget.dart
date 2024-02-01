@@ -46,7 +46,7 @@ class CustomDropdownButton extends StatelessWidget {
                 .toList(),
             validator: (value) {
               if (value == null) {
-                return 'Please select Leave Type';
+                return 'Please select a value';
               }
               return null;
             },

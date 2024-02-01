@@ -4,7 +4,6 @@ import 'package:saasify/data/enums/leave_type.dart';
 import 'package:saasify/data/models/leaves/load_apply_leave_screen_model.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_button.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_screen.dart';
-import 'package:saasify/screens/hrms/leaves/widgets/date_picker_textfield.dart';
 import 'package:saasify/screens/hrms/leaves/widgets/leave_statistic_card.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
@@ -51,18 +50,18 @@ class ApplyLeaveMobileScreen extends StatelessWidget {
                       .typeId;
                   ApplyLeaveScreen.leavesMap['leave_type'] = leaveId;
                 }),
-            DatePickerTextField(
-                label: StringConstants.kFromDate,
-                hintText: StringConstants.kFromDate,
-                onDateChanged: (String date) {
-                  ApplyLeaveScreen.leavesMap['start_date'] = date;
-                }),
-            DatePickerTextField(
-                label: StringConstants.kToDate,
-                hintText: StringConstants.kToDate,
-                onDateChanged: (String date) {
-                  ApplyLeaveScreen.leavesMap['end_date'] = date;
-                }),
+            // DatePickerTextField(
+            //     label: StringConstants.kFromDate,
+            //     hintText: StringConstants.kFromDate,
+            //     onDateChanged: (String date) {
+            //       ApplyLeaveScreen.leavesMap['start_date'] = date;
+            //     }),
+            // DatePickerTextField(
+            //     label: StringConstants.kToDate,
+            //     hintText: StringConstants.kToDate,
+            //     onDateChanged: (String date) {
+            //       ApplyLeaveScreen.leavesMap['end_date'] = date;
+            //     }),
             DropdownLabelWidget(
                 label: StringConstants.kApprovers,
                 hint: StringConstants.kApprovers,

@@ -35,10 +35,11 @@ class ApplyLeaveButton extends StatelessWidget {
         return PrimaryButton(
             buttonTitle: StringConstants.kApply,
             onPressed: () {
-              context
-                  .read<LeavesBloc>()
-                  .add(ApplyLeave(leaveDetailsMap: ApplyLeaveScreen.leavesMap));
-              Navigator.pushNamed(context, HRMSDashboardScreen.routeName);
+              if (formKey.currentState?.validate() ?? false) {
+                context.read<LeavesBloc>().add(
+                    ApplyLeave(leaveDetailsMap: ApplyLeaveScreen.leavesMap));
+                Navigator.pushNamed(context, HRMSDashboardScreen.routeName);
+              }
             },
             buttonWidth: MediaQuery.sizeOf(context).width * 0.15);
       }

@@ -29,9 +29,9 @@ class GetMyLeavesModel {
 }
 
 class GetMyLeavesData {
-  dynamic userId;
+  int userId;
   String leaveType;
-  dynamic leaveId;
+  int leaveId;
   String leaveReason;
   DateTime startDate;
   DateTime endDate;
@@ -50,9 +50,9 @@ class GetMyLeavesData {
   });
 
   factory GetMyLeavesData.fromJson(Map<String, dynamic> json) => GetMyLeavesData(
-    userId: json["user_id"] ?? "",
+    userId: json["user_id"],
     leaveType: json["leave_type"] ?? "",
-    leaveId: json["leave_id"] ?? "",
+    leaveId: json["leave_id"],
     leaveReason: json["leave_reason"] ?? "",
     startDate: DateTime.parse(json["start_date"] ?? ""),
     endDate: DateTime.parse(json["end_date"] ?? ""),

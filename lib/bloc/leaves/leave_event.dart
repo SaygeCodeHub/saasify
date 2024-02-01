@@ -7,3 +7,5 @@ class ApplyLeave extends LeaveEvents {
 
   ApplyLeave({required this.leaveDetailsMap});
 }
+
+class GetMyLeaves extends LeaveEvents {}

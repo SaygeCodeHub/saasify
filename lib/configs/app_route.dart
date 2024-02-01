@@ -11,6 +11,7 @@ import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_screen.dart';
+import 'package:saasify/screens/hrms/leaves/applyLeave/get_my_leaves_screen.dart';
 import 'package:saasify/screens/settings/settings_screen.dart';
 
 class AppRoutes {
@@ -32,6 +33,8 @@ class AppRoutes {
         return _createRoute(const AddEmployeeScreen());
       case ApplyLeaveScreen.routeName:
         return _createRoute(const ApplyLeaveScreen());
+      case GetMyLeavesScreen.routeName:
+        return _createRoute(const GetMyLeavesScreen());
       case AllCompaniesScreen.routeName:
         return _createRoute(AllCompaniesScreen(
             authenticateUserData: settings.arguments as AuthenticateUserData));

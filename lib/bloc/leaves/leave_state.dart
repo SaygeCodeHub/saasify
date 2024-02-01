@@ -1,4 +1,5 @@
 import 'package:saasify/data/models/leaves/apply_leave_model.dart';
+import 'package:saasify/data/models/leaves/get_my_leaves_model.dart';
 import 'package:saasify/data/models/leaves/load_apply_leave_screen_model.dart';
 
 abstract class LeaveStates {}
@@ -32,3 +33,15 @@ class ApplyLeaveFailed extends LeaveStates {
   ApplyLeaveFailed({required this.errorMessage});
 }
 
+class FetchingMyLeaves extends LeaveStates {}
+
+class MyLeavesFetched extends LeaveStates {
+  final GetMyLeavesModel getMyLeavesModel;
+
+  MyLeavesFetched({required this.getMyLeavesModel});
+}
+
+class MyLeavesNotFetched extends LeaveStates {
+  final String? message;
+  MyLeavesNotFetched({this.message});
+}

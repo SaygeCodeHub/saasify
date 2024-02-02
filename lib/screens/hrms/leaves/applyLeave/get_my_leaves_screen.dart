@@ -73,9 +73,9 @@ class GetMyLeavesScreen extends StatelessWidget {
                     if (state is FetchingMyLeaves) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (state is MyLeavesFetched) {
-                      return const ResponsiveLayout(
-                        mobileBody: GetMyLeavesMobileScreen(),
-                        desktopBody: GetMyLeavesWebScreen(),
+                      return ResponsiveLayout(
+                        mobileBody: const GetMyLeavesMobileScreen(),
+                        desktopBody: GetMyLeavesWebScreen(myLeavesData: state.getMyLeavesModel.data)
                       );
                     } else if (state is MyLeavesNotFetched) {
                       return const Center(child: Text("Error Loading Data"));

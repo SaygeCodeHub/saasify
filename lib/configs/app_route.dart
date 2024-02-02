@@ -11,7 +11,7 @@ import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_screen.dart';
-import 'package:saasify/screens/hrms/leaves/applyLeave/get_my_leaves_screen.dart';
+import 'package:saasify/screens/hrms/leaves/applyLeave/get_all_leaves_screen.dart';
 import 'package:saasify/screens/settings/settings_screen.dart';
 
 class AppRoutes {

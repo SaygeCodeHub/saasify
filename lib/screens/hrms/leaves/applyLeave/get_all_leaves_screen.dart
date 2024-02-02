@@ -1,10 +1,12 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/leaves/leave_event.dart';
 import 'package:saasify/bloc/leaves/leave_state.dart';
 import 'package:saasify/bloc/leaves/leaves_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/screens/hrms/leaves/applyLeave/get_my_leaves_mobile_screen.dart';
-import 'package:saasify/screens/hrms/leaves/applyLeave/get_my_leaves_web_screen.dart';
+import 'package:saasify/screens/hrms/leaves/applyLeave/get_all_leaves_mobile_screen.dart';
+import 'package:saasify/screens/hrms/leaves/applyLeave/get_all_leaves_web_screen.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
@@ -17,6 +19,7 @@ class GetMyLeavesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<LeavesBloc>().add(GetAllLeaves());
     return ScreenSkeleton(
         childScreenBuilder: (isMobile) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,26 +40,11 @@ class GetMyLeavesScreen extends StatelessWidget {
                             const ModuleHeading(label: 'My Leaves'),
                           ],
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.only(right: spacingLarger),
-                        //   child: (isMobile)
-                        //       ? InkWell(
-                        //       onTap: () {},
-                        //       child: const Icon(Icons.filter_alt_outlined))
-                        //       : Row(children: [
-                        //     CustomDropDown(
-                        //         items: const ["Last 30 Days", "Last Week"],
-                        //         defaultValue: "Last 30 Days",
-                        //         icon: Icons.store,
-                        //         onChanged: (value) {}),
-                        //   ]),
-                        // ),
                       ],
                     ),
                   ),
-                  Expanded(
-                      child: BlocConsumer<LeavesBloc, LeaveStates>(
-                          listener: (context, state) {
+                  BlocConsumer<LeavesBloc, LeaveStates>(
+                      listener: (context, state) {
                     if (state is MyLeavesNotFetched) {
                       showDialog(
                           context: context,
@@ -70,19 +58,24 @@ class GetMyLeavesScreen extends StatelessWidget {
                           });
                     }
                   }, builder: (context, state) {
+                    log("state==========>$state");
                     if (state is FetchingMyLeaves) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (state is MyLeavesFetched) {
-                      return ResponsiveLayout(
-                        mobileBody: const GetMyLeavesMobileScreen(),
-                        desktopBody: GetMyLeavesWebScreen(myLeavesData: state.getMyLeavesModel.data)
+                      log("MyLeavesFetched==========>${state.getAllLeavesModel.data.toJson()}");
+                      return Expanded(
+                        child: ResponsiveLayout(
+                            mobileBody: GetMyLeavesMobileScreen(
+                                myLeavesData: state.getAllLeavesModel.data),
+                            desktopBody: GetMyLeavesWebScreen(
+                                myLeavesData: state.getAllLeavesModel.data)),
                       );
                     } else if (state is MyLeavesNotFetched) {
                       return const Center(child: Text("Error Loading Data"));
                     } else {
                       return const SizedBox.shrink();
                     }
-                  }))
+                  })
                 ]));
   }
 }

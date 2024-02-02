@@ -73,4 +73,5 @@ class StringConstants {
   static const kApprovers = 'Approvers';
   static const kReasonForLeave = 'Reason for Leave';
   static const kApply = 'Apply';
+  static const kComments = 'Comments';
 }

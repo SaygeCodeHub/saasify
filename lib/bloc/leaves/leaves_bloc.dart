@@ -1,10 +1,11 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/leaves/leave_event.dart';
 import 'package:saasify/bloc/leaves/leave_state.dart';
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/leaves/apply_leave_model.dart';
-import 'package:saasify/data/models/leaves/get_my_leaves_model.dart';
+import 'package:saasify/data/models/leaves/get_all_leaves_model.dart';
 import 'package:saasify/data/models/leaves/load_apply_leave_screen_model.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/leaves/leaves_repository.dart';
@@ -18,7 +19,7 @@ class LeavesBloc extends Bloc<LeaveEvents, LeaveStates> {
   LeavesBloc() : super(LoadLeaveInitialise()) {
     on<LoadApplyLeaveScreen>(_loadApplyLeaveScreen);
     on<ApplyLeave>(_applyLeave);
-    on<GetMyLeaves>(_getMyLeaves);
+    on<GetAllLeaves>(_getAllLeaves);
   }
 
   FutureOr<void> _loadApplyLeaveScreen(
@@ -62,15 +63,15 @@ class LeavesBloc extends Bloc<LeaveEvents, LeaveStates> {
     }
   }
 
-  FutureOr<void> _getMyLeaves(
-      GetMyLeaves event, Emitter<LeaveStates> emit) async {
+  FutureOr<void> _getAllLeaves(
+      GetAllLeaves event, Emitter<LeaveStates> emit) async {
     emit(FetchingMyLeaves());
     try {
-      GetMyLeavesModel getMyLeavesModel =
-      await _leavesRepository.getMyLeaves();
+      GetAllLeavesModel getMyLeavesModel = await _leavesRepository.getAllLeaves();
+      log("bloc getMyLeavesModel===============>${getMyLeavesModel.data.toJson()}");
       if (getMyLeavesModel.status == 200) {
         emit(MyLeavesFetched(
-            getMyLeavesModel: getMyLeavesModel));
+            getAllLeavesModel: getMyLeavesModel));
       } else {
         emit(MyLeavesNotFetched(
             message: getMyLeavesModel.message));

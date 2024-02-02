@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -13,6 +15,8 @@ class ClientServices {
     try {
       final response = await dio.get(requestUrl);
       dynamic jsonResponse = response.data;
+      log("requestUrl=====>$requestUrl");
+      log("jsonResponse=====>$jsonResponse");
       return jsonResponse;
     } catch (e) {
       if (e is DioException) {

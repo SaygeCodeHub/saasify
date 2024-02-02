@@ -4,7 +4,7 @@ import 'package:saasify/data/models/generalModels/value_card_model.dart';
 import 'package:saasify/screens/hrms/add_employee/widgets/add_emp_dialouge.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_screen.dart';
-import 'package:saasify/screens/hrms/leaves/applyLeave/get_my_leaves_screen.dart';
+import 'package:saasify/screens/hrms/leaves/applyLeave/get_all_leaves_screen.dart';
 
 List<ValueCardModel> statisticsModules = [
   ValueCardModel(
@@ -54,7 +54,9 @@ List<ValueCardModel> hrmsModules = [
   ValueCardModel(
       cardHeading: Modules.myLeaves.name,
       iconPath: 'assets/holiday.png',
-      onTap: (BuildContext context) {Navigator.pushNamed(context, GetMyLeavesScreen.routeName);}),
+      onTap: (BuildContext context) {
+        Navigator.pushNamed(context, GetMyLeavesScreen.routeName);
+      }),
   ValueCardModel(
       cardHeading: Modules.timesheet.name,
       iconPath: 'assets/attendant-history.png',

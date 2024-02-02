@@ -1,34 +1,54 @@
 import 'dart:convert';
 
-GetMyLeavesModel getMyLeavesModelFromJson(String str) => GetMyLeavesModel.fromJson(json.decode(str));
+GetAllLeavesModel getMyLeavesModelFromJson(String str) => GetAllLeavesModel.fromJson(json.decode(str));
 
-String getMyLeavesModelToJson(GetMyLeavesModel data) => json.encode(data.toJson());
+String getMyLeavesModelToJson(GetAllLeavesModel data) => json.encode(data.toJson());
 
-class GetMyLeavesModel {
+class GetAllLeavesModel {
   int status;
   String message;
-  List<GetMyLeavesData> data;
+  GetMyLeavesData data;
 
-  GetMyLeavesModel({
+  GetAllLeavesModel({
     required this.status,
     required this.message,
     required this.data,
   });
 
-  factory GetMyLeavesModel.fromJson(Map<String, dynamic> json) => GetMyLeavesModel(
+  factory GetAllLeavesModel.fromJson(Map<String, dynamic> json) => GetAllLeavesModel(
     status: json["status"],
     message: json["message"] ?? "",
-    data: List<GetMyLeavesData>.from(json["data"].map((x) => GetMyLeavesData.fromJson(x)) ?? []),
+    data: GetMyLeavesData.fromJson(json["data"] ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    "data": data.toJson(),
   };
 }
 
 class GetMyLeavesData {
+  List<Leaf> pendingLeaves;
+  List<Leaf> myLeaves;
+
+  GetMyLeavesData({
+    required this.pendingLeaves,
+    required this.myLeaves,
+  });
+
+  factory GetMyLeavesData.fromJson(Map<String, dynamic> json) => GetMyLeavesData(
+    pendingLeaves: List<Leaf>.from(json["pending_leaves"].map((x) => Leaf.fromJson(x))),
+    myLeaves: List<Leaf>.from(json["my_leaves"].map((x) => Leaf.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "pending_leaves": List<dynamic>.from(pendingLeaves.map((x) => x.toJson())),
+    "my_leaves": List<dynamic>.from(myLeaves.map((x) => x.toJson())),
+  };
+}
+
+class Leaf {
   int userId;
   String leaveType;
   int leaveId;
@@ -37,8 +57,9 @@ class GetMyLeavesData {
   DateTime endDate;
   List<String> approvers;
   String leaveStatus;
+  String name;
 
-  GetMyLeavesData({
+  Leaf({
     required this.userId,
     required this.leaveType,
     required this.leaveId,
@@ -47,9 +68,10 @@ class GetMyLeavesData {
     required this.endDate,
     required this.approvers,
     required this.leaveStatus,
+    required this.name,
   });
 
-  factory GetMyLeavesData.fromJson(Map<String, dynamic> json) => GetMyLeavesData(
+  factory Leaf.fromJson(Map<String, dynamic> json) => Leaf(
     userId: json["user_id"],
     leaveType: json["leave_type"] ?? "",
     leaveId: json["leave_id"],
@@ -58,6 +80,7 @@ class GetMyLeavesData {
     endDate: DateTime.parse(json["end_date"] ?? ""),
     approvers: List<String>.from(json["approvers"].map((x) => x) ?? []),
     leaveStatus: json["leave_status"] ?? "",
+    name: json["name"] ?? "",
   );
 
   Map<String, dynamic> toJson() => {
@@ -69,5 +92,6 @@ class GetMyLeavesData {
     "end_date": "${endDate.year.toString().padLeft(4, '0')}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')}",
     "approvers": List<dynamic>.from(approvers.map((x) => x)),
     "leave_status": leaveStatus,
+    "name": name,
   };
 }

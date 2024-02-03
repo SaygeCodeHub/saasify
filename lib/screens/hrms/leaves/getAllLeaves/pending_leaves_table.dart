@@ -63,7 +63,7 @@ class PendingLeavesTable extends StatelessWidget {
                           showDialog(
                               context: context,
                               builder: (context) => UpdateStatusPopup(
-                                    isMobile: false,
+                                    isMobile: true,
                                     pendingLeaves:
                                         myLeavesData.pendingLeaves[index],
                                   ));

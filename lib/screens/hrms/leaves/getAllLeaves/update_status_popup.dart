@@ -10,7 +10,6 @@ import 'package:saasify/widgets/text/module_heading.dart';
 import 'package:saasify/widgets/text/textfield_label_widget.dart';
 
 class UpdateStatusPopup extends StatelessWidget {
-  static const routeName = 'UpdateStatusPopup';
   final bool isMobile;
   final Leaf pendingLeaves;
   final Function? onPressed;

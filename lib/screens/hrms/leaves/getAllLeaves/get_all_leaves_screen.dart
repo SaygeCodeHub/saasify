@@ -67,7 +67,7 @@ class GetMyLeavesScreen extends StatelessWidget {
                                 myLeavesData: state.getAllLeavesModel.data)),
                       );
                     } else if (state is MyLeavesNotFetched) {
-                      return const Center(child: Text("Error Loading Data"));
+                      return const Expanded(child: Center(child: Text("Error Loading Data")));
                     } else {
                       return const SizedBox.shrink();
                     }

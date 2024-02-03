@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 LoadApplyLeaveScreenModel loadApplyLeaveScreenModelFromJson(String str) => LoadApplyLeaveScreenModel.fromJson(json.decode(str));
@@ -6,9 +5,9 @@ LoadApplyLeaveScreenModel loadApplyLeaveScreenModelFromJson(String str) => LoadA
 String loadApplyLeaveScreenModelToJson(LoadApplyLeaveScreenModel data) => json.encode(data.toJson());
 
 class LoadApplyLeaveScreenModel {
-  final int status;
-  final String message;
-  final ApplyLeaveData data;
+  int status;
+  String message;
+  ApplyLeaveData data;
 
   LoadApplyLeaveScreenModel({
     required this.status,
@@ -17,9 +16,9 @@ class LoadApplyLeaveScreenModel {
   });
 
   factory LoadApplyLeaveScreenModel.fromJson(Map<String, dynamic> json) => LoadApplyLeaveScreenModel(
-    status: json["status"] ?? '',
-    message: json["message"] ?? '',
-    data: ApplyLeaveData.fromJson(json["data"] ?? ''),
+    status: json["status"],
+    message: json["message"] ?? "",
+    data: ApplyLeaveData.fromJson(json["data"] ?? {}),
   );
 
   Map<String, dynamic> toJson() => {
@@ -30,9 +29,9 @@ class LoadApplyLeaveScreenModel {
 }
 
 class ApplyLeaveData {
-  final int casualLeaves;
-  final int medicalLeaves;
-  final List<Approver> approvers;
+  int casualLeaves;
+  int medicalLeaves;
+  List<Approver> approvers;
 
   ApplyLeaveData({
     required this.casualLeaves,
@@ -41,9 +40,9 @@ class ApplyLeaveData {
   });
 
   factory ApplyLeaveData.fromJson(Map<String, dynamic> json) => ApplyLeaveData(
-    casualLeaves: json["casual_leaves"] ?? '',
-    medicalLeaves: json["medical_leaves"] ?? '',
-    approvers: List<Approver>.from(json["approvers"].map((x) => Approver.fromJson(x))),
+    casualLeaves: json["casual_leaves"] ?? "",
+    medicalLeaves: json["medical_leaves"] ?? "",
+    approvers: List<Approver>.from(json["approvers"].map((x) => Approver.fromJson(x)) ?? []),
   );
 
   Map<String, dynamic> toJson() => {
@@ -54,8 +53,8 @@ class ApplyLeaveData {
 }
 
 class Approver {
-  final int id;
-  final String approverName;
+  int id;
+  String approverName;
 
   Approver({
     required this.id,

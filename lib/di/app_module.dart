@@ -37,6 +37,5 @@ configurableDependencies() {
       () => EmployeeRepositoryImpl());
   getIt.registerLazySingleton<CompaniesRepository>(
       () => CompaniesRepositoryImpl());
-  getIt.registerLazySingleton<LeavesRepository>(
-      () => LeavesRepositoryImpl());
+  getIt.registerLazySingleton<LeavesRepository>(() => LeavesRepositoryImpl());
 }

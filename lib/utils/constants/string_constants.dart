@@ -63,4 +63,14 @@ class StringConstants {
   static const kFieldCannotBeEmpty = 'This field cannot be empty';
   static const kEnterValidMobileNumber = 'Please enter valid mobile number';
   static const kEnterValidPassword = 'Please enter valid password';
+
+//Leaves
+  static const kBalanceMedicalLeaves = 'Balance Medical Leaves';
+  static const kBalanceCasualLeaves = 'Balance Casual Leaves';
+  static const kLeaveType = 'Leave Type';
+  static const kFromDate = 'From Date';
+  static const kToDate = 'To Date';
+  static const kApprovers = 'Approvers';
+  static const kReasonForLeave = 'Reason for Leave';
+  static const kApply = 'Apply';
 }

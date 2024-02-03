@@ -14,6 +14,7 @@ import 'package:saasify/widgets/text/module_heading.dart';
 class ApplyLeaveScreen extends StatelessWidget {
   static const routeName = 'ApplyLeaveScreen';
   final bool? isDetailScreen;
+  static Map leavesMap = {};
 
   const ApplyLeaveScreen({super.key, this.isDetailScreen = false});
 
@@ -21,62 +22,57 @@ class ApplyLeaveScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<LeavesBloc>().add(LoadApplyLeaveScreen());
     return Scaffold(
-      body: ScreenSkeleton(
-        childScreenBuilder: (bool isMobile) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const SizedBox(height: spacingMedium),
-            Padding(
-              padding: const EdgeInsets.only(left: spacingMedium),
-              child: Row(
-                children: [
-                  isMobile ? const SizedBox.shrink() : const BackButton(),
-                  const SizedBox(width: spacingXMedium),
-                  const ModuleHeading(label: 'Apply Leave'),
-                ],
-              ),
-            ),
-            Expanded(
-              child: BlocConsumer<LeavesBloc, LeaveStates>(
-                listener: (context, state) {
-                  if (state is ErrorLoadingApplyLeaveScreen) {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return ErrorAlertDialog(
-                              description: 'Something went wrong!',
-                              onPressed: () {
-                                Navigator.popUntil(
-                                    context, (route) => route.isFirst);
+        body: ScreenSkeleton(
+            childScreenBuilder: (bool isMobile) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: spacingMedium),
+                      Padding(
+                          padding: const EdgeInsets.only(left: spacingMedium),
+                          child: Row(children: [
+                            isMobile
+                                ? const SizedBox.shrink()
+                                : const BackButton(),
+                            const SizedBox(width: spacingXMedium),
+                            const ModuleHeading(label: 'Apply Leave')
+                          ])),
+                      Expanded(
+                          child: BlocConsumer<LeavesBloc, LeaveStates>(
+                              listener: (context, state) {
+                        if (state is ErrorLoadingApplyLeaveScreen) {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return ErrorAlertDialog(
+                                    description: 'Something went wrong!',
+                                    onPressed: () {
+                                      Navigator.popUntil(
+                                          context, (route) => route.isFirst);
+                                    });
                               });
-                        });
-                  }
-                },
-                builder: (context, state) {
-                  if (state is LoadingApplyLeaveScreen) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state is ApplyLeaveScreenLoaded) {
-                    return ResponsiveLayout(
-                        mobileBody: ApplyLeaveMobileScreen(
-                            isDetailScreen: false,
-                            applyLeaveData:
-                                state.loadApplyLeaveScreenModel.data),
-                        desktopBody: ApplyLeaveWebScreen(
-                            isDetailScreen: false,
-                            applyLeaveData:
-                                state.loadApplyLeaveScreenModel.data));
-                  } else if (state is ErrorLoadingApplyLeaveScreen) {
-                    return const Center(child: Text("Error Loading Data"));
-                  } else {
-                    return const SizedBox.shrink();
-                  }
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+                        }
+                      }, builder: (context, state) {
+                        if (state is LoadingApplyLeaveScreen) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else if (state is ApplyLeaveScreenLoaded) {
+                          return ResponsiveLayout(
+                              mobileBody: ApplyLeaveMobileScreen(
+                                  isDetailScreen: false,
+                                  applyLeaveData:
+                                      state.loadApplyLeaveScreenModel.data),
+                              desktopBody: ApplyLeaveWebScreen(
+                                  isDetailScreen: false,
+                                  applyLeaveData:
+                                      state.loadApplyLeaveScreenModel.data));
+                        } else if (state is ErrorLoadingApplyLeaveScreen) {
+                          return const Center(
+                              child: Text("Error Loading Data"));
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      }))
+                    ])));
   }
 }

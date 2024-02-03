@@ -11,9 +11,10 @@ class LeaveStatisticsCard extends StatelessWidget {
 
   const LeaveStatisticsCard(
       {super.key,
-        required this.applyLeaveData,
-        required this.iconData,
-        required this.title, required this.trailingData});
+      required this.applyLeaveData,
+      required this.iconData,
+      required this.title,
+      required this.trailingData});
 
   @override
   Widget build(BuildContext context) {

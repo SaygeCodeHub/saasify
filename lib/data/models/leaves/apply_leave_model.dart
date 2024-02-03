@@ -7,9 +7,9 @@ String applyLeaveModelToJson(ApplyLeaveModel data) =>
     json.encode(data.toJson());
 
 class ApplyLeaveModel {
-  int status;
-  String message;
-  LeaveData data;
+  final int status;
+  final String message;
+  final Data data;
 
   ApplyLeaveModel({
     required this.status,
@@ -21,7 +21,7 @@ class ApplyLeaveModel {
       ApplyLeaveModel(
         status: json["status"],
         message: json["message"],
-        data: LeaveData.fromJson(json["data"]),
+        data: Data.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -31,20 +31,20 @@ class ApplyLeaveModel {
       };
 }
 
-class LeaveData {
-  int leaveId;
-  int leaveStatus;
-  bool isLeaveApproved;
-  dynamic comment;
+class Data {
+  final int leaveId;
+  final String leaveStatus;
+  final bool isLeaveApproved;
+  final dynamic comment;
 
-  LeaveData({
+  Data({
     required this.leaveId,
     required this.leaveStatus,
     required this.isLeaveApproved,
     required this.comment,
   });
 
-  factory LeaveData.fromJson(Map<String, dynamic> json) => LeaveData(
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
         leaveId: json["leave_id"],
         leaveStatus: json["leave_status"],
         isLeaveApproved: json["is_leave_approved"],

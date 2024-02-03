@@ -17,7 +17,8 @@ class DropdownLabelWidget extends StatefulWidget {
     this.textFieldSize,
     required this.hint,
     required this.items,
-    required this.onChanged, this.errorText,
+    required this.onChanged,
+    this.errorText,
   });
 
   @override
@@ -34,7 +35,6 @@ class _DropdownLabelWidgetState extends State<DropdownLabelWidget> {
       if (widget.label != null) const SizedBox(height: spacingMedium),
       SizedBox(
           width: widget.textFieldSize ?? MediaQuery.sizeOf(context).width,
-
           child: CustomDropdownButton(
             hint: widget.hint,
             items: widget.items,

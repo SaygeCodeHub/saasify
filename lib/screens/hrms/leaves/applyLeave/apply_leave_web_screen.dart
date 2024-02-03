@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/leaves/leaves_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/enums/leave_type.dart';
 import 'package:saasify/data/models/leaves/load_apply_leave_screen_model.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_button.dart';
-import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_screen.dart';
+import 'package:saasify/screens/hrms/leaves/widgets/date_picker_textfield.dart';
 import 'package:saasify/screens/hrms/leaves/widgets/leave_statistic_card.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
 import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
-import 'package:saasify/widgets/text/calendar_popup_label_widget.dart';
 import 'package:saasify/widgets/text/dropdown_label_widget.dart';
 import 'package:saasify/widgets/text/textfield_label_widget.dart';
 
@@ -22,8 +23,6 @@ class ApplyLeaveWebScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController fromDateController = TextEditingController();
-    // TextEditingController toDateController = TextEditingController();
     return BackgroundCardWidget(
         childScreen: Form(
       key: formKey,
@@ -56,21 +55,11 @@ class ApplyLeaveWebScreen extends StatelessWidget {
                         .elementAt(LeaveTypeEnum.values
                             .indexWhere((element) => element.type == value))
                         .typeId;
-                    ApplyLeaveScreen.leavesMap["leave_type"] = leaveId;
+                    context.read<LeavesBloc>().leaveDetailsMap["leave_type"] =
+                        leaveId;
                   }),
-              CalendarPopUpLabelWidget(
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter a date';
-                    }
-                    return null;
-                  },
-                  label: StringConstants.kFromDate,
-                  dateController: fromDateController),
-              // CalendarPopUpLabelWidget(
-              //     text: StringConstants.kToDate,
-              //     hintText: StringConstants.kToDate,
-              //     dateController: toDateController),
+              const DateDisplayWidget(label: 'From Date', isStartDate: true),
+              const DateDisplayWidget(label: 'To Date', isStartDate: false),
               DropdownLabelWidget(
                   label: StringConstants.kApprovers,
                   hint: StringConstants.kApprovers,
@@ -81,7 +70,9 @@ class ApplyLeaveWebScreen extends StatelessWidget {
                         .approvers[applyLeaveData.approvers.indexWhere(
                             (element) => element.approverName == value)]
                         .id;
-                    ApplyLeaveScreen.leavesMap["Approvers"] = approverId;
+                    context.read<LeavesBloc>().leaveDetailsMap['approvers'] = [
+                      approverId
+                    ];
                   })
             ])),
         const SizedBox(height: spacingXMedium),
@@ -97,7 +88,8 @@ class ApplyLeaveWebScreen extends StatelessWidget {
                 label: StringConstants.kReasonForLeave,
                 maxLines: 5,
                 onTextFieldChanged: (text) {
-                  ApplyLeaveScreen.leavesMap["leave_reason"] = text;
+                  context.read<LeavesBloc>().leaveDetailsMap["leave_reason"] =
+                      text;
                 })),
         const SizedBox(height: spacingSmall),
         Padding(

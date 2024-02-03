@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/widgets/text/label_text_widget.dart';
+
 final GlobalKey<FormState> formKeyy = GlobalKey<FormState>();
 
 class CalendarPopUpLabelWidget extends StatefulWidget {
-  // final String text;
-  // final String hintText;
   final double? textFieldSize;
   final String? label;
   final String? Function(String?)? validator;
@@ -14,12 +13,14 @@ class CalendarPopUpLabelWidget extends StatefulWidget {
 
   const CalendarPopUpLabelWidget(
       {super.key,
-      // required this.text,
-      // required this.hintText,
-      required this.dateController, this.validator, this.label, this.textFieldSize});
+      required this.dateController,
+      this.validator,
+      this.label,
+      this.textFieldSize});
 
   @override
-  State<CalendarPopUpLabelWidget> createState() => _CalendarPopUpLabelWidgetState();
+  State<CalendarPopUpLabelWidget> createState() =>
+      _CalendarPopUpLabelWidgetState();
 }
 
 class _CalendarPopUpLabelWidgetState extends State<CalendarPopUpLabelWidget> {
@@ -45,7 +46,8 @@ class _CalendarPopUpLabelWidgetState extends State<CalendarPopUpLabelWidget> {
         if (widget.label != null) const SizedBox(height: spacingMedium),
         SizedBox(
           width: widget.textFieldSize ?? MediaQuery.sizeOf(context).width,
-          height: widget.textFieldSize ?? MediaQuery.sizeOf(context).height * 0.071,
+          height:
+              widget.textFieldSize ?? MediaQuery.sizeOf(context).height * 0.071,
           child: TextFormField(
               validator: (value) {
                 if (value == null) {

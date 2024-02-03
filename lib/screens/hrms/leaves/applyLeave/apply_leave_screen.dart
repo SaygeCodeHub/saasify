@@ -6,7 +6,9 @@ import 'package:saasify/bloc/leaves/leave_state.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_mobile_screen.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_web_screen.dart';
+import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
+import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
@@ -14,7 +16,6 @@ import 'package:saasify/widgets/text/module_heading.dart';
 class ApplyLeaveScreen extends StatelessWidget {
   static const routeName = 'ApplyLeaveScreen';
   final bool? isDetailScreen;
-  static Map leavesMap = {};
 
   const ApplyLeaveScreen({super.key, this.isDetailScreen = false});
 
@@ -50,6 +51,39 @@ class ApplyLeaveScreen extends StatelessWidget {
                                       Navigator.popUntil(
                                           context, (route) => route.isFirst);
                                     });
+                              });
+                        }
+                        if (state is ApplyLeaveFailed) {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return ErrorAlertDialog(
+                                  description: state.errorMessage.toString(),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    ProgressBar.dismiss(context);
+                                  },
+                                );
+                              });
+                        }
+                        if (state is ApplyingLeave) {
+                          return ProgressBar.show(context);
+                        }
+                        if (state is LeaveApplied) {
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return SuccessAlertDialog(
+                                  description:
+                                      state.applyLeaveModel.message.toString(),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    ProgressBar.dismiss(context);
+                                    context
+                                        .read<LeavesBloc>()
+                                        .add(LoadApplyLeaveScreen());
+                                  },
+                                );
                               });
                         }
                       }, builder: (context, state) {

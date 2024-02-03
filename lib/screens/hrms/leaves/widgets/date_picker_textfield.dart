@@ -1,141 +1,75 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:saasify/bloc/leaves/leaves_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
-import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/screens/hrms/leaves/widgets/custom_text_button.dart';
-import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/text/label_text_widget.dart';
-final GlobalKey<FormState> formKeys = GlobalKey<FormState>();
+import 'custom_date_picker.dart';
 
-typedef StringCallBack = Function(String date);
-
-class DatePickerTextField extends StatefulWidget {
-  final DateTime? initialDate;
-  final StringCallBack onDateChanged;
-  final double? textFieldSize;
-  final DateTime? maxDate;
-  final String editDate;
-  final String? hintText;
-  final String? label;
-  final DateTime? minimumDate;
-  final String? Function(String?)? validator;
-  final TextEditingController dateInputController ;
-
-
-  const DatePickerTextField({
-    super.key,
-    this.initialDate,
-    this.maxDate,
-    this.textFieldSize,
-    this.editDate = '',
-    this.hintText,
-    this.label,
-    this.minimumDate,
-    required this.onDateChanged,
-    this.validator,
-    required this.dateInputController
-  });
+class DateDisplayWidget extends StatefulWidget {
+  final String label;
+  final bool isStartDate;
+  const DateDisplayWidget(
+      {super.key, required this.label, required this.isStartDate});
 
   @override
-  State<DatePickerTextField> createState() => _DatePickerTextFieldState();
+  DateDisplayWidgetState createState() => DateDisplayWidgetState();
 }
 
-class _DatePickerTextFieldState extends State<DatePickerTextField> {
-  bool isFirstTime = true;
+class DateDisplayWidgetState extends State<DateDisplayWidget> {
+  String formattedDate = '';
 
-  @override
-  void initState() {
-    widget.dateInputController.text = widget.editDate;
-    super.initState();
-  }
-
-  void showDatePicker(BuildContext context) {
-    showCupertinoModalPopup(
-        context: context,
-        builder: (BuildContext builder) {
-          return Container(
-              height: kDateTimePickerContainerHeight,
-              color: AppColors.white,
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                        height: kDateTimePickerHeight,
-                        child: CupertinoDatePicker(
-                            mode: CupertinoDatePickerMode.date,
-                            initialDateTime: (isFirstTime != false)
-                                ? widget.initialDate
-                                : DateFormat("yyyy-MM-dd")
-                                    .parse(widget.dateInputController.text),
-                            onDateTimeChanged: (value) {
-                              setState(() {
-                                String formattedDate =
-                                    DateFormat('yyyy-MM-dd').format(value);
-                                widget.dateInputController.text = formattedDate;
-                                widget.onDateChanged(
-                                    DateFormat('yyyy-MM-dd').format(value));
-                                isFirstTime = false;
-                              });
-                            },
-                            maximumDate: widget.maxDate)),
-                    CustomTextButton(
-                        onPressed: () {
-                          if (isFirstTime != false) {
-                            if (widget.initialDate == null) {
-                              widget.dateInputController.text =
-                                  DateFormat('yyyy-MM-dd')
-                                      .format(DateTime.now());
-                              widget.onDateChanged(DateFormat('yyyy-MM-dd')
-                                  .format(DateTime.now()));
-                            } else {
-                              widget.dateInputController.text =
-                                  DateFormat('yyyy-MM-dd')
-                                      .format(widget.initialDate!);
-                              widget.onDateChanged(DateFormat('yyyy-MM-dd')
-                                  .format(widget.initialDate!));
-                            }
-                          }
-                          Navigator.pop(context);
-                        },
-                        textValue: StringConstants.kOk)
-                  ]));
-        });
+  void _selectDate() async {
+    final DateTime? pickedDate = await CustomDatePicker.selectDate(context);
+    String apiDateFormat = '';
+    if (pickedDate != null) {
+      setState(() {
+        formattedDate = DateFormat('dd/MM/yyyy').format(pickedDate);
+        apiDateFormat = DateFormat('yyyy-MM-dd').format(pickedDate);
+      });
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        (widget.isStartDate == true)
+            ? context.read<LeavesBloc>().leaveDetailsMap['start_date'] =
+                apiDateFormat.toString()
+            : context.read<LeavesBloc>().leaveDetailsMap['end_date'] =
+                apiDateFormat.toString();
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Form(key: formKeys,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        if (widget.label != null) LabelTextWidget(label: widget.label),
-        if (widget.label != null) const SizedBox(height: spacingMedium),
-        SizedBox(
-          width: widget.textFieldSize ?? MediaQuery.sizeOf(context).width,
-          height: widget.textFieldSize ?? MediaQuery.sizeOf(context).height * 0.071,
-          child: TextFormField(
-              validator: (value) {
-                if (value == null) {
-                  return 'Please select a value';
-                }
-                return null;
-              },
-              readOnly: true,
-              controller:widget.dateInputController,
-              decoration: InputDecoration(
-                enabledBorder: const OutlineInputBorder(
-                    borderSide: BorderSide(color: AppColors.lighterBlack)),
-                hintText: widget.hintText,
-                suffixIcon: IconButton(
-                  onPressed: () async {
-                    showDatePicker(context);
-                  },
-                  icon: const Icon(Icons.calendar_month_rounded,
-                      color: AppColors.black),
-                ),
-              )),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        LabelTextWidget(label: widget.label),
+        const SizedBox(height: spacingMedium),
+        TextField(
+          readOnly: true,
+          controller: TextEditingController(text: formattedDate),
+          onTap: _selectDate,
+          decoration: InputDecoration(
+            focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black12)),
+            enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black12)),
+            errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: AppColors.errorRed)),
+            focusedErrorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: AppColors.errorRed)),
+            border: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black12)),
+            contentPadding:
+                const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            suffixIcon: IconButton(
+              icon: const Icon(Icons.calendar_today),
+              onPressed: _selectDate,
+            ),
+          ),
         ),
-      ]),
+      ],
     );
   }
 }

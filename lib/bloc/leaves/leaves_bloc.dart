@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/leaves/leave_event.dart';
 import 'package:saasify/bloc/leaves/leave_state.dart';
@@ -68,7 +67,6 @@ class LeavesBloc extends Bloc<LeaveEvents, LeaveStates> {
     emit(FetchingMyLeaves());
     try {
       GetAllLeavesModel getMyLeavesModel = await _leavesRepository.getAllLeaves();
-      log("bloc getMyLeavesModel===============>${getMyLeavesModel.data.toJson()}");
       if (getMyLeavesModel.status == 200) {
         emit(MyLeavesFetched(
             getAllLeavesModel: getMyLeavesModel));

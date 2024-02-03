@@ -1,12 +1,11 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/leaves/leave_event.dart';
 import 'package:saasify/bloc/leaves/leave_state.dart';
 import 'package:saasify/bloc/leaves/leaves_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/screens/hrms/leaves/applyLeave/get_all_leaves_mobile_screen.dart';
-import 'package:saasify/screens/hrms/leaves/applyLeave/get_all_leaves_web_screen.dart';
+import 'package:saasify/screens/hrms/leaves/getAllLeaves/get_all_leaves_mobile_screen.dart';
+import 'package:saasify/screens/hrms/leaves/getAllLeaves/get_all_leaves_web_screen.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
@@ -14,7 +13,6 @@ import 'package:saasify/widgets/text/module_heading.dart';
 
 class GetMyLeavesScreen extends StatelessWidget {
   static const routeName = 'GetMyLeavesScreen';
-
   const GetMyLeavesScreen({super.key});
 
   @override
@@ -58,11 +56,9 @@ class GetMyLeavesScreen extends StatelessWidget {
                           });
                     }
                   }, builder: (context, state) {
-                    log("state==========>$state");
                     if (state is FetchingMyLeaves) {
-                      return const Center(child: CircularProgressIndicator());
+                      return const Expanded(child: Center(child: CircularProgressIndicator()));
                     } else if (state is MyLeavesFetched) {
-                      log("MyLeavesFetched==========>${state.getAllLeavesModel.data.toJson()}");
                       return Expanded(
                         child: ResponsiveLayout(
                             mobileBody: GetMyLeavesMobileScreen(

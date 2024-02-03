@@ -42,9 +42,9 @@ class LeavesRepositoryImpl implements LeavesRepository {
   @override
   Future<GetAllLeavesModel> getAllLeaves() async {
     try {
-      var companyId = await cache.getCompanyId();
-      var branchId = await cache.getBranchId();
-      var userId = await cache.getUserId();
+      // var companyId = await cache.getCompanyId();
+      // var branchId = await cache.getBranchId();
+      // var userId = await cache.getUserId();
       final response = await ClientServices().get(
           "${ApiConstants.baseUrl}14/15/30/getAllLeaves");
       return GetAllLeavesModel.fromJson(response);

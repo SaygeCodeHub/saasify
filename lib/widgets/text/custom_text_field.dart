@@ -7,7 +7,6 @@ class CustomTextField extends StatelessWidget {
   final TextInputAction? textInputAction;
   final int? maxLength;
   final String? hintText;
-  final String? getText;
   final bool? firstCall;
   final void Function(String)? onTextFieldChanged;
   final bool? readOnly;
@@ -32,7 +31,6 @@ class CustomTextField extends StatelessWidget {
       this.textInputAction,
       this.maxLength,
       this.hintText,
-      this.getText,
       this.firstCall,
       this.readOnly = false,
       this.validator,

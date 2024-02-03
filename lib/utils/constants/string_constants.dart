@@ -69,9 +69,22 @@ class StringConstants {
   static const kBalanceCasualLeaves = 'Balance Casual Leaves';
   static const kLeaveType = 'Leave Type';
   static const kFromDate = 'From Date';
+  static const kStartDate = 'Start Date';
   static const kToDate = 'To Date';
+  static const kEndDate = 'End Date';
   static const kApprovers = 'Approvers';
   static const kReasonForLeave = 'Reason for Leave';
+  static const kLeaveReason = 'Leave Reason';
+  static const kLeaveStatus = 'Leave Status';
+  static const kMyLeaves = 'My Leaves';
+  static const kPendingLeaves = 'Pending Leaves';
   static const kApply = 'Apply';
+  static const kApprove = 'Approve';
+  static const kReject = 'Reject';
+  static const kNotNow = 'Not Now';
   static const kComments = 'Comments';
+  static const kUpdateStatus = 'Update Status';
+  static const kUpdateLeaveStatus = 'Update Leave Status';
+  static const kApplicantName = 'Applicant Name';
+  static const kPleaseEnterComments = 'Please enter comments';
 }

@@ -4,7 +4,7 @@ import 'package:saasify/data/models/generalModels/value_card_model.dart';
 import 'package:saasify/screens/hrms/add_employee/widgets/add_emp_dialouge.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_screen.dart';
-import 'package:saasify/screens/hrms/leaves/applyLeave/get_all_leaves_screen.dart';
+import 'package:saasify/screens/hrms/leaves/getAllLeaves/get_all_leaves_screen.dart';
 
 List<ValueCardModel> statisticsModules = [
   ValueCardModel(

@@ -4,13 +4,17 @@ import 'package:saasify/data/models/generalModels/value_card_model.dart';
 import 'package:saasify/screens/hrms/add_employee/widgets/add_emp_dialouge.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_screen.dart';
+import 'package:saasify/screens/hrms/leaves/getMyLeaves/my_leaves_screen.dart';
+import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/pending_leave_request_screen.dart';
 
 List<ValueCardModel> statisticsModules = [
   ValueCardModel(
       cardHeading: Modules.pendingLeaveApprovals.name,
       value: '10',
       iconPath: 'assets/leave.png',
-      onTap: (BuildContext context) {}),
+      onTap: (BuildContext context) {
+        Navigator.pushNamed(context, PendingLeaveRequestScreen.routeName);
+      }),
   ValueCardModel(
       cardHeading: Modules.todaysAbsentees.name,
       value: '3',
@@ -53,7 +57,9 @@ List<ValueCardModel> hrmsModules = [
   ValueCardModel(
       cardHeading: Modules.myLeaves.name,
       iconPath: 'assets/holiday.png',
-      onTap: (BuildContext context) {}),
+      onTap: (BuildContext context) {
+        Navigator.pushNamed(context, MyLeavesScreen.routeName);
+      }),
   ValueCardModel(
       cardHeading: Modules.timesheet.name,
       iconPath: 'assets/attendant-history.png',

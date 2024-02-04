@@ -8,7 +8,7 @@ String getAllLeavesToJson(GetAllLeavesModel data) => json.encode(data.toJson());
 class GetAllLeavesModel {
   final int status;
   final String message;
-  final Data data;
+  final LeavesData data;
 
   GetAllLeavesModel({
     required this.status,
@@ -19,7 +19,7 @@ class GetAllLeavesModel {
   factory GetAllLeavesModel.fromJson(Map<String, dynamic> json) => GetAllLeavesModel(
         status: json["status"],
         message: json["message"],
-        data: Data.fromJson(json["data"]),
+        data: LeavesData.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,19 +29,19 @@ class GetAllLeavesModel {
       };
 }
 
-class Data {
+class LeavesData {
   final List<dynamic> pendingLeaves;
-  final List<MyLeaf> myLeaves;
+  final List<MyLeaves> myLeaves;
 
-  Data({
+  LeavesData({
     required this.pendingLeaves,
     required this.myLeaves,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory LeavesData.fromJson(Map<String, dynamic> json) => LeavesData(
         pendingLeaves: List<dynamic>.from(json["pending_leaves"].map((x) => x)),
         myLeaves:
-            List<MyLeaf>.from(json["my_leaves"].map((x) => MyLeaf.fromJson(x))),
+            List<MyLeaves>.from(json["my_leaves"].map((x) => MyLeaves.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -50,7 +50,7 @@ class Data {
       };
 }
 
-class MyLeaf {
+class MyLeaves {
   final int userId;
   final String leaveType;
   final int leaveId;
@@ -60,7 +60,7 @@ class MyLeaf {
   final List<String> approvers;
   final String leaveStatus;
 
-  MyLeaf({
+  MyLeaves({
     required this.userId,
     required this.leaveType,
     required this.leaveId,
@@ -71,7 +71,7 @@ class MyLeaf {
     required this.leaveStatus,
   });
 
-  factory MyLeaf.fromJson(Map<String, dynamic> json) => MyLeaf(
+  factory MyLeaves.fromJson(Map<String, dynamic> json) => MyLeaves(
         userId: json["user_id"],
         leaveType: json["leave_type"],
         leaveId: json["leave_id"],

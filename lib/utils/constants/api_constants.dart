@@ -7,5 +7,6 @@ class ApiConstants {
   static const createCompany = 'createCompany';
   static const loadApplyLeaveScreen = 'loadApplyLeaveScreen';
   static const applyLeave = 'applyLeave';
+  static const getAllLeaves = 'getAllLeaves';
   static const getBranchSettings = 'getBranchSettings';
 }

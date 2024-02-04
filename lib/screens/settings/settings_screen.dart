@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/settings/settings_bloc.dart';
+import 'package:saasify/bloc/settings/settings_events.dart';
+import 'package:saasify/bloc/settings/settings_states.dart';
 import 'package:saasify/screens/settings/settings_mobile_screen.dart';
 import 'package:saasify/screens/settings/settings_web_screen.dart';
+import 'package:saasify/screens/settings/widgets/edit_settings_button.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 
@@ -14,28 +19,43 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<SettingsBloc>().add(GetAllSettings());
     return Scaffold(
       body: ScreenSkeleton(
-          childScreenBuilder: (bool isMobile) => const Column(
+          childScreenBuilder: (bool isMobile) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: spacingMedium),
+                  const SizedBox(height: spacingMedium),
                   Padding(
-                    padding: EdgeInsets.only(left: spacingMedium),
+                    padding: const EdgeInsets.only(
+                        left: spacingMedium, right: spacingMedium),
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        BackButton(),
-                        SizedBox(width: spacingXMedium),
-                        ModuleHeading(label: 'Settings'),
+                        const BackButton(),
+                        const SizedBox(width: spacingXMedium),
+                        const ModuleHeading(label: 'Settings'),
+                        const Spacer(),
+                        EditSettingsButton(
+                          buttonTitle: 'Edit',
+                          onPressed: () {},
+                        )
                       ],
                     ),
                   ),
-                  Expanded(
-                    child: ResponsiveLayout(
-                        mobileBody: SettingsMobileScreen(),
-                        desktopBody: SettingsWebScreen()),
-                  )
+                  BlocBuilder<SettingsBloc, SettingsState>(
+                      builder: (context, state) {
+                    if (state is FetchingSettings) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is SettingsFetched) {
+                      return const ResponsiveLayout(
+                          mobileBody: SettingsMobileScreen(),
+                          desktopBody: SettingsWebScreen());
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  })
                 ],
               )),
     );

@@ -29,7 +29,7 @@ class CustomDrawer extends StatelessWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          UserProfileWidget(size: spacingExcel),
+                          UserProfileWidget(),
                           SizedBox(width: spacingXMedium),
                           UserNameWidget()
                         ],
@@ -52,17 +52,17 @@ class CustomDrawer extends StatelessWidget {
                   ),
             const Divider(),
             ModuleListTile(
-                iconData: Icons.point_of_sale_outlined,
-                title: 'POS',
-                onTap: () {
-                  Navigator.pushReplacementNamed(context, 'POS');
-                }),
-            ModuleListTile(
                 iconData: Icons.supervised_user_circle_sharp,
                 title: 'HRMS',
                 onTap: () {
                   Navigator.pushReplacementNamed(
                       context, HRMSDashboardScreen.routeName);
+                }),
+            ModuleListTile(
+                iconData: Icons.account_balance_sharp,
+                title: 'Accounts',
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, 'POS');
                 }),
             ModuleListTile(
                 iconData: Icons.shopping_cart_outlined,

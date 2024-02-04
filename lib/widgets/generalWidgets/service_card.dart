@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
-import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_theme.dart';
 import '../../configs/app_spacing.dart';
 
 class ServiceCard extends StatelessWidget {
   final String cardHeading;
-  final String iconPath;
+  final IconData iconData;
   final Function onTap;
 
   const ServiceCard({
     super.key,
     required this.cardHeading,
-    required this.iconPath,
+    required this.iconData,
     required this.onTap,
   });
 
@@ -28,7 +27,7 @@ class ServiceCard extends StatelessWidget {
             padding: const EdgeInsets.all(spacingMedium),
             child:
                 Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-              Image.asset(iconPath, fit: BoxFit.cover, height: kAvatarRadius),
+              Icon(iconData),
               const SizedBox(width: spacingMedium),
               Expanded(
                 child: Text(cardHeading,

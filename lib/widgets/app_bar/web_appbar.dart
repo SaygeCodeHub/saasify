@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/widgets/profile/user_name_widget.dart';
 import 'package:saasify/widgets/profile/user_profile_widget.dart';
@@ -39,7 +38,7 @@ class WebAppBar extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    UserProfileWidget(size: kAvatarRadius),
+                    UserProfileWidget(),
                     SizedBox(width: spacingXMedium),
                     UserNameWidget()
                   ])),

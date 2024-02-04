@@ -16,7 +16,8 @@ class GetAllLeavesModel {
     required this.data,
   });
 
-  factory GetAllLeavesModel.fromJson(Map<String, dynamic> json) => GetAllLeavesModel(
+  factory GetAllLeavesModel.fromJson(Map<String, dynamic> json) =>
+      GetAllLeavesModel(
         status: json["status"],
         message: json["message"],
         data: LeavesData.fromJson(json["data"]),
@@ -40,8 +41,8 @@ class LeavesData {
 
   factory LeavesData.fromJson(Map<String, dynamic> json) => LeavesData(
         pendingLeaves: List<dynamic>.from(json["pending_leaves"].map((x) => x)),
-        myLeaves:
-            List<MyLeaves>.from(json["my_leaves"].map((x) => MyLeaves.fromJson(x))),
+        myLeaves: List<MyLeaves>.from(
+            json["my_leaves"].map((x) => MyLeaves.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {

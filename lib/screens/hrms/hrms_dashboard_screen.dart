@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/caches/cache.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/di/app_module.dart';
-import 'package:saasify/screens/hrms/attendance/attendance_card.dart';
 import 'package:saasify/utils/modules.dart';
 import 'package:saasify/widgets/generalWidgets/service_card.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
@@ -26,20 +23,6 @@ class HRMSDashboardScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const SizedBox(height: spacingStandard),
-                    FutureBuilder<List<String>?>(
-                      future: getIt<Cache>().getRoles(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return snapshot.data!.contains('0')
-                              ? const SizedBox.shrink()
-                              : const AttendanceCard(
-                                  checkInTime: null, checkOutTime: null);
-                        } else {
-                          return const SizedBox.shrink();
-                        }
-                      },
-                    ),
-                    const SizedBox(height: spacingXSmall),
                     const ModuleHeading(label: 'Statistics'),
                     const SizedBox(height: spacingXSmall),
                     GridView.extent(
@@ -52,7 +35,7 @@ class HRMSDashboardScreen extends StatelessWidget {
                           return ValueCard(
                               cardHeading: item.cardHeading,
                               value: item.value,
-                              iconPath: item.iconPath,
+                              iconData: item.iconData,
                               onTap: () {
                                 item.onTap(context);
                               });
@@ -71,7 +54,7 @@ class HRMSDashboardScreen extends StatelessWidget {
                         children: hrmsModules.map((item) {
                           return ServiceCard(
                               cardHeading: item.cardHeading,
-                              iconPath: item.iconPath,
+                              iconData: item.iconData,
                               onTap: () {
                                 item.onTap(context);
                               });

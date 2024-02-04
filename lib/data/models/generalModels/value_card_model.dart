@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 class ValueCardModel {
   final String cardHeading;
   final String? value;
-  final String iconPath;
+  final IconData iconData;
   final bool? isMobile;
   final void Function(BuildContext context) onTap;
 
@@ -11,7 +11,7 @@ class ValueCardModel {
     required this.onTap,
     required this.cardHeading,
     this.value = '',
-    required this.iconPath,
+    required this.iconData,
     this.isMobile = false,
   });
 }

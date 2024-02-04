@@ -9,4 +9,3 @@ class ApplyLeave extends LeaveEvents {
 }
 
 class GetAllLeaves extends LeaveEvents {}
-

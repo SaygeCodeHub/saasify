@@ -25,7 +25,7 @@ List<ValueCardModel> statisticsModules = [
   ValueCardModel(
       cardHeading: Modules.totalEmployees.name,
       value: '20',
-      iconData: Icons.people_alt,
+      iconData: FontAwesomeIcons.person,
       onTap: (BuildContext context) {}),
   ValueCardModel(
       cardHeading: Modules.monthlySalaryRollout.name,
@@ -36,13 +36,13 @@ List<ValueCardModel> statisticsModules = [
 List<ValueCardModel> hrmsModules = [
   ValueCardModel(
       cardHeading: Modules.addNewEmployee.name,
-      iconData: Icons.person_add_alt_1_rounded,
+      iconData: FontAwesomeIcons.personCirclePlus,
       onTap: (context) {
         showAddEmployeeDialog(context);
       }),
   ValueCardModel(
       cardHeading: Modules.viewAllEmployees.name,
-      iconData: Icons.people_alt,
+      iconData: FontAwesomeIcons.peopleGroup,
       onTap: (context) {
         Navigator.pushNamed(context, EmployeeListScreen.routeName);
       }),
@@ -54,12 +54,12 @@ List<ValueCardModel> hrmsModules = [
       }),
   ValueCardModel(
       cardHeading: Modules.myLeaves.name,
-      iconData: Icons.volunteer_activism_sharp,
+      iconData: FontAwesomeIcons.hospital,
       onTap: (BuildContext context) {
         Navigator.pushNamed(context, MyLeavesScreen.routeName);
       }),
   ValueCardModel(
       cardHeading: Modules.timesheet.name,
-      iconData: Icons.insert_page_break_rounded,
+      iconData: FontAwesomeIcons.businessTime,
       onTap: (BuildContext context) {})
 ];

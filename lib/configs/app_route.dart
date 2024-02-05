@@ -31,7 +31,7 @@ class AppRoutes {
       case EmployeeListScreen.routeName:
         return _createRoute(const EmployeeListScreen());
       case AddEmployeeScreen.routeName:
-        return _createRoute(const AddEmployeeScreen());
+        return _createRoute(AddEmployeeScreen());
       case ApplyLeaveScreen.routeName:
         return _createRoute(const ApplyLeaveScreen());
       case AllCompaniesScreen.routeName:

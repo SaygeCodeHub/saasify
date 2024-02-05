@@ -42,11 +42,11 @@ class PasswordTextField extends LabelAndFieldWidget {
 
 class ContactTextField extends LabelAndFieldWidget {
   ContactTextField({
+    super.label,
     super.key,
     super.onTextFieldChanged,
     super.isRequired,
   }) : super(
-            label: StringConstants.kMobileNumber,
             keyboardType: TextInputType.phone,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             prefixIcon: const Icon(Icons.phone_android_outlined),
@@ -59,6 +59,7 @@ class ContactTextField extends LabelAndFieldWidget {
 }
 
 class DatePickerField extends LabelAndFieldWidget {
+  static final TextEditingController _dateController = TextEditingController();
   DatePickerField({
     super.key,
     required BuildContext context,
@@ -66,6 +67,7 @@ class DatePickerField extends LabelAndFieldWidget {
     required super.onTextFieldChanged,
     super.isRequired,
   }) : super(
+            textFieldController: _dateController,
             readOnly: true,
             onTap: () {
               showDatePicker(
@@ -73,14 +75,19 @@ class DatePickerField extends LabelAndFieldWidget {
                 firstDate: DateTime(DateTime.now().year - 100),
                 lastDate: DateTime(DateTime.now().year + 100),
                 initialDate: DateTime.now(),
-              ).then((value) => onTextFieldChanged!((value == null)
-                  ? null
-                  : DateFormat('dd-MM-yyyy').format(value)));
+              ).then((value) {
+                String textValue = (value == null)
+                    ? ''
+                    : DateFormat('yyyy-MM-dd').format(value);
+                _dateController.value = TextEditingValue(text: textValue);
+                onTextFieldChanged!(textValue);
+              });
             },
             suffixIcon: const Icon(Icons.calendar_today_outlined));
 }
 
 class TimePickerField extends LabelAndFieldWidget {
+  static final TextEditingController _timeController = TextEditingController();
   TimePickerField({
     super.key,
     required BuildContext context,
@@ -88,20 +95,41 @@ class TimePickerField extends LabelAndFieldWidget {
     super.onTextFieldChanged,
     super.isRequired,
   }) : super(
+            textFieldController: _timeController,
             readOnly: true,
             onTap: () {
               showTimePicker(
                 context: context,
                 initialTime: TimeOfDay.now(),
-              ).then((value) => onTextFieldChanged!((value == null)
-                  ? null
-                  : DateFormat('hh:mm a').format(DateTime(
-                      DateTime.now().year,
-                      DateTime.now().month,
-                      DateTime.now().day,
-                      value.hour,
-                      value.minute,
-                    ))));
+              ).then((value) {
+                String? textValue = (value == null)
+                    ? ''
+                    : DateFormat('hh:mm a').format(DateTime(
+                        DateTime.now().year,
+                        DateTime.now().month,
+                        DateTime.now().day,
+                        value.hour,
+                        value.minute,
+                      ));
+                _timeController.value = TextEditingValue(text: textValue);
+                onTextFieldChanged!(textValue);
+              });
             },
             suffixIcon: const Icon(Icons.timer_outlined));
+}
+
+class NumberTextField extends LabelAndFieldWidget {
+  NumberTextField({
+    super.label,
+    super.key,
+    required int maxLength,
+    super.onTextFieldChanged,
+    super.isRequired,
+  }) : super(
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              LengthLimitingTextInputFormatter(maxLength),
+              FilteringTextInputFormatter.digitsOnly
+            ],
+            prefixIcon: const Icon(Icons.format_list_numbered_outlined));
 }

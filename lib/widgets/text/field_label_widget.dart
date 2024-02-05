@@ -15,7 +15,7 @@ class LabelAndFieldWidget extends StatelessWidget {
   final bool? readOnly;
   final String? Function(String?)? validator;
   final bool? enabled;
-  final TextEditingController? controller;
+  final TextEditingController? textFieldController;
   final bool? obscureText;
   final Widget? suffix;
   final Widget? prefixIcon;
@@ -35,7 +35,7 @@ class LabelAndFieldWidget extends StatelessWidget {
       this.onTextFieldChanged,
       this.readOnly = false,
       this.enabled,
-      this.controller,
+      this.textFieldController,
       this.obscureText,
       this.suffix,
       this.prefixIcon,
@@ -54,7 +54,8 @@ class LabelAndFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller = TextEditingController();
+    final TextEditingController controller =
+        textFieldController ?? TextEditingController();
 
     if (initialValue != null && controller.text.isEmpty) {
       controller.text = initialValue.toString();

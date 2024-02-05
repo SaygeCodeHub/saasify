@@ -23,12 +23,12 @@ class PendingLeaveRequestsWebScreen extends StatelessWidget {
             checkboxVisible: false,
             showRowCheckBox: false,
             columnList: [
-              ColumnData(header: "Name"),
-              ColumnData(header: "Leave Type"),
-              ColumnData(header: "Start Date"),
-              ColumnData(header: "End Date"),
-              ColumnData(header: "Leave Reason"),
-              ColumnData(header: "Action")
+              ColumnData(header: StringConstants.kApplicantName),
+              ColumnData(header: StringConstants.kLeaveType),
+              ColumnData(header: StringConstants.kStartDate),
+              ColumnData(header: StringConstants.kEndDate),
+              ColumnData(header: StringConstants.kLeaveReason),
+              ColumnData(header: StringConstants.kAction)
             ],
             selectedIds: const [],
             dataCount: pendingLeaves.length,

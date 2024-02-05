@@ -47,7 +47,7 @@ class LeavesRepositoryImpl implements LeavesRepository {
       var branchId = await cache.getBranchId();
       var userId = await cache.getUserId();
       final response = await ClientServices().get(
-          "${ApiConstants.baseUrl}$companyId/$branchId/26/${ApiConstants.getAllLeaves}");
+          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.getAllLeaves}");
       return GetAllLeavesModel.fromJson(response);
     } catch (error) {
       rethrow;

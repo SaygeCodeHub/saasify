@@ -4,8 +4,8 @@ import 'package:saasify/bloc/leaves/leave_event.dart';
 import 'package:saasify/bloc/leaves/leave_state.dart';
 import 'package:saasify/bloc/leaves/leaves_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/screens/hrms/leaves/getMyLeaves/my_leaves_mobile.dart';
-import 'package:saasify/screens/hrms/leaves/getMyLeaves/my_leaves_web.dart';
+import 'package:saasify/screens/hrms/leaves/getMyLeaves/my_leaves_mobile_screen.dart';
+import 'package:saasify/screens/hrms/leaves/getMyLeaves/my_leaves_web_screen.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
@@ -55,12 +55,14 @@ class MyLeavesScreen extends StatelessWidget {
                   }
                 }, builder: (context, state) {
                   if (state is FetchingAllLeaves) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Expanded(
+                        child: Center(child: CircularProgressIndicator()));
                   } else if (state is LeavesFetched) {
                     return Expanded(
                       child: ResponsiveLayout(
-                          mobileBody: const MyLeavesMobile(),
-                          desktopBody: MyLeavesWeb(
+                          mobileBody: MyLeavesMobileScreen(
+                              myLeaves: state.getAllLeavesModel.data.myLeaves),
+                          desktopBody: MyLeavesWebScreen(
                               myLeaves: state.getAllLeavesModel.data.myLeaves)),
                     );
                   } else {

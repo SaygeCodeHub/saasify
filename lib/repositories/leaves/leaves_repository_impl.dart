@@ -1,7 +1,8 @@
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/leaves/apply_leave_model.dart';
-import 'package:saasify/data/models/leaves/get_all_leaves.dart';
+import 'package:saasify/data/models/leaves/get_all_leaves_model.dart';
 import 'package:saasify/data/models/leaves/load_apply_leave_screen_model.dart';
+import 'package:saasify/data/models/leaves/update_leave_status_model.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/leaves/leaves_repository.dart';
 import 'package:saasify/services/client_services.dart';
@@ -46,8 +47,23 @@ class LeavesRepositoryImpl implements LeavesRepository {
       var branchId = await cache.getBranchId();
       var userId = await cache.getUserId();
       final response = await ClientServices().get(
-          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.getAllLeaves}");
+          "${ApiConstants.baseUrl}$companyId/$branchId/26/${ApiConstants.getAllLeaves}");
       return GetAllLeavesModel.fromJson(response);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<UpdateLeaveStatusModel> updateLeaveStatus(Map leaveStatusMap) async {
+    try {
+      var companyId = await cache.getCompanyId();
+      var branchId = await cache.getBranchId();
+      var userId = await cache.getUserId();
+      final response = await ClientServices().put(
+          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.updateLeaveStatus}",
+          leaveStatusMap);
+      return UpdateLeaveStatusModel.fromJson(response);
     } catch (error) {
       rethrow;
     }

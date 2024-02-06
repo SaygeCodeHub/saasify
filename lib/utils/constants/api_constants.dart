@@ -9,4 +9,5 @@ class ApiConstants {
   static const applyLeave = 'applyLeave';
   static const getAllLeaves = 'getAllLeaves';
   static const getBranchSettings = 'getBranchSettings';
+  static const updateLeaveStatus = 'updateLeaveStatus';
 }

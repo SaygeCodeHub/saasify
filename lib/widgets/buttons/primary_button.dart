@@ -13,6 +13,7 @@ class PrimaryButton extends StatelessWidget {
   final String buttonTitle;
   final IconData? icon;
   final OutlinedBorder? shape;
+  final TextStyle? textStyle;
 
   const PrimaryButton(
       {super.key,
@@ -24,7 +25,8 @@ class PrimaryButton extends StatelessWidget {
       required this.buttonTitle,
       this.icon,
       this.shape,
-      this.buttonHeight});
+      this.buttonHeight,
+      this.textStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +42,10 @@ class PrimaryButton extends StatelessWidget {
       child: FittedBox(
           child: Text(buttonTitle,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.labelTextStyle.copyWith(
-                  color: AppColors.white, fontWeight: FontWeight.w700))),
+              style: (textStyle != null)
+                  ? textStyle
+                  : Theme.of(context).textTheme.labelTextStyle.copyWith(
+                      color: AppColors.white, fontWeight: FontWeight.w700))),
     );
   }
 }

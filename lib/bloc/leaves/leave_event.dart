@@ -9,3 +9,7 @@ class ApplyLeave extends LeaveEvents {
 }
 
 class GetAllLeaves extends LeaveEvents {}
+
+class UpdateLeaveStatus extends LeaveEvents {
+  UpdateLeaveStatus();
+}

@@ -78,10 +78,10 @@ class StringConstants {
   static const kApplicantName = 'Applicant Name';
   static const kStartDate = 'Start Date';
   static const kEndDate = 'End Date';
-  static const kLeaveStatus = 'Leave Status';
   static const kLeaveReason = 'Leave Reason';
   static const kComments = 'Comments';
   static const kReject = 'Reject';
   static const kApprove = 'Approve';
+  static const kLeaveStatus = 'Leave Status';
   static const kAction = 'Action';
 }

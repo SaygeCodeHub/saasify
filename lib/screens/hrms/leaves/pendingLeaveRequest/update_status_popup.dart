@@ -10,6 +10,7 @@ import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/reject_leave_but
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 import 'package:saasify/widgets/text/textfield_label_widget.dart';
+
 class UpdateStatusPopup extends StatelessWidget {
   final bool isMobile;
   final MyLeaves pendingLeaves;
@@ -18,9 +19,9 @@ class UpdateStatusPopup extends StatelessWidget {
 
   UpdateStatusPopup(
       {super.key,
-        required this.isMobile,
-        required this.pendingLeaves,
-        this.onPressed});
+      required this.isMobile,
+      required this.pendingLeaves,
+      this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -89,21 +90,23 @@ class UpdateStatusPopup extends StatelessWidget {
                                 hintText: StringConstants.kComments,
                                 maxLines: 5,
                                 onTextFieldChanged: (text) {
-                                  context.read<LeavesBloc>().leaveStatusMap["comment"] =
-                                    text;
+                                  context
+                                      .read<LeavesBloc>()
+                                      .leaveStatusMap["comment"] = text;
                                 })
                           ]),
                     )))),
         actions: [
           Padding(
               padding: const EdgeInsets.only(bottom: spacingLarge),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    RejectLeaveButton(updateKey: updateKey, pendingLeaves: pendingLeaves),
-                    const SizedBox(width: spacingLarge),
-                    ApproveLeaveButton(updateKey: updateKey,pendingLeaves: pendingLeaves)
-                  ]))
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                RejectLeaveButton(
+                    updateKey: updateKey, pendingLeaves: pendingLeaves),
+                const SizedBox(width: spacingLarge),
+                ApproveLeaveButton(
+                    updateKey: updateKey, pendingLeaves: pendingLeaves)
+              ]))
         ]);
   }
 }

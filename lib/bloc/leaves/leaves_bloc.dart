@@ -14,7 +14,7 @@ class LeavesBloc extends Bloc<LeaveEvents, LeaveStates> {
   final LeavesRepository _leavesRepository = getIt<LeavesRepository>();
   final Cache cache = getIt<Cache>();
   final Map leaveDetailsMap = {};
-  final Map leaveStatusMap ={};
+  final Map leaveStatusMap = {};
 
   LeaveStates get initialState => LoadLeaveInitialise();
 
@@ -62,7 +62,7 @@ class LeavesBloc extends Bloc<LeaveEvents, LeaveStates> {
   FutureOr<void> _getAllLeaves(
       GetAllLeaves event, Emitter<LeaveStates> emit) async {
     emit(FetchingAllLeaves());
-    // try {
+    try {
       GetAllLeavesModel getAllLeavesModel =
           await _leavesRepository.getAllLeaves();
       if (getAllLeavesModel.status == 200) {
@@ -70,9 +70,9 @@ class LeavesBloc extends Bloc<LeaveEvents, LeaveStates> {
       } else {
         emit(ApplyLeaveFailed(errorMessage: getAllLeavesModel.message));
       }
-    // } catch (e) {
-    //   emit(ApplyLeaveFailed(errorMessage: e.toString()));
-    // }
+    } catch (e) {
+      emit(ApplyLeaveFailed(errorMessage: e.toString()));
+    }
   }
 
   FutureOr<void> _updateLeaveStatus(

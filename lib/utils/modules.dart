@@ -16,17 +16,20 @@ List<ValueCardModel> statisticsModules = [
       iconData: FontAwesomeIcons.solidThumbsUp,
       onTap: (BuildContext context) {
         Navigator.pushNamed(context, PendingLeaveRequestScreen.routeName);
-      }),
+      },
+      moduleId: 0.1),
   ValueCardModel(
       cardHeading: Modules.totalEmployees.name,
       value: '20',
       iconData: FontAwesomeIcons.person,
-      onTap: (BuildContext context) {}),
+      onTap: (BuildContext context) {},
+      moduleId: 0.2),
   ValueCardModel(
       cardHeading: Modules.monthlySalaryRollout.name,
       value: 'Rs. 20,000',
       iconData: FontAwesomeIcons.moneyBillTransfer,
-      onTap: (BuildContext context) {}),
+      onTap: (BuildContext context) {},
+      moduleId: 0.3),
 ];
 List<ValueCardModel> hrmsModules = [
   ValueCardModel(
@@ -34,27 +37,32 @@ List<ValueCardModel> hrmsModules = [
       iconData: FontAwesomeIcons.personCirclePlus,
       onTap: (context) {
         showAddEmployeeDialog(context);
-      }),
+      },
+      moduleId: 0.4),
   ValueCardModel(
       cardHeading: Modules.viewAllEmployees.name,
       iconData: FontAwesomeIcons.peopleGroup,
       onTap: (context) {
         Navigator.pushNamed(context, EmployeeListScreen.routeName);
-      }),
+      },
+      moduleId: 0.5),
   ValueCardModel(
       cardHeading: Modules.applyLeave.name,
       iconData: FontAwesomeIcons.car,
       onTap: (BuildContext context) {
         Navigator.pushNamed(context, ApplyLeaveScreen.routeName);
-      }),
+      },
+      moduleId: 0.6),
   ValueCardModel(
       cardHeading: Modules.myLeaves.name,
       iconData: FontAwesomeIcons.hospital,
       onTap: (BuildContext context) {
         Navigator.pushNamed(context, MyLeavesScreen.routeName);
-      }),
+      },
+      moduleId: 0.7),
   ValueCardModel(
       cardHeading: Modules.timesheet.name,
       iconData: FontAwesomeIcons.businessTime,
-      onTap: (BuildContext context) {})
+      onTap: (BuildContext context) {},
+      moduleId: 0.8)
 ];

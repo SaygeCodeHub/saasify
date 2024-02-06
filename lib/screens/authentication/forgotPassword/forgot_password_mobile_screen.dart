@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/resetPassword/reset_password_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/authentication/forgotPassword/reset_password_button.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
@@ -6,7 +8,9 @@ import 'package:saasify/widgets/profile/saasifyLogo.dart';
 import 'package:saasify/widgets/text/field_label_widget.dart';
 
 class ForgotPasswordMobileScreen extends StatelessWidget {
-  const ForgotPasswordMobileScreen({super.key});
+  final GlobalKey<FormState> formKey;
+
+  const ForgotPasswordMobileScreen({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +27,15 @@ class ForgotPasswordMobileScreen extends StatelessWidget {
           ),
           const SizedBox(height: spacingBetweenTextFields),
           LabelAndFieldWidget(
+              isRequired: true,
               label: StringConstants.kEmailAddress,
-              onTextFieldChanged: (value) {}),
+              onTextFieldChanged: (value) {
+                context
+                    .read<ResetPasswordBloc>()
+                    .userInputAuthenticationMap['email'] = value;
+              }),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
-          const ResetPasswordButton()
+          ResetPasswordButton(formKey: formKey)
         ],
       ),
     );

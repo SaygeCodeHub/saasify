@@ -3,6 +3,7 @@ import 'package:saasify/data/models/authentication/authenticate_user_model.dart'
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/authentication/forgotPassword/forgot_password_screen.dart';
 import 'package:saasify/screens/authentication/register/register_screen.dart';
+import 'package:saasify/screens/authentication/updatePassword/update_password_screen.dart';
 import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.dart';
 import 'package:saasify/screens/companies/widgets/branches/all_branches_screen.dart';
 import 'package:saasify/screens/companies/widgets/companies/all_companies_screen.dart';
@@ -23,7 +24,9 @@ class AppRoutes {
       case RegisterScreen.routeName:
         return _createRoute(RegisterScreen());
       case ForgotPasswordScreen.routeName:
-        return _createRoute(const ForgotPasswordScreen());
+        return _createRoute(ForgotPasswordScreen());
+      case UpdatePasswordScreen.routeName:
+        return _createRoute(UpdatePasswordScreen());
       case AddCompanyScreen.routeName:
         return _createRoute(AddCompanyScreen());
       case HRMSDashboardScreen.routeName:

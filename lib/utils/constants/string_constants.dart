@@ -63,6 +63,9 @@ class StringConstants {
   static const kFieldCannotBeEmpty = 'This field cannot be empty';
   static const kEnterValidMobileNumber = 'Please enter valid mobile number';
   static const kEnterValidPassword = 'Please enter valid password';
+  static const kOTP = 'OTP';
+  static const kNewPassword = 'New Password';
+  static const kUpdatePassword = "Update Password";
 
 //Leaves
   static const kBalanceMedicalLeaves = 'Balance Medical Leaves';

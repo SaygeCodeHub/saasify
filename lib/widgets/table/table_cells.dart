@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
+import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 import 'package:saasify/widgets/generalWidgets/status_chip.dart';
 
@@ -26,15 +27,19 @@ class TableText extends DataCell {
 }
 
 class TableButton extends DataCell {
-  TableButton({required String title, required void Function()? onPressed})
-      : super(
-      Padding(
-        padding: const EdgeInsets.only(top:16,bottom: 16,right: 16),
-        child: PrimaryButton(buttonWidth: 10,
-          onPressed: onPressed,
-          buttonTitle: title,
-        ),
-      ));
+  TableButton(
+      {required String title,
+      required void Function()? onPressed,
+      TextStyle? textStyle})
+      : super(Padding(
+          padding: const EdgeInsets.all(spacingMedium),
+          child: PrimaryButton(
+            buttonWidth: 50,
+            onPressed: onPressed,
+            buttonTitle: title,
+            textStyle: textStyle,
+          ),
+        ));
 }
 
 class TableStatusChips extends DataCell {

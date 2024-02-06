@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/models/leaves/get_all_leaves_model.dart';
 import 'package:saasify/data/models/table_models/column_data_model.dart';
 import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
 import 'package:saasify/widgets/table/custom_table.dart';
 import 'package:saasify/widgets/table/table_cells.dart';
+
+import '../../../../utils/formatters.dart';
 
 class MyLeavesWebScreen extends StatelessWidget {
   final List<MyLeaves> myLeaves;
@@ -30,8 +31,7 @@ class MyLeavesWebScreen extends StatelessWidget {
             ],
             selectedIds: const [],
             dataCount: myLeaves.length,
-            dataIds: List.generate(myLeaves.length,
-                    (index) => myLeaves),
+            dataIds: List.generate(myLeaves.length, (index) => myLeaves),
             onRowCheckboxChange: (value) {},
             generateData: (index) => [
                   TableText(text: myLeaves[index].leaveType),
@@ -46,10 +46,4 @@ class MyLeavesWebScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-String formatDate(String inputDate) {
-  DateTime dateTime = DateTime.parse(inputDate);
-  String formattedDate = DateFormat('dd/MM/yyyy').format(dateTime);
-  return formattedDate;
 }

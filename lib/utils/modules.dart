@@ -18,11 +18,6 @@ List<ValueCardModel> statisticsModules = [
         Navigator.pushNamed(context, PendingLeaveRequestScreen.routeName);
       }),
   ValueCardModel(
-      cardHeading: Modules.todaysAbsentees.name,
-      value: '3',
-      iconData: FontAwesomeIcons.ban,
-      onTap: (BuildContext context) {}),
-  ValueCardModel(
       cardHeading: Modules.totalEmployees.name,
       value: '20',
       iconData: FontAwesomeIcons.person,

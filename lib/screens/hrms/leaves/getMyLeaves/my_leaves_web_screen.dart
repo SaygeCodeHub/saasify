@@ -40,7 +40,10 @@ class MyLeavesWebScreen extends StatelessWidget {
                   TableText(
                       text: formatDate(myLeaves[index].endDate.toString())),
                   TableText(text: myLeaves[index].approvers.join(", ")),
-                  TableText(text: myLeaves[index].leaveStatus.toString()),
+                  TableStatusChips(
+                      status: myLeaves[index].leaveStatus.toString(),
+                      color: getColorFromStatus(
+                          myLeaves[index].leaveStatus.toString())),
                   TableText(text: 'Some comment by approver'),
                 ]),
       ),

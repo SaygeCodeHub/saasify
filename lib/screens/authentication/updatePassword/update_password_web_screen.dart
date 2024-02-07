@@ -25,7 +25,7 @@ class UpdatePasswordWebScreen extends StatelessWidget {
             const SaasifyLogo(),
             const SizedBox(height: spacingBetweenTextFieldAndButton),
             const Text(
-                "Enter the OTP received on your registered email address and add a new password"),
+                "Enter the OTP received on your registered email address and add a new password."),
             const SizedBox(height: spacingBetweenTextFields),
             LabelAndFieldWidget(
                 label: StringConstants.kOTP,

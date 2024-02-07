@@ -143,14 +143,16 @@ class LeaveDetailsPopup extends StatelessWidget {
                                                         width: double.maxFinite,
                                                         decoration: BoxDecoration(
                                                             borderRadius:
-                                                                BorderRadius.circular(
-                                                                    kCircularRadius),
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        kCircularRadius),
                                                             border: Border.all(
                                                                 color: Colors
                                                                     .black26)),
                                                         padding:
                                                             const EdgeInsets
-                                                                .all(spacingXSmall),
+                                                                .all(
+                                                                spacingXSmall),
                                                         child: Text(
                                                             leaves.comment,
                                                             maxLines: 5))

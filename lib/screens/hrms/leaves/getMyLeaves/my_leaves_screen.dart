@@ -36,7 +36,8 @@ class MyLeavesScreen extends StatelessWidget {
                                   ? const SizedBox.shrink()
                                   : const BackButton(),
                               const SizedBox(width: spacingXMedium),
-                              const ModuleHeading(label: StringConstants.kMyLeaves),
+                              const ModuleHeading(
+                                  label: StringConstants.kMyLeaves),
                             ])
                           ])),
                   BlocConsumer<LeavesBloc, LeaveStates>(

@@ -32,6 +32,7 @@ class UpdatePasswordButton extends StatelessWidget {
             if (state is PasswordReset) {
               ProgressBar.dismiss(context);
               showDialog(
+                  barrierDismissible: false,
                   context: context,
                   builder: (context) {
                     return SuccessAlertDialog(

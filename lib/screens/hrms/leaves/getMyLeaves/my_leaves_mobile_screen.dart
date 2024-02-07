@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/models/leaves/get_all_leaves_model.dart';
-import 'package:saasify/data/models/table_models/column_data_model.dart';
-import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
-import 'package:saasify/widgets/table/custom_table.dart';
-import 'package:saasify/widgets/table/table_cells.dart';
-
-import '../../../../utils/formatters.dart';
+import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/leave_details.dart';
+import 'package:saasify/screens/hrms/leaves/widgets/leave_details_navigation_screen.dart';
+import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/utils/formatters.dart';
+import 'package:saasify/widgets/generalWidgets/status_chip.dart';
 
 class MyLeavesMobileScreen extends StatelessWidget {
   final List<MyLeaves> myLeaves;
@@ -15,38 +14,57 @@ class MyLeavesMobileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: BackgroundCardWidget(
-            childScreen: Padding(
-                padding: const EdgeInsets.all(spacingMedium),
-                child: CustomDataTable(
-                    checkboxVisible: false,
-                    showRowCheckBox: false,
-                    columnList: [
-                      ColumnData(header: "Leave Type"),
-                      ColumnData(header: "Start Date"),
-                      ColumnData(header: "End Date"),
-                      ColumnData(header: "Approvers"),
-                      ColumnData(header: "Status"),
-                      ColumnData(header: "Comment")
-                    ],
-                    selectedIds: const [],
-                    dataCount: myLeaves.length,
-                    dataIds:
-                        List.generate(myLeaves.length, (index) => myLeaves),
-                    onRowCheckboxChange: (value) {},
-                    generateData: (index) => [
-                          TableText(text: myLeaves[index].leaveType),
-                          TableText(
-                              text: formatDate(
-                                  myLeaves[index].startDate.toString())),
-                          TableText(
-                              text: formatDate(
-                                  myLeaves[index].endDate.toString())),
-                          TableText(text: myLeaves[index].approvers.join(", ")),
-                          TableText(
-                              text: myLeaves[index].leaveStatus.toString()),
-                          TableText(text: 'Some comment by approver'),
-                        ]))));
+    return Expanded(
+        child: ListView.separated(
+            separatorBuilder: (context, index) {
+              return const SizedBox(height: spacingSmall);
+            },
+            itemCount: myLeaves.length,
+            itemBuilder: (context, index) {
+              return InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, LeaveDetailsNavigationScreen.routeName,
+                        arguments: [false, myLeaves[index]]);
+                  },
+                  child: Card(
+                      child: Padding(
+                          padding: const EdgeInsets.all(spacingSmall),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(myLeaves[index].leaveType,
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w600)),
+                                      StatusChip(
+                                          text: myLeaves[index]
+                                              .leaveStatus
+                                              .toString(),
+                                          color: getColorFromStatus(
+                                              myLeaves[index]
+                                                  .leaveStatus
+                                                  .toString()))
+                                    ]),
+                                const SizedBox(width: spacingLarge),
+                                LeaveDetails(
+                                    leaveData: formatDate(
+                                        myLeaves[index].startDate.toString()),
+                                    title: StringConstants.kStartDate),
+                                const SizedBox(width: spacingLarge),
+                                LeaveDetails(
+                                    leaveData: formatDate(
+                                        myLeaves[index].endDate.toString()),
+                                    title: StringConstants.kEndDate),
+                                const SizedBox(width: spacingSmall),
+                                LeaveDetails(
+                                    leaveData:
+                                        myLeaves[index].approvers.join(", "),
+                                    title: StringConstants.kApprovers)
+                              ]))));
+            }));
   }
 }

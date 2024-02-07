@@ -39,7 +39,8 @@ class PendingLeaveRequestScreen extends StatelessWidget {
                               ? const SizedBox.shrink()
                               : const BackButton(),
                           const SizedBox(width: spacingXMedium),
-                          const ModuleHeading(label: StringConstants.kPendingLeaveRequests),
+                          const ModuleHeading(
+                              label: StringConstants.kPendingLeaveRequests),
                         ],
                       ),
                     ],

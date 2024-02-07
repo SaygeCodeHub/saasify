@@ -14,7 +14,10 @@ import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_screen.dart';
 import 'package:saasify/screens/hrms/leaves/getMyLeaves/my_leaves_screen.dart';
 import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/pending_leave_request_screen.dart';
+import 'package:saasify/screens/hrms/leaves/widgets/leave_details_navigation_screen.dart';
 import 'package:saasify/screens/settings/settings_screen.dart';
+
+import '../data/models/leaves/get_all_leaves_model.dart';
 
 class AppRoutes {
   static Route routes(RouteSettings settings) {
@@ -44,6 +47,10 @@ class AppRoutes {
         return _createRoute(const MyLeavesScreen());
       case PendingLeaveRequestScreen.routeName:
         return _createRoute(const PendingLeaveRequestScreen());
+      case LeaveDetailsNavigationScreen.routeName:
+        List<dynamic> args = settings.arguments as List<dynamic>;
+        return _createRoute(LeaveDetailsNavigationScreen(
+            isPending: args[0] as bool, leaves: args[1] as MyLeaves));
       case AllBranchesScreen.routeName:
         List<dynamic> args = settings.arguments as List<dynamic>;
         return _createRoute(AllBranchesScreen(

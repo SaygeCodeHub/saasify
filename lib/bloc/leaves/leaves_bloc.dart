@@ -62,17 +62,17 @@ class LeavesBloc extends Bloc<LeaveEvents, LeaveStates> {
   FutureOr<void> _getAllLeaves(
       GetAllLeaves event, Emitter<LeaveStates> emit) async {
     emit(FetchingAllLeaves());
-    // try {
-    GetAllLeavesModel getAllLeavesModel =
-        await _leavesRepository.getAllLeaves();
-    if (getAllLeavesModel.status == 200) {
-      emit(LeavesFetched(getAllLeavesModel: getAllLeavesModel));
-    } else {
-      emit(ApplyLeaveFailed(errorMessage: getAllLeavesModel.message));
+    try {
+      GetAllLeavesModel getAllLeavesModel =
+          await _leavesRepository.getAllLeaves();
+      if (getAllLeavesModel.status == 200) {
+        emit(LeavesFetched(getAllLeavesModel: getAllLeavesModel));
+      } else {
+        emit(ApplyLeaveFailed(errorMessage: getAllLeavesModel.message));
+      }
+    } catch (e) {
+      emit(ApplyLeaveFailed(errorMessage: e.toString()));
     }
-    // } catch (e) {
-    //   emit(ApplyLeaveFailed(errorMessage: e.toString()));
-    // }
   }
 
   FutureOr<void> _updateLeaveStatus(
@@ -80,13 +80,11 @@ class LeavesBloc extends Bloc<LeaveEvents, LeaveStates> {
     emit(UpdatingLeaveStatus());
     try {
       UpdateLeaveStatusModel updateLeaveStatusModel =
-          await _leavesRepository.updateLeaveStatus(leaveStatusMap);
+      await _leavesRepository.updateLeaveStatus(leaveStatusMap);
       if (updateLeaveStatusModel.status == 200) {
-        emit(
-            LeaveStatusUpdated(updateLeaveStatusModel: updateLeaveStatusModel));
+        emit(LeaveStatusUpdated(updateLeaveStatusModel: updateLeaveStatusModel));
       } else {
-        emit(LeaveStatusUpdateFailed(
-            errorMessage: updateLeaveStatusModel.message));
+        emit(LeaveStatusUpdateFailed(errorMessage: updateLeaveStatusModel.message));
       }
     } catch (e) {
       emit(LeaveStatusUpdateFailed(errorMessage: e.toString()));

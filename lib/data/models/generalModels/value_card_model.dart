@@ -5,6 +5,7 @@ class ValueCardModel {
   final String? value;
   final IconData iconData;
   final bool? isMobile;
+  final double? moduleId;
   final void Function(BuildContext context) onTap;
 
   const ValueCardModel({
@@ -12,6 +13,7 @@ class ValueCardModel {
     required this.cardHeading,
     this.value = '',
     required this.iconData,
+    required this.moduleId,
     this.isMobile = false,
   });
 }

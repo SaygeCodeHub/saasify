@@ -85,4 +85,11 @@ class StringConstants {
   static const kComments = 'Comments';
   static const kReject = 'Reject';
   static const kApprove = 'Approve';
+  static const kLeaveStatus = 'Leave Status';
+  static const kAction = 'Action';
+  static const kShowDetails = 'Show Details';
+  static const kMyLeaveDetails = 'My Leave details';
+  static const kWithdraw = 'Withdraw';
+  static const kMyLeaves = 'My Leaves';
+  static const kPendingLeaveRequests = 'Pending Leave Requests';
 }

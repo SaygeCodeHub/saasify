@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/leaves/leaves_bloc.dart';
-import 'package:saasify/bloc/leaves/leave_event.dart';
+import 'package:saasify/bloc/leaves/leave_events.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 

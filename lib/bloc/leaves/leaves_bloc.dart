@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/leaves/leave_event.dart';
-import 'package:saasify/bloc/leaves/leave_state.dart';
+import 'package:saasify/bloc/leaves/leave_events.dart';
+import 'package:saasify/bloc/leaves/leave_states.dart';
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/leaves/apply_leave_model.dart';
 import 'package:saasify/data/models/leaves/get_all_leaves_model.dart';

@@ -9,7 +9,9 @@ import 'package:saasify/widgets/text/field_label_widget.dart';
 
 class UpdatePasswordWebScreen extends StatelessWidget {
   const UpdatePasswordWebScreen({super.key, required this.formKey});
+
   final GlobalKey<FormState> formKey;
+
   @override
   Widget build(BuildContext context) {
     return Align(
@@ -22,15 +24,19 @@ class UpdatePasswordWebScreen extends StatelessWidget {
           children: [
             const SaasifyLogo(),
             const SizedBox(height: spacingBetweenTextFieldAndButton),
+            const Text(
+                "Enter the OTP received on your registered email address and add a new password"),
+            const SizedBox(height: spacingBetweenTextFields),
             LabelAndFieldWidget(
                 label: StringConstants.kOTP,
+                prefixIcon: const Icon(Icons.password_outlined),
                 errorText: 'Please enter a otp',
                 onTextFieldChanged: (value) {
                   context
                       .read<ResetPasswordBloc>()
                       .userInputAuthenticationMap['token'] = value;
                 }),
-            const SizedBox(height: spacingBetweenTextFieldAndButton),
+            const SizedBox(height: spacingBetweenTextFields),
             LabelAndFieldWidget(
                 obscureText: true,
                 errorText: 'Please enter a password',
@@ -41,7 +47,7 @@ class UpdatePasswordWebScreen extends StatelessWidget {
                       .read<ResetPasswordBloc>()
                       .userInputAuthenticationMap['password'] = value;
                 }),
-            const SizedBox(height: spacingBetweenTextFieldAndButton),
+            const SizedBox(height: spacingBetweenTextFields),
             LabelAndFieldWidget(
                 obscureText: true,
                 errorText: 'Please confirm a password',
@@ -52,7 +58,7 @@ class UpdatePasswordWebScreen extends StatelessWidget {
                       .read<ResetPasswordBloc>()
                       .userInputAuthenticationMap['password'] = value;
                 }),
-            const SizedBox(height: spacingBetweenTextFieldAndButton),
+            const SizedBox(height: spacingBetweenTextFields),
             UpdatePasswordButton(formKey: formKey),
           ],
         ),

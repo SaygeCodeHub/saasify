@@ -13,8 +13,8 @@ import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 
-class ResetPasswordButton extends StatelessWidget {
-  const ResetPasswordButton({super.key, required this.formKey});
+class UpdatePasswordButton extends StatelessWidget {
+  const UpdatePasswordButton({super.key, required this.formKey});
 
   final GlobalKey<FormState> formKey;
 

@@ -5,21 +5,17 @@ abstract class ResetPasswordStates {}
 
 class InitialiseResetPasswordStates extends ResetPasswordStates {}
 
-class SendingVerificationLink extends ResetPasswordStates {}
-
-class FailedToSendVerificationLink extends ResetPasswordStates {}
-
-class VerificationLinkSent extends ResetPasswordStates {}
-
 class PasswordResetting extends ResetPasswordStates {}
 
 class PasswordReset extends ResetPasswordStates {
   final ForgotPasswordModel forgotPasswordModel;
+
   PasswordReset({required this.forgotPasswordModel});
 }
 
 class PasswordResettingFailed extends ResetPasswordStates {
   final String errorMessage;
+
   PasswordResettingFailed({required this.errorMessage});
 }
 
@@ -27,10 +23,12 @@ class PasswordUpdating extends ResetPasswordStates {}
 
 class PasswordUpdated extends ResetPasswordStates {
   final UpdatePasswordModel updatePasswordModel;
+
   PasswordUpdated({required this.updatePasswordModel});
 }
 
 class PasswordUpdatingFailed extends ResetPasswordStates {
   final String errorMessage;
+
   PasswordUpdatingFailed({required this.errorMessage});
 }

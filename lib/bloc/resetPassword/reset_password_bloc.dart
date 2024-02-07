@@ -17,16 +17,8 @@ class ResetPasswordBloc extends Bloc<ResetPasswordEvents, ResetPasswordStates> {
   ResetPasswordStates get initialState => InitialiseResetPasswordStates();
 
   ResetPasswordBloc() : super(InitialiseResetPasswordStates()) {
-    on<SendVerificationLink>(_sendVerificationLink);
     on<SendForgotPasswordLink>(_sendForgotPasswordLink);
     on<UpdatePasswordLink>(_updatePasswordLink);
-  }
-
-  FutureOr<void> _sendVerificationLink(
-      SendVerificationLink event, Emitter<ResetPasswordStates> emit) async {
-    try {} catch (e) {
-      emit(FailedToSendVerificationLink());
-    }
   }
 
   FutureOr<void> _sendForgotPasswordLink(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/resetPassword/reset_password_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/screens/authentication/forgotPassword/reset_password_button.dart';
+import 'package:saasify/screens/authentication/updatePassword/reset_password_button.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/profile/saasifyLogo.dart';
 import 'package:saasify/widgets/text/field_label_widget.dart';
@@ -35,7 +35,7 @@ class ForgotPasswordWebScreen extends StatelessWidget {
                       .userInputAuthenticationMap['email'] = value;
                 }),
             const SizedBox(height: spacingBetweenTextFieldAndButton),
-            ResetPasswordButton(formKey: formKey)
+            UpdatePasswordButton(formKey: formKey)
           ],
         ),
       ),

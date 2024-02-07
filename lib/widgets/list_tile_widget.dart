@@ -13,7 +13,11 @@ class ListTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.asset(avatarUrl!, fit: BoxFit.cover),
+      leading: CircleAvatar(
+        backgroundImage:
+            (avatarUrl != null) ? NetworkImage(avatarUrl ?? "") : null,
+        backgroundColor: AppColors.black,
+      ),
       title: Text(title, style: Theme.of(context).textTheme.userNameTextStyle),
       subtitle: Text(subtitle,
           style: Theme.of(context).textTheme.statusTextStyle.copyWith(

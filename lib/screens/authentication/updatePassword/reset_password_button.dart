@@ -10,7 +10,6 @@ import 'package:saasify/screens/authentication/updatePassword/update_password_sc
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
-import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class UpdatePasswordButton extends StatelessWidget {
@@ -31,17 +30,7 @@ class UpdatePasswordButton extends StatelessWidget {
             }
             if (state is PasswordReset) {
               ProgressBar.dismiss(context);
-              showDialog(
-                  barrierDismissible: false,
-                  context: context,
-                  builder: (context) {
-                    return SuccessAlertDialog(
-                        onPressed: () {
-                          Navigator.pushNamed(
-                              context, UpdatePasswordScreen.routeName);
-                        },
-                        description: state.forgotPasswordModel.message);
-                  });
+              Navigator.pushNamed(context, UpdatePasswordScreen.routeName);
             }
             if (state is PasswordResettingFailed) {
               ProgressBar.dismiss(context);

@@ -1,6 +1,8 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:saasify/caches/cache.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/di/app_module.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/settings/settings_screen.dart';
 import 'package:saasify/widgets/profile/user_profile_widget.dart';
@@ -93,6 +95,7 @@ class MenuItems {
         Navigator.pushNamed(context, SettingsScreen.routeName);
         break;
       case MenuItems.logOut:
+        getIt<Cache>().clearSharedPreferences();
         Navigator.pushNamedAndRemoveUntil(
             context, AuthenticationScreen.routeName, (route) => false);
         break;

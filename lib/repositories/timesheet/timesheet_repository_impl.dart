@@ -15,8 +15,7 @@ class TimeSheetRepositoryImpl implements TimeSheetRepository {
       var branchId = await cache.getBranchId();
       var userId = await cache.getUserId();
       final response = await ClientServices().get(
-          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants
-              .attendanceHistory}");
+          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.attendanceHistory}");
       return TimeSheetAttendanceHistoryModel.fromJson(response);
     } catch (error) {
       rethrow;

@@ -9,7 +9,8 @@ class FetchingTimeSheetAttendanceHistory extends TimeSheetStates {}
 class TimeSheetAttendanceHistoryFetched extends TimeSheetStates {
   final TimeSheetAttendanceHistoryModel timeSheetAttendanceHistoryModel;
 
-  TimeSheetAttendanceHistoryFetched({required this.timeSheetAttendanceHistoryModel});
+  TimeSheetAttendanceHistoryFetched(
+      {required this.timeSheetAttendanceHistoryModel});
 }
 
 class TimeSheetAttendanceHistoryNotFetched extends TimeSheetStates {

@@ -42,5 +42,5 @@ configurableDependencies() {
   getIt.registerLazySingleton<SettingsRepository>(
       () => SettingsRepositoryImpl());
   getIt.registerLazySingleton<TimeSheetRepository>(
-          () => TimeSheetRepositoryImpl());
+      () => TimeSheetRepositoryImpl());
 }

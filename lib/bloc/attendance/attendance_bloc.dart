@@ -32,12 +32,9 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
   void _onFetchAttendance(
       FetchAttendance event, Emitter<AttendanceStates> emit) async {
     try {
-      String companyId = await _cache.getCompanyId();
-      String branchId = await _cache.getBranchId();
-      String userId = await _cache.getUserId();
 
       AttendanceModel attendanceModel = await _attendanceRepository
-          .getAttendance(companyId, branchId, userId);
+          .getAttendance();
 
       if (attendanceModel.status == 200) {
         checkInTime.value = formatDate(attendanceModel.data.checkIn);
@@ -78,12 +75,8 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
           officeLatitude, officeLongitude, currentLatitude, currentLongitude);
 
       if (distance < 100) {
-        String companyId = await _cache.getCompanyId();
-        String branchId = await _cache.getBranchId();
-        String userId = await _cache.getUserId();
-
         AttendanceModel attendanceModel = await _attendanceRepository
-            .markAttendance(companyId, branchId, userId);
+            .markAttendance();
         if (attendanceModel.status == 200) {
           checkInTime.value = formatDate(attendanceModel.data.checkIn);
           checkOutTime.value = formatDate(attendanceModel.data.checkOut);

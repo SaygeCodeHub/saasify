@@ -1,11 +1,9 @@
 import 'package:saasify/data/models/attendance/attendance_model.dart';
 
 abstract class AttendanceRepository {
-  Future<AttendanceModel> markAttendance(
-      String companyId, String branchId, String userId);
+  Future<AttendanceModel> markAttendance();
 
-  Future<AttendanceModel> getAttendance(
-      String companyId, String branchId, String userId);
+  Future<AttendanceModel> getAttendance();
 
   Future<List<double>> getLatLong();
 }

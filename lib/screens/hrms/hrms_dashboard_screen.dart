@@ -4,6 +4,8 @@ import 'package:saasify/bloc/attendance/attendance_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_event.dart';
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/di/app_module.dart';
+import 'package:saasify/screens/hrms/attendance/attendance_card.dart';
 import 'package:saasify/utils/modules.dart';
 import 'package:saasify/widgets/generalWidgets/service_card.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
@@ -28,7 +30,7 @@ class HRMSDashboardScreen extends StatelessWidget {
                   children: [
                     const SizedBox(height: spacingStandard),
                     FutureBuilder<List<String>?>(
-                      future: getIt<Cache>().getRoles(),
+                      future: getIt<Cache>().getDesignations(),
                       builder: (context, snapshot) {
                         // if (snapshot.hasData) {
                         context.read<AttendanceBloc>().add(FetchAttendance());

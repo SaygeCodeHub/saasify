@@ -15,7 +15,7 @@ class LeaveDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Title(
         color: AppColors.black,
-        child: Row(crossAxisAlignment: CrossAxisAlignment.start,children: [
+        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text("$title : ",
               style: const TextStyle(fontWeight: FontWeight.bold)),
           Text(leaveData, maxLines: 5)
@@ -37,10 +37,13 @@ class CommentDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Title(
         color: AppColors.black,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start,children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text("$title : ",
               style: const TextStyle(fontWeight: FontWeight.bold)),
-          Container(decoration: BoxDecoration(border:Border.all(color: AppColors.black)),child: Text(commentData, maxLines: 5))
+          Container(
+              decoration:
+                  BoxDecoration(border: Border.all(color: AppColors.black)),
+              child: Text(commentData, maxLines: 5))
         ]));
   }
 }

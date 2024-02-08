@@ -4,9 +4,11 @@ import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
 import 'package:saasify/widgets/table/custom_table.dart';
 import 'package:saasify/widgets/table/table_cells.dart';
 import '../../../configs/app_spacing.dart';
+import '../../../data/models/employee/get_all_employees_model.dart';
 
 class EmployeeListWeb extends StatelessWidget {
-  const EmployeeListWeb({super.key});
+  final List<EmployeeDatum> employees;
+  const EmployeeListWeb({super.key, required this.employees});
 
   @override
   Widget build(BuildContext context) {
@@ -17,22 +19,23 @@ class EmployeeListWeb extends StatelessWidget {
             checkboxVisible: false,
             showRowCheckBox: false,
             columnList: [
-              ColumnData(header: "", width: 200),
-              ColumnData(header: "Name", width: 250),
+              ColumnData(header: "", width: 150),
+              ColumnData(header: "Name"),
               ColumnData(header: "Email"),
               ColumnData(header: "Phone"),
               ColumnData(header: "Address", width: 350),
             ],
             selectedIds: const [],
-            dataCount: 5,
-            dataIds: const ["1", "2", "3", "4", "5", "6"],
+            dataCount: employees.length,
+            dataIds: List.generate(
+                employees.length, (index) => employees[index].employeeId),
             onRowCheckboxChange: (value) {},
             generateData: (index) => [
                   TableAvatar(avatarUrl: "https://picsum.photos/200"),
-                  TableText(text: "John Doeeeeeeeee"),
-                  TableText(text: "employee@mail.com"),
-                  TableText(text: "9999988888"),
-                  TableText(text: "222, 2nd Floor, State, City, Country"),
+                  TableText(text: employees[index].name),
+                  TableText(text: employees[index].userEmail),
+                  TableText(text: employees[index].userContact ?? '-'),
+                  TableText(text: employees[index].currentAddress ?? '-'),
                 ]),
       ),
     );

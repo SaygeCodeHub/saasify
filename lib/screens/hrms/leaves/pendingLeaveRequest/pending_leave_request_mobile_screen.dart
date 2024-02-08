@@ -40,7 +40,8 @@ class PendingLeaveRequestsMobileScreen extends StatelessWidget {
                               const SizedBox(width: spacingLarge),
                               Text(pendingLeaves[index].leaveType,
                                   style: const TextStyle(
-                                      fontWeight: FontWeight.w600,color: Colors.black87 )),
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black87)),
                               const SizedBox(width: spacingLarge),
                               LeaveDetails(
                                   leaveData: formatDate(pendingLeaves[index]

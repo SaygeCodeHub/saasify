@@ -32,7 +32,7 @@ class AttendanceCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: spacingXSmall),
+                      const SizedBox(height: spacingXSmall),
                       Text("Hello! Aditya",
                           style: Theme.of(context)
                               .textTheme
@@ -54,7 +54,7 @@ class AttendanceCard extends StatelessWidget {
                               Text(checkInTime ?? "--:--")
                             ],
                           ),
-                          Spacer(),
+                          const Spacer(),
                           Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -65,7 +65,7 @@ class AttendanceCard extends StatelessWidget {
                               Text(checkOutTime ?? "--:--"),
                             ],
                           ),
-                          Spacer()
+                          const Spacer()
                         ],
                       ),
                     ],

@@ -1,7 +1,9 @@
 abstract class ResetPasswordEvents {}
 
-class SendVerificationLink extends ResetPasswordEvents {
-  final Map userDetails;
+class SendForgotPasswordLink extends ResetPasswordEvents {
+  SendForgotPasswordLink();
+}
 
-  SendVerificationLink({required this.userDetails});
+class UpdatePasswordLink extends ResetPasswordEvents {
+  UpdatePasswordLink();
 }

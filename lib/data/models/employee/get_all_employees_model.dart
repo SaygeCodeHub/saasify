@@ -26,12 +26,12 @@ class GetAllEmployeesModel {
       throw const FormatException("Invalid JSON format. Data is null.");
     }
     return GetAllEmployeesModel(
-      status: json["status"] ?? 0, // Providing a default value for status
-      message: json["message"] ?? "", // Providing a default value for message
+      status: json["status"] ?? 0,
+      message: json["message"] ?? "",
       data: (json["data"] as List<dynamic>?)
               ?.map((e) => EmployeeListData.fromJson(e as Map<String, dynamic>))
               .toList() ??
-          [], // Providing an empty list if data is null
+          [],
     );
   }
 
@@ -64,19 +64,15 @@ class EmployeeListData {
       throw const FormatException("Invalid JSON format. Data is null.");
     }
     return EmployeeListData(
-      employeeId:
-          json["employee_id"] ?? 0, // Providing a default value for employeeId
-      name: json["name"] ?? "", // Providing a default value for name
-      userContact: json["user_contact"] ??
-          0, // Providing a default value for userContact
+      employeeId: json["employee_id"] ?? 0,
+      name: json["name"] ?? "",
+      userContact: json["user_contact"] ?? 0,
       designations: (json["designations"] as List<dynamic>?)
               ?.map((e) => e.toString())
               .toList() ??
-          [], // Providing an empty list if designations is null
-      userEmail:
-          json["user_email"] ?? "", // Providing a default value for userEmail
-      currentAddress: json[
-          "current_address"], // No default value for currentAddress as it's dynamic
+          [],
+      userEmail: json["user_email"] ?? "",
+      currentAddress: json["current_address"],
     );
   }
 

@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/employee/employee_bloc.dart';
+import 'package:saasify/bloc/employee/employee_event.dart';
+import 'package:saasify/bloc/employee/employee_states.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_mobile.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_web.dart';
+import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 
 import '../../../widgets/text/module_heading.dart';
-import '../../../widgets/userInput/custom_drop_down.dart';
 
 class EmployeeListScreen extends StatelessWidget {
   static const routeName = 'EmployeeListScreen';
@@ -15,6 +20,7 @@ class EmployeeListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<EmployeeBloc>().add(GetAllEmployees());
     return ScreenSkeleton(
         childScreenBuilder: (isMobile) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,36 +32,47 @@ class EmployeeListScreen extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          isMobile
-                              ? const SizedBox.shrink()
-                              : const BackButton(),
-                          const SizedBox(width: spacingXMedium),
-                          const ModuleHeading(label: 'Employee List'),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: spacingLarger),
-                        child: (isMobile)
-                            ? InkWell(
-                                onTap: () {},
-                                child: const Icon(Icons.filter_alt_outlined))
-                            : Row(children: [
-                                CustomDropDown(
-                                    items: const ["Last 30 Days", "Last Week"],
-                                    defaultValue: "Last 30 Days",
-                                    icon: Icons.store,
-                                    onChanged: (value) {}),
-                              ]),
-                      ),
+                      Row(children: [
+                        isMobile ? const SizedBox.shrink() : const BackButton(),
+                        const SizedBox(width: spacingXMedium),
+                        const ModuleHeading(label: 'Employee List')
+                      ])
                     ],
                   ),
                 ),
-                const Expanded(
-                  child: ResponsiveLayout(
-                    mobileBody: EmployeeListMobile(),
-                    desktopBody: EmployeeListWeb(),
+                Expanded(
+                  child: BlocConsumer<EmployeeBloc, EmployeeStates>(
+                    listener: (context, state) {
+                      if (state is LoadingEmployeesFailed) {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return ErrorAlertDialog(
+                                  description: state.errorMessage);
+                            });
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is LoadingEmployees) {
+                        return const Center(child: CircularProgressIndicator());
+                      }
+                      if (state is EmployeesLoaded) {
+                        return ResponsiveLayout(
+                          mobileBody:
+                              EmployeeListMobile(employees: state.employees),
+                          desktopBody:
+                              EmployeeListWeb(employees: state.employees),
+                        );
+                      }
+                      if (state is LoadingEmployeesFailed) {
+                        return Center(
+                            child: Text(state.errorMessage,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .errorTitleTextStyle));
+                      }
+                      return const SizedBox.shrink();
+                    },
                   ),
                 ),
               ],

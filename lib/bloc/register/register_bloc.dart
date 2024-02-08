@@ -25,7 +25,6 @@ class RegisterBloc extends Bloc<RegisterEvents, RegisterStates> {
       RegisterUserModel registerUserModel =
           await _registerRepository.registerUser(event.userDetails);
       if (registerUserModel.status == 200) {
-        saveUserSelections(registerUserModel.data);
         emit(UserRegistered(registerData: registerUserModel.data));
       } else {
         emit(FailedToRegisterUser(errorMessage: registerUserModel.message));
@@ -33,10 +32,5 @@ class RegisterBloc extends Bloc<RegisterEvents, RegisterStates> {
     } catch (e) {
       emit(FailedToRegisterUser(errorMessage: e.toString()));
     }
-  }
-
-  saveUserSelections(RegisterData registerData) async {
-    cache.setUserLoggedIn(true);
-    cache.setUserId(registerData.userId.toString());
   }
 }

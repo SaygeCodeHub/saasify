@@ -6,14 +6,18 @@ import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 class ForgotPasswordScreen extends StatelessWidget {
   static const routeName = 'ForgotPasswordScreen';
 
-  const ForgotPasswordScreen({super.key});
+  ForgotPasswordScreen({super.key});
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-        body: ResponsiveLayout(
-      mobileBody: ForgotPasswordMobileScreen(),
-      desktopBody: ForgotPasswordWebScreen(),
+    return Scaffold(
+        body: Form(
+      key: formKey,
+      child: ResponsiveLayout(
+        mobileBody: ForgotPasswordMobileScreen(formKey: formKey),
+        desktopBody: ForgotPasswordWebScreen(formKey: formKey),
+      ),
     ));
   }
 }

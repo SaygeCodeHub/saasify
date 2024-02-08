@@ -33,7 +33,7 @@ class LabelAndFieldWidget extends StatelessWidget {
       this.label,
       this.hintText,
       this.onTextFieldChanged,
-      this.readOnly,
+      this.readOnly = false,
       this.enabled,
       this.controller,
       this.obscureText,

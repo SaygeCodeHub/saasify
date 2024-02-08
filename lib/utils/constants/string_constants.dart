@@ -33,7 +33,7 @@ class StringConstants {
   static const kConfirmPassword = 'Confirm Password';
   static const kVerify = "Verify";
   static const kRegister = "Register";
-  static const kSendVerificationLink = "Send Verification Link";
+  static const kSendVerificationCode = "Send Verification Code";
   static const kOk = "Ok";
   static const kCancel = "Cancel";
   static const kSuccess = "Success";
@@ -63,4 +63,37 @@ class StringConstants {
   static const kFieldCannotBeEmpty = 'This field cannot be empty';
   static const kEnterValidMobileNumber = 'Please enter valid mobile number';
   static const kEnterValidPassword = 'Please enter valid password';
+  static const kOTP = 'OTP';
+  static const kNewPassword = 'New Password';
+  static const kUpdatePassword = "Update Password";
+
+//Leaves
+  static const kBalanceMedicalLeaves = 'Balance Medical Leaves';
+  static const kBalanceCasualLeaves = 'Balance Casual Leaves';
+  static const kLeaveType = 'Leave Type';
+  static const kFromDate = 'From Date';
+  static const kToDate = 'To Date';
+  static const kApprovers = 'Approvers';
+  static const kReasonForLeave = 'Reason for Leave';
+  static const kApply = 'Apply';
+  static const kTakeAction = 'Take Action';
+  static const kUpdateLeaveStatus = 'Update Leave Status';
+  static const kApplicantName = 'Applicant Name';
+  static const kStartDate = 'Start Date';
+  static const kEndDate = 'End Date';
+  static const kLeaveReason = 'Leave Reason';
+  static const kComments = 'Comments';
+  static const kReject = 'Reject';
+  static const kApprove = 'Approve';
+  static const kLeaveStatus = 'Leave Status';
+  static const kAction = 'Action';
+  static const kShowDetails = 'Show Details';
+  static const kMyLeaveDetails = 'My Leave details';
+  static const kWithdraw = 'Withdraw';
+  static const kMyLeaves = 'My Leaves';
+  static const kPendingLeaveRequests = 'Pending Leave Requests';
+  static const kDate = 'Date';
+  static const kCheckIn = 'CheckIn';
+  static const kCheckOut = 'CheckOut';
+  static const kRegularise = 'Regularise';
 }

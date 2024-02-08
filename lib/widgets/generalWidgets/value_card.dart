@@ -7,14 +7,14 @@ import '../../utils/globals.dart';
 class ValueCard extends StatelessWidget {
   final String cardHeading;
   final String? value;
-  final String iconPath;
+  final IconData iconData;
   final Function onTap;
 
   const ValueCard({
     super.key,
     required this.cardHeading,
     this.value = '',
-    required this.iconPath,
+    required this.iconData,
     required this.onTap,
   });
 
@@ -31,9 +31,7 @@ class ValueCard extends StatelessWidget {
             padding: EdgeInsets.all(isMobile ? spacingSmall : spacingMedium),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Expanded(
-                child: Image.asset(iconPath, fit: BoxFit.cover),
-              ),
+              Expanded(child: Icon(iconData)),
               const SizedBox(height: spacingSmall),
               Text(cardHeading,
                   softWrap: false,

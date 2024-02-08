@@ -7,9 +7,9 @@ String authenticateUserModelToJson(AuthenticateUserModel data) =>
     json.encode(data.toJson());
 
 class AuthenticateUserModel {
-  int status;
-  String message;
-  AuthenticateUserData data;
+  final int status;
+  final String message;
+  final AuthenticateUserData data;
 
   AuthenticateUserModel({
     required this.status,
@@ -17,15 +17,12 @@ class AuthenticateUserModel {
     required this.data,
   });
 
-  factory AuthenticateUserModel.fromJson(Map<String, dynamic> json) {
-    return AuthenticateUserModel(
-      status: json["status"] ?? 0,
-      message: json["message"] ?? "",
-      data: json["data"] != null
-          ? AuthenticateUserData.fromJson(json["data"])
-          : AuthenticateUserData.empty(),
-    );
-  }
+  factory AuthenticateUserModel.fromJson(Map<String, dynamic> json) =>
+      AuthenticateUserModel(
+        status: json["status"],
+        message: json["message"],
+        data: AuthenticateUserData.fromJson(json["data"]),
+      );
 
   Map<String, dynamic> toJson() => {
         "status": status,
@@ -35,9 +32,9 @@ class AuthenticateUserModel {
 }
 
 class AuthenticateUserData {
-  int userId;
-  String name;
-  List<Company> company;
+  final int userId;
+  final String name;
+  final List<Company> company;
 
   AuthenticateUserData({
     required this.userId,
@@ -45,19 +42,13 @@ class AuthenticateUserData {
     required this.company,
   });
 
-  factory AuthenticateUserData.fromJson(Map<String, dynamic> json) {
-    return AuthenticateUserData(
-        userId: json["user_id"] ?? 0,
-        name: json["name"] ?? "",
-        company: (json["company"] as List<dynamic>? ?? []).isNotEmpty
-            ? List<Company>.from(
-                json["company"].map((x) => Company.fromJson(x)))
-            : []);
-  }
-
-  static AuthenticateUserData empty() {
-    return AuthenticateUserData(userId: 0, name: "", company: []);
-  }
+  factory AuthenticateUserData.fromJson(Map<String, dynamic> json) =>
+      AuthenticateUserData(
+        userId: json["user_id"],
+        name: json["name"],
+        company:
+            List<Company>.from(json["company"].map((x) => Company.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
         "user_id": userId,
@@ -67,25 +58,22 @@ class AuthenticateUserData {
 }
 
 class Company {
-  int? companyId;
-  String companyName;
-  List<Branch> branches;
+  final int companyId;
+  final String companyName;
+  final List<Branch> branches;
 
   Company({
-    this.companyId,
+    required this.companyId,
     required this.companyName,
     required this.branches,
   });
 
-  factory Company.fromJson(Map<String, dynamic> json) {
-    return Company(
-      companyId: json["company_id"] ?? '',
-      companyName: json["company_name"] ?? "",
-      branches: (json["branches"] as List<dynamic>? ?? []).isNotEmpty
-          ? List<Branch>.from(json["branches"].map((x) => Branch.fromJson(x)))
-          : [],
-    );
-  }
+  factory Company.fromJson(Map<String, dynamic> json) => Company(
+        companyId: json["company_id"],
+        companyName: json["company_name"],
+        branches:
+            List<Branch>.from(json["branches"].map((x) => Branch.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
         "company_id": companyId,
@@ -95,28 +83,37 @@ class Company {
 }
 
 class Branch {
-  int branchId;
-  String branchName;
-  List<int> roles;
+  final int branchId;
+  final String branchName;
+  final List<String> designations;
+  final List<int> accessibleModules;
+  final List<double> accessibleFeatures;
 
   Branch({
     required this.branchId,
     required this.branchName,
-    required this.roles,
+    required this.designations,
+    required this.accessibleModules,
+    required this.accessibleFeatures,
   });
 
-  factory Branch.fromJson(Map<String, dynamic> json) {
-    return Branch(
-        branchId: json["branch_id"] ?? '',
-        branchName: json["branch_name"] ?? "",
-        roles: (json["roles"] as List<dynamic>? ?? []).isNotEmpty
-            ? List<int>.from(json["roles"].map((x) => x))
-            : []);
-  }
+  factory Branch.fromJson(Map<String, dynamic> json) => Branch(
+        branchId: json["branch_id"],
+        branchName: json["branch_name"],
+        designations: List<String>.from(json["designations"].map((x) => x)),
+        accessibleModules:
+            List<int>.from(json["accessible_modules"].map((x) => x)),
+        accessibleFeatures: List<double>.from(
+            json["accessible_features"].map((x) => x?.toDouble())),
+      );
 
   Map<String, dynamic> toJson() => {
         "branch_id": branchId,
         "branch_name": branchName,
-        "roles": List<dynamic>.from(roles.map((x) => x)),
+        "designations": List<dynamic>.from(designations.map((x) => x)),
+        "accessible_modules":
+            List<dynamic>.from(accessibleModules.map((x) => x)),
+        "accessible_features":
+            List<dynamic>.from(accessibleFeatures.map((x) => x)),
       };
 }

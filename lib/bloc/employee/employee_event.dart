@@ -5,3 +5,5 @@ class InviteEmployee extends EmployeeEvents {
 
   InviteEmployee({required this.inviteDetails});
 }
+
+class GetAllEmployees extends EmployeeEvents {}

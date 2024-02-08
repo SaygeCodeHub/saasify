@@ -38,3 +38,6 @@ const double kSideBarLeadingIconsSize = 20;
 const double kSassifyLogoSize = 50;
 const double kNextButtonWidth = 250;
 const double kCompaniesGridContainerHeight = 50;
+
+const double kDateTimePickerContainerHeight = 220;
+const double kDateTimePickerHeight = 170;

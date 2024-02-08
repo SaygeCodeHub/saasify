@@ -27,7 +27,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
       bool? isLoggedIn = await cache.isLoggedIn();
       var companyId = await cache.getCompanyId();
       if (isLoggedIn == true) {
-        if (companyId != '' || companyId.isNotEmpty) {
+        if (companyId != null) {
           emit(ActiveSession());
         } else {
           emit(NoCompanySelected());
@@ -60,19 +60,19 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
   }
 
   saveUserSelections(AuthenticateUserData authenticateUserData) async {
+    getIt<Cache>().setUserLoggedIn(true);
     getIt<Cache>().setUserId(authenticateUserData.userId.toString());
     getIt<Cache>().setUserName(authenticateUserData.name.toString());
     if (authenticateUserData.company.isNotEmpty &&
         authenticateUserData.company.length <= 1) {
-      getIt<Cache>()
-          .setCompanyId(authenticateUserData.company[0].companyId.toString());
-      getIt<Cache>()
-          .setCompanyId(authenticateUserData.company[0].companyName.toString());
+      getIt<Cache>().setCompanyId(authenticateUserData.company[0].companyId);
+      getIt<Cache>().setBranchName(
+          authenticateUserData.company[0].companyName.toString());
       if (authenticateUserData.company[0].branches.isNotEmpty &&
           authenticateUserData.company[0].branches.length <= 1) {
-        getIt<Cache>().setBranchId(
-            authenticateUserData.company[0].branches[0].branchId.toString());
-        getIt<Cache>().setCompanyId(
+        getIt<Cache>()
+            .setBranchId(authenticateUserData.company[0].branches[0].branchId);
+        getIt<Cache>().setBranchName(
             authenticateUserData.company[0].branches[0].branchName.toString());
       }
     }

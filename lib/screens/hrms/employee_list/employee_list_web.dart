@@ -7,7 +7,7 @@ import '../../../configs/app_spacing.dart';
 import '../../../data/models/employee/get_all_employees_model.dart';
 
 class EmployeeListWeb extends StatelessWidget {
-  final List<EmployeeDatum> employees;
+  final List<EmployeeListData> employees;
 
   const EmployeeListWeb({super.key, required this.employees});
 

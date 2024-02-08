@@ -9,4 +9,7 @@ class CacheKeys {
   static const companyName = 'companyName';
   static const branchId = 'branchId';
   static const branchName = 'branchName';
+  static const designations = 'designations';
+  static const accessibleModules = 'accessibleModules';
+  static const accessibleFeatures = 'accessibleFeatures';
 }

@@ -21,7 +21,7 @@ class InvitingFailed extends EmployeeStates {
 class LoadingEmployees extends EmployeeStates {}
 
 class EmployeesLoaded extends EmployeeStates {
-  final List<EmployeeDatum> employees;
+  final List<EmployeeListData> employees;
 
   EmployeesLoaded({required this.employees});
 }

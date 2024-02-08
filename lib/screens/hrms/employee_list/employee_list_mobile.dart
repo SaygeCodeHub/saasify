@@ -3,7 +3,7 @@ import 'package:saasify/data/models/employee/get_all_employees_model.dart';
 import 'package:saasify/widgets/list_tile_widget.dart';
 
 class EmployeeListMobile extends StatelessWidget {
-  final List<EmployeeDatum> employees;
+  final List<EmployeeListData> employees;
   const EmployeeListMobile({super.key, required this.employees});
 
   @override

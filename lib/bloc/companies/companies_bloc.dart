@@ -37,6 +37,4 @@ class CompaniesBloc extends Bloc<CompaniesEvent, CompaniesStates> {
       emit(AddingCompanyFailed(errorMessage: e.toString()));
     }
   }
-
-
 }

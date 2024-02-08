@@ -50,12 +50,12 @@ class Cache {
     return sharedPreferences.getString(CacheKeys.userName) ?? '';
   }
 
-  void setCompanyId(String companyId) async {
-    await sharedPreferences.setString(CacheKeys.companyId, companyId);
+  void setCompanyId(int companyId) async {
+    await sharedPreferences.setInt(CacheKeys.companyId, companyId);
   }
 
-  Future<String> getCompanyId() async {
-    return sharedPreferences.getString(CacheKeys.companyId) ?? '';
+  Future<int?> getCompanyId() async {
+    return sharedPreferences.getInt(CacheKeys.companyId);
   }
 
   void setCompanyName(String companyName) async {
@@ -66,13 +66,14 @@ class Cache {
     return sharedPreferences.getString(CacheKeys.companyName) ?? '';
   }
 
-  void setBranchId(String branchId) async {
-    await sharedPreferences.setString(CacheKeys.branchId, branchId);
+  void setBranchId(int branchId) async {
+    await sharedPreferences.setInt(CacheKeys.branchId, branchId);
   }
 
-  Future<String> getBranchId() async {
-    return sharedPreferences.getString(CacheKeys.companyId) ?? '';
+  Future<int?> getBranchId() async {
+    return sharedPreferences.getInt(CacheKeys.companyId);
   }
+
   void setBranchName(String branchName) async {
     await sharedPreferences.setString(CacheKeys.branchName, branchName);
   }
@@ -81,13 +82,44 @@ class Cache {
     return sharedPreferences.getString(CacheKeys.branchName) ?? '';
   }
 
-  // void setRole(List<String> roles) async {
-  //   await sharedPreferences.setStringList(CacheKeys.roles, roles);
-  // }
-  //
-  // Future<List<String>?> getRoles() async {
-  //   return sharedPreferences.getStringList(CacheKeys.roles);
-  // }
+  void setDesignations(List<String> designations) async {
+    await sharedPreferences.setStringList(CacheKeys.designations, designations);
+  }
+
+  Future<List<String>?> getDesignations() async {
+    return sharedPreferences.getStringList(CacheKeys.designations);
+  }
+
+  void setAccessibleModules(List<int> accessibleModules) async {
+    List<String> stringAccessibleModules =
+        accessibleModules.map((int i) => i.toString()).toList();
+    await sharedPreferences.setStringList(
+        CacheKeys.accessibleModules, stringAccessibleModules);
+  }
+
+  Future<List<int>?> getAccessibleModules() async {
+    List<String>? stringAccessibleModules =
+        sharedPreferences.getStringList(CacheKeys.accessibleModules);
+    List<int>? modules =
+        stringAccessibleModules?.map((String s) => int.parse(s)).toList();
+    return modules;
+  }
+
+  void setAccessibleFeatures(List<double> accessibleFeatures) async {
+    List<String> stringAccessibleFeatures =
+        accessibleFeatures.map((double d) => d.toString()).toList();
+    await sharedPreferences.setStringList(
+        CacheKeys.accessibleFeatures, stringAccessibleFeatures);
+  }
+
+  Future<List<double>?> getAccessibleFeatures() async {
+    List<String>? stringAccessibleFeatures =
+        sharedPreferences.getStringList(CacheKeys.accessibleFeatures);
+    List<double>? features =
+        stringAccessibleFeatures?.map((String s) => double.parse(s)).toList();
+
+    return features;
+  }
 
   clearSharedPreferences() async {
     sharedPreferences.clear();

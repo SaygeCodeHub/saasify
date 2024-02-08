@@ -108,10 +108,7 @@ class _AllBranchesWebState extends State<AllBranchesWeb> {
                       ),
                       const SizedBox(height: spacingBetweenTextFieldAndButton),
                       SelectBranchButton(
-                          selectedBranchId: widget
-                              .branches[selectedIndex].branchId
-                              .toString(),
-                          roles: widget.branches[selectedIndex].designations),
+                          branch: widget.branches[selectedIndex]),
                     ],
                   ),
                 ),

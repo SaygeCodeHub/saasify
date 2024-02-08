@@ -37,7 +37,7 @@ class EmployeeListWeb extends StatelessWidget {
                   TableText(text: employees[index].name),
                   TableText(text: employees[index].employeeId.toString()),
                   TableText(text: employees[index].userEmail),
-                  TableText(text: employees[index].userContact ?? '-'),
+                  TableText(text: employees[index].userContact.toString()),
                   TableText(text: employees[index].designations[0].toString()),
                 ]),
       ),

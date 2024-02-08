@@ -29,7 +29,6 @@ class CompaniesBloc extends Bloc<CompaniesEvent, CompaniesStates> {
       AddCompanyModel addCompanyModel =
           await _companiesRepository.addCompany(event.companyDetails);
       if (addCompanyModel.status == 200) {
-        await saveCompanyDetails(addCompanyModel.data);
         emit(CompanyAdded());
       } else {
         emit(AddingCompanyFailed(errorMessage: addCompanyModel.message));
@@ -39,8 +38,5 @@ class CompaniesBloc extends Bloc<CompaniesEvent, CompaniesStates> {
     }
   }
 
-  saveCompanyDetails(CompanyData companyData) async {
-    getIt<Cache>().setCompanyId(companyData.companyId.toString());
-    getIt<Cache>().setBranchId(companyData.branch.branchId.toString());
-  }
+
 }

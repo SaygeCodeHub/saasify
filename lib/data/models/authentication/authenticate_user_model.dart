@@ -85,7 +85,7 @@ class Company {
 class Branch {
   final int branchId;
   final String branchName;
-  final List<int> designations;
+  final List<String> designations;
   final List<int> accessibleModules;
   final List<double> accessibleFeatures;
 
@@ -100,7 +100,7 @@ class Branch {
   factory Branch.fromJson(Map<String, dynamic> json) => Branch(
         branchId: json["branch_id"],
         branchName: json["branch_name"],
-        designations: List<int>.from(json["designations"].map((x) => x)),
+        designations: List<String>.from(json["designations"].map((x) => x)),
         accessibleModules:
             List<int>.from(json["accessible_modules"].map((x) => x)),
         accessibleFeatures: List<double>.from(

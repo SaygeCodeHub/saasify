@@ -51,7 +51,7 @@ class UpdatePasswordButton extends StatelessWidget {
                       .add(SendForgotPasswordLink());
                 }
               },
-              buttonTitle: StringConstants.kSendVerificationLink),
+              buttonTitle: StringConstants.kSendVerificationCode),
         ),
         InkWell(
           onTap: () {

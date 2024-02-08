@@ -61,18 +61,19 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
 
   saveUserSelections(AuthenticateUserData authenticateUserData) async {
     getIt<Cache>().setUserId(authenticateUserData.userId.toString());
-    cache.setUserLoggedIn(true);
-    if (authenticateUserData.company.isNotEmpty) {
+    getIt<Cache>().setUserName(authenticateUserData.name.toString());
+    if (authenticateUserData.company.isNotEmpty &&
+        authenticateUserData.company.length <= 1) {
       getIt<Cache>()
           .setCompanyId(authenticateUserData.company[0].companyId.toString());
-      if (authenticateUserData.company[0].branches.length <= 1) {
+      getIt<Cache>()
+          .setCompanyId(authenticateUserData.company[0].companyName.toString());
+      if (authenticateUserData.company[0].branches.isNotEmpty &&
+          authenticateUserData.company[0].branches.length <= 1) {
         getIt<Cache>().setBranchId(
-            authenticateUserData.company[0].branches[0].toString());
-        List<int> intList =
-            authenticateUserData.company[0].branches[0].designations;
-        List<String> stringList =
-            intList.map((int number) => number.toString()).toList();
-        getIt<Cache>().setRole(stringList);
+            authenticateUserData.company[0].branches[0].branchId.toString());
+        getIt<Cache>().setCompanyId(
+            authenticateUserData.company[0].branches[0].branchName.toString());
       }
     }
   }

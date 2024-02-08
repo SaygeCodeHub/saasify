@@ -1,8 +1,6 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../data/models/generalModels/user_selections.dart';
 import 'cache_keys.dart';
 import '../data/models/authentication/authenticate_user_model.dart';
 
@@ -44,12 +42,28 @@ class Cache {
     return sharedPreferences.getString(CacheKeys.userId) ?? '';
   }
 
+  void setUserName(String userName) async {
+    await sharedPreferences.setString(CacheKeys.userName, userName);
+  }
+
+  Future<String> getUserNamed() async {
+    return sharedPreferences.getString(CacheKeys.userName) ?? '';
+  }
+
   void setCompanyId(String companyId) async {
     await sharedPreferences.setString(CacheKeys.companyId, companyId);
   }
 
   Future<String> getCompanyId() async {
     return sharedPreferences.getString(CacheKeys.companyId) ?? '';
+  }
+
+  void setCompanyName(String companyName) async {
+    await sharedPreferences.setString(CacheKeys.companyName, companyName);
+  }
+
+  Future<String> getCompanyName() async {
+    return sharedPreferences.getString(CacheKeys.companyName) ?? '';
   }
 
   void setBranchId(String branchId) async {
@@ -59,32 +73,21 @@ class Cache {
   Future<String> getBranchId() async {
     return sharedPreferences.getString(CacheKeys.companyId) ?? '';
   }
-
-  void setRole(List<String> roles) async {
-    await sharedPreferences.setStringList(CacheKeys.roles, roles);
+  void setBranchName(String branchName) async {
+    await sharedPreferences.setString(CacheKeys.branchName, branchName);
   }
 
-  Future<List<String>?> getRoles() async {
-    return sharedPreferences.getStringList(CacheKeys.roles);
+  Future<String> getBranchName() async {
+    return sharedPreferences.getString(CacheKeys.branchName) ?? '';
   }
 
-  Future<AuthenticateUserData?> getUserLoginDetails() async {
-    String? serializedModel =
-        sharedPreferences.getString(CacheKeys.userDetails);
-
-    if (serializedModel != null) {
-      Map<String, dynamic> jsonMap = json.decode(serializedModel);
-      AuthenticateUserData userData = AuthenticateUserData.fromJson(jsonMap);
-      return userData;
-    } else {
-      return null;
-    }
-  }
-
-  Future<void> saveUserSelections(UserSelections userSelections) async {
-    final String serializedModel = json.encode(userSelections.toJson());
-    await sharedPreferences.setString(CacheKeys.userDetails, serializedModel);
-  }
+  // void setRole(List<String> roles) async {
+  //   await sharedPreferences.setStringList(CacheKeys.roles, roles);
+  // }
+  //
+  // Future<List<String>?> getRoles() async {
+  //   return sharedPreferences.getStringList(CacheKeys.roles);
+  // }
 
   clearSharedPreferences() async {
     sharedPreferences.clear();

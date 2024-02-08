@@ -74,6 +74,12 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
             .setBranchId(authenticateUserData.company[0].branches[0].branchId);
         getIt<Cache>().setBranchName(
             authenticateUserData.company[0].branches[0].branchName.toString());
+        getIt<Cache>().setDesignations(
+            authenticateUserData.company[0].branches[0].designations);
+        getIt<Cache>().setAccessibleFeatures(
+            authenticateUserData.company[0].branches[0].accessibleFeatures);
+        getIt<Cache>().setAccessibleModules(
+            authenticateUserData.company[0].branches[0].accessibleModules);
       }
     }
   }

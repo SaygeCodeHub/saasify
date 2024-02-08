@@ -13,18 +13,22 @@ class ListTileWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: CircleAvatar(
-        backgroundImage:
-            (avatarUrl != null) ? NetworkImage(avatarUrl ?? "") : null,
-        backgroundColor: AppColors.black,
-      ),
-      title: Text(title, style: Theme.of(context).textTheme.userNameTextStyle),
-      subtitle: Text(subtitle,
-          style: Theme.of(context).textTheme.statusTextStyle.copyWith(
-              color: AppColors.darkBlue,
-              fontWeight: FontWeight.w400,
-              fontSize: 10)),
-      trailing: const Icon(Icons.navigate_next_outlined),
-    );
+        leading: const Icon(Icons.person, color: AppColors.darkBlue, size: 40),
+        title:
+            Text(title, style: Theme.of(context).textTheme.userNameTextStyle),
+        subtitle: Row(
+          children: [
+            Text('Employee ID - ',
+                style: Theme.of(context)
+                    .textTheme
+                    .statusTextStyle
+                    .copyWith(fontWeight: FontWeight.normal, fontSize: 10)),
+            Text(subtitle,
+                style: Theme.of(context).textTheme.statusTextStyle.copyWith(
+                    color: AppColors.darkBlue,
+                    fontWeight: FontWeight.w400,
+                    fontSize: 10)),
+          ],
+        ));
   }
 }

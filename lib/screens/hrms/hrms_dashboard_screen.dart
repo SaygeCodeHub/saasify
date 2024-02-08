@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_event.dart';
 import 'package:saasify/caches/cache.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/initiallise/initialise_bloc.dart';
 import 'package:saasify/bloc/initiallise/initialise_events.dart';
 import 'package:saasify/bloc/initiallise/initialise_states.dart';
@@ -40,6 +39,10 @@ class HRMSDashboardScreen extends StatelessWidget {
                   },
                 );
               }
+              if (state is AppInitialised) {
+                context.read<AttendanceBloc>().isGeoFencingEnabled =
+                    state.isGeoFencing;
+              }
             }, builder: (context, state) {
               if (state is InitialisingApp) {
                 return const Center(child: CircularProgressIndicator());
@@ -54,12 +57,14 @@ class HRMSDashboardScreen extends StatelessWidget {
                           future: getIt<Cache>().getDesignations(),
                           builder: (context, snapshot) {
                             // if (snapshot.hasData) {
-                            context.read<AttendanceBloc>().add(FetchAttendance());
-                            return
-                              // snapshot.data!.contains('0')
-                              //   ? const SizedBox.shrink()
-                              //   :
-                              const AttendanceCard();
+                            context
+                                .read<AttendanceBloc>()
+                                .add(FetchAttendance());
+                            return // snapshot.data!.contains('0')
+                                //   ? const SizedBox.shrink()
+                                //   :
+
+                                const AttendanceCard();
                             // } else {
                             //   return const SizedBox.shrink();
                             // }

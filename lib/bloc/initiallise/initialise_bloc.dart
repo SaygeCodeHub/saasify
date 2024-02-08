@@ -25,7 +25,14 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
       InitialiseAppModel initialiseAppModel =
           await _initialiseRepository.initialiseApp();
       if (initialiseAppModel.status == 200) {
-        emit(AppInitialised());
+        int branchId = await cache.getBranchId() ?? 0;
+        bool geoFencing = initialiseAppModel
+                .data!
+                .branches![initialiseAppModel.data!.branches!
+                    .indexWhere((element) => element.branchId == branchId)]
+                .geoFencing ??
+            false;
+        emit(AppInitialised(isGeoFencing: geoFencing));
       } else {
         emit(InitialisingAppFailed(
             errorMessage: initialiseAppModel.message.toString()));

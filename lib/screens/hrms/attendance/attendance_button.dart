@@ -7,6 +7,8 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 
+import '../../../utils/constants/string_constants.dart';
+
 class AttendanceButton extends StatelessWidget {
   const AttendanceButton({super.key});
 
@@ -46,7 +48,9 @@ class AttendanceButton extends StatelessWidget {
                 onPressed: () {
                   context.read<AttendanceBloc>().add(MarkAttendance());
                 },
-                buttonTitle: !checkInTimeExists() ? 'Check In' : 'Check Out');
+                buttonTitle: !checkInTimeExists()
+                    ? StringConstants.kCheckIn
+                    : StringConstants.kCheckOut);
       }
     });
   }

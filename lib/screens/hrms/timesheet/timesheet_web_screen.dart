@@ -59,7 +59,7 @@ class TimeSheetWebScreen extends StatelessWidget {
                               .copyWith(
                                   color: AppColors.white,
                                   fontWeight: FontWeight.normal),
-                          onPressed: () {}),
+                          onPressed: () {})
                     ])));
   }
 }

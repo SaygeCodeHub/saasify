@@ -15,6 +15,7 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
   final AttendanceRepository _attendanceRepository =
       getIt<AttendanceRepository>();
   final Cache _cache = getIt<Cache>();
+  bool isGeoFencingEnabled = false;
 
   late double officeLatitude;
   late double officeLongitude;
@@ -32,9 +33,8 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
   void _onFetchAttendance(
       FetchAttendance event, Emitter<AttendanceStates> emit) async {
     try {
-
-      AttendanceModel attendanceModel = await _attendanceRepository
-          .getAttendance();
+      AttendanceModel attendanceModel =
+          await _attendanceRepository.getAttendance();
 
       if (attendanceModel.status == 200) {
         checkInTime.value = formatDate(attendanceModel.data.checkIn);
@@ -49,34 +49,53 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
       MarkAttendance event, Emitter<AttendanceStates> emit) async {
     emit(MarkingAttendance());
     try {
-      List<double?> officePosition = await _getOfficeLocation();
-      if (officePosition.first == null) {
-        emit(ErrorMarkingAttendance(message: 'Error getting office location'));
-        return;
-      }
-      officeLatitude = officePosition.first ?? 0;
-      officeLongitude = officePosition.last ?? 0;
+      if (isGeoFencingEnabled) {
+        List<double?> officePosition = await _getOfficeLocation();
+        if (officePosition.first == null) {
+          emit(
+              ErrorMarkingAttendance(message: 'Error getting office location'));
+          return;
+        }
+        officeLatitude = officePosition.first ?? 0;
+        officeLongitude = officePosition.last ?? 0;
 
-      LocationPermissionStatus locationPermissionStatus =
-          await _checkLocationPermission();
+        LocationPermissionStatus locationPermissionStatus =
+            await _checkLocationPermission();
 
-      if (!locationPermissionStatus.hasPermission) {
-        emit(ErrorMarkingAttendance(message: locationPermissionStatus.message));
-        return;
-      }
+        if (!locationPermissionStatus.hasPermission) {
+          emit(ErrorMarkingAttendance(
+              message: locationPermissionStatus.message));
+          return;
+        }
 
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.bestForNavigation);
+        Position position = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.bestForNavigation);
 
-      currentLatitude = position.latitude;
-      currentLongitude = position.longitude;
+        currentLatitude = position.latitude;
+        currentLongitude = position.longitude;
 
-      double distance = Geolocator.distanceBetween(
-          officeLatitude, officeLongitude, currentLatitude, currentLongitude);
+        double distance = Geolocator.distanceBetween(
+            officeLatitude, officeLongitude, currentLatitude, currentLongitude);
 
-      if (distance < 100) {
-        AttendanceModel attendanceModel = await _attendanceRepository
-            .markAttendance();
+        if ((distance < 100) && isGeoFencingEnabled) {
+          AttendanceModel attendanceModel =
+              await _attendanceRepository.markAttendance();
+          if (attendanceModel.status == 200) {
+            checkInTime.value = formatDate(attendanceModel.data.checkIn);
+            checkOutTime.value = formatDate(attendanceModel.data.checkOut);
+            emit(MarkedAttendance());
+          } else {
+            emit(ErrorMarkingAttendance(message: attendanceModel.message));
+            return;
+          }
+        } else {
+          emit(ErrorMarkingAttendance(
+              message: 'You are not in office premises'));
+          return;
+        }
+      } else {
+        AttendanceModel attendanceModel =
+            await _attendanceRepository.markAttendance();
         if (attendanceModel.status == 200) {
           checkInTime.value = formatDate(attendanceModel.data.checkIn);
           checkOutTime.value = formatDate(attendanceModel.data.checkOut);
@@ -85,9 +104,6 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
           emit(ErrorMarkingAttendance(message: attendanceModel.message));
           return;
         }
-      } else {
-        emit(ErrorMarkingAttendance(message: 'You are not in office premises'));
-        return;
       }
     } catch (e) {
       emit(ErrorMarkingAttendance(message: e.toString()));

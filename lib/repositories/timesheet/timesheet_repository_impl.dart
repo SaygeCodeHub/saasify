@@ -9,14 +9,14 @@ class TimeSheetRepositoryImpl implements TimeSheetRepository {
   final Cache cache = getIt<Cache>();
 
   @override
-  Future<TimeSheetAttendanceHistoryModel> timeSheetAttendanceHistory() async {
+  Future<TimesheetModel> timeSheetAttendanceHistory() async {
     try {
       var companyId = await cache.getCompanyId();
       var branchId = await cache.getBranchId();
       var userId = await cache.getUserId();
       final response = await ClientServices().get(
-          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.attendanceHistory}");
-      return TimeSheetAttendanceHistoryModel.fromJson(response);
+          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/attendanceHistory");
+      return TimesheetModel.fromJson(response);
     } catch (error) {
       rethrow;
     }

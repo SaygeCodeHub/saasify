@@ -1,3 +1,3 @@
 abstract class TimeSheetEvents {}
 
-class TimeSheetAttendanceHistory extends TimeSheetEvents {}
+class GetTimesheet extends TimeSheetEvents {}

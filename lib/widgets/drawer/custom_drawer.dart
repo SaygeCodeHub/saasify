@@ -3,7 +3,7 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/widgets/drawer/module_list_tile.dart';
 import '../../utils/globals.dart';
-import '../profile/saasifyLogo.dart';
+import '../profile/saasify_logo.dart';
 import '../profile/user_name_widget.dart';
 import '../profile/user_profile_widget.dart';
 

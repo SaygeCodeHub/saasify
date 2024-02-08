@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
@@ -9,10 +10,12 @@ import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
 import 'package:saasify/widgets/table/custom_table.dart';
 import 'package:saasify/widgets/table/table_cells.dart';
 
-class TimeSheetAttendanceHistoryScreen extends StatelessWidget {
-  static const routeName = 'TimeSheetAttendanceHistoryScreen';
+import '../../../data/models/timesheet/timesheet_attendance_history_model.dart';
 
-  const TimeSheetAttendanceHistoryScreen({super.key});
+class TimeSheetWebScreen extends StatelessWidget {
+  final List<TimesheetData> timesheetData;
+
+  const TimeSheetWebScreen({super.key, required this.timesheetData});
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +33,24 @@ class TimeSheetAttendanceHistoryScreen extends StatelessWidget {
                 ],
                 selectedIds: const [],
                 dataCount: 1,
-                dataIds: ["1"],
+                dataIds: const ["1"],
                 onRowCheckboxChange: (value) {},
                 generateData: (index) => [
-                      TableText(text: formatDate("")),
-                      TableText(text: formatDate("")),
-                      TableText(text: formatDate("")),
+                      TableText(
+                          text: timesheetData[index].date == null
+                              ? "--"
+                              : formatDate(
+                                  timesheetData[index].date.toString())),
+                      TableText(
+                          text: timesheetData[index].checkIn == null
+                              ? "--"
+                              : DateFormat('HH:mm')
+                                  .format(timesheetData[index].checkIn)),
+                      TableText(
+                          text: timesheetData[index].checkOut == null
+                              ? "--"
+                              : DateFormat('HH:mm')
+                                  .format(timesheetData[index].checkOut)),
                       TableButton(
                           title: StringConstants.kRegularise,
                           textStyle: Theme.of(context)

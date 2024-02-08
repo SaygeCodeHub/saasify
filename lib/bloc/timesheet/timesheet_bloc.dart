@@ -14,24 +14,22 @@ class TimeSheetBloc extends Bloc<TimeSheetEvents, TimeSheetStates> {
   TimeSheetStates get initialState => TimeSheetInitialise();
 
   TimeSheetBloc() : super(TimeSheetInitialise()) {
-    on<TimeSheetAttendanceHistory>(_timeSheetAttendanceHistory);
+    on<GetTimesheet>(_timeSheetAttendanceHistory);
   }
 
   FutureOr<void> _timeSheetAttendanceHistory(
-      TimeSheetAttendanceHistory event, Emitter<TimeSheetStates> emit) async {
-    emit(FetchingTimeSheetAttendanceHistory());
+      GetTimesheet event, Emitter<TimeSheetStates> emit) async {
+    emit(FetchingTimesheet());
     try {
-      TimeSheetAttendanceHistoryModel timeSheetAttendanceHistoryModel =
+      TimesheetModel timesheetModel =
           await _timeSheetRepository.timeSheetAttendanceHistory();
-      if (timeSheetAttendanceHistoryModel.status == 200) {
-        emit(TimeSheetAttendanceHistoryFetched(
-            timeSheetAttendanceHistoryModel: timeSheetAttendanceHistoryModel));
+      if (timesheetModel.status == 200) {
+        emit(TimesheetFetched(timesheetModel: timesheetModel));
       } else {
-        emit(TimeSheetAttendanceHistoryNotFetched(
-            message: timeSheetAttendanceHistoryModel.message));
+        emit(FetchTimesheetError(message: timesheetModel.message));
       }
     } catch (e) {
-      emit(TimeSheetAttendanceHistoryNotFetched());
+      emit(FetchTimesheetError(message: e.toString()));
     }
   }
 }

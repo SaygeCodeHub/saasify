@@ -13,4 +13,5 @@ class ApiConstants {
   static const getBranchSettings = 'getBranchSettings';
   static const updateLeaveStatus = 'updateLeaveStatus';
   static const attendanceHistory = 'attendanceHistory';
+  static const initializeApi = 'initializeApi';
 }

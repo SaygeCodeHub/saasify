@@ -71,7 +71,7 @@ class Cache {
   }
 
   Future<int?> getBranchId() async {
-    return sharedPreferences.getInt(CacheKeys.companyId);
+    return sharedPreferences.getInt(CacheKeys.branchId);
   }
 
   void setBranchName(String branchName) async {

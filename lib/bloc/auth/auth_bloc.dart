@@ -66,7 +66,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
     if (authenticateUserData.company.isNotEmpty &&
         authenticateUserData.company.length <= 1) {
       getIt<Cache>().setCompanyId(authenticateUserData.company[0].companyId);
-      getIt<Cache>().setBranchName(
+      getIt<Cache>().setCompanyName(
           authenticateUserData.company[0].companyName.toString());
       if (authenticateUserData.company[0].branches.isNotEmpty &&
           authenticateUserData.company[0].branches.length <= 1) {

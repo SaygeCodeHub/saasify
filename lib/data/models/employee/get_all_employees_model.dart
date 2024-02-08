@@ -36,7 +36,7 @@ class EmployeeDatum {
   final int employeeId;
   final String name;
   final dynamic userContact;
-  final List<int> designations;
+  final List<String> designations;
   final String userEmail;
   final dynamic currentAddress;
 
@@ -53,7 +53,7 @@ class EmployeeDatum {
         employeeId: json["employee_id"],
         name: json["name"],
         userContact: json["user_contact"],
-        designations: List<int>.from(json["designations"].map((x) => x)),
+        designations: List<String>.from(json["designations"].map((x) => x)),
         userEmail: json["user_email"],
         currentAddress: json["current_address"],
       );

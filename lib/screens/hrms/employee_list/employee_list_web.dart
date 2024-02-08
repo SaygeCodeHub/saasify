@@ -8,6 +8,7 @@ import '../../../data/models/employee/get_all_employees_model.dart';
 
 class EmployeeListWeb extends StatelessWidget {
   final List<EmployeeDatum> employees;
+
   const EmployeeListWeb({super.key, required this.employees});
 
   @override
@@ -19,11 +20,12 @@ class EmployeeListWeb extends StatelessWidget {
             checkboxVisible: false,
             showRowCheckBox: false,
             columnList: [
-              ColumnData(header: "", width: 150),
+              ColumnData(header: "", width: 100),
               ColumnData(header: "Name"),
+              ColumnData(header: "Employee ID"),
               ColumnData(header: "Email"),
               ColumnData(header: "Phone"),
-              ColumnData(header: "Address", width: 350),
+              ColumnData(header: "Designation"),
             ],
             selectedIds: const [],
             dataCount: employees.length,
@@ -31,11 +33,12 @@ class EmployeeListWeb extends StatelessWidget {
                 employees.length, (index) => employees[index].employeeId),
             onRowCheckboxChange: (value) {},
             generateData: (index) => [
-                  TableAvatar(avatarUrl: "https://picsum.photos/200"),
+                  const TableAvatar(),
                   TableText(text: employees[index].name),
+                  TableText(text: employees[index].employeeId.toString()),
                   TableText(text: employees[index].userEmail),
                   TableText(text: employees[index].userContact ?? '-'),
-                  TableText(text: employees[index].currentAddress ?? '-'),
+                  TableText(text: employees[index].designations[0].toString()),
                 ]),
       ),
     );

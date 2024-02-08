@@ -1,20 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 import 'package:saasify/widgets/generalWidgets/status_chip.dart';
 
 class TableAvatar extends DataCell {
-  TableAvatar({String? avatarUrl})
-      : super(
-            Center(
-              child: CircleAvatar(
-                backgroundImage:
-                    (avatarUrl != null) ? NetworkImage(avatarUrl) : null,
-                backgroundColor: AppColors.black,
-              ),
-            ),
-            showEditIcon: false);
+  const TableAvatar()
+      : super(const Center(child: Icon(Icons.person)), showEditIcon: false);
 }
 
 class TableText extends DataCell {

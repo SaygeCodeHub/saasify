@@ -8,7 +8,8 @@ import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_screen.dart';
 import 'package:saasify/screens/hrms/leaves/getMyLeaves/my_leaves_screen.dart';
 import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/pending_leave_request_screen.dart';
-import 'package:saasify/screens/hrms/timesheet/timesheet_attendance_history_screen.dart';
+
+import '../screens/hrms/timesheet/timesheet_screen.dart';
 
 List<ValueCardModel> statisticsModules = [
   ValueCardModel(
@@ -65,8 +66,7 @@ List<ValueCardModel> hrmsModules = [
       cardHeading: Modules.timesheet.name,
       iconData: FontAwesomeIcons.businessTime,
       onTap: (BuildContext context) {
-        Navigator.pushNamed(
-            context, TimeSheetAttendanceHistoryScreen.routeName);
+        Navigator.pushNamed(context, TimesheetScreen.routeName);
       },
       moduleId: 0.8)
 ];

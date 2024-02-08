@@ -96,4 +96,5 @@ class StringConstants {
   static const kCheckIn = 'CheckIn';
   static const kCheckOut = 'CheckOut';
   static const kRegularise = 'Regularise';
+  static const kTimesheet = 'Timesheet';
 }

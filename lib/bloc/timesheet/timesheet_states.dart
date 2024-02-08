@@ -4,17 +4,16 @@ abstract class TimeSheetStates {}
 
 class TimeSheetInitialise extends TimeSheetStates {}
 
-class FetchingTimeSheetAttendanceHistory extends TimeSheetStates {}
+class FetchingTimesheet extends TimeSheetStates {}
 
-class TimeSheetAttendanceHistoryFetched extends TimeSheetStates {
-  final TimeSheetAttendanceHistoryModel timeSheetAttendanceHistoryModel;
+class TimesheetFetched extends TimeSheetStates {
+  final TimesheetModel timesheetModel;
 
-  TimeSheetAttendanceHistoryFetched(
-      {required this.timeSheetAttendanceHistoryModel});
+  TimesheetFetched({required this.timesheetModel});
 }
 
-class TimeSheetAttendanceHistoryNotFetched extends TimeSheetStates {
-  final String? message;
+class FetchTimesheetError extends TimeSheetStates {
+  final String message;
 
-  TimeSheetAttendanceHistoryNotFetched({this.message});
+  FetchTimesheetError({required this.message});
 }

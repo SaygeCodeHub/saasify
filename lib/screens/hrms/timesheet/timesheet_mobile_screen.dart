@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/leave_details.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
@@ -28,18 +29,33 @@ class TimesheetMobileScreen extends StatelessWidget {
                           children: [
                             const SizedBox(width: spacingLarge),
                             LeaveDetails(
-                                leaveData: formatDate(
-                                    timesheetData[index].checkIn.toString()),
-                                title: StringConstants.kStartDate),
+                                leaveData: timesheetData[index].date == null
+                                    ? "--"
+                                    : formatDate(
+                                        timesheetData[index].date.toString()),
+                                title: StringConstants.kDate),
                             const SizedBox(width: spacingLarge),
-                            LeaveDetails(
-                                leaveData: formatDate(
-                                    timesheetData[index].checkOut.toString()),
-                                title: StringConstants.kEndDate),
-                            const SizedBox(width: spacingSmall),
-                            LeaveDetails(
-                                leaveData: timesheetData[index].date.toString(),
-                                title: StringConstants.kApprovers)
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  LeaveDetails(
+                                      leaveData:
+                                          timesheetData[index].checkIn == null
+                                              ? "--"
+                                              : DateFormat('HH:mm').format(
+                                                  timesheetData[index].checkIn),
+                                      title: StringConstants.kCheckIn),
+                                  const SizedBox(width: spacingSmall),
+                                  LeaveDetails(
+                                      leaveData: timesheetData[index]
+                                                  .checkOut ==
+                                              null
+                                          ? "--"
+                                          : DateFormat('HH:mm').format(
+                                              timesheetData[index].checkOut),
+                                      title: StringConstants.kCheckOut)
+                                ])
                           ])));
             }));
   }

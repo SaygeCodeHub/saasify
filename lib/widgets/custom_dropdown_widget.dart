@@ -7,8 +7,8 @@ import 'package:saasify/configs/app_spacing.dart';
 class CustomDropdownButton extends StatelessWidget {
   final bool? showBorder;
   final String hint;
-  final List items;
-  final String? selectedValue;
+  final List<CustomDropDownItem> items;
+  final dynamic selectedValue;
   final ValueChanged onChanged;
 
   const CustomDropdownButton({
@@ -39,11 +39,10 @@ class CustomDropdownButton extends StatelessWidget {
                     borderRadius: BorderRadius.circular(kCardRadius))),
             hint: Text(hint, style: Theme.of(context).textTheme.titleSmall),
             items: items.map((item) {
-              print(item);
               return DropdownMenuItem(
-                value: item,
-                child:
-                    Text(item, style: const TextStyle(fontSize: spacingMedium)),
+                value: item.value,
+                child: Text(item.label,
+                    style: const TextStyle(fontSize: spacingMedium)),
               );
             }).toList(),
             validator: (value) {
@@ -64,4 +63,11 @@ class CustomDropdownButton extends StatelessWidget {
             menuItemStyleData: const MenuItemStyleData(
                 padding: EdgeInsets.symmetric(horizontal: spacingStandard))));
   }
+}
+
+class CustomDropDownItem {
+  final dynamic value;
+  final String label;
+
+  CustomDropDownItem({this.value, required this.label});
 }

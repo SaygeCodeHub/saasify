@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:saasify/bloc/employee/employee_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/widgets/custom_dropdown_widget.dart';
+import 'package:saasify/widgets/form/form_input_fields.dart';
 import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
+import 'package:saasify/widgets/text/dropdown_label_widget.dart';
 import 'package:saasify/widgets/text/field_label_widget.dart';
 
 class EmployeeOfficialDetails extends StatelessWidget {
@@ -17,17 +21,39 @@ class EmployeeOfficialDetails extends StatelessWidget {
         children: [
           MultiFieldRow(
             childrenWidgets: [
-              LabelAndFieldWidget(
+              DropdownLabelWidget(
+                  label: "Designation",
+                  items: [CustomDropDownItem(label: "Employee", value: 2)],
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['official']['designations']
+                      .first,
+                  onChanged: (value) {
+                    context.read<EmployeeBloc>().employeeDetails['official']
+                        ['designations'] = value;
+                  }),
+              DatePickerField(
                   label: "Date of Joining",
+                  initialDate: DateFormat('dd-mm-yyyy').tryParse(context
+                          .read<EmployeeBloc>()
+                          .employeeDetails['personal_info']['date_of_birth'] ??
+                      ""),
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['official']
                         ['DOJ'] = value;
                   }),
-              LabelAndFieldWidget(
+              DropdownLabelWidget(
                   label: "Job Confirmation",
-                  onTextFieldChanged: (value) {
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['official']['job_confirmation'],
+                  items: [
+                    CustomDropDownItem(label: "Yes", value: 0),
+                    CustomDropDownItem(label: "No", value: 1)
+                  ],
+                  onChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['official']
-                        ['job_confirmation'] = value;
+                        ['job_confirmation'] = value == "Yes" ? 0 : 1;
                   })
             ],
           ),
@@ -36,18 +62,30 @@ class EmployeeOfficialDetails extends StatelessWidget {
             childrenWidgets: [
               LabelAndFieldWidget(
                   label: "Current Location",
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['official']['current_location'],
+                  readOnly: true,
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['official']
                         ['current_location'] = value;
                   }),
               LabelAndFieldWidget(
                   label: "Department Head",
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['official']['department_head'],
+                  readOnly: true,
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['official']
                         ['department_head'] = value;
                   }),
               LabelAndFieldWidget(
                   label: "Reporting Manager",
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['official']['reporting_manager'],
+                  readOnly: true,
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['official']
                         ['reporting_manager'] = value;
@@ -57,27 +95,34 @@ class EmployeeOfficialDetails extends StatelessWidget {
           const SizedBox(height: spacingLarge),
           MultiFieldRow(
             childrenWidgets: [
-              LabelAndFieldWidget(
-                  label: "Designation",
-                  onTextFieldChanged: (value) {
-                    context.read<EmployeeBloc>().employeeDetails['official']
-                        ['designation'] = value;
-                  }),
-              LabelAndFieldWidget(
+              DropdownLabelWidget(
                   label: "Approvers",
-                  onTextFieldChanged: (value) {
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['official']['approvers'],
+                  items: const [],
+                  onChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['official']
                         ['approvers'] = value;
                   }),
-              LabelAndFieldWidget(
+              DropdownLabelWidget(
                   label: "Department",
-                  onTextFieldChanged: (value) {
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['official']['department']
+                      .first,
+                  items: [CustomDropDownItem(label: "Department", value: 0)],
+                  onChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['official']
                         ['department'] = value;
                   }),
-              LabelAndFieldWidget(
+              DropdownLabelWidget(
                   label: "Accessible Features",
-                  onTextFieldChanged: (value) {
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['official']['accessible_features'],
+                  items: const [],
+                  onChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['official']
                         ['accessible_features'] = value;
                   })

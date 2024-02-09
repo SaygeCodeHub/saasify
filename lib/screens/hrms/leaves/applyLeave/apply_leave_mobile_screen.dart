@@ -8,6 +8,7 @@ import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_button.dart';
 import 'package:saasify/screens/hrms/leaves/widgets/date_picker_textfield.dart';
 import 'package:saasify/screens/hrms/leaves/widgets/leave_statistic_card.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/widgets/custom_dropdown_widget.dart';
 import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
 import 'package:saasify/widgets/text/dropdown_label_widget.dart';
 import 'package:saasify/widgets/text/textfield_label_widget.dart';
@@ -45,8 +46,11 @@ class ApplyLeaveMobileScreen extends StatelessWidget {
               DropdownLabelWidget(
                   label: StringConstants.kLeaveType,
                   hint: StringConstants.kLeaveType,
-                  items: List.generate(LeaveTypeEnum.values.length,
-                      (index) => LeaveTypeEnum.values.elementAt(index).type),
+                  items: List.generate(
+                      LeaveTypeEnum.values.length,
+                      (index) => CustomDropDownItem(
+                          label: LeaveTypeEnum.values.elementAt(index).type,
+                          value: LeaveTypeEnum.values.elementAt(index).type)),
                   onChanged: (String? value) {
                     dynamic leaveId = LeaveTypeEnum.values
                         .elementAt(LeaveTypeEnum.values
@@ -58,8 +62,11 @@ class ApplyLeaveMobileScreen extends StatelessWidget {
               DropdownLabelWidget(
                   label: StringConstants.kApprovers,
                   hint: StringConstants.kApprovers,
-                  items: List.generate(applyLeaveData.approvers.length,
-                      (index) => applyLeaveData.approvers[index].approverName),
+                  items: List.generate(
+                      applyLeaveData.approvers.length,
+                      (index) => CustomDropDownItem(
+                          label: applyLeaveData.approvers[index].approverName,
+                          value: applyLeaveData.approvers[index].approverName)),
                   onChanged: (String? value) {
                     dynamic approverId = applyLeaveData
                         .approvers[applyLeaveData.approvers.indexWhere(

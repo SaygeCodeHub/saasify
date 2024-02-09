@@ -1,5 +1,4 @@
 List<Map<String, dynamic>> indiaStatesAndCities = [
-  {"state": null, "cities": []},
   {
     "state": "Andaman and Nicobar Islands",
     "cities": ["Port Blair"]

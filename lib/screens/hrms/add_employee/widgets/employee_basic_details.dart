@@ -5,6 +5,7 @@ import 'package:saasify/bloc/employee/employee_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/generalData/india_states_and_cities.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/widgets/custom_dropdown_widget.dart';
 import 'package:saasify/widgets/form/form_input_fields.dart';
 import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
 import 'package:saasify/widgets/text/dropdown_label_widget.dart';
@@ -128,7 +129,7 @@ class EmployeeBasicDetails extends StatelessWidget {
                       ['gender'] = value;
                 },
                 hint: '',
-                items: const ["Male", "Female"],
+                items: stringListToDropdownItems(const ["Male", "Female"]),
               ),
               DropdownLabelWidget(
                 label: StringConstants.kNationality,
@@ -140,7 +141,7 @@ class EmployeeBasicDetails extends StatelessWidget {
                       ['nationality'] = value;
                 },
                 hint: '',
-                items: const ["Indian"],
+                items: stringListToDropdownItems(const ["Indian"]),
               ),
               DropdownLabelWidget(
                 label: StringConstants.kMaritalStatus,
@@ -152,7 +153,8 @@ class EmployeeBasicDetails extends StatelessWidget {
                       ['marital_status'] = value;
                 },
                 hint: '',
-                items: const ["Married", "Unmarried", "Widowed"],
+                items: stringListToDropdownItems(
+                    const ["Married", "Unmarried", "Widowed"]),
               ),
             ],
           ),
@@ -194,11 +196,7 @@ class EmployeeBasicDetails extends StatelessWidget {
                     .read<EmployeeBloc>()
                     .employeeDetails['personal_info']['city'],
                 hint: '',
-                items: indiaStatesAndCities.firstWhere((element) =>
-                    element['state'] ==
-                    context
-                        .read<EmployeeBloc>()
-                        .employeeDetails['personal_info']['state'])["cities"],
+                items: [],
                 onChanged: (String? value) {
                   context.read<EmployeeBloc>().employeeDetails['personal_info']
                       ['city'] = value;
@@ -210,10 +208,10 @@ class EmployeeBasicDetails extends StatelessWidget {
                     .read<EmployeeBloc>()
                     .employeeDetails['personal_info']['state'],
                 hint: '',
-                items: indiaStatesAndCities
-                    .where((element) => element['state'] != null)
+                items: stringListToDropdownItems(indiaStatesAndCities
                     .map((e) => e['state'])
-                    .toList(),
+                    .toList()
+                    .cast<String>()),
                 onChanged: (String? value) {
                   context.read<EmployeeBloc>().employeeDetails['personal_info']
                       ['state'] = value;
@@ -238,4 +236,11 @@ class EmployeeBasicDetails extends StatelessWidget {
       ),
     );
   }
+}
+
+List<CustomDropDownItem> stringListToDropdownItems(List<String> list) {
+  return list
+      .map((e) => CustomDropDownItem(label: e, value: e))
+      .toList()
+      .cast<CustomDropDownItem>();
 }

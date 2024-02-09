@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/employee/employee_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/screens/hrms/add_employee/widgets/employee_basic_details.dart';
+import 'package:saasify/widgets/form/form_input_fields.dart';
 import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
+import 'package:saasify/widgets/text/dropdown_label_widget.dart';
 import 'package:saasify/widgets/text/field_label_widget.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
@@ -22,31 +25,31 @@ class EmployeeFinancialDetails extends StatelessWidget {
           ),
           MultiFieldRow(
             childrenWidgets: [
-              LabelAndFieldWidget(
+              NumberTextField(
                   label: "Salary",
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['financial']
-                        ['finances']['salary'] = value;
+                        ['finances']['basic_salary'] = value;
                   }),
-              LabelAndFieldWidget(
+              NumberTextField(
                   label: "Basket of Allowance",
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['financial']
                         ['finances']['BOA'] = value;
                   }),
-              LabelAndFieldWidget(
+              NumberTextField(
                   label: "Bonus",
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['financial']
                         ['finances']['bonus'] = value;
                   }),
-              LabelAndFieldWidget(
+              NumberTextField(
                   label: "Provisional Fund",
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['financial']
                         ['finances']['PF'] = value;
                   }),
-              LabelAndFieldWidget(
+              NumberTextField(
                   label: "Performance Bonus",
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['financial']
@@ -57,25 +60,25 @@ class EmployeeFinancialDetails extends StatelessWidget {
           const SizedBox(height: spacingLarge),
           MultiFieldRow(
             childrenWidgets: [
-              LabelAndFieldWidget(
-                  label: "Deductions",
+              NumberTextField(
+                  label: "Deduction",
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['financial']
-                        ['finances']['deductions'] = value;
+                        ['finances']['deduction'] = value;
                   }),
-              LabelAndFieldWidget(
+              NumberTextField(
                   label: "Gratuity",
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['financial']
                         ['finances']['gratuity'] = value;
                   }),
-              LabelAndFieldWidget(
+              NumberTextField(
                   label: "Fixed Monthly Gross",
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['financial']
                         ['finances']['fixed_monthly_gross'] = value;
                   }),
-              LabelAndFieldWidget(
+              NumberTextField(
                   label: "Total Annual Gross",
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['financial']
@@ -109,7 +112,7 @@ class EmployeeFinancialDetails extends StatelessWidget {
           const SizedBox(height: spacingLarge),
           MultiFieldRow(
             childrenWidgets: [
-              LabelAndFieldWidget(
+              NumberTextField(
                   label: "Account Number",
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['financial']
@@ -127,9 +130,10 @@ class EmployeeFinancialDetails extends StatelessWidget {
                     context.read<EmployeeBloc>().employeeDetails['financial']
                         ['bank_details']['account_type'] = value;
                   }),
-              LabelAndFieldWidget(
+              DropdownLabelWidget(
                   label: "Country",
-                  onTextFieldChanged: (value) {
+                  items: stringListToDropdownItems(["India"]),
+                  onChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['financial']
                         ['bank_details']['country'] = value;
                   })

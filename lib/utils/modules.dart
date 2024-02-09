@@ -21,10 +21,12 @@ List<ValueCardModel> hrmsFeatures = [
       },
       moduleId: 0.1),
   ValueCardModel(
-      cardHeading: Modules.totalEmployees.name,
+      cardHeading: Modules.viewAllEmployees.name,
       value: '20',
       iconData: FontAwesomeIcons.person,
-      onTap: (BuildContext context) {},
+      onTap: (BuildContext context) {
+        Navigator.pushNamed(context, EmployeeListScreen.routeName);
+      },
       moduleId: 0.2),
   ValueCardModel(
       cardHeading: Modules.monthlySalaryRollout.name,
@@ -39,13 +41,6 @@ List<ValueCardModel> hrmsFeatures = [
         showAddEmployeeDialog(context);
       },
       moduleId: 0.4),
-  ValueCardModel(
-      cardHeading: Modules.viewAllEmployees.name,
-      iconData: FontAwesomeIcons.peopleGroup,
-      onTap: (context) {
-        Navigator.pushNamed(context, EmployeeListScreen.routeName);
-      },
-      moduleId: 0.5),
   ValueCardModel(
       cardHeading: Modules.applyLeave.name,
       iconData: FontAwesomeIcons.car,

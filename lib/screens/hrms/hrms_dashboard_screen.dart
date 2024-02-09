@@ -9,7 +9,6 @@ import 'package:saasify/bloc/initialise/initialise_states.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/screens/hrms/attendance/attendance_card.dart';
-import 'package:saasify/utils/modules.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/generalWidgets/value_card.dart';
@@ -45,7 +44,7 @@ class HRMSDashboardScreen extends StatelessWidget {
             }, builder: (context, state) {
               if (state is InitialisingApp) {
                 return const Center(child: CircularProgressIndicator());
-              } else {
+              } else if (state is AppInitialised) {
                 return SingleChildScrollView(
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,26 +67,40 @@ class HRMSDashboardScreen extends StatelessWidget {
                           },
                         ),
                         const SizedBox(height: spacingStandard),
-                        const ModuleHeading(label: 'Statistics'),
-                        const SizedBox(height: spacingXSmall),
-                        GridView.extent(
-                            shrinkWrap: true,
-                            maxCrossAxisExtent: 250.0,
-                            childAspectRatio: isMobile ? 1.4 : 2,
-                            mainAxisSpacing: 8.0,
-                            crossAxisSpacing: 8.0,
-                            children: hrmsFeatures.map((item) {
-                              return ValueCard(
-                                  cardHeading: item.cardHeading,
-                                  value: item.value,
-                                  iconData: item.iconData,
-                                  onTap: () {
-                                    item.onTap(context);
-                                  });
-                            }).toList()),
-                        const SizedBox(height: spacingLarge)
+                        const ModuleHeading(label: 'Features'),
+                        const SizedBox(height: spacingSmall),
+                        GridView.builder(
+                          shrinkWrap: true,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: isMobile ? 2 : 5,
+                                  mainAxisSpacing: 8.0,
+                                  crossAxisSpacing: 8.0,
+                                  childAspectRatio: isMobile
+                                      ? 1.4
+                                      : 1.9 // Aspect ratio of each child
+                                  ),
+                          itemCount: state.initialiseAppModel.data!
+                              .accessibleFeatures!.length,
+                          itemBuilder: (context, index) {
+                            return ValueCard(
+                                cardHeading: state.initialiseAppModel.data!
+                                    .accessibleFeatures![index].title
+                                    .toString(),
+                                value: state.initialiseAppModel.data!
+                                    .accessibleFeatures![index].value
+                                    .toString(),
+                                iconData: state.initialiseAppModel.data!
+                                    .accessibleFeatures![index].title
+                                    .toString(),
+                                onTap: () {});
+                          },
+                        ),
+                        const SizedBox(height: spacingLarge),
                       ]),
                 );
+              } else {
+                return const SizedBox.shrink();
               }
             })));
   }

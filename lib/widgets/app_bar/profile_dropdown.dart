@@ -7,8 +7,6 @@ import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/settings/settings_screen.dart';
 import 'package:saasify/widgets/profile/user_profile_widget.dart';
 
-import '../profile/user_name_widget.dart';
-
 class WebProfileDropdown extends StatelessWidget {
   const WebProfileDropdown({super.key});
 
@@ -16,15 +14,7 @@ class WebProfileDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
-        customButton: const Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              UserProfileWidget(),
-              SizedBox(width: spacingXMedium),
-              UserNameWidget()
-            ]),
+        customButton: const UserProfileWidget(),
         items: [
           ...MenuItems.firstItems.map(
             (item) => DropdownMenuItem<MenuItem>(

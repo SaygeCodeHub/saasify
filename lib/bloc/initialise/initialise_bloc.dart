@@ -11,6 +11,7 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
   final Cache cache = getIt<Cache>();
   final InitialiseRepository _initialiseRepository =
       getIt<InitialiseRepository>();
+  List<Branch?>? branches = [];
 
   InitialiseAppStates get initialState => InitialiseStates();
 
@@ -25,13 +26,8 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
       InitialiseAppModel initialiseAppModel =
           await _initialiseRepository.initialiseApp();
       if (initialiseAppModel.status == 200) {
-        int branchId = await cache.getBranchId() ?? 0;
-        bool geoFencing = initialiseAppModel
-                .data!
-                .branches![initialiseAppModel.data!.branches!
-                    .indexWhere((element) => element.branchId == branchId)]
-                .geoFencing ??
-            false;
+        bool geoFencing = initialiseAppModel.data!.geoFencing ?? false;
+        branches = initialiseAppModel.data!.branches;
         emit(AppInitialised(
             isGeoFencing: geoFencing, initialiseAppModel: initialiseAppModel));
       } else {

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:saasify/configs/app_colors.dart';
+import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_theme.dart';
 import '../../configs/app_spacing.dart';
 import '../../utils/globals.dart';
@@ -7,7 +9,7 @@ import '../../utils/globals.dart';
 class ValueCard extends StatelessWidget {
   final String cardHeading;
   final String? value;
-  final IconData iconData;
+  final String iconData;
   final Function onTap;
 
   const ValueCard({
@@ -25,13 +27,15 @@ class ValueCard extends StatelessWidget {
         onTap: () {
           onTap();
         },
-        child: Card(
-          elevation: 2,
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border.all(color: AppColors.lighterBlack),
+              borderRadius: BorderRadius.circular(kCardRadius)),
           child: Padding(
             padding: EdgeInsets.all(isMobile ? spacingSmall : spacingMedium),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Expanded(child: Icon(iconData)),
+              const Icon(FontAwesomeIcons.addressBook),
               const SizedBox(height: spacingSmall),
               Text(cardHeading,
                   softWrap: false,
@@ -43,12 +47,20 @@ class ValueCard extends StatelessWidget {
                       .copyWith(
                           color: AppColors.black, fontWeight: FontWeight.w500)),
               const SizedBox(height: spacingXSmall),
-              Text(value ?? '',
-                  textScaler: TextScaler.linear(isMobile ? 1 : 1.3),
-                  style: Theme.of(context)
-                      .textTheme
-                      .cardMobileValueTextStyle
-                      .copyWith(color: AppColors.orange))
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(value ?? '',
+                      textScaler: TextScaler.linear(isMobile ? 1 : 1.3),
+                      style: Theme.of(context)
+                          .textTheme
+                          .cardMobileValueTextStyle
+                          .copyWith(color: AppColors.orange)),
+                  const Icon(Icons.navigate_next_rounded,
+                      color: AppColors.lighterBlack)
+                ],
+              )
             ]),
           ),
         ));

@@ -45,8 +45,8 @@ class TimesheetData {
       date: json["date"] == null ? json["date"] : DateTime.parse(json["date"]));
 
   Map<String, dynamic> toJson() => {
-        "check_in": checkIn == null ? checkIn : checkIn.toIso8601String(),
-        "check_out": checkOut == null ? checkOut : checkOut.toIso8601String(),
+        "check_in": checkIn == null ? checkIn : checkIn.toLocal(),
+        "check_out": checkOut == null ? checkOut : checkOut.toLocal(),
         "date": date == null
             ? date
             : "${date.year.toString().padLeft(4, '0')}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}"

@@ -29,37 +29,42 @@ class TimesheetMobileScreen extends StatelessWidget {
                       children: [
                         const SizedBox(width: spacingLarge),
                         Row(
-                          children: [
-                            LeaveDetails(
-                                leaveData: timesheetData[index].date == null
-                                    ? "--"
-                                    : formatDate(
-                                        timesheetData[index].date.toString()),
-                                title: StringConstants.kDate),
-                            PrimaryButton(
-                              buttonWidth: 30,
-                                onPressed: () {},
-                                buttonTitle: StringConstants.kRegularise)
-                          ],
-                        ),
-                        const SizedBox(width: spacingLarge),
-                        Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               LeaveDetails(
-                                  leaveData: timesheetData[index].checkIn ==
-                                          null
+                                  leaveData: timesheetData[index].date == null
                                       ? "--"
-                                      : DateFormat('HH:mm')
-                                          .format(timesheetData[index].checkIn),
-                                  title: StringConstants.kCheckIn),
+                                      : formatDate(
+                                          timesheetData[index].date.toString()),
+                                  title: StringConstants.kDate),
+                              LeaveDetails(
+                                  leaveData:
+                                      timesheetData[index].checkIn == null
+                                          ? "--"
+                                          : DateFormat('HH:mm').format(
+                                              timesheetData[index]
+                                                  .checkIn
+                                                  .toLocal()),
+                                  title: StringConstants.kCheckIn)
+                            ]),
+                        const SizedBox(height: spacingMedium),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              PrimaryButton(
+                                  buttonWidth: 20,
+                                  buttonHeight: 35,
+                                  onPressed: () {},
+                                  buttonTitle: StringConstants.kRegularise),
                               const SizedBox(width: spacingSmall),
                               LeaveDetails(
                                   leaveData:
                                       timesheetData[index].checkOut == null
                                           ? "--"
                                           : DateFormat('HH:mm').format(
-                                              timesheetData[index].checkOut),
+                                              timesheetData[index]
+                                                  .checkOut
+                                                  .toLocal()),
                                   title: StringConstants.kCheckOut)
                             ])
                       ])));

@@ -32,8 +32,8 @@ class TimeSheetWebScreen extends StatelessWidget {
                   ColumnData(header: StringConstants.kRegularise)
                 ],
                 selectedIds: const [],
-                dataCount: 1,
-                dataIds: const ["1"],
+                dataCount: timesheetData.length,
+                dataIds: List.generate(timesheetData.length, (index) => timesheetData),
                 onRowCheckboxChange: (value) {},
                 generateData: (index) => [
                       TableText(
@@ -45,12 +45,12 @@ class TimeSheetWebScreen extends StatelessWidget {
                           text: timesheetData[index].checkIn == null
                               ? "--"
                               : DateFormat('HH:mm')
-                                  .format(timesheetData[index].checkIn)),
+                                  .format(timesheetData[index].checkIn.toLocal())),
                       TableText(
                           text: timesheetData[index].checkOut == null
                               ? "--"
                               : DateFormat('HH:mm')
-                                  .format(timesheetData[index].checkOut)),
+                                  .format(timesheetData[index].checkOut.toLocal())),
                       TableButton(
                           title: StringConstants.kRegularise,
                           textStyle: Theme.of(context)

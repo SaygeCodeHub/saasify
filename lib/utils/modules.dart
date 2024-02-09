@@ -11,9 +11,9 @@ import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/pending_leave_re
 
 import '../screens/hrms/timesheet/timesheet_screen.dart';
 
-List<ValueCardModel> statisticsModules = [
+List<ValueCardModel> hrmsFeatures = [
   ValueCardModel(
-      cardHeading: Modules.pendingLeaveApprovals.name,
+      cardHeading: Modules.pendingApprovals.name,
       value: '10',
       iconData: FontAwesomeIcons.solidThumbsUp,
       onTap: (BuildContext context) {
@@ -32,8 +32,6 @@ List<ValueCardModel> statisticsModules = [
       iconData: FontAwesomeIcons.moneyBillTransfer,
       onTap: (BuildContext context) {},
       moduleId: 0.3),
-];
-List<ValueCardModel> hrmsModules = [
   ValueCardModel(
       cardHeading: Modules.addNewEmployee.name,
       iconData: FontAwesomeIcons.personCirclePlus,

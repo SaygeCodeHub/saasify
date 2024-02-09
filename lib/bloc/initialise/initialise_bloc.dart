@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/initiallise/initialise_events.dart';
-import 'package:saasify/bloc/initiallise/initialise_states.dart';
+import 'package:saasify/bloc/initialise/initialise_events.dart';
+import 'package:saasify/bloc/initialise/initialise_states.dart';
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/initialise/initialise_app_model.dart';
 import 'package:saasify/di/app_module.dart';
@@ -25,7 +25,7 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
       InitialiseAppModel initialiseAppModel =
           await _initialiseRepository.initialiseApp();
       if (initialiseAppModel.status == 200) {
-        emit(AppInitialised());
+        emit(AppInitialised(initialiseAppModel: initialiseAppModel));
       } else {
         emit(InitialisingAppFailed(
             errorMessage: initialiseAppModel.message.toString()));

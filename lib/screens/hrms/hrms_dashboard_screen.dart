@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/initiallise/initialise_bloc.dart';
-import 'package:saasify/bloc/initiallise/initialise_events.dart';
-import 'package:saasify/bloc/initiallise/initialise_states.dart';
+import 'package:saasify/bloc/initialise/initialise_bloc.dart';
+import 'package:saasify/bloc/initialise/initialise_events.dart';
+import 'package:saasify/bloc/initialise/initialise_states.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/utils/modules.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
-import 'package:saasify/widgets/generalWidgets/service_card.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/generalWidgets/value_card.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
@@ -52,7 +51,7 @@ class HRMSDashboardScreen extends StatelessWidget {
                             childAspectRatio: isMobile ? 1.4 : 2,
                             mainAxisSpacing: 8.0,
                             crossAxisSpacing: 8.0,
-                            children: statisticsModules.map((item) {
+                            children: hrmsFeatures.map((item) {
                               return ValueCard(
                                   cardHeading: item.cardHeading,
                                   value: item.value,
@@ -62,24 +61,24 @@ class HRMSDashboardScreen extends StatelessWidget {
                                   });
                             }).toList()),
                         const SizedBox(height: spacingLarge),
-                        const Divider(),
-                        const SizedBox(height: spacingLarge),
-                        const ModuleHeading(label: 'Quick Services'),
-                        const SizedBox(height: spacingStandard),
-                        GridView.extent(
-                            shrinkWrap: true,
-                            maxCrossAxisExtent: 250.0,
-                            childAspectRatio: isMobile ? 1.4 : 2.3,
-                            mainAxisSpacing: 8.0,
-                            crossAxisSpacing: 8.0,
-                            children: hrmsModules.map((item) {
-                              return ServiceCard(
-                                  cardHeading: item.cardHeading,
-                                  iconData: item.iconData,
-                                  onTap: () {
-                                    item.onTap(context);
-                                  });
-                            }).toList())
+                        // const Divider(),
+                        // const SizedBox(height: spacingLarge),
+                        // const ModuleHeading(label: 'Quick Services'),
+                        // const SizedBox(height: spacingStandard),
+                        // GridView.extent(
+                        //     shrinkWrap: true,
+                        //     maxCrossAxisExtent: 250.0,
+                        //     childAspectRatio: isMobile ? 1.4 : 2.3,
+                        //     mainAxisSpacing: 8.0,
+                        //     crossAxisSpacing: 8.0,
+                        //     children: hrmsFeatures.map((item) {
+                        //       return ServiceCard(
+                        //           cardHeading: item.cardHeading,
+                        //           iconData: item.iconData,
+                        //           onTap: () {
+                        //             item.onTap(context);
+                        //           });
+                        //     }).toList())
                       ]),
                 );
               }

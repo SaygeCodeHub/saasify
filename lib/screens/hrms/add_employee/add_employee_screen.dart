@@ -38,16 +38,26 @@ class AddEmployeeScreen extends StatelessWidget {
                               const SizedBox(width: spacingXMedium),
                               const ModuleHeading(label: 'Add New Employee'),
                             ]),
-                            AddEmployeeButton(formKey: _formKey)
+                            isMobile
+                                ? const SizedBox.shrink()
+                                : AddEmployeeButton(
+                                    formKey: _formKey, isMobile: isMobile)
                           ])),
                   Form(
                     key: _formKey,
                     child: const Expanded(
                       child: ResponsiveLayout(
                           mobileBody: AddEmployeeMobile(),
+                          provideMobilePadding: false,
                           desktopBody: AddEmployeeWeb()),
                     ),
-                  )
+                  ),
+                  isMobile
+                      ? Padding(
+                          padding: const EdgeInsets.all(spacingSmall),
+                          child: AddEmployeeButton(
+                              formKey: _formKey, isMobile: isMobile))
+                      : const SizedBox.shrink()
                 ]));
   }
 }

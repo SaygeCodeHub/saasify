@@ -21,7 +21,9 @@ class _ChangeBranchState extends State<ChangeBranch> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<InitialiseAppBloc, InitialiseAppStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        setState(() {});
+      },
       child: Row(
         children: [
           const Icon(Icons.store, color: AppColors.darkBlue),

@@ -32,7 +32,8 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
                     .indexWhere((element) => element.branchId == branchId)]
                 .geoFencing ??
             false;
-        emit(AppInitialised(isGeoFencing: geoFencing));
+        emit(AppInitialised(
+            isGeoFencing: geoFencing, initialiseAppModel: initialiseAppModel));
       } else {
         emit(InitialisingAppFailed(
             errorMessage: initialiseAppModel.message.toString()));

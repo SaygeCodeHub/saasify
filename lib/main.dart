@@ -15,6 +15,7 @@ import 'package:saasify/configs/app_route.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
+import 'package:saasify/utils/notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'bloc/auth/auth_bloc.dart';
@@ -30,6 +31,7 @@ void main() async {
 
 _initFirebase() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await NotificationUtil().initNotifications();
 }
 
 _initDependencies() async {

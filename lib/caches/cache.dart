@@ -121,6 +121,14 @@ class Cache {
     return features;
   }
 
+  Future<bool> setFCMToken(String stringValue) async {
+    return sharedPreferences.setString(CacheKeys.fcmToken, stringValue);
+  }
+
+  Future<String?> getFCMToken(String key) async {
+    return sharedPreferences.getString(CacheKeys.fcmToken);
+  }
+
   clearSharedPreferences() async {
     sharedPreferences.clear();
   }

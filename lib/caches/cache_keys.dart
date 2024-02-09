@@ -13,4 +13,5 @@ class CacheKeys {
   static const accessibleModules = 'accessibleModules';
   static const accessibleFeatures = 'accessibleFeatures';
   static const initializeApi = 'initializeApi';
+  static const fcmToken = 'fcmToken';
 }

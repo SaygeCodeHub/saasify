@@ -9,6 +9,7 @@ class DropdownLabelWidget extends StatefulWidget {
   final String hint;
   final List<CustomDropDownItem> items;
   final dynamic initialValue;
+  final bool isRequired;
   final String? errorText;
   final ValueChanged<String?> onChanged;
 
@@ -18,6 +19,7 @@ class DropdownLabelWidget extends StatefulWidget {
     this.textFieldSize,
     this.hint = "",
     required this.items,
+    this.isRequired = false,
     required this.onChanged,
     this.errorText,
     this.initialValue,

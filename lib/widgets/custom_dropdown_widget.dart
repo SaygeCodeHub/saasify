@@ -8,6 +8,7 @@ class CustomDropdownButton extends StatelessWidget {
   final bool? showBorder;
   final String hint;
   final List<CustomDropDownItem> items;
+  final bool isRequired;
   final dynamic selectedValue;
   final ValueChanged onChanged;
 
@@ -15,6 +16,7 @@ class CustomDropdownButton extends StatelessWidget {
     super.key,
     required this.hint,
     required this.items,
+    this.isRequired = false,
     required this.selectedValue,
     required this.onChanged,
     this.showBorder = true,
@@ -46,7 +48,7 @@ class CustomDropdownButton extends StatelessWidget {
               );
             }).toList(),
             validator: (value) {
-              if (value == null) {
+              if (value == null && isRequired) {
                 return 'Please select a value';
               }
               return null;

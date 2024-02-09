@@ -7,6 +7,7 @@ import 'package:saasify/bloc/initialise/initialise_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_events.dart';
 import 'package:saasify/bloc/initialise/initialise_states.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/configs/dashboard_route.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/screens/hrms/attendance/attendance_card.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
@@ -83,17 +84,28 @@ class HRMSDashboardScreen extends StatelessWidget {
                           itemCount: state.initialiseAppModel.data!
                               .accessibleFeatures!.length,
                           itemBuilder: (context, index) {
-                            return ValueCard(
-                                cardHeading: state.initialiseAppModel.data!
-                                    .accessibleFeatures![index].title
-                                    .toString(),
-                                value: state.initialiseAppModel.data!
-                                    .accessibleFeatures![index].value
-                                    .toString(),
-                                iconData: state.initialiseAppModel.data!
-                                    .accessibleFeatures![index].title
-                                    .toString(),
-                                onTap: () {});
+                            return InkWell(
+                              onTap: () {
+                                DashboardRouting(
+                                        featureKey: state
+                                            .initialiseAppModel
+                                            .data!
+                                            .accessibleFeatures![index]
+                                            .featureKey!,
+                                        context: context)
+                                    .navigateTo();
+                              },
+                              child: ValueCard(
+                                  cardHeading: state.initialiseAppModel.data!
+                                      .accessibleFeatures![index].title
+                                      .toString(),
+                                  value: state.initialiseAppModel.data!
+                                      .accessibleFeatures![index].value
+                                      .toString(),
+                                  iconData: state.initialiseAppModel.data!
+                                      .accessibleFeatures![index].title
+                                      .toString()),
+                            );
                           },
                         ),
                         const SizedBox(height: spacingLarge),

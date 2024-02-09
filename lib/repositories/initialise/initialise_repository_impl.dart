@@ -31,12 +31,68 @@ class InitialiseRepositoryImpl implements InitialiseRepository {
           ],
           "accessible_features": [
             {
-              "feature_key": "",
+              "feature_key": "HR_MARK_ATTENDANCE",
+              "feature_id": 0.0,
+              "is_statistics": true,
+              "title": "Mark Attendance",
+              "icon": "",
+              "value": '200'
+            },
+            {
+              "feature_key": "HR_PENDING_APPROVAL",
               "feature_id": 0.1,
               "is_statistics": true,
               "title": "Pending approval",
               "icon": "",
-              "value": 200.00
+              "value": '10'
+            },
+            {
+              "feature_key": "HR_TOTAL_EMPLOYEES",
+              "feature_id": 0.1,
+              "is_statistics": true,
+              "title": "Total Employees",
+              "icon": "",
+              "value": '21'
+            },
+            {
+              "feature_key": "HR_SALARY_ROLLOUT",
+              "feature_id": 0.1,
+              "is_statistics": true,
+              "title": "Salary Rollout",
+              "icon": "",
+              "value": 'Rs. 21,190'
+            },
+            {
+              "feature_key": "HR_ADD_NEW_EMPLOYEE",
+              "feature_id": 0.1,
+              "is_statistics": true,
+              "title": "Add New Employee",
+              "icon": "",
+              "value": ''
+            },
+            {
+              "feature_key": "HR_APPLY_LEAVES",
+              "feature_id": 0.1,
+              "is_statistics": true,
+              "title": "Apply Leave",
+              "icon": "",
+              "value": ''
+            },
+            {
+              "feature_key": "HR_MY_LEAVES",
+              "feature_id": 0.1,
+              "is_statistics": true,
+              "title": "My Leaves",
+              "icon": "",
+              "value": ''
+            },
+            {
+              "feature_key": "HR_TIMESHEET",
+              "feature_id": 0.1,
+              "is_statistics": true,
+              "title": "Timesheet",
+              "icon": "",
+              "value": ''
             },
           ]
         }

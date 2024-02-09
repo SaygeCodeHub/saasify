@@ -8,6 +8,7 @@ class DropdownLabelWidget extends StatefulWidget {
   final double? textFieldSize;
   final String hint;
   final List items;
+  final String? initialValue;
   final String? errorText;
   final ValueChanged<String?> onChanged;
 
@@ -19,6 +20,7 @@ class DropdownLabelWidget extends StatefulWidget {
     required this.items,
     required this.onChanged,
     this.errorText,
+    this.initialValue,
   });
 
   @override
@@ -27,6 +29,12 @@ class DropdownLabelWidget extends StatefulWidget {
 
 class _DropdownLabelWidgetState extends State<DropdownLabelWidget> {
   String? selectedValue;
+
+  @override
+  void initState() {
+    selectedValue = widget.initialValue;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

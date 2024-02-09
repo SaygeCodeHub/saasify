@@ -23,7 +23,6 @@ class RegisterMobileScreen extends StatelessWidget {
           const SaasifyLogo(),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
           LabelAndFieldWidget(
-            errorText: 'Please enter valid first name',
             prefixIcon: const Icon(Icons.person_2_outlined),
             label: StringConstants.kFirstName,
             onTextFieldChanged: (value) {
@@ -34,7 +33,6 @@ class RegisterMobileScreen extends StatelessWidget {
           ),
           const SizedBox(height: spacingBetweenTextFields),
           LabelAndFieldWidget(
-            errorText: 'Please enter valid last name',
             prefixIcon: const Icon(Icons.person_2_outlined),
             label: StringConstants.kLastName,
             onTextFieldChanged: (value) {
@@ -45,7 +43,6 @@ class RegisterMobileScreen extends StatelessWidget {
           ),
           const SizedBox(height: spacingBetweenTextFields),
           LabelAndFieldWidget(
-              errorText: 'Please enter valid email address',
               prefixIcon: const Icon(Icons.email_outlined),
               label: StringConstants.kEmailAddress,
               onTextFieldChanged: (value) {
@@ -55,7 +52,6 @@ class RegisterMobileScreen extends StatelessWidget {
               }),
           const SizedBox(height: spacingBetweenTextFields),
           LabelAndFieldWidget(
-              errorText: 'Please enter valid password',
               prefixIcon: const Icon(Icons.password_outlined),
               label: StringConstants.kPassword,
               onTextFieldChanged: (value) {

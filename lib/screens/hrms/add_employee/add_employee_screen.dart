@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/employee/employee_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/hrms/add_employee/add_employee_web.dart';
 import 'package:saasify/screens/hrms/add_employee/widgets/add_employee_button.dart';
@@ -16,6 +18,7 @@ class AddEmployeeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<EmployeeBloc>().resetEmployeeDetails();
     return ScreenSkeleton(
         childScreenBuilder: (isMobile) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

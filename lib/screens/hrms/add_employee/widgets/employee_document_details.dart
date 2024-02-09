@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:saasify/bloc/employee/employee_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/widgets/form/form_input_fields.dart';
 import '../../../../utils/constants/string_constants.dart';
 import '../../../../widgets/layoutWidgets/multifield_row.dart';
 import '../../../../widgets/text/field_label_widget.dart';
@@ -13,30 +15,40 @@ class EmployeeDocumentDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
           const Padding(
             padding: EdgeInsets.only(bottom: spacingLarge, top: spacingXSmall),
             child: ModuleHeading(label: StringConstants.kAadhaar),
           ),
           MultiFieldRow(
             childrenWidgets: [
-              LabelAndFieldWidget(
+              NumberTextField(
                   label: StringConstants.kAadhaarNumber,
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['documents']['aadhar']['aadhaar_number'],
+                  maxLength: 12,
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['documents']
                         ['aadhar']['aadhaar_number'] = value;
                   }),
               LabelAndFieldWidget(
                   label: StringConstants.kNameAsAadhaarNumber,
+                  initialValue:
+                      context.read<EmployeeBloc>().employeeDetails['documents']
+                          ['aadhar']['name_as_per_aadhaar'],
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['documents']
-                        ['aadhar']['name_as_aadhaar'] = value;
+                        ['aadhar']['name_as_per_aadhaar'] = value;
                   }),
               LabelAndFieldWidget(
                   label: StringConstants.kPanNumber,
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['documents']['aadhar']['pan_number'],
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['documents']
                         ['aadhar']['pan_number'] = value;
@@ -77,46 +89,60 @@ class EmployeeDocumentDetails extends StatelessWidget {
           const SizedBox(height: spacingLarge),
           MultiFieldRow(
             childrenWidgets: [
-              LabelAndFieldWidget(
+              DatePickerField(
                   label: StringConstants.kExpiryDate,
+                  initialDate: DateFormat('dd-mm-yyyy').tryParse(
+                      context.read<EmployeeBloc>().employeeDetails['documents']
+                              ['passport']['expiry_date'] ??
+                          ""),
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['documents']
                         ['passport']['expiry_date'] = value;
                   }),
-              LabelAndFieldWidget(
+              DatePickerField(
                   label: StringConstants.kIssueDate,
+                  initialDate: DateFormat('dd-mm-yyyy').tryParse(
+                      context.read<EmployeeBloc>().employeeDetails['documents']
+                              ['passport']['issue_date'] ??
+                          ""),
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['documents']
                         ['passport']['issue_date'] = value;
                   }),
-              LabelAndFieldWidget(
+              ContactTextField(
                   label: StringConstants.kMobileNumber,
+                  initialValue:
+                      context.read<EmployeeBloc>().employeeDetails['documents']
+                          ['passport']['mobile_number'],
                   onTextFieldChanged: (value) {
                     context.read<EmployeeBloc>().employeeDetails['documents']
-                        ['passport']['mobile'] = value;
-                  }),
-              LabelAndFieldWidget(
-                  label: StringConstants.kAddress,
-                  onTextFieldChanged: (value) {
-                    context.read<EmployeeBloc>().employeeDetails['documents']
-                        ['passport']['address'] = value;
+                        ['passport']['mobile_number'] = value;
                   }),
             ],
           ),
           const SizedBox(height: spacingLarge),
-          MultiFieldRow(
-            childrenWidgets: [
-              LabelAndFieldWidget(
-                  label: StringConstants.kAddress,
-                  maxLines: 5,
-                  onTextFieldChanged: (value) {
+          MultiFieldRow(childrenWidgets: [
+            LabelAndFieldWidget(
+                label: StringConstants.kCurrentAddress,
+                initialValue:
                     context.read<EmployeeBloc>().employeeDetails['documents']
-                        ['address'] = value;
-                  }),
-            ],
-          ),
-        ],
-      ),
-    );
+                        ['passport']['current_address'],
+                maxLines: 5,
+                onTextFieldChanged: (value) {
+                  context.read<EmployeeBloc>().employeeDetails['documents']
+                      ['passport']['address'] = value;
+                }),
+            LabelAndFieldWidget(
+                label: StringConstants.kPermanentAddress,
+                initialValue:
+                    context.read<EmployeeBloc>().employeeDetails['documents']
+                        ['passport']['permanent_address'],
+                maxLines: 5,
+                onTextFieldChanged: (value) {
+                  context.read<EmployeeBloc>().employeeDetails['documents']
+                      ['address'] = value;
+                })
+          ])
+        ]));
   }
 }

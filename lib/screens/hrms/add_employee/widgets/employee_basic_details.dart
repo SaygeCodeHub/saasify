@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:saasify/bloc/employee/employee_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/data/generalData/india_states_and_cities.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/form/form_input_fields.dart';
 import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
+import 'package:saasify/widgets/text/dropdown_label_widget.dart';
 import 'package:saasify/widgets/text/field_label_widget.dart';
 
 class EmployeeBasicDetails extends StatelessWidget {
@@ -20,6 +23,9 @@ class EmployeeBasicDetails extends StatelessWidget {
               LabelAndFieldWidget(
                   isRequired: true,
                   label: StringConstants.kFirstName,
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['personal_info']['first_name'],
                   onTextFieldChanged: (value) {
                     context
                         .read<EmployeeBloc>()
@@ -27,6 +33,9 @@ class EmployeeBasicDetails extends StatelessWidget {
                   }),
               LabelAndFieldWidget(
                   label: StringConstants.kMiddleName,
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['personal_info']['middle_name'],
                   onTextFieldChanged: (value) {
                     context
                             .read<EmployeeBloc>()
@@ -36,6 +45,9 @@ class EmployeeBasicDetails extends StatelessWidget {
               LabelAndFieldWidget(
                   isRequired: true,
                   label: StringConstants.kLastName,
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['personal_info']['last_name'],
                   onTextFieldChanged: (value) {
                     context
                         .read<EmployeeBloc>()
@@ -46,26 +58,32 @@ class EmployeeBasicDetails extends StatelessWidget {
           const SizedBox(height: spacingLarge),
           MultiFieldRow(
             childrenWidgets: [
-              LabelAndFieldWidget(
+              EmailTextField(
                   isRequired: true,
-                  label: StringConstants.kEmailAddress,
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['personal_info']['user_email'],
                   onTextFieldChanged: (value) {
                     context
                         .read<EmployeeBloc>()
                         .employeeDetails['personal_info']['user_email'] = value;
                   }),
-              NumberTextField(
+              ContactTextField(
                   label: StringConstants.kMobileNumber,
-                  maxLength: 10,
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['personal_info']['user_mobile'],
                   onTextFieldChanged: (value) {
                     context
                             .read<EmployeeBloc>()
                             .employeeDetails['personal_info']['user_mobile'] =
                         value;
                   }),
-              NumberTextField(
+              ContactTextField(
                   label: StringConstants.kAlternateMobileNumber,
-                  maxLength: 10,
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['personal_info']['alternate_mobile'],
                   onTextFieldChanged: (value) {
                     context
                             .read<EmployeeBloc>()
@@ -79,44 +97,63 @@ class EmployeeBasicDetails extends StatelessWidget {
             childrenWidgets: [
               DatePickerField(
                   label: StringConstants.kDateOfBirth,
+                  initialDate: DateFormat('dd-mm-yyyy').tryParse(context
+                          .read<EmployeeBloc>()
+                          .employeeDetails['personal_info']['date_of_birth'] ??
+                      ""),
                   onTextFieldChanged: (value) {
                     context
                             .read<EmployeeBloc>()
                             .employeeDetails['personal_info']['date_of_birth'] =
                         value;
-                  },
-                  context: context),
+                  }),
               NumberTextField(
                   label: StringConstants.kAge,
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['personal_info']['age'],
                   maxLength: 3,
                   onTextFieldChanged: (value) {
                     context
                         .read<EmployeeBloc>()
                         .employeeDetails['personal_info']['age'] = value;
                   }),
-              LabelAndFieldWidget(
-                  label: StringConstants.kGender,
-                  onTextFieldChanged: (value) {
-                    context
-                        .read<EmployeeBloc>()
-                        .employeeDetails['personal_info']['gender'] = value;
-                  }),
-              LabelAndFieldWidget(
-                  label: StringConstants.kNationality,
-                  onTextFieldChanged: (value) {
-                    context
-                            .read<EmployeeBloc>()
-                            .employeeDetails['personal_info']['nationality'] =
-                        value;
-                  }),
-              LabelAndFieldWidget(
-                  label: StringConstants.kMaritalStatus,
-                  onTextFieldChanged: (value) {
-                    context
-                            .read<EmployeeBloc>()
-                            .employeeDetails['personal_info']
-                        ['marital_status'] = value;
-                  }),
+              DropdownLabelWidget(
+                label: StringConstants.kGender,
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['personal_info']['gender'],
+                onChanged: (value) {
+                  context.read<EmployeeBloc>().employeeDetails['personal_info']
+                      ['gender'] = value;
+                },
+                hint: '',
+                items: const ["Male", "Female"],
+              ),
+              DropdownLabelWidget(
+                label: StringConstants.kNationality,
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['personal_info']['nationality'],
+                onChanged: (value) {
+                  context.read<EmployeeBloc>().employeeDetails['personal_info']
+                      ['nationality'] = value;
+                },
+                hint: '',
+                items: const ["Indian"],
+              ),
+              DropdownLabelWidget(
+                label: StringConstants.kMaritalStatus,
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['personal_info']['marital_status'],
+                onChanged: (value) {
+                  context.read<EmployeeBloc>().employeeDetails['personal_info']
+                      ['marital_status'] = value;
+                },
+                hint: '',
+                items: const ["Married", "Unmarried", "Widowed"],
+              ),
             ],
           ),
           const SizedBox(height: spacingLarge),
@@ -124,6 +161,9 @@ class EmployeeBasicDetails extends StatelessWidget {
             childrenWidgets: [
               LabelAndFieldWidget(
                   label: StringConstants.kCurrentAddress,
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['personal_info']['current_address'],
                   maxLines: 5,
                   onTextFieldChanged: (value) {
                     context
@@ -133,6 +173,9 @@ class EmployeeBasicDetails extends StatelessWidget {
                   }),
               LabelAndFieldWidget(
                   label: StringConstants.kPermanentAddress,
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['personal_info']['permanent_address'],
                   maxLines: 5,
                   onTextFieldChanged: (value) {
                     context
@@ -145,22 +188,44 @@ class EmployeeBasicDetails extends StatelessWidget {
           const SizedBox(height: spacingLarge),
           MultiFieldRow(
             childrenWidgets: [
-              LabelAndFieldWidget(
-                  label: StringConstants.kCity,
-                  onTextFieldChanged: (value) {
+              DropdownLabelWidget(
+                label: StringConstants.kCity,
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['personal_info']['city'],
+                hint: '',
+                items: indiaStatesAndCities.firstWhere((element) =>
+                    element['state'] ==
                     context
                         .read<EmployeeBloc>()
-                        .employeeDetails['personal_info']['city'] = value;
-                  }),
-              LabelAndFieldWidget(
-                  label: StringConstants.kState,
-                  onTextFieldChanged: (value) {
-                    context
-                        .read<EmployeeBloc>()
-                        .employeeDetails['personal_info']['state'] = value;
-                  }),
+                        .employeeDetails['personal_info']['state'])["cities"],
+                onChanged: (String? value) {
+                  context.read<EmployeeBloc>().employeeDetails['personal_info']
+                      ['city'] = value;
+                },
+              ),
+              DropdownLabelWidget(
+                label: StringConstants.kState,
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['personal_info']['state'],
+                hint: '',
+                items: indiaStatesAndCities
+                    .where((element) => element['state'] != null)
+                    .map((e) => e['state'])
+                    .toList(),
+                onChanged: (String? value) {
+                  context.read<EmployeeBloc>().employeeDetails['personal_info']
+                      ['state'] = value;
+                  context.read<EmployeeBloc>().employeeDetails['personal_info']
+                      ['city'] = null;
+                },
+              ),
               NumberTextField(
                   label: StringConstants.kPinCode,
+                  initialValue: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['personal_info']['pin_code'],
                   maxLength: 6,
                   onTextFieldChanged: (value) {
                     context

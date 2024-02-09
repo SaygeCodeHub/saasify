@@ -9,14 +9,22 @@ import 'package:saasify/repositories/employee/employee_repository.dart';
 
 class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
   final Map inviteDetails = {};
-  final Map employeeDetails = {
-    "designations": [2],
-    "approvers": [],
-    "accessible_modules": [0],
-    "accessible_features": [],
-    "personal_info": <String, dynamic>{"activity_status": 1},
-    "documents": {"aadhar": {}, "passport": {}},
-    "financial": {}
+  Map<String, dynamic> employeeDetails = {
+    "personal_info": <String, dynamic>{
+      "active_status": 1,
+    },
+    "documents": <String, dynamic>{
+      "aadhar": <String, dynamic>{},
+      "passport": <String, dynamic>{}
+    },
+    "financial": <String, dynamic>{
+      "finances": <String, dynamic>{},
+      "back_details": <String, dynamic>{}
+    },
+    "official": <String, dynamic>{
+      "designations": [2],
+      "department": [0],
+    }
   };
   final EmployeeRepository _employeeRepository = getIt<EmployeeRepository>();
 
@@ -76,6 +84,26 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
     } catch (e) {
       emit(GettingAllEmployeesFailed(errorMessage: e.toString()));
     }
+  }
+
+  void resetEmployeeDetails() {
+    employeeDetails = {
+      "personal_info": <String, dynamic>{
+        "active_status": 1,
+      },
+      "documents": <String, dynamic>{
+        "aadhar": <String, dynamic>{},
+        "passport": <String, dynamic>{}
+      },
+      "financial": <String, dynamic>{
+        "finances": <String, dynamic>{},
+        "back_details": <String, dynamic>{}
+      },
+      "official": <String, dynamic>{
+        "designations": [2],
+        "department": [0],
+      }
+    };
   }
 
   // FutureOr<void> getEmployeeById(

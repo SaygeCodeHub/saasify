@@ -26,6 +26,7 @@ class CustomDropdownButton extends StatelessWidget {
         width: MediaQuery.sizeOf(context).width * 0.15,
         child: DropdownButtonFormField2(
             isExpanded: true,
+            value: selectedValue,
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -33,17 +34,18 @@ class CustomDropdownButton extends StatelessWidget {
                             ? AppColors.transparent
                             : AppColors.lighterBlack)),
                 contentPadding:
-                    const EdgeInsets.symmetric(vertical: spacingStandard),
+                    const EdgeInsets.symmetric(vertical: spacingMedium),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(kCardRadius))),
             hint: Text(hint, style: Theme.of(context).textTheme.titleSmall),
-            items: items
-                .map((item) => DropdownMenuItem(
-                      value: item,
-                      child: Text(item,
-                          style: const TextStyle(fontSize: spacingMedium)),
-                    ))
-                .toList(),
+            items: items.map((item) {
+              print(item);
+              return DropdownMenuItem(
+                value: item,
+                child:
+                    Text(item, style: const TextStyle(fontSize: spacingMedium)),
+              );
+            }).toList(),
             validator: (value) {
               if (value == null) {
                 return 'Please select a value';

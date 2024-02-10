@@ -27,6 +27,7 @@ class RootScreen extends StatelessWidget {
           );
         }
         if (state is AppInitialised) {
+          print(state.initialiseAppModel.data!.accessibleModules![0].toJson().toString());
           context.read<AttendanceBloc>().isGeoFencingEnabled =
               state.isGeoFencing;
         }

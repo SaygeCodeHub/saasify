@@ -12,7 +12,7 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
   final Cache cache = getIt<Cache>();
   final InitialiseRepository _initialiseRepository =
       getIt<InitialiseRepository>();
-  List<BranchData?>? branches = [];
+  List<ListOfBranches?>? branches = [];
 
   InitialiseAppStates get initialState => InitialiseStates();
 

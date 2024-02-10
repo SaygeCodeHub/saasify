@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/employee/employee_event.dart';
@@ -19,7 +20,7 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
     },
     "financial": <String, dynamic>{
       "finances": <String, dynamic>{},
-      "back_details": <String, dynamic>{}
+      "bank_details": <String, dynamic>{}
     },
     "official": <String, dynamic>{
       "designations": [2],
@@ -33,7 +34,6 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
   EmployeeBloc() : super(InitialisingEmployeeStates()) {
     on<InviteEmployee>(_inviteUser);
     on<UpdateEmployee>(_updateEmployee);
-    on<GetAllEmployees>(_getAllEmployees);
   }
 
   FutureOr<void> _inviteUser(
@@ -57,6 +57,7 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
       UpdateEmployee event, Emitter<EmployeeStates> emit) async {
     emit(UpdatingEmployee());
     try {
+      print(jsonEncode(employeeDetails));
       var addEmployeeModel = await _employeeRepository.updateEmployee(
           employeeDetails, event.employeeId ?? "");
       if (addEmployeeModel.status == 200) {
@@ -67,22 +68,6 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
       }
     } catch (e) {
       emit(UpdatingEmployeeFailed(errorMessage: e.toString()));
-    }
-  }
-
-  FutureOr<void> _getAllEmployees(
-      GetAllEmployees event, Emitter<EmployeeStates> emit) async {
-    emit(GettingAllEmployees());
-    try {
-      var employees = await _employeeRepository.getAllEmployees();
-      if (employees.status == 200) {
-        emit(GotAllEmployees(employees: employees.data));
-      } else {
-        emit(GettingAllEmployeesFailed(
-            errorMessage: employees.message.toString()));
-      }
-    } catch (e) {
-      emit(GettingAllEmployeesFailed(errorMessage: e.toString()));
     }
   }
 
@@ -97,7 +82,7 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
       },
       "financial": <String, dynamic>{
         "finances": <String, dynamic>{},
-        "back_details": <String, dynamic>{}
+        "bank_details": <String, dynamic>{}
       },
       "official": <String, dynamic>{
         "designations": [2],

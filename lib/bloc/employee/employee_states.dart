@@ -31,20 +31,6 @@ class UpdatingEmployeeFailed extends EmployeeStates {
   UpdatingEmployeeFailed({required this.errorMessage});
 }
 
-class GettingAllEmployees extends EmployeeStates {}
-
-class GotAllEmployees extends EmployeeStates {
-  final List employees;
-
-  GotAllEmployees({required this.employees});
-}
-
-class GettingAllEmployeesFailed extends EmployeeStates {
-  final String errorMessage;
-
-  GettingAllEmployeesFailed({required this.errorMessage});
-}
-
 class GettingEmployee extends EmployeeStates {}
 
 class GotEmployee extends EmployeeStates {}

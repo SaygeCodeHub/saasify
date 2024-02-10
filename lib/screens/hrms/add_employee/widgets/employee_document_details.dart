@@ -23,103 +23,105 @@ class EmployeeDocumentDetails extends StatelessWidget {
             padding: EdgeInsets.only(bottom: spacingLarge, top: spacingXSmall),
             child: ModuleHeading(label: StringConstants.kAadhaar),
           ),
-          MultiFieldRow(
-            childrenWidgets: [
-              NumberTextField(
-                  label: StringConstants.kAadhaarNumber,
-                  initialValue: context
-                      .read<EmployeeBloc>()
-                      .employeeDetails['documents']['aadhar']['aadhaar_number'],
-                  maxLength: 12,
-                  onTextFieldChanged: (value) {
+          MultiFieldRow(childrenWidgets: [
+            NumberTextField(
+                label: StringConstants.kAadhaarNumber,
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['documents']['aadhar']['aadhaar_number'],
+                maxLength: 12,
+                onTextFieldChanged: (value) {
+                  context.read<EmployeeBloc>().employeeDetails['documents']
+                      ['aadhar']['aadhaar_number'] = value;
+                }),
+            LabelAndFieldWidget(
+                label: StringConstants.kNameAsAadhaarNumber,
+                initialValue:
                     context.read<EmployeeBloc>().employeeDetails['documents']
-                        ['aadhar']['aadhaar_number'] = value;
-                  }),
-              LabelAndFieldWidget(
-                  label: StringConstants.kNameAsAadhaarNumber,
-                  initialValue:
-                      context.read<EmployeeBloc>().employeeDetails['documents']
-                          ['aadhar']['name_as_per_aadhaar'],
-                  onTextFieldChanged: (value) {
-                    context.read<EmployeeBloc>().employeeDetails['documents']
-                        ['aadhar']['name_as_per_aadhaar'] = value;
-                  }),
-              LabelAndFieldWidget(
-                  label: StringConstants.kPanNumber,
-                  initialValue: context
-                      .read<EmployeeBloc>()
-                      .employeeDetails['documents']['aadhar']['pan_number'],
-                  onTextFieldChanged: (value) {
-                    context.read<EmployeeBloc>().employeeDetails['documents']
-                        ['aadhar']['pan_number'] = value;
-                  }),
-            ],
-          ),
+                        ['aadhar']['name_as_per_aadhaar'],
+                onTextFieldChanged: (value) {
+                  context.read<EmployeeBloc>().employeeDetails['documents']
+                      ['aadhar']['name_as_per_aadhaar'] = value;
+                }),
+            LabelAndFieldWidget(
+                label: StringConstants.kPanNumber,
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['documents']['aadhar']['pan_number'],
+                onTextFieldChanged: (value) {
+                  context.read<EmployeeBloc>().employeeDetails['documents']
+                      ['aadhar']['pan_number'] = value;
+                })
+          ]),
           const SizedBox(height: spacingHuge),
           const Divider(),
           const SizedBox(height: spacingHuge),
           const Padding(
-            padding: EdgeInsets.only(bottom: spacingLarge),
-            child: ModuleHeading(
-              label: StringConstants.kPassport,
-            ),
-          ),
-          MultiFieldRow(
-            childrenWidgets: [
-              LabelAndFieldWidget(
-                  label: StringConstants.kPassportNumber,
-                  onTextFieldChanged: (value) {
+              padding: EdgeInsets.only(bottom: spacingLarge),
+              child: ModuleHeading(
+                label: StringConstants.kPassport,
+              )),
+          MultiFieldRow(childrenWidgets: [
+            LabelAndFieldWidget(
+                label: StringConstants.kPassportNumber,
+                initialValue:
                     context.read<EmployeeBloc>().employeeDetails['documents']
-                        ['passport']['passport_number'] = value;
-                  }),
-              LabelAndFieldWidget(
-                  label: StringConstants.kFirstName,
-                  onTextFieldChanged: (value) {
-                    context.read<EmployeeBloc>().employeeDetails['documents']
-                        ['passport']['first_name'] = value;
-                  }),
-              LabelAndFieldWidget(
-                  label: StringConstants.kLastName,
-                  onTextFieldChanged: (value) {
-                    context.read<EmployeeBloc>().employeeDetails['documents']
-                        ['passport']['last_name'] = value;
-                  }),
-            ],
-          ),
+                        ['passport']['passport_number'],
+                onTextFieldChanged: (value) {
+                  context.read<EmployeeBloc>().employeeDetails['documents']
+                      ['passport']['passport_number'] = value;
+                }),
+            LabelAndFieldWidget(
+                label: StringConstants.kFirstName,
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['documents']['passport']['first_name'],
+                onTextFieldChanged: (value) {
+                  context.read<EmployeeBloc>().employeeDetails['documents']
+                      ['passport']['first_name'] = value;
+                }),
+            LabelAndFieldWidget(
+                label: StringConstants.kLastName,
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['documents']['passport']['last_name'],
+                onTextFieldChanged: (value) {
+                  context.read<EmployeeBloc>().employeeDetails['documents']
+                      ['passport']['last_name'] = value;
+                })
+          ]),
           const SizedBox(height: spacingLarge),
-          MultiFieldRow(
-            childrenWidgets: [
-              DatePickerField(
-                  label: StringConstants.kExpiryDate,
-                  initialDate: DateFormat('dd-mm-yyyy').tryParse(
-                      context.read<EmployeeBloc>().employeeDetails['documents']
-                              ['passport']['expiry_date'] ??
-                          ""),
-                  onTextFieldChanged: (value) {
+          MultiFieldRow(childrenWidgets: [
+            DatePickerField(
+                label: StringConstants.kExpiryDate,
+                initialDate: DateFormat('dd-mm-yyyy').tryParse(
                     context.read<EmployeeBloc>().employeeDetails['documents']
-                        ['passport']['expiry_date'] = value;
-                  }),
-              DatePickerField(
-                  label: StringConstants.kIssueDate,
-                  initialDate: DateFormat('dd-mm-yyyy').tryParse(
-                      context.read<EmployeeBloc>().employeeDetails['documents']
-                              ['passport']['issue_date'] ??
-                          ""),
-                  onTextFieldChanged: (value) {
+                            ['passport']['expiry_date'] ??
+                        ""),
+                onTextFieldChanged: (value) {
+                  context.read<EmployeeBloc>().employeeDetails['documents']
+                      ['passport']['expiry_date'] = value;
+                }),
+            DatePickerField(
+                label: StringConstants.kIssueDate,
+                initialDate: DateFormat('dd-mm-yyyy').tryParse(
                     context.read<EmployeeBloc>().employeeDetails['documents']
-                        ['passport']['issue_date'] = value;
-                  }),
-              ContactTextField(
-                  label: StringConstants.kMobileNumber,
-                  initialValue:
-                      context.read<EmployeeBloc>().employeeDetails['documents']
-                          ['passport']['mobile_number'],
-                  onTextFieldChanged: (value) {
-                    context.read<EmployeeBloc>().employeeDetails['documents']
-                        ['passport']['mobile_number'] = value;
-                  }),
-            ],
-          ),
+                            ['passport']['issue_date'] ??
+                        ""),
+                onTextFieldChanged: (value) {
+                  context.read<EmployeeBloc>().employeeDetails['documents']
+                      ['passport']['issue_date'] = value;
+                }),
+            ContactTextField(
+                label: StringConstants.kMobileNumber,
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['documents']['passport']['mobile_number'],
+                onTextFieldChanged: (value) {
+                  context.read<EmployeeBloc>().employeeDetails['documents']
+                      ['passport']['mobile_number'] = value;
+                })
+          ]),
           const SizedBox(height: spacingLarge),
           MultiFieldRow(childrenWidgets: [
             LabelAndFieldWidget(
@@ -130,7 +132,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
                 maxLines: 5,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['documents']
-                      ['passport']['address'] = value;
+                      ['passport']['current_address'] = value;
                 }),
             LabelAndFieldWidget(
                 label: StringConstants.kPermanentAddress,
@@ -140,7 +142,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
                 maxLines: 5,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['documents']
-                      ['address'] = value;
+                      ['permanent_address'] = value;
                 })
           ])
         ]));

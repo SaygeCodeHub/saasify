@@ -11,11 +11,3 @@ class UpdateEmployee extends EmployeeEvents {
 
   UpdateEmployee({this.employeeId});
 }
-
-class GetAllEmployees extends EmployeeEvents {}
-
-class GetEmployee extends EmployeeEvents {
-  final String employeeId;
-
-  GetEmployee({required this.employeeId});
-}

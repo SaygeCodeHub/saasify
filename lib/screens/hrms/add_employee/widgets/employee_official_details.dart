@@ -75,7 +75,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
                 items: const [],
                 onChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['official']
-                  ['approvers'] = value;
+                      ['approvers'] = value;
                 })
           ]),
           const SizedBox(height: spacingLarge),
@@ -89,7 +89,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
                 maxLines: 5,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['official']
-                  ['current_location'] = value;
+                      ['current_location'] = value;
                 })
           ]),
           const SizedBox(height: spacingLarge),

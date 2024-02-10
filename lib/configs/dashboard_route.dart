@@ -33,7 +33,7 @@ class DashboardRouting {
       case 'HR_ADD_NEW_EMPLOYEE':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const AddEmployeeScreen()),
+          MaterialPageRoute(builder: (context) => AddEmployeeScreen()),
         );
       case 'HR_APPLY_LEAVES':
         Navigator.push(

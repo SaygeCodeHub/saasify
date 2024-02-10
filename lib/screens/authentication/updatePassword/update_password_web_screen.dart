@@ -30,7 +30,6 @@ class UpdatePasswordWebScreen extends StatelessWidget {
             LabelAndFieldWidget(
                 label: StringConstants.kOTP,
                 prefixIcon: const Icon(Icons.password_outlined),
-                errorText: 'Please enter a otp',
                 onTextFieldChanged: (value) {
                   context
                       .read<ResetPasswordBloc>()
@@ -39,7 +38,6 @@ class UpdatePasswordWebScreen extends StatelessWidget {
             const SizedBox(height: spacingBetweenTextFields),
             LabelAndFieldWidget(
                 obscureText: true,
-                errorText: 'Please enter a password',
                 label: StringConstants.kPassword,
                 prefixIcon: const Icon(Icons.password_outlined),
                 onTextFieldChanged: (value) {
@@ -50,7 +48,6 @@ class UpdatePasswordWebScreen extends StatelessWidget {
             const SizedBox(height: spacingBetweenTextFields),
             LabelAndFieldWidget(
                 obscureText: true,
-                errorText: 'Please confirm a password',
                 label: StringConstants.kConfirmPassword,
                 prefixIcon: const Icon(Icons.password_outlined),
                 onTextFieldChanged: (value) {

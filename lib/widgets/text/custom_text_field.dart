@@ -55,9 +55,6 @@ class CustomTextField extends StatelessWidget {
       this.onTap,
       this.isRequired = false,
       this.width = double.maxFinite});
-      this.controller,
-      this.onTap,
-      this.isRequired = false});
 
   @override
   Widget build(BuildContext context) {

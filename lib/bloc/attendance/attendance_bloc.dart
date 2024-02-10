@@ -157,7 +157,7 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
   String? formatDate(DateTime? date) {
     if (date != null) {
       date = date.toUtc();
-      DateTime localDate=date.toLocal();
+      DateTime localDate = date.toLocal();
       return DateFormat("HH:mm").format(localDate);
     }
     return null;

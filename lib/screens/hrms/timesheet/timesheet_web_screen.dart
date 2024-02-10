@@ -33,7 +33,8 @@ class TimeSheetWebScreen extends StatelessWidget {
                 ],
                 selectedIds: const [],
                 dataCount: timesheetData.length,
-                dataIds: List.generate(timesheetData.length, (index) => timesheetData),
+                dataIds: List.generate(
+                    timesheetData.length, (index) => timesheetData),
                 onRowCheckboxChange: (value) {},
                 generateData: (index) => [
                       TableText(
@@ -44,13 +45,13 @@ class TimeSheetWebScreen extends StatelessWidget {
                       TableText(
                           text: timesheetData[index].checkIn == null
                               ? "--"
-                              : DateFormat('HH:mm')
-                                  .format(timesheetData[index].checkIn.toLocal())),
+                              : DateFormat('HH:mm').format(
+                                  timesheetData[index].checkIn.toLocal())),
                       TableText(
                           text: timesheetData[index].checkOut == null
                               ? "--"
-                              : DateFormat('HH:mm')
-                                  .format(timesheetData[index].checkOut.toLocal())),
+                              : DateFormat('HH:mm').format(
+                                  timesheetData[index].checkOut.toLocal())),
                       TableButton(
                           title: StringConstants.kRegularise,
                           textStyle: Theme.of(context)

@@ -5,6 +5,7 @@ import 'package:saasify/caches/cache.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/dashboard_route.dart';
 import 'package:saasify/di/app_module.dart';
+import 'package:saasify/utils/icon_mapping.dart';
 import 'package:saasify/widgets/generalWidgets/value_card.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
@@ -67,11 +68,11 @@ class HrmsFeaturesSection extends StatelessWidget {
                                 .hrmsAccessibleFeatures[index]
                                 .value
                                 .toString(),
-                            iconData: context
+                            iconData: iconMapping(context
                                 .read<InitialiseAppBloc>()
                                 .hrmsAccessibleFeatures[index]
-                                .icon
-                                .toString()));
+                                .featureKey
+                                .toString())));
                   },
                 );
               } else {

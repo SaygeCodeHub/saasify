@@ -9,7 +9,7 @@ import '../../utils/globals.dart';
 class ValueCard extends StatelessWidget {
   final String cardHeading;
   final String? value;
-  final String iconData;
+  final IconData iconData;
 
   const ValueCard(
       {super.key,
@@ -27,7 +27,7 @@ class ValueCard extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(isMobile ? spacingSmall : spacingMedium),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Icon(FontAwesomeIcons.addressBook),
+          Icon(iconData),
           const SizedBox(height: spacingSmall),
           Text(cardHeading,
               softWrap: false,

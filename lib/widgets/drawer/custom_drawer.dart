@@ -83,7 +83,8 @@ class CustomDrawer extends StatelessWidget {
                 iconData: Icons.inventory_outlined,
                 title: 'Inventory',
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, InventoryScreen.routeName);
+                  Navigator.pushReplacementNamed(
+                      context, InventoryScreen.routeName);
                 })
           ],
         ),

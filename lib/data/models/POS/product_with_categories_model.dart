@@ -1,13 +1,15 @@
 import 'dart:convert';
 
-ProductsWithCategoriesModel getAllProductsWithCategoriesFromJson(String str) => ProductsWithCategoriesModel.fromJson(json.decode(str));
+ProductsWithCategoriesModel getAllProductsWithCategoriesFromJson(String str) =>
+    ProductsWithCategoriesModel.fromJson(json.decode(str));
 
-String getAllProductsWithCategoriesToJson(ProductsWithCategoriesModel data) => json.encode(data.toJson());
+String getAllProductsWithCategoriesToJson(ProductsWithCategoriesModel data) =>
+    json.encode(data.toJson());
 
 class ProductsWithCategoriesModel {
   final int status;
   final String message;
-  final List<Datum> data;
+  final List<ProductsWithCategories> data;
 
   ProductsWithCategoriesModel({
     required this.status,
@@ -15,45 +17,49 @@ class ProductsWithCategoriesModel {
     required this.data,
   });
 
-  factory ProductsWithCategoriesModel.fromJson(Map<String, dynamic> json) => ProductsWithCategoriesModel(
-    status: json["status"],
-    message: json["message"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-  );
+  factory ProductsWithCategoriesModel.fromJson(Map<String, dynamic> json) =>
+      ProductsWithCategoriesModel(
+        status: json["status"],
+        message: json["message"],
+        data: List<ProductsWithCategories>.from(
+            json["data"].map((x) => ProductsWithCategories.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "status": status,
-    "message": message,
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
-  };
+        "status": status,
+        "message": message,
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+      };
 }
 
-class Datum {
+class ProductsWithCategories {
   final int categoryId;
   final String categoryName;
   final String categoryIconImage;
   final List<Product> products;
 
-  Datum({
+  ProductsWithCategories({
     required this.categoryId,
     required this.categoryName,
     required this.categoryIconImage,
     required this.products,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-    categoryId: json["category_id"],
-    categoryName: json["category_name"],
-    categoryIconImage: json["category_icon/image"],
-    products: List<Product>.from(json["products"].map((x) => Product.fromJson(x))),
-  );
+  factory ProductsWithCategories.fromJson(Map<String, dynamic> json) =>
+      ProductsWithCategories(
+        categoryId: json["category_id"],
+        categoryName: json["category_name"],
+        categoryIconImage: json["category_icon/image"],
+        products: List<Product>.from(
+            json["products"].map((x) => Product.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "category_id": categoryId,
-    "category_name": categoryName,
-    "category_icon/image": categoryIconImage,
-    "products": List<dynamic>.from(products.map((x) => x.toJson())),
-  };
+        "category_id": categoryId,
+        "category_name": categoryName,
+        "category_icon/image": categoryIconImage,
+        "products": List<dynamic>.from(products.map((x) => x.toJson())),
+      };
 }
 
 class Product {
@@ -68,16 +74,17 @@ class Product {
   });
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
-    productId: json["product_id"],
-    productName: json["product_name"],
-    variants: List<Variant>.from(json["variants"].map((x) => Variant.fromJson(x))),
-  );
+        productId: json["product_id"],
+        productName: json["product_name"],
+        variants: List<Variant>.from(
+            json["variants"].map((x) => Variant.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "product_id": productId,
-    "product_name": productName,
-    "variants": List<dynamic>.from(variants.map((x) => x.toJson())),
-  };
+        "product_id": productId,
+        "product_name": productName,
+        "variants": List<dynamic>.from(variants.map((x) => x.toJson())),
+      };
 }
 
 class Variant {
@@ -98,20 +105,20 @@ class Variant {
   });
 
   factory Variant.fromJson(Map<String, dynamic> json) => Variant(
-    variantId: json["variant_id"],
-    quantity: json["quantity"],
-    unit: json["unit"],
-    cost: json["cost"],
-    image: json["image"],
-    discount: json["discount"],
-  );
+        variantId: json["variant_id"],
+        quantity: json["quantity"],
+        unit: json["unit"],
+        cost: json["cost"],
+        image: json["image"],
+        discount: json["discount"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "variant_id": variantId,
-    "quantity": quantity,
-    "unit": unit,
-    "cost": cost,
-    "image": image,
-    "discount": discount,
-  };
+        "variant_id": variantId,
+        "quantity": quantity,
+        "unit": unit,
+        "cost": cost,
+        "image": image,
+        "discount": discount,
+      };
 }

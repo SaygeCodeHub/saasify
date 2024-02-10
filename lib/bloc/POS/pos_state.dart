@@ -7,9 +7,11 @@ class PosInitial extends POSStates {}
 class ProductByCategoryLoading extends POSStates {}
 
 class ProductByCategoryLoaded extends POSStates {
-  final List<ProductsWithCategoriesModel> productWithCategories;
+  final List<ProductsWithCategories> productsWithCategories;
+  final int selectedCategory;
 
-  ProductByCategoryLoaded({required this.productWithCategories});
+  ProductByCategoryLoaded(
+      {required this.selectedCategory, required this.productsWithCategories});
 }
 
 class ProductByCategoryError extends POSStates {

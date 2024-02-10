@@ -7,16 +7,16 @@ class POSRepositoryImpl implements POSRepository {
   final Cache cache = getIt<Cache>();
 
   @override
-  Future<ProductsWithCategoriesModel> getAllProductsWithCategories() async{
+  Future<ProductsWithCategoriesModel> getAllProductsWithCategories() async {
     try {
       // var companyId = await cache.getCompanyId();
       // var branchId = await cache.getBranchId();
       // var userId = await cache.getUserId();
 
       Map<String, dynamic> response = {
-        "status":200,
-        "message":"",
-        "data":[
+        "status": 200,
+        "message": "",
+        "data": [
           {
             "category_id": 1,
             "category_name": "Electronics",
@@ -384,8 +384,6 @@ class POSRepositoryImpl implements POSRepository {
           }
         ]
       };
-
-
 
       // final response =  await ClientServices().get("${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.getAllProductsWithCategories}");
       return ProductsWithCategoriesModel.fromJson(response);

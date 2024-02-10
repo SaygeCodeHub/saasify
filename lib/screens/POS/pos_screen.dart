@@ -3,12 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/POS/pos_bloc.dart';
 import 'package:saasify/bloc/POS/pos_event.dart';
 import 'package:saasify/bloc/POS/pos_state.dart';
+import 'package:saasify/screens/POS/pos_mobile.dart';
+import 'package:saasify/screens/POS/pos_web.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
+import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
-import 'package:saasify/widgets/userInput/custom_drop_down.dart';
 
 class POSScreen extends StatelessWidget {
-  static const String routeName = 'pos';
+  static const String routeName = 'POS';
 
   const POSScreen({super.key});
 
@@ -19,9 +21,11 @@ class POSScreen extends StatelessWidget {
       return BlocConsumer<POSBloc, POSStates>(
         listener: (context, state) {
           if (state is ProductByCategoryError) {
-            showDialog(context: context, builder: (context) {
-              return ErrorAlertDialog(description: state.errorMessage);
-            });
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return ErrorAlertDialog(description: state.errorMessage);
+                });
           }
         },
         builder: (context, state) {
@@ -29,18 +33,12 @@ class POSScreen extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
           if (state is ProductByCategoryLoaded) {
-            return Container(
-              child: Column(
-                children: [
-                  CustomDropDown(
-                      items: List.generate(
-                          state.productWithCategories[0].data.length,
-                          (index) => state.productWithCategories[0].data[index].categoryName),
-                      defaultValue: "Select Category",
-                      onChanged: (value) {}),
-                ],
-              ),
-            );
+            return ResponsiveLayout(
+                mobileBody: POSMobile(
+                    productsWithCategories: state.productsWithCategories),
+                desktopBody: POSWeb(
+                    productsWithCategories: state.productsWithCategories,
+                    selectedCategory: state.selectedCategory));
           }
           return const SizedBox.shrink();
         },

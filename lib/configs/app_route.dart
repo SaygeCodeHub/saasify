@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
+import 'package:saasify/screens/POS/pos_screen.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/authentication/forgotPassword/forgot_password_screen.dart';
 import 'package:saasify/screens/authentication/register/register_screen.dart';
@@ -30,6 +31,8 @@ class AppRoutes {
         return _createRoute(RegisterScreen());
       case ForgotPasswordScreen.routeName:
         return _createRoute(ForgotPasswordScreen());
+      case POSScreen.routeName:
+        return _createRoute(const POSScreen());
       case UpdatePasswordScreen.routeName:
         return _createRoute(UpdatePasswordScreen());
       case AddCompanyScreen.routeName:

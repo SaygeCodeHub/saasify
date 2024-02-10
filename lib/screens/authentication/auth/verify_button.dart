@@ -41,8 +41,7 @@ class AuthVerifyButton extends StatelessWidget {
                     state.authenticateUserData.company[0].branches
                   ]);
             } else {
-              Navigator.pushReplacementNamed(
-                  context, RootScreen.routeName);
+              Navigator.pushReplacementNamed(context, RootScreen.routeName);
             }
           }
           if (state is FailedToAuthenticateUser) {

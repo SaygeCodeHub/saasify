@@ -119,6 +119,11 @@ extension AppTextTheme on TextTheme {
         fontSize: 14, color: AppColors.black, fontWeight: FontWeight.w500);
   }
 
+  TextStyle get categoryTextStyle {
+    return const TextStyle(
+        fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w600);
+  }
+
   TextStyle get deskTopPageHeader {
     return const TextStyle(
         fontSize: 26, color: AppColors.black, fontWeight: FontWeight.w700);

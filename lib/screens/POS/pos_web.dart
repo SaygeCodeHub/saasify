@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/POS/pos_bloc.dart';
 import 'package:saasify/bloc/POS/pos_event.dart';
+import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/POS/product_with_categories_model.dart';
-import 'package:saasify/widgets/custom_dropdown_widget.dart';
+import 'package:saasify/screens/POS/widgets/products_grid.dart';
+import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class POSWeb extends StatelessWidget {
   final List<ProductsWithCategories> productsWithCategories;
@@ -19,92 +22,69 @@ class POSWeb extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
         padding: const EdgeInsets.all(spacingStandard),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          CustomDropdownButton(
-            hint: 'Select Category',
-            items: productsWithCategories
-                .map((e) => CustomDropDownItem(
-                    value: e.categoryId, label: e.categoryName))
-                .toList(),
-            selectedValue: null,
-            onChanged: (value) {
-              context.read<POSBloc>().add(CategorySelected(
-                  productsWithCategories: productsWithCategories,
-                  selectedCategory: value));
-            },
-          ),
+        child: Row(children: [
           Expanded(
-              child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: spacingStandard),
-                  child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 5,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10),
-                      itemCount: productsWithCategories
+            flex: 5,
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Wrap(
+                  children: productsWithCategories
+                      .map((e) => Padding(
+                          padding: const EdgeInsets.only(right: spacingSmall),
+                          child: InkWell(
+                              onTap: () {
+                                context.read<POSBloc>().selectedCategory = e.categoryId;
+                                context.read<POSBloc>().add(ReloadPOS(
+                                    productsWithCategories:
+                                        productsWithCategories));
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: spacingSmall,
+                                    vertical: spacingXXSmall),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: e.categoryId == selectedCategory
+                                            ? AppColors.orange
+                                            : AppColors.darkBlue),
+                                    borderRadius: BorderRadius.circular(8)),
+                                child: Text(e.categoryName,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .categoryTextStyle
+                                        .copyWith(
+                                          color:
+                                              e.categoryId == selectedCategory
+                                                  ? AppColors.orange
+                                                  : AppColors.darkBlue,
+                                        )),
+                              ))))
+                      .toList()),
+              Expanded(
+                  child: ProductsGrid(
+                      products: productsWithCategories
                           .firstWhere((element) =>
                               element.categoryId == selectedCategory)
-                          .products
-                          .length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                      title: Text(productsWithCategories
-                                          .firstWhere((element) =>
-                                              element.categoryId ==
-                                              selectedCategory)
-                                          .products[index]
-                                          .productName),
-                                      content: SizedBox(
-                                        height: 300,
-                                        width: 300,
-                                        child: GridView.builder(
-                                            gridDelegate:
-                                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 2,
-                                                    crossAxisSpacing: 10,
-                                                    mainAxisSpacing: 10),
-                                            itemCount: productsWithCategories
-                                                .firstWhere((element) =>
-                                                    element.categoryId ==
-                                                    selectedCategory)
-                                                .products[index]
-                                                .variants
-                                                .length,
-                                            itemBuilder:
-                                                (context, variantIndex) {
-                                              return Card(
-                                                  child: Center(
-                                                      child: Text(productsWithCategories
-                                                          .firstWhere((element) =>
-                                                              element
-                                                                  .categoryId ==
-                                                              selectedCategory)
-                                                          .products[index]
-                                                          .variants[
-                                                              variantIndex]
-                                                          .cost
-                                                          .toString())));
-                                            }),
-                                      ));
-                                });
-                          },
-                          child: Card(
-                              child: Center(
-                                  child: Text(productsWithCategories
-                                      .firstWhere((element) =>
-                                          element.categoryId ==
-                                          selectedCategory)
-                                      .products[index]
-                                      .productName))),
-                        );
-                      })))
+                          .products,
+                      selectedCategory: selectedCategory))
+            ]),
+          ),
+          Expanded(
+              flex: 2,
+              child: Card(
+                  child: Column(children: [
+                const Text('Cart'),
+                const Divider(),
+                Expanded(child: SizedBox()),
+                const Text('Total: 0.00'),
+                const SizedBox(height: spacingStandard),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: spacingStandard, vertical: spacingStandard),
+                  child:
+                      PrimaryButton(onPressed: () {}, buttonTitle: 'Checkout'),
+                )
+              ])))
         ]));
   }
 }

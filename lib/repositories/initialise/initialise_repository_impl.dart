@@ -1,5 +1,4 @@
 import 'package:saasify/caches/cache.dart';
-import 'package:saasify/caches/cache_keys.dart';
 import 'package:saasify/data/models/initialise/initialise_app_model.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/initialise/initialise_repository.dart';
@@ -23,10 +22,7 @@ class InitialiseRepositoryImpl implements InitialiseRepository {
         "message": "Data fetched!",
         "data": {
           "branches": [
-            {
-              "branch_name": "HQ",
-              "branch_id": 25
-            }
+            {"branch_name": "HQ", "branch_id": 25}
           ],
           "accessible_modules": [
             {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
+import 'package:saasify/screens/inventory/inventory_screen.dart';
 import 'package:saasify/screens/orders/orders_screen.dart';
 import 'package:saasify/widgets/drawer/module_list_tile.dart';
 import '../../utils/globals.dart';
@@ -82,7 +83,7 @@ class CustomDrawer extends StatelessWidget {
                 iconData: Icons.inventory_outlined,
                 title: 'Inventory',
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, 'Inventory');
+                  Navigator.pushReplacementNamed(context, InventoryScreen.routeName);
                 })
           ],
         ),

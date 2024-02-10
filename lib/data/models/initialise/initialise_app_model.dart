@@ -33,7 +33,7 @@ class InitialiseAppModel {
 
 class Data {
   final bool? geoFencing;
-  final List<Branch>? branches;
+  final List<BranchData>? branches;
   final List<AccessibleModule>? accessibleModules;
   final List<AccessibleFeature>? accessibleFeatures;
 
@@ -48,8 +48,8 @@ class Data {
         geoFencing: json["geo_fencing"],
         branches: json["branches"] == null
             ? []
-            : List<Branch>.from(
-                json["branches"]!.map((x) => Branch.fromJson(x))),
+            : List<BranchData>.from(
+                json["branches"]!.map((x) => BranchData.fromJson(x))),
         accessibleModules: json["accessible_modules"] == null
             ? []
             : List<AccessibleModule>.from(json["accessible_modules"]!
@@ -140,16 +140,16 @@ class AccessibleModule {
       };
 }
 
-class Branch {
+class BranchData {
   final String? branchName;
   final int? branchId;
 
-  Branch({
+  BranchData({
     this.branchName,
     this.branchId,
   });
 
-  factory Branch.fromJson(Map<String, dynamic> json) => Branch(
+  factory BranchData.fromJson(Map<String, dynamic> json) => BranchData(
         branchName: json["branch_name"],
         branchId: json["branch_id"],
       );

@@ -15,7 +15,7 @@ import 'package:saasify/bloc/timesheet/timesheet_bloc.dart';
 import 'package:saasify/configs/app_route.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.dart';
-import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
+import 'package:saasify/screens/root_screen.dart';
 import 'package:saasify/utils/notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
@@ -75,7 +75,7 @@ class MyPosApp extends StatelessWidget {
               home:
                   BlocBuilder<AuthBloc, AuthStates>(builder: (context, state) {
                 if (state is ActiveSession) {
-                  return const HRMSDashboardScreen();
+                  return const RootScreen();
                 } else if (state is NoCompanySelected) {
                   return AddCompanyScreen();
                 } else {

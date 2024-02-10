@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
 import 'package:saasify/di/app_module.dart';
-import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
+import 'package:saasify/screens/root_screen.dart';
 import '../../../../utils/constants/string_constants.dart';
 import '../../../../widgets/buttons/primary_button.dart';
 
@@ -17,7 +17,7 @@ class SelectBranchButton extends StatelessWidget {
         buttonTitle: StringConstants.kNext,
         onPressed: () {
           Future.delayed(const Duration(seconds: 1));
-          Navigator.pushNamed(context, HRMSDashboardScreen.routeName);
+          Navigator.pushNamed(context, RootScreen.routeName);
         });
   }
 

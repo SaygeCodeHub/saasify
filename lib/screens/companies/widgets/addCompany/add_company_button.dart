@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/companies/companies_bloc.dart';
 import 'package:saasify/bloc/companies/companies_event.dart';
 import 'package:saasify/bloc/companies/companies_states.dart';
-import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
+import 'package:saasify/screens/root_screen.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import '../../../../utils/constants/string_constants.dart';
 import '../../../../widgets/buttons/primary_button.dart';
@@ -18,7 +18,7 @@ class AddCompanyButton extends StatelessWidget {
     return BlocConsumer<CompaniesBloc, CompaniesStates>(
         listener: (context, state) {
       if (state is CompanyAdded) {
-        Navigator.pushReplacementNamed(context, HRMSDashboardScreen.routeName);
+        Navigator.pushReplacementNamed(context, RootScreen.routeName);
       }
       if (state is AddingCompanyFailed) {
         showDialog(

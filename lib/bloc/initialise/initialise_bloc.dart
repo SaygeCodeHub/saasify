@@ -13,6 +13,8 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
   final InitialiseRepository _initialiseRepository =
       getIt<InitialiseRepository>();
   List<ListOfBranches?>? branches = [];
+  List<FeatureDetailModel> hrmsAccessibleFeatures = [];
+
 
   InitialiseAppStates get initialState => InitialiseStates();
 

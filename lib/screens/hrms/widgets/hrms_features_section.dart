@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/initialise/initialise_bloc.dart';
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/dashboard_route.dart';
-import 'package:saasify/data/models/initialise/initialise_app_model.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/widgets/generalWidgets/value_card.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
@@ -13,7 +14,6 @@ class HrmsFeaturesSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<FeatureDetailModel> features = [];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -22,11 +22,14 @@ class HrmsFeaturesSection extends StatelessWidget {
         FutureBuilder(
             future: getIt<Cache>().getAccessibleModules(),
             builder: (context, snapshot) {
-              features.clear();
+              context.read<InitialiseAppBloc>().hrmsAccessibleFeatures.clear();
               if (snapshot.hasData) {
                 snapshot.data?.forEach((element) {
                   if (element.moduleKey == 'HR') {
-                    features.addAll(element.accessibleFeatures!);
+                    context
+                        .read<InitialiseAppBloc>()
+                        .hrmsAccessibleFeatures
+                        .addAll(element.accessibleFeatures!);
                   }
                 });
                 return GridView.builder(
@@ -37,20 +40,38 @@ class HrmsFeaturesSection extends StatelessWidget {
                       mainAxisSpacing: 8.0,
                       crossAxisSpacing: 8.0,
                       childAspectRatio: isMobile ? 1.4 : 1.9),
-                  itemCount: features.length,
+                  itemCount: context
+                      .read<InitialiseAppBloc>()
+                      .hrmsAccessibleFeatures
+                      .length,
                   itemBuilder: (context, index) {
                     return InkWell(
                         onTap: () {
                           DashboardRouting(
-                                  featureKey:
-                                      features[index].featureKey.toString(),
+                                  featureKey: context
+                                      .read<InitialiseAppBloc>()
+                                      .hrmsAccessibleFeatures[index]
+                                      .featureKey
+                                      .toString(),
                                   context: context)
                               .navigateTo();
                         },
                         child: ValueCard(
-                            cardHeading: features[index].title.toString(),
-                            value: features[index].value.toString(),
-                            iconData: features[index].icon.toString()));
+                            cardHeading: context
+                                .read<InitialiseAppBloc>()
+                                .hrmsAccessibleFeatures[index]
+                                .title
+                                .toString(),
+                            value: context
+                                .read<InitialiseAppBloc>()
+                                .hrmsAccessibleFeatures[index]
+                                .value
+                                .toString(),
+                            iconData: context
+                                .read<InitialiseAppBloc>()
+                                .hrmsAccessibleFeatures[index]
+                                .icon
+                                .toString()));
                   },
                 );
               } else {

@@ -25,6 +25,7 @@ class HrmsTasksSection extends StatelessWidget {
         ),
         const SizedBox(height: spacingLarger),
         GridView.builder(
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: isMobile ? 2 : 5,

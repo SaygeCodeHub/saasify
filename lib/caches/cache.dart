@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:saasify/data/models/initialise/initialise_app_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'cache_keys.dart';
 import '../data/models/authentication/authenticate_user_model.dart';
@@ -90,35 +91,36 @@ class Cache {
     return sharedPreferences.getStringList(CacheKeys.designations);
   }
 
-  void setAccessibleModules(List<int> accessibleModules) async {
-    List<String> stringAccessibleModules =
-        accessibleModules.map((int i) => i.toString()).toList();
-    await sharedPreferences.setStringList(
-        CacheKeys.accessibleModules, stringAccessibleModules);
+  void setAccessibleModules(List<ModulesModel> modulesModel) async {
+    final value =
+        jsonEncode(modulesModel.map((user) => user.toJson()).toList());
+    sharedPreferences.setString(CacheKeys.accessibleModules, value);
   }
 
-  Future<List<int>?> getAccessibleModules() async {
-    List<String>? stringAccessibleModules =
-        sharedPreferences.getStringList(CacheKeys.accessibleModules);
-    List<int>? modules =
-        stringAccessibleModules?.map((String s) => int.parse(s)).toList();
-    return modules;
+  Future<List<ModulesModel>> getAccessibleModules() async {
+    final value = sharedPreferences.getString(CacheKeys.accessibleModules);
+    if (value != null) {
+      final List<dynamic> jsonArray = jsonDecode(value);
+      return jsonArray.map((json) => ModulesModel.fromJson(json)).toList();
+    }
+    return [];
   }
 
-  void setAccessibleFeatures(List<double> accessibleFeatures) async {
-    List<String> stringAccessibleFeatures =
-        accessibleFeatures.map((double d) => d.toString()).toList();
-    await sharedPreferences.setStringList(
-        CacheKeys.accessibleFeatures, stringAccessibleFeatures);
+  void setAccessibleFeatures(List<FeatureDetailModel> modulesModel) async {
+    final value =
+        jsonEncode(modulesModel.map((user) => user.toJson()).toList());
+    sharedPreferences.setString(CacheKeys.accessibleFeatures, value);
   }
 
-  Future<List<double>?> getAccessibleFeatures() async {
-    List<String>? stringAccessibleFeatures =
-        sharedPreferences.getStringList(CacheKeys.accessibleFeatures);
-    List<double>? features =
-        stringAccessibleFeatures?.map((String s) => double.parse(s)).toList();
-
-    return features;
+  Future<List<FeatureDetailModel>> getAccessibleFeatures() async {
+    final value = sharedPreferences.getString(CacheKeys.accessibleFeatures);
+    if (value != null) {
+      final List<dynamic> jsonArray = jsonDecode(value);
+      return jsonArray
+          .map((json) => FeatureDetailModel.fromJson(json))
+          .toList();
+    }
+    return [];
   }
 
   Future<bool> setFCMToken(String stringValue) async {

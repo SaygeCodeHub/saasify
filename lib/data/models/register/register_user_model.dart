@@ -33,22 +33,23 @@ class RegisterUserModel {
 
 class RegisterData {
   int? userId;
-  List<dynamic>? company; // Make company nullable
+  String? name;
+  List<dynamic>? company;
 
   RegisterData({
     this.userId,
-    this.company, // Make company nullable
+    this.name,
+    this.company,
   });
 
   factory RegisterData.fromJson(Map<String, dynamic> json) => RegisterData(
         userId: json["user_id"],
+        name: json["name"],
         company: json["company"] != null
             ? List<dynamic>.from(json["company"].map((x) => x))
             : null,
       );
 
-  Map<String, dynamic> toJson() => {
-        "user_id": userId,
-        "company": company,
-      };
+  Map<String, dynamic> toJson() =>
+      {"user_id": userId, "company": company, "name": name};
 }

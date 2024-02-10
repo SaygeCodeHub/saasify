@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
+import 'package:saasify/screens/orders/orders_screen.dart';
 import 'package:saasify/widgets/drawer/module_list_tile.dart';
 import '../../utils/globals.dart';
 import '../profile/saasify_logo.dart';
@@ -59,16 +60,23 @@ class CustomDrawer extends StatelessWidget {
                       context, HRMSDashboardScreen.routeName);
                 }),
             ModuleListTile(
+                iconData: Icons.point_of_sale_outlined,
+                title: 'POS',
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, 'POS');
+                }),
+            ModuleListTile(
                 iconData: Icons.account_balance_sharp,
                 title: 'Accounts',
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, 'POS');
+                  Navigator.pushReplacementNamed(context, 'Accounts');
                 }),
             ModuleListTile(
                 iconData: Icons.shopping_cart_outlined,
                 title: 'Orders',
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, 'Orders');
+                  Navigator.pushReplacementNamed(
+                      context, OrdersScreen.routeName);
                 }),
             ModuleListTile(
                 iconData: Icons.inventory_outlined,

@@ -35,33 +35,33 @@ class HrmsAttendanceSection extends StatelessWidget {
             const SizedBox(width: spacingMedium),
             Expanded(
                 child:
-                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Column(mainAxisSize: MainAxisSize.min, children: [
-                    Text(StringConstants.kCheckIn,
-                        style:
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Column(mainAxisSize: MainAxisSize.min, children: [
+                Text(StringConstants.kCheckIn,
+                    style:
                         Theme.of(context).textTheme.cardMobileHeadingTextStyle),
-                    ValueListenableBuilder<String?>(
-                        builder: (context, value, child) {
-                          return Text(value ?? "--:--");
-                        },
-                        valueListenable: context.read<AttendanceBloc>().checkInTime,
-                        child: const Text("--:--"))
-                  ]),
-                  const Spacer(),
-                  Column(mainAxisSize: MainAxisSize.min, children: [
-                    Text(StringConstants.kCheckOut,
-                        style:
+                ValueListenableBuilder<String?>(
+                    builder: (context, value, child) {
+                      return Text(value ?? "--:--");
+                    },
+                    valueListenable: context.read<AttendanceBloc>().checkInTime,
+                    child: const Text("--:--"))
+              ]),
+              const Spacer(),
+              Column(mainAxisSize: MainAxisSize.min, children: [
+                Text(StringConstants.kCheckOut,
+                    style:
                         Theme.of(context).textTheme.cardMobileHeadingTextStyle),
-                    ValueListenableBuilder<String?>(
-                        builder: (context, value, child) {
-                          return Text(value ?? "--:--");
-                        },
-                        valueListenable:
+                ValueListenableBuilder<String?>(
+                    builder: (context, value, child) {
+                      return Text(value ?? "--:--");
+                    },
+                    valueListenable:
                         context.read<AttendanceBloc>().checkOutTime,
-                        child: const Text("--:--"))
-                  ]),
-                  const Spacer()
-                ])),
+                    child: const Text("--:--"))
+              ]),
+              const Spacer()
+            ])),
             const AttendanceButton()
           ]),
         ),

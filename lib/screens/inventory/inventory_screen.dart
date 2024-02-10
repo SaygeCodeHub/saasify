@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/inventory/inventory_screen_web.dart';
+import 'package:saasify/widgets/buttons/primary_button.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
@@ -13,17 +14,28 @@ class InventoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ScreenSkeleton(
-          childScreenBuilder: (bool isMobile) => const Column(
+          childScreenBuilder: (bool isMobile) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: spacingMedium),
+                  const SizedBox(height: spacingMedium),
                   Padding(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         left: spacingMedium, right: spacingMedium),
-                    child: ModuleHeading(label: 'Inventory'),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const ModuleHeading(label: 'Inventory'),
+                        PrimaryButton(
+                          onPressed: () {},
+                          buttonTitle: 'Add new product',
+                          buttonWidth: spacingLarger,
+                        )
+                      ],
+                    ),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: ResponsiveLayout(
                         mobileBody: InventoryScreenWeb(),
                         desktopBody: InventoryScreenWeb()),

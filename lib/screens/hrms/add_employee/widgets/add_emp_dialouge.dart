@@ -120,15 +120,20 @@ showAddEmployeeDialog(BuildContext context) {
                   Text(StringConstants.kAssignRole,
                       style: Theme.of(context).textTheme.userNameTextStyle),
                   const SizedBox(height: spacingMedium),
-                  Column(
-                      children: List.generate(
-                          EmployeeType.values.length,
-                          (index) => Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: spacingSmall),
-                              child: CustomCheckbox(
-                                  checkBoxTitle:
-                                      EmployeeType.values[index].name))))
+                  SizedBox(
+                    height: MediaQuery.sizeOf(context).height * 0.30,
+                    child: SingleChildScrollView(
+                      child: Column(
+                          children: List.generate(
+                              EmployeeType.values.length,
+                              (index) => Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: spacingSmall),
+                                  child: CustomCheckbox(
+                                      checkBoxTitle:
+                                          EmployeeType.values[index].name)))),
+                    ),
+                  )
                 ]),
           )));
   showDialog(

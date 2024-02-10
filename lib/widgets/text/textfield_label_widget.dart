@@ -85,7 +85,7 @@ class TextfieldLabelWidget extends StatelessWidget {
                 return null;
               },
               readOnly: readOnly ?? false,
-              controller: controller,
+              textFieldController: controller,
               onTextFieldChanged: onTextFieldChanged,
               enabled: enabled ?? true,
               autofocus: autofocus ?? false,

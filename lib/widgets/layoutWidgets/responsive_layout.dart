@@ -4,10 +4,14 @@ import 'package:saasify/utils/globals.dart';
 
 class ResponsiveLayout extends StatelessWidget {
   final Widget mobileBody;
+  final bool provideMobilePadding;
   final Widget desktopBody;
 
   const ResponsiveLayout(
-      {super.key, required this.mobileBody, required this.desktopBody});
+      {super.key,
+      required this.mobileBody,
+      this.provideMobilePadding = true,
+      required this.desktopBody});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,9 @@ class ResponsiveLayout extends StatelessWidget {
       if (constraints.maxWidth < mobileBreakPoint) {
         return SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(mobileBodyPadding),
+            padding: provideMobilePadding
+                ? const EdgeInsets.all(mobileBodyPadding)
+                : const EdgeInsets.all(0),
             child: mobileBody,
           ),
         );

@@ -7,21 +7,22 @@ class CustomTextField extends StatelessWidget {
   final int? maxLines;
   final TextInputAction? textInputAction;
   final int? maxLength;
+  final bool isRequired;
   final String? hintText;
   final String? getText;
   final bool? firstCall;
-  final bool isRequired;
-  final void Function(String?)? onTextFieldChanged;
+  final void Function(String)? onTextFieldChanged;
   final bool? readOnly;
   final bool? enabled;
-  final TextEditingController? controller;
+  final TextEditingController? textFieldController;
   final bool obscureText;
   final String? Function(String?)? validator;
   final Widget? suffix;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final double width;
   final bool autofocus;
-  final dynamic initialValue;
+  final String? initialValue;
   final TextInputType? keyboardType;
   final void Function()? onTap;
   final List<TextInputFormatter>? inputFormatters;
@@ -42,7 +43,7 @@ class CustomTextField extends StatelessWidget {
       this.initialValue,
       this.keyboardType,
       this.contentPadding,
-      required this.onTextFieldChanged,
+      this.onTextFieldChanged,
       this.inputFormatters,
       this.prefixIcon,
       this.obscureText = false,
@@ -50,12 +51,20 @@ class CustomTextField extends StatelessWidget {
       this.suffixIcon,
       this.autofocus = false,
       this.enabled,
-      this.controller,
+      this.textFieldController,
       this.onTap,
-      this.isRequired = false});
+      this.isRequired = false,
+      this.width = double.maxFinite});
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController controller =
+        textFieldController ?? TextEditingController();
+
+    if (initialValue != null && controller.text.isEmpty) {
+      controller.text = initialValue.toString();
+    }
+
     return TextFormField(
         key: key,
         enabled: enabled,
@@ -84,13 +93,17 @@ class CustomTextField extends StatelessWidget {
             hintText: hintText,
             hintStyle: hintStyle,
             prefixIcon: prefixIcon,
+            constraints: BoxConstraints(
+              maxWidth: width,
+            ),
             suffixIcon: suffixIcon),
         inputFormatters: inputFormatters,
         validator: (value) {
           if ((value == null || value.isEmpty) && isRequired) {
             return StringConstants.kFieldCannotBeEmpty;
           }
-          if (validator != null) {
+          if (validator != null &&
+              ((value == null || value.isEmpty) && isRequired)) {
             return validator!(value);
           }
           return null;

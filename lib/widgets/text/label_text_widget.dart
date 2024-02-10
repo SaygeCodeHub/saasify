@@ -8,6 +8,10 @@ class LabelTextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(label!, style: Theme.of(context).textTheme.labelTextStyle);
+    return Text(label!,
+        style: Theme.of(context).textTheme.labelTextStyle,
+        maxLines: 1,
+        overflow: TextOverflow.fade,
+        softWrap: false);
   }
 }

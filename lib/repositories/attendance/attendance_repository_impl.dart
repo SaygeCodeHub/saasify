@@ -16,8 +16,8 @@ class AttendanceRepositoryImpl implements AttendanceRepository {
       var branchId = await cache.getBranchId();
       var userId = await cache.getUserId();
       final response = await ClientServices().post(
-             "${ApiConstants.baseUrl}$companyId/$branchId/$userId/markAttendance",
-             {});
+          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/markAttendance",
+          {});
       return AttendanceModel.fromJson(response);
     } catch (error) {
       rethrow;

@@ -43,10 +43,9 @@ class MyLeavesMobileScreen extends StatelessWidget {
                                       text: myLeaves[index]
                                           .leaveStatus
                                           .toString(),
-                                      color: getColorFromStatus(
-                                          myLeaves[index]
-                                              .leaveStatus
-                                              .toString()))
+                                      color: getColorFromStatus(myLeaves[index]
+                                          .leaveStatus
+                                          .toString()))
                                 ]),
                             const SizedBox(width: spacingLarge),
                             LeaveDetails(
@@ -60,8 +59,7 @@ class MyLeavesMobileScreen extends StatelessWidget {
                                 title: StringConstants.kEndDate),
                             const SizedBox(width: spacingSmall),
                             LeaveDetails(
-                                leaveData:
-                                    myLeaves[index].approvers.join(", "),
+                                leaveData: myLeaves[index].approvers.join(", "),
                                 title: StringConstants.kApprovers)
                           ]))));
         });

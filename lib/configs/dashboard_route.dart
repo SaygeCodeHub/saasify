@@ -20,7 +20,7 @@ class DashboardRouting {
           MaterialPageRoute(
               builder: (context) => const PendingLeaveRequestScreen()),
         );
-      case 'HR_TOTAL_EMPLOYEES':
+      case 'HR_VIEW_ALL_EMPLOYEES':
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const EmployeeListScreen()),

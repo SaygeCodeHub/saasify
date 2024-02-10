@@ -1,4 +1,5 @@
 import 'package:saasify/caches/cache.dart';
+import 'package:saasify/caches/cache_keys.dart';
 import 'package:saasify/data/models/initialise/initialise_app_model.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/initialise/initialise_repository.dart';
@@ -16,7 +17,7 @@ class InitialiseRepositoryImpl implements InitialiseRepository {
     try {
       // final response = await ClientServices().post(
       //     "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.initializeApi}",
-      //     {"device_token": "yxz"});
+      //     {"device_token": getIt<Cache>().getFCMToken(CacheKeys.fcmToken)});
       final response = {
         "status": 200,
         "message": "Data fetched!",
@@ -47,7 +48,7 @@ class InitialiseRepositoryImpl implements InitialiseRepository {
               "value": '10'
             },
             {
-              "feature_key": "HR_TOTAL_EMPLOYEES",
+              "feature_key": "HR_VIEW_ALL_EMPLOYEES",
               "feature_id": 0.1,
               "is_statistics": true,
               "title": "Total Employees",

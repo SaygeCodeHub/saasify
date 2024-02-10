@@ -10,9 +10,9 @@ class AppInitialised extends InitialiseAppStates {
   final bool isGeoFencing;
   final InitialiseAppModel initialiseAppModel;
 
-  AppInitialised({required this.isGeoFencing,required this.initialiseAppModel});
+  AppInitialised(
+      {required this.isGeoFencing, required this.initialiseAppModel});
 }
-
 
 class InitialisingAppFailed extends InitialiseAppStates {
   final String errorMessage;

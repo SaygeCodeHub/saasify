@@ -7,11 +7,21 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 
+import '../../../utils/constants/string_constants.dart';
+
 class AttendanceButton extends StatelessWidget {
   const AttendanceButton({super.key});
 
   @override
   Widget build(BuildContext context) {
+    bool checkInTimeExists() {
+      return (context.read<AttendanceBloc>().checkInTime.value != null);
+    }
+
+    bool checkOutTimeExists() {
+      return (context.read<AttendanceBloc>().checkOutTime.value != null);
+    }
+
     return BlocConsumer<AttendanceBloc, AttendanceStates>(
         listener: (BuildContext context, state) {
       if (state is ErrorMarkingAttendance) {
@@ -22,25 +32,25 @@ class AttendanceButton extends StatelessWidget {
           },
         );
       }
-      if (state is ErrorMarkingAttendance) {
-        // Home Screen API
-      }
     }, builder: (BuildContext context, state) {
       if (state is MarkingAttendance) {
         return const Center(
             child: SizedBox(
                 width: 25, height: 25, child: CircularProgressIndicator()));
       } else {
-        return PrimaryButton(
-            backgroundColor: context.read<AttendanceBloc>().isCheckedIn
-                ? AppColors.successGreen
-                : AppColors.errorRed,
-            onPressed: () {
-              context.read<AttendanceBloc>().add(MarkAttendance());
-            },
-            buttonTitle: context.read<AttendanceBloc>().isCheckedIn
-                ? 'Check In'
-                : 'Check Out');
+        return (checkInTimeExists() && checkOutTimeExists())
+            ? const SizedBox.shrink()
+            : PrimaryButton(
+                buttonWidth: 80,
+                backgroundColor: (!checkInTimeExists())
+                    ? AppColors.successGreen
+                    : AppColors.errorRed,
+                onPressed: () {
+                  context.read<AttendanceBloc>().add(MarkAttendance());
+                },
+                buttonTitle: !checkInTimeExists()
+                    ? StringConstants.kCheckIn
+                    : StringConstants.kCheckOut);
       }
     });
   }

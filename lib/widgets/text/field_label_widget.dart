@@ -25,6 +25,7 @@ class LabelAndFieldWidget extends StatelessWidget {
   final EdgeInsetsGeometry? contentPadding;
   final int? maxLines;
   final double? textFieldSize;
+  final CustomTextField? textField;
 
   const LabelAndFieldWidget(
       {super.key,
@@ -47,18 +48,15 @@ class LabelAndFieldWidget extends StatelessWidget {
       this.validator,
       this.isRequired = false,
       this.onTap,
-      this.inputFormatters});
-
-  set textFieldController(TextEditingController? controller) {
-    textFieldController = controller;
-  }
+      this.inputFormatters,
+      this.textField});
 
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       if (label != null) LabelTextWidget(label: label),
       if (label != null) const SizedBox(height: spacingMedium),
-      CustomTextField(
+      textField ?? CustomTextField(
           maxLines: maxLines,
           suffix: suffix,
           width: textFieldSize ?? double.maxFinite,

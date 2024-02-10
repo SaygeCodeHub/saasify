@@ -5,13 +5,17 @@ import 'package:saasify/bloc/auth/auth_events.dart';
 import 'package:saasify/bloc/auth/auth_states.dart';
 import 'package:saasify/bloc/companies/companies_bloc.dart';
 import 'package:saasify/bloc/employee/employee_bloc.dart';
+import 'package:saasify/bloc/initialise/initialise_bloc.dart';
 import 'package:saasify/bloc/leaves/leaves_bloc.dart';
 import 'package:saasify/bloc/register/register_bloc.dart';
+import 'package:saasify/bloc/resetPassword/reset_password_bloc.dart';
 import 'package:saasify/bloc/settings/settings_bloc.dart';
+import 'package:saasify/bloc/timesheet/timesheet_bloc.dart';
 import 'package:saasify/configs/app_route.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
+import 'package:saasify/utils/notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'bloc/auth/auth_bloc.dart';
@@ -27,6 +31,7 @@ void main() async {
 
 _initFirebase() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await NotificationUtil().initNotifications();
 }
 
 _initDependencies() async {
@@ -50,7 +55,10 @@ class MyPosApp extends StatelessWidget {
         BlocProvider(create: (context) => EmployeeBloc()),
         BlocProvider(create: (context) => CompaniesBloc()),
         BlocProvider(create: (context) => LeavesBloc()),
+        BlocProvider(create: (context) => ResetPasswordBloc()),
+        BlocProvider(create: (context) => TimeSheetBloc()),
         BlocProvider(create: (context) => SettingsBloc()),
+        BlocProvider(create: (context) => InitialiseAppBloc())
       ],
       child: GestureDetector(
           onTap: () {

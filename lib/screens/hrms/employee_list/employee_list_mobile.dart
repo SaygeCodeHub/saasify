@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/data/models/employee/get_all_employees_model.dart';
 import 'package:saasify/widgets/list_tile_widget.dart';
 
 class EmployeeListMobile extends StatelessWidget {
-  const EmployeeListMobile({super.key});
+  final List<EmployeeListData> employees;
+  const EmployeeListMobile({super.key, required this.employees});
 
   @override
   Widget build(BuildContext context) {
@@ -10,15 +12,15 @@ class EmployeeListMobile extends StatelessWidget {
       children: [
         Expanded(
           child: ListView.separated(
-              itemCount: 150,
+              itemCount: employees.length,
               shrinkWrap: true,
               physics: const BouncingScrollPhysics(),
               separatorBuilder: (context, index) => const Divider(),
               itemBuilder: (context, index) {
-                return const ListTileWidget(
-                    title: 'Deep Doshi',
-                    subtitle: 'AAJK1OW1923',
-                    avatarUrl: 'assets/user.png');
+                return ListTileWidget(
+                    title: employees[index].name,
+                    subtitle: employees[index].employeeId.toString(),
+                    avatarUrl: "https://picsum.photos/200");
               }),
         ),
       ],

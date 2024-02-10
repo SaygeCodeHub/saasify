@@ -33,7 +33,7 @@ class StringConstants {
   static const kConfirmPassword = 'Confirm Password';
   static const kVerify = "Verify";
   static const kRegister = "Register";
-  static const kSendVerificationLink = "Send Verification Link";
+  static const kSendVerificationCode = "Send Verification Code";
   static const kOk = "Ok";
   static const kCancel = "Cancel";
   static const kSuccess = "Success";
@@ -63,6 +63,9 @@ class StringConstants {
   static const kFieldCannotBeEmpty = 'This field cannot be empty';
   static const kEnterValidMobileNumber = 'Please enter valid mobile number';
   static const kEnterValidPassword = 'Please enter valid password';
+  static const kOTP = 'OTP';
+  static const kNewPassword = 'New Password';
+  static const kUpdatePassword = "Update Password";
 
 //Leaves
   static const kBalanceMedicalLeaves = 'Balance Medical Leaves';
@@ -82,4 +85,16 @@ class StringConstants {
   static const kComments = 'Comments';
   static const kReject = 'Reject';
   static const kApprove = 'Approve';
+  static const kLeaveStatus = 'Leave Status';
+  static const kAction = 'Action';
+  static const kShowDetails = 'Show Details';
+  static const kMyLeaveDetails = 'My Leave details';
+  static const kWithdraw = 'Withdraw';
+  static const kMyLeaves = 'My Leaves';
+  static const kPendingLeaveRequests = 'Pending Leave Requests';
+  static const kDate = 'Date';
+  static const kCheckIn = 'Check In';
+  static const kCheckOut = 'Check Out';
+  static const kRegularise = 'Regularise';
+  static const kTimesheet = 'Timesheet';
 }

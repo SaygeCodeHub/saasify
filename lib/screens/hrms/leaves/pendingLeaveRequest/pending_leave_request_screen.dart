@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/leaves/leave_event.dart';
-import 'package:saasify/bloc/leaves/leave_state.dart';
+import 'package:saasify/bloc/leaves/leave_events.dart';
+import 'package:saasify/bloc/leaves/leave_states.dart';
 import 'package:saasify/bloc/leaves/leaves_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/pending_leave_request_mobile_screen.dart';
 import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/pending_leave_request_web_screen.dart';
+import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
+import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
@@ -37,7 +39,8 @@ class PendingLeaveRequestScreen extends StatelessWidget {
                               ? const SizedBox.shrink()
                               : const BackButton(),
                           const SizedBox(width: spacingXMedium),
-                          const ModuleHeading(label: 'Leave Requests'),
+                          const ModuleHeading(
+                              label: StringConstants.kPendingLeaveRequests),
                         ],
                       ),
                     ],
@@ -60,62 +63,27 @@ class PendingLeaveRequestScreen extends StatelessWidget {
                         showDialog(
                             context: context,
                             builder: (context) {
-                              return AlertDialog(
-                                  icon: const Align(
-                                      alignment: Alignment.topCenter,
-                                      child: Icon(Icons.done_all_rounded)),
-                                  content: SizedBox(
-                                    height:
-                                        MediaQuery.sizeOf(context).height * 0.2,
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 0.2,
-                                    child: const Card(
-                                        child: Center(
-                                      child: Text(
-                                          "Successfully updated status \nThank You.",
-                                          textAlign: TextAlign.center),
-                                    )),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          context
-                                              .read<LeavesBloc>()
-                                              .add(GetAllLeaves());
-                                        },
-                                        child: const Text("OK"))
-                                  ]);
+                              return SuccessAlertDialog(
+                                  description: state
+                                      .updateLeaveStatusModel.message
+                                      .toString(),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                    context
+                                        .read<LeavesBloc>()
+                                        .add(GetAllLeaves());
+                                  });
                             });
                       } else if (state is LeaveStatusUpdateFailed) {
                         ProgressBar.dismiss(context);
                         showDialog(
                             context: context,
                             builder: (context) {
-                              return AlertDialog(
-                                  icon: const Align(
-                                      alignment: Alignment.topCenter,
-                                      child: Icon(Icons.sms_failed_rounded)),
-                                  content: SizedBox(
-                                    height:
-                                        MediaQuery.sizeOf(context).height * 0.2,
-                                    width:
-                                        MediaQuery.sizeOf(context).width * 0.2,
-                                    child: const Card(
-                                        child: Center(
-                                      child: Text(
-                                        "Failed to update status \nPlease Try Again.",
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    )),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text("OK"))
-                                  ]);
+                              return ErrorAlertDialog(
+                                  description: state.errorMessage.toString(),
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  });
                             });
                       }
                     },
@@ -129,14 +97,13 @@ class PendingLeaveRequestScreen extends StatelessWidget {
                             child: Center(child: CircularProgressIndicator()));
                       } else if (state is LeavesFetched) {
                         return Expanded(
-                          child: ResponsiveLayout(
-                              mobileBody: PendingLeaveRequestsMobileScreen(
-                                  pendingLeaves: state
-                                      .getAllLeavesModel.data.pendingLeaves),
-                              desktopBody: PendingLeaveRequestsWebScreen(
-                                  pendingLeaves: state
-                                      .getAllLeavesModel.data.pendingLeaves)),
-                        );
+                            child: ResponsiveLayout(
+                                mobileBody: PendingLeaveRequestsMobileScreen(
+                                    pendingLeaves: state
+                                        .getAllLeavesModel.data.pendingLeaves),
+                                desktopBody: PendingLeaveRequestsWebScreen(
+                                    pendingLeaves: state.getAllLeavesModel.data
+                                        .pendingLeaves)));
                       } else {
                         return const SizedBox.shrink();
                       }

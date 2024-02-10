@@ -1,5 +1,5 @@
 enum Modules {
-  pendingLeaveApprovals(name: 'Pending Leave Approvals', typeId: 1),
+  pendingApprovals(name: 'Pending Approvals', typeId: 1),
   todaysAbsentees(name: 'Today’s Absentees', typeId: 2),
   totalEmployees(name: 'Total Employees', typeId: 3),
   monthlySalaryRollout(name: 'Monthly Salary Rollout', typeId: 4),

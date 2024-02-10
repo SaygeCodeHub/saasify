@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/leaves/leave_event.dart';
+import 'package:saasify/bloc/leaves/leave_events.dart';
 import 'package:saasify/bloc/leaves/leaves_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/data/models/leaves/get_all_leaves_model.dart';

@@ -1,7 +1,7 @@
-import 'dart:developer';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/attendance/attendance_model.dart';
 import 'package:saasify/data/models/attendance/location_permission_status.dart';
@@ -14,78 +14,96 @@ import 'attendance_state.dart';
 class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
   final AttendanceRepository _attendanceRepository =
       getIt<AttendanceRepository>();
-  final Cache cache = getIt<Cache>();
+  final Cache _cache = getIt<Cache>();
+  bool isGeoFencingEnabled = false;
 
   late double officeLatitude;
   late double officeLongitude;
   double currentLatitude = 0;
   double currentLongitude = 0;
 
-  bool isCheckedIn = true;
+  ValueNotifier<String?> checkInTime = ValueNotifier<String?>(null);
+  ValueNotifier<String?> checkOutTime = ValueNotifier<String?>(null);
 
   AttendanceBloc() : super(AttendanceInitial()) {
     on<MarkAttendance>(_onMarkAttendance);
-    on<CheckAttendance>(_onCheckAttendance);
+    on<FetchAttendance>(_onFetchAttendance);
   }
 
-  void _onCheckAttendance(
-      CheckAttendance event, Emitter<AttendanceStates> emit) async {
-    if (event.checkInTime != null && event.checkOutTime == null) {
-      isCheckedIn = true;
-    } else {
-      isCheckedIn = false;
+  void _onFetchAttendance(
+      FetchAttendance event, Emitter<AttendanceStates> emit) async {
+    try {
+      AttendanceModel attendanceModel =
+          await _attendanceRepository.getAttendance();
+
+      if (attendanceModel.status == 200) {
+        checkInTime.value = formatDate(attendanceModel.data.checkIn);
+        checkOutTime.value = formatDate(attendanceModel.data.checkOut);
+      }
+    } catch (e) {
+      emit(ErrorFetchingAttendance(message: e.toString()));
     }
   }
 
   void _onMarkAttendance(
       MarkAttendance event, Emitter<AttendanceStates> emit) async {
     emit(MarkingAttendance());
-
     try {
-      List<double?> officePosition = await _getOfficeLocation();
-      if (officePosition.first == null) {
-        emit(ErrorMarkingAttendance(message: 'Error getting office location'));
-        return;
-      }
-      officeLatitude = officePosition.first ?? 0;
-      officeLongitude = officePosition.last ?? 0;
+      if (isGeoFencingEnabled) {
+        List<double?> officePosition = await _getOfficeLocation();
+        if (officePosition.first == null) {
+          emit(
+              ErrorMarkingAttendance(message: 'Error getting office location'));
+          return;
+        }
+        officeLatitude = officePosition.first ?? 0;
+        officeLongitude = officePosition.last ?? 0;
 
-      LocationPermissionStatus locationPermissionStatus =
-          await _checkLocationPermission();
+        LocationPermissionStatus locationPermissionStatus =
+            await _checkLocationPermission();
 
-      if (!locationPermissionStatus.hasPermission) {
-        emit(ErrorMarkingAttendance(message: locationPermissionStatus.message));
-        return;
-      }
+        if (!locationPermissionStatus.hasPermission) {
+          emit(ErrorMarkingAttendance(
+              message: locationPermissionStatus.message));
+          return;
+        }
 
-      Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.bestForNavigation);
+        Position position = await Geolocator.getCurrentPosition(
+            desiredAccuracy: LocationAccuracy.bestForNavigation);
 
-      currentLatitude = position.latitude;
-      currentLongitude = position.longitude;
+        currentLatitude = position.latitude;
+        currentLongitude = position.longitude;
 
-      double distance = Geolocator.distanceBetween(
-          officeLatitude, officeLongitude, currentLatitude, currentLongitude);
+        double distance = Geolocator.distanceBetween(
+            officeLatitude, officeLongitude, currentLatitude, currentLongitude);
 
-      log(officeLatitude.toString());
-      log(officeLongitude.toString());
-      log(currentLatitude.toString());
-      log(currentLongitude.toString());
-      log(distance.toString());
-
-      if (distance < 20) {
-        AttendanceModel checkInModel = await _attendanceRepository
-            .markAttendance(1, 1, DateTime.now().toString());
-        if (checkInModel.status == 200) {
-          isCheckedIn = !isCheckedIn;
-          emit(MarkedAttendance());
+        if ((distance < 100) && isGeoFencingEnabled) {
+          AttendanceModel attendanceModel =
+              await _attendanceRepository.markAttendance();
+          if (attendanceModel.status == 200) {
+            checkInTime.value = formatDate(attendanceModel.data.checkIn);
+            checkOutTime.value = formatDate(attendanceModel.data.checkOut);
+            emit(MarkedAttendance());
+          } else {
+            emit(ErrorMarkingAttendance(message: attendanceModel.message));
+            return;
+          }
         } else {
-          emit(ErrorMarkingAttendance(message: checkInModel.message));
+          emit(ErrorMarkingAttendance(
+              message: 'You are not in office premises'));
           return;
         }
       } else {
-        emit(ErrorMarkingAttendance(message: 'You are not in office premises'));
-        return;
+        AttendanceModel attendanceModel =
+            await _attendanceRepository.markAttendance();
+        if (attendanceModel.status == 200) {
+          checkInTime.value = formatDate(attendanceModel.data.checkIn);
+          checkOutTime.value = formatDate(attendanceModel.data.checkOut);
+          emit(MarkedAttendance());
+        } else {
+          emit(ErrorMarkingAttendance(message: attendanceModel.message));
+          return;
+        }
       }
     } catch (e) {
       emit(ErrorMarkingAttendance(message: e.toString()));
@@ -126,7 +144,7 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
 
   Future<List<double?>> _getOfficeLocation() async {
     try {
-      List<double?> officePosition = await cache.getLatLong();
+      List<double?> officePosition = await _cache.getLatLong();
       if (officePosition.first == null) {
         officePosition = await _attendanceRepository.getLatLong();
       }
@@ -134,5 +152,14 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
     } catch (e) {
       rethrow;
     }
+  }
+
+  String? formatDate(DateTime? date) {
+    if (date != null) {
+      date = date.toUtc();
+      DateTime localDate=date.toLocal();
+      return DateFormat("HH:mm").format(localDate);
+    }
+    return null;
   }
 }

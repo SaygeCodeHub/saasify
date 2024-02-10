@@ -3,6 +3,7 @@ import 'package:saasify/data/models/authentication/authenticate_user_model.dart'
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/authentication/forgotPassword/forgot_password_screen.dart';
 import 'package:saasify/screens/authentication/register/register_screen.dart';
+import 'package:saasify/screens/authentication/updatePassword/update_password_screen.dart';
 import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.dart';
 import 'package:saasify/screens/companies/widgets/branches/all_branches_screen.dart';
 import 'package:saasify/screens/companies/widgets/companies/all_companies_screen.dart';
@@ -13,7 +14,11 @@ import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_screen.dart';
 import 'package:saasify/screens/hrms/leaves/getMyLeaves/my_leaves_screen.dart';
 import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/pending_leave_request_screen.dart';
+import 'package:saasify/screens/hrms/leaves/widgets/leave_details_navigation_screen.dart';
 import 'package:saasify/screens/settings/settings_screen.dart';
+
+import '../data/models/leaves/get_all_leaves_model.dart';
+import '../screens/hrms/timesheet/timesheet_screen.dart';
 
 class AppRoutes {
   static Route routes(RouteSettings settings) {
@@ -23,7 +28,9 @@ class AppRoutes {
       case RegisterScreen.routeName:
         return _createRoute(RegisterScreen());
       case ForgotPasswordScreen.routeName:
-        return _createRoute(const ForgotPasswordScreen());
+        return _createRoute(ForgotPasswordScreen());
+      case UpdatePasswordScreen.routeName:
+        return _createRoute(UpdatePasswordScreen());
       case AddCompanyScreen.routeName:
         return _createRoute(AddCompanyScreen());
       case HRMSDashboardScreen.routeName:
@@ -41,6 +48,12 @@ class AppRoutes {
         return _createRoute(const MyLeavesScreen());
       case PendingLeaveRequestScreen.routeName:
         return _createRoute(const PendingLeaveRequestScreen());
+      case LeaveDetailsNavigationScreen.routeName:
+        List<dynamic> args = settings.arguments as List<dynamic>;
+        return _createRoute(LeaveDetailsNavigationScreen(
+            isPending: args[0] as bool, leaves: args[1] as MyLeaves));
+      case TimesheetScreen.routeName:
+        return _createRoute(const TimesheetScreen());
       case AllBranchesScreen.routeName:
         List<dynamic> args = settings.arguments as List<dynamic>;
         return _createRoute(AllBranchesScreen(

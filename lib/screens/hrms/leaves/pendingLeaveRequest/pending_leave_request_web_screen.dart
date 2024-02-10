@@ -4,7 +4,7 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/leaves/get_all_leaves_model.dart';
 import 'package:saasify/data/models/table_models/column_data_model.dart';
-import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/update_status_popup.dart';
+import 'package:saasify/screens/hrms/leaves/widgets/leave_details_popup.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/utils/formatters.dart';
 import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
@@ -25,12 +25,12 @@ class PendingLeaveRequestsWebScreen extends StatelessWidget {
             checkboxVisible: false,
             showRowCheckBox: false,
             columnList: [
-              ColumnData(header: "Name"),
-              ColumnData(header: "Leave Type"),
-              ColumnData(header: "Start Date"),
-              ColumnData(header: "End Date"),
-              ColumnData(header: "Leave Reason"),
-              ColumnData(header: "")
+              ColumnData(header: StringConstants.kApplicantName),
+              ColumnData(header: StringConstants.kLeaveType),
+              ColumnData(header: StringConstants.kStartDate),
+              ColumnData(header: StringConstants.kEndDate),
+              ColumnData(header: StringConstants.kLeaveReason),
+              ColumnData(header: StringConstants.kAction)
             ],
             selectedIds: const [],
             dataCount: pendingLeaves.length,
@@ -58,9 +58,11 @@ class PendingLeaveRequestsWebScreen extends StatelessWidget {
                       onPressed: () {
                         showDialog(
                             context: context,
-                            builder: (context) => UpdateStatusPopup(
-                                isMobile: true,
-                                pendingLeaves: pendingLeaves[index]));
+                            builder: (context) => LeaveDetailsPopup(
+                                  isMobile: false,
+                                  leaves: pendingLeaves[index],
+                                  isPending: true,
+                                ));
                       }),
                 ]),
       ),

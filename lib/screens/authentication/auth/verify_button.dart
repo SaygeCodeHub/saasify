@@ -7,6 +7,7 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/authentication/register/register_screen.dart';
 import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.dart';
+import 'package:saasify/screens/companies/widgets/branches/all_branches_screen.dart';
 import 'package:saasify/screens/companies/widgets/companies/all_companies_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
@@ -31,6 +32,14 @@ class AuthVerifyButton extends StatelessWidget {
               Navigator.pushReplacementNamed(
                   context, AllCompaniesScreen.routeName,
                   arguments: state.authenticateUserData);
+            } else if (state.authenticateUserData.company[0].branches.length >
+                1) {
+              Navigator.pushReplacementNamed(
+                  context, AllBranchesScreen.routeName,
+                  arguments: [
+                    state.authenticateUserData.company[0].companyName,
+                    state.authenticateUserData.company[0].branches
+                  ]);
             } else {
               Navigator.pushReplacementNamed(
                   context, HRMSDashboardScreen.routeName);

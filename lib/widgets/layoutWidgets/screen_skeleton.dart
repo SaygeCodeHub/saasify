@@ -16,7 +16,7 @@ class ScreenSkeleton extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isMobile = MediaQuery.of(context).size.width < mobileBreakPoint;
     return Scaffold(
-      appBar: isMobile ? const MobileAppBar() : null,
+      appBar: isMobile ? MobileAppBar(isHome: isHome) : null,
       drawer: isMobile
           ? isHome
               ? const CustomDrawer()

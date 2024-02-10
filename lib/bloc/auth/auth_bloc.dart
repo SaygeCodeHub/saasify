@@ -27,7 +27,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
       bool? isLoggedIn = await cache.isLoggedIn();
       var companyId = await cache.getCompanyId();
       if (isLoggedIn == true) {
-        if (companyId != '' || companyId.isNotEmpty) {
+        if (companyId != null) {
           emit(ActiveSession());
         } else {
           emit(NoCompanySelected());
@@ -60,18 +60,26 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
   }
 
   saveUserSelections(AuthenticateUserData authenticateUserData) async {
+    getIt<Cache>().setUserLoggedIn(true);
     getIt<Cache>().setUserId(authenticateUserData.userId.toString());
-    cache.setUserLoggedIn(true);
-    if (authenticateUserData.company.isNotEmpty) {
-      getIt<Cache>()
-          .setCompanyId(authenticateUserData.company[0].companyId.toString());
-      if (authenticateUserData.company[0].branches.length <= 1) {
-        getIt<Cache>().setBranchId(
-            authenticateUserData.company[0].branches[0].toString());
-        List<int> intList = authenticateUserData.company[0].branches[0].roles;
-        List<String> stringList =
-            intList.map((int number) => number.toString()).toList();
-        getIt<Cache>().setRole(stringList);
+    getIt<Cache>().setUserName(authenticateUserData.name.toString());
+    if (authenticateUserData.company.isNotEmpty &&
+        authenticateUserData.company.length <= 1) {
+      getIt<Cache>().setCompanyId(authenticateUserData.company[0].companyId);
+      getIt<Cache>().setCompanyName(
+          authenticateUserData.company[0].companyName.toString());
+      if (authenticateUserData.company[0].branches.isNotEmpty &&
+          authenticateUserData.company[0].branches.length <= 1) {
+        getIt<Cache>()
+            .setBranchId(authenticateUserData.company[0].branches[0].branchId);
+        getIt<Cache>().setBranchName(
+            authenticateUserData.company[0].branches[0].branchName.toString());
+        getIt<Cache>().setDesignations(
+            authenticateUserData.company[0].branches[0].designations);
+        getIt<Cache>().setAccessibleFeatures(
+            authenticateUserData.company[0].branches[0].accessibleFeatures);
+        getIt<Cache>().setAccessibleModules(
+            authenticateUserData.company[0].branches[0].accessibleModules);
       }
     }
   }

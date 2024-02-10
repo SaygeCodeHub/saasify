@@ -11,3 +11,5 @@ class UpdateEmployee extends EmployeeEvents {
 
   UpdateEmployee({this.employeeId});
 }
+
+class GetAllEmployees extends EmployeeEvents {}

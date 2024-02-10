@@ -55,6 +55,9 @@ class CustomTextField extends StatelessWidget {
       this.onTap,
       this.isRequired = false,
       this.width = double.maxFinite});
+      this.controller,
+      this.onTap,
+      this.isRequired = false});
 
   @override
   Widget build(BuildContext context) {
@@ -73,6 +76,7 @@ class CustomTextField extends StatelessWidget {
         obscuringCharacter: "*",
         cursorColor: AppColors.orange,
         onTap: onTap,
+        initialValue: initialValue,
         decoration: InputDecoration(
             focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.black12)),
@@ -83,6 +87,8 @@ class CustomTextField extends StatelessWidget {
             focusedErrorBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: AppColors.errorRed)),
             border: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black12)),
+            disabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.black12)),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 15, horizontal: 15),

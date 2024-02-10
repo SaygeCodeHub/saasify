@@ -7,7 +7,11 @@ class ApiConstants {
   static const createCompany = 'createCompany';
   static const loadApplyLeaveScreen = 'loadApplyLeaveScreen';
   static const applyLeave = 'applyLeave';
+  static const forgotPassword = 'forgotPassword';
+  static const updatePassword = 'updatePassword';
   static const getAllLeaves = 'getAllLeaves';
   static const getBranchSettings = 'getBranchSettings';
   static const updateLeaveStatus = 'updateLeaveStatus';
+  static const attendanceHistory = 'attendanceHistory';
+  static const initializeApi = 'initializeApi';
 }

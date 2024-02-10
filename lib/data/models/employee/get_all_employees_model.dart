@@ -1,7 +1,11 @@
 import 'dart:convert';
 
-GetAllEmployeesModel getAllEmployeesModelFromJson(String str) =>
-    GetAllEmployeesModel.fromJson(json.decode(str));
+GetAllEmployeesModel getAllEmployeesModelFromJson(String str) {
+  if (str.isEmpty) {
+    throw ArgumentError("Input string cannot be null or empty.");
+  }
+  return GetAllEmployeesModel.fromJson(json.decode(str));
+}
 
 String getAllEmployeesModelToJson(GetAllEmployeesModel data) =>
     json.encode(data.toJson());
@@ -9,7 +13,7 @@ String getAllEmployeesModelToJson(GetAllEmployeesModel data) =>
 class GetAllEmployeesModel {
   final int status;
   final String message;
-  final List<Datum> data;
+  final List<EmployeeListData> data;
 
   GetAllEmployeesModel({
     required this.status,
@@ -17,12 +21,19 @@ class GetAllEmployeesModel {
     required this.data,
   });
 
-  factory GetAllEmployeesModel.fromJson(Map<String, dynamic> json) =>
-      GetAllEmployeesModel(
-        status: json["status"],
-        message: json["message"],
-        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-      );
+  factory GetAllEmployeesModel.fromJson(Map<String, dynamic>? json) {
+    if (json == null) {
+      throw const FormatException("Invalid JSON format. Data is null.");
+    }
+    return GetAllEmployeesModel(
+      status: json["status"] ?? 0,
+      message: json["message"] ?? "",
+      data: (json["data"] as List<dynamic>?)
+              ?.map((e) => EmployeeListData.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "status": status,
@@ -31,15 +42,15 @@ class GetAllEmployeesModel {
       };
 }
 
-class Datum {
+class EmployeeListData {
   final int employeeId;
   final String name;
-  final dynamic userContact;
-  final List<int> designations;
+  final int userContact;
+  final List<String> designations;
   final String userEmail;
   final dynamic currentAddress;
 
-  Datum({
+  EmployeeListData({
     required this.employeeId,
     required this.name,
     required this.userContact,
@@ -48,14 +59,22 @@ class Datum {
     required this.currentAddress,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-        employeeId: json["employee_id"],
-        name: json["name"],
-        userContact: json["user_contact"],
-        designations: List<int>.from(json["designations"].map((x) => x)),
-        userEmail: json["user_email"],
-        currentAddress: json["current_address"],
-      );
+  factory EmployeeListData.fromJson(Map<String, dynamic>? json) {
+    if (json == null) {
+      throw const FormatException("Invalid JSON format. Data is null.");
+    }
+    return EmployeeListData(
+      employeeId: json["employee_id"] ?? 0,
+      name: json["name"] ?? "",
+      userContact: json["user_contact"] ?? 0,
+      designations: (json["designations"] as List<dynamic>?)
+              ?.map((e) => e.toString())
+              .toList() ??
+          [],
+      userEmail: json["user_email"] ?? "",
+      currentAddress: json["current_address"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "employee_id": employeeId,

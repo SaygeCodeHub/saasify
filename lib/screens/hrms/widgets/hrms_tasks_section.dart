@@ -31,7 +31,7 @@ class HrmsTasksSection extends StatelessWidget {
               mainAxisSpacing: 8.0,
               crossAxisSpacing: 8.0,
               childAspectRatio:
-                  isMobile ? 1.4 : 1.9 // Aspect ratio of each child
+                  isMobile ? 1.4 : 1.6 // Aspect ratio of each child
               ),
           itemCount: isMobile ? 2 : 5,
           itemBuilder: (context, index) {
@@ -60,11 +60,24 @@ class HrmsTasksSection extends StatelessWidget {
                                   color: AppColors.darkBlue)),
                       const SizedBox(height: spacingStandard),
                       const Text('Upload and submit F12 & 1QC Form',
-                          maxLines: 1,
+                          maxLines: 2,
                           softWrap: true,
                           overflow: TextOverflow.ellipsis),
-                      const Text('28/12/2024'),
-                      const Text('High Priority')
+                      const SizedBox(height: spacingLarge),
+                      const Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(Icons.date_range),
+                              SizedBox(width: spacingXXSmall),
+                              Text('28/12/2024')
+                            ],
+                          ),
+                          Text('High')
+                        ],
+                      ),
                     ],
                   ),
                 ),

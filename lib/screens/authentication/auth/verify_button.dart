@@ -9,7 +9,7 @@ import 'package:saasify/screens/authentication/register/register_screen.dart';
 import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.dart';
 import 'package:saasify/screens/companies/widgets/branches/all_branches_screen.dart';
 import 'package:saasify/screens/companies/widgets/companies/all_companies_screen.dart';
-import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
+import 'package:saasify/screens/root_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
@@ -42,7 +42,7 @@ class AuthVerifyButton extends StatelessWidget {
                   ]);
             } else {
               Navigator.pushReplacementNamed(
-                  context, HRMSDashboardScreen.routeName);
+                  context, RootScreen.routeName);
             }
           }
           if (state is FailedToAuthenticateUser) {

@@ -67,12 +67,6 @@ class CustomDrawer extends StatelessWidget {
                   Navigator.pushReplacementNamed(context, 'POS');
                 }),
             ModuleListTile(
-                iconData: Icons.account_balance_sharp,
-                title: 'Accounts',
-                onTap: () {
-                  Navigator.pushReplacementNamed(context, 'Accounts');
-                }),
-            ModuleListTile(
                 iconData: Icons.shopping_cart_outlined,
                 title: 'Orders',
                 onTap: () {
@@ -83,7 +77,8 @@ class CustomDrawer extends StatelessWidget {
                 iconData: Icons.inventory_outlined,
                 title: 'Inventory',
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, InventoryScreen.routeName);
+                  Navigator.pushReplacementNamed(
+                      context, InventoryScreen.routeName);
                 })
           ],
         ),

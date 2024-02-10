@@ -18,35 +18,35 @@ class HrmsFeaturesSection extends StatelessWidget {
       children: [
         const ModuleHeading(label: 'Features'),
         const SizedBox(height: spacingStandard),
-        GridView.builder(
-          shrinkWrap: true,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: isMobile ? 2 : 5,
-              mainAxisSpacing: 8.0,
-              crossAxisSpacing: 8.0,
-              childAspectRatio: isMobile ? 1.4 : 1.9),
-          itemCount: initialiseAppModel.data!.accessibleFeatures!.length,
-          itemBuilder: (context, index) {
-            return InkWell(
-                onTap: () {
-                  DashboardRouting(
-                          featureKey: initialiseAppModel
-                              .data!.accessibleFeatures![index].featureKey!,
-                          context: context)
-                      .navigateTo();
-                },
-                child: ValueCard(
-                    cardHeading: initialiseAppModel
-                        .data!.accessibleFeatures![index].title
-                        .toString(),
-                    value: initialiseAppModel
-                        .data!.accessibleFeatures![index].value
-                        .toString(),
-                    iconData: initialiseAppModel
-                        .data!.accessibleFeatures![index].title
-                        .toString()));
-          },
-        ),
+        // GridView.builder(
+        //   shrinkWrap: true,
+        //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        //       crossAxisCount: isMobile ? 2 : 5,
+        //       mainAxisSpacing: 8.0,
+        //       crossAxisSpacing: 8.0,
+        //       childAspectRatio: isMobile ? 1.4 : 1.9),
+        //   itemCount: initialiseAppModel.data!.accessibleFeatures!.length,
+        //   itemBuilder: (context, index) {
+        //     return InkWell(
+        //         onTap: () {
+        //           DashboardRouting(
+        //                   featureKey: initialiseAppModel
+        //                       .data!.accessibleFeatures![index].featureKey!,
+        //                   context: context)
+        //               .navigateTo();
+        //         },
+        //         child: ValueCard(
+        //             cardHeading: initialiseAppModel
+        //                 .data!.accessibleFeatures![index].title
+        //                 .toString(),
+        //             value: initialiseAppModel
+        //                 .data!.accessibleFeatures![index].value
+        //                 .toString(),
+        //             iconData: initialiseAppModel
+        //                 .data!.accessibleFeatures![index].title
+        //                 .toString()));
+        //   },
+        // ),
       ],
     );
   }

@@ -17,6 +17,7 @@ import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/pending_leave_re
 import 'package:saasify/screens/hrms/leaves/widgets/leave_details_navigation_screen.dart';
 import 'package:saasify/screens/inventory/inventory_screen.dart';
 import 'package:saasify/screens/orders/orders_screen.dart';
+import 'package:saasify/screens/root_screen.dart';
 import 'package:saasify/screens/settings/settings_screen.dart';
 
 import '../data/models/leaves/get_all_leaves_model.dart';
@@ -25,6 +26,8 @@ import '../screens/hrms/timesheet/timesheet_screen.dart';
 class AppRoutes {
   static Route routes(RouteSettings settings) {
     switch (settings.name) {
+      case RootScreen.routeName:
+        return _createRoute(const RootScreen());
       case AuthenticationScreen.routeName:
         return _createRoute(AuthenticationScreen());
       case RegisterScreen.routeName:

@@ -56,26 +56,27 @@ class LabelAndFieldWidget extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       if (label != null) LabelTextWidget(label: label),
       if (label != null) const SizedBox(height: spacingMedium),
-      textField ?? CustomTextField(
-          maxLines: maxLines,
-          suffix: suffix,
-          width: textFieldSize ?? double.maxFinite,
-          isRequired: isRequired,
-          initialValue: initialValue,
-          hintText: hintText,
-          prefixIcon: prefixIcon,
-          contentPadding: contentPadding,
-          inputFormatters: inputFormatters,
-          onTap: onTap,
-          suffixIcon: suffixIcon,
-          obscureText: obscureText ?? false,
-          validator: validator,
-          readOnly: readOnly ?? false,
-          textFieldController: textFieldController,
-          onTextFieldChanged: onTextFieldChanged,
-          enabled: enabled ?? true,
-          autofocus: autofocus ?? false,
-          keyboardType: keyboardType)
+      textField ??
+          CustomTextField(
+              maxLines: maxLines,
+              suffix: suffix,
+              width: textFieldSize ?? double.maxFinite,
+              isRequired: isRequired,
+              initialValue: initialValue,
+              hintText: hintText,
+              prefixIcon: prefixIcon,
+              contentPadding: contentPadding,
+              inputFormatters: inputFormatters,
+              onTap: onTap,
+              suffixIcon: suffixIcon,
+              obscureText: obscureText ?? false,
+              validator: validator,
+              readOnly: readOnly ?? false,
+              textFieldController: textFieldController,
+              onTextFieldChanged: onTextFieldChanged,
+              enabled: enabled ?? true,
+              autofocus: autofocus ?? false,
+              keyboardType: keyboardType)
     ]);
   }
 }

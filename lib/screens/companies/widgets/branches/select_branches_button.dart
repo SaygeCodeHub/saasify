@@ -25,7 +25,5 @@ class SelectBranchButton extends StatelessWidget {
     getIt<Cache>().setBranchId(branch.branchId);
     getIt<Cache>().setBranchName(branch.branchName);
     getIt<Cache>().setDesignations(branch.designations);
-    getIt<Cache>().setAccessibleFeatures(branch.accessibleFeatures);
-    getIt<Cache>().setAccessibleModules(branch.accessibleModules);
   }
 }

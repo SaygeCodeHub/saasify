@@ -35,8 +35,8 @@ class InitialiseAppModel {
 
 class InitialiseAppData {
   final List<ListOfBranches>? branches;
-  final List<BleModule>? accessibleModules;
-  final List<BleModule>? availableModules;
+  final List<ModulesModel>? accessibleModules;
+  final List<ModulesModel>? availableModules;
   final bool? geoFencing;
 
   InitialiseAppData({
@@ -54,12 +54,12 @@ class InitialiseAppData {
                 json["branches"]!.map((x) => ListOfBranches.fromJson(x))),
         accessibleModules: json["accessible_modules"] == null
             ? []
-            : List<BleModule>.from(
-                json["accessible_modules"]!.map((x) => BleModule.fromJson(x))),
+            : List<ModulesModel>.from(json["accessible_modules"]!
+                .map((x) => ModulesModel.fromJson(x))),
         availableModules: json["available_modules"] == null
             ? []
-            : List<BleModule>.from(
-                json["available_modules"]!.map((x) => BleModule.fromJson(x))),
+            : List<ModulesModel>.from(json["available_modules"]!
+                .map((x) => ModulesModel.fromJson(x))),
         geoFencing: json["geo_fencing"],
       );
 
@@ -77,7 +77,7 @@ class InitialiseAppData {
       };
 }
 
-class BleModule {
+class ModulesModel {
   final String? moduleKey;
   final int? moduleId;
   final String? title;
@@ -85,7 +85,7 @@ class BleModule {
   final List<FeatureDetailModel>? accessibleFeatures;
   final List<FeatureDetailModel>? availableFeatures;
 
-  BleModule({
+  ModulesModel({
     this.moduleKey,
     this.moduleId,
     this.title,
@@ -94,7 +94,7 @@ class BleModule {
     this.availableFeatures,
   });
 
-  factory BleModule.fromJson(Map<String, dynamic> json) => BleModule(
+  factory ModulesModel.fromJson(Map<String, dynamic> json) => ModulesModel(
         moduleKey: json["module_key"],
         moduleId: json["module_id"],
         title: json["title"],

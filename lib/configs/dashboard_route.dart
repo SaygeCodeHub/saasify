@@ -20,20 +20,17 @@ class DashboardRouting {
       case 'HR':
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
-              builder: (context) => const HRMSDashboardScreen()),
+          MaterialPageRoute(builder: (context) => const HRMSDashboardScreen()),
         );
       case 'ORDERS':
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (context) => const OrdersScreen()),
+          MaterialPageRoute(builder: (context) => const OrdersScreen()),
         );
       case 'INVENTORY':
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (context) => const InventoryScreen()),
+          MaterialPageRoute(builder: (context) => const InventoryScreen()),
         );
       case 'HR_PENDING_APPROVAL':
         Navigator.push(

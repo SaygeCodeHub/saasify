@@ -34,6 +34,8 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
       if (initialiseAppModel.status == 200) {
         bool geoFencing = initialiseAppModel.data!.geoFencing ?? false;
         branches = initialiseAppModel.data!.branches;
+        getIt<Cache>()
+            .setAccessibleModules(initialiseAppModel.data!.accessibleModules!);
         emit(AppInitialised(
             isGeoFencing: geoFencing, initialiseAppModel: initialiseAppModel));
       } else {

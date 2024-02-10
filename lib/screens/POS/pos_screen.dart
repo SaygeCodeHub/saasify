@@ -38,7 +38,8 @@ class POSScreen extends StatelessWidget {
                     productsWithCategories: state.productsWithCategories),
                 desktopBody: POSWeb(
                     productsWithCategories: state.productsWithCategories,
-                    selectedCategory: state.selectedCategory));
+                    selectedCategory: state.selectedCategory,
+                    cartItems: state.cartItems));
           }
           return const SizedBox.shrink();
         },

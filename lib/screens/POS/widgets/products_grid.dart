@@ -8,9 +8,11 @@ class ProductsGrid extends StatelessWidget {
     super.key,
     required this.products,
     required this.selectedCategory,
+    required this.productsWithCategories,
   });
 
   final List<Product> products;
+  final List<ProductsWithCategories> productsWithCategories;
   final int selectedCategory;
 
   @override
@@ -28,7 +30,7 @@ class ProductsGrid extends StatelessWidget {
                       context: context,
                       builder: (context) {
                         return VariantsDialogue(
-                            products: products, index: index);
+                            products: products, index: index, productsWithCategories: productsWithCategories);
                       });
                 },
                 child: Card(

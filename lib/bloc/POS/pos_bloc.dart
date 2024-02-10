@@ -30,6 +30,7 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
         cartProducts.remove(event.variantId);
       }
     }
+    add(ReloadPOS(productsWithCategories: event.productsWithCategories));
   }
 
   FutureOr<void> _addCartItem(
@@ -45,13 +46,14 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
           image: event.variant.image,
           count: 1);
     }
+    add(ReloadPOS(productsWithCategories: event.productsWithCategories));
   }
 
-  FutureOr<void> _reloadPOS(
-      ReloadPOS event, Emitter<POSStates> emit) async {
+  FutureOr<void> _reloadPOS(ReloadPOS event, Emitter<POSStates> emit) async {
     emit(ProductByCategoryLoaded(
         productsWithCategories: event.productsWithCategories,
-        selectedCategory: selectedCategory));
+        selectedCategory: selectedCategory,
+        cartItems: cartProducts.values.toList()));
   }
 
   FutureOr<void> _fetchProductsWithCategories(
@@ -61,10 +63,11 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
       final ProductsWithCategoriesModel productsWithCategoriesModel =
           await posRepository.getAllProductsWithCategories();
       if (productsWithCategoriesModel.status == 200) {
+        selectedCategory = productsWithCategoriesModel.data.first.categoryId;
         emit(ProductByCategoryLoaded(
+            cartItems: cartProducts.values.toList(),
             productsWithCategories: productsWithCategoriesModel.data,
-            selectedCategory:
-                productsWithCategoriesModel.data.first.categoryId));
+            selectedCategory: selectedCategory));
         return;
       } else {
         emit(ProductByCategoryError(

@@ -125,7 +125,7 @@ class BleModule {
 
 class FeatureDetailModel {
   final String? featureKey;
-  final int? featureId;
+  final double? featureId;
   final bool? isStatistics;
   final String? title;
   final String? icon;

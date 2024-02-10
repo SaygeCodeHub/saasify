@@ -22,7 +22,6 @@ class UpdatePasswordMobileScreen extends StatelessWidget {
           const SaasifyLogo(),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
           LabelAndFieldWidget(
-            errorText: 'Please enter valid OTP',
             label: StringConstants.kOTP,
             onTextFieldChanged: (value) {
               context
@@ -32,7 +31,6 @@ class UpdatePasswordMobileScreen extends StatelessWidget {
           ),
           const SizedBox(height: spacingBetweenTextFields),
           LabelAndFieldWidget(
-            errorText: 'Please enter a password',
             prefixIcon: const Icon(Icons.password_outlined),
             label: StringConstants.kPassword,
             onTextFieldChanged: (value) {
@@ -43,7 +41,6 @@ class UpdatePasswordMobileScreen extends StatelessWidget {
           ),
           const SizedBox(height: spacingBetweenTextFields),
           LabelAndFieldWidget(
-              errorText: 'Please confirm a password',
               prefixIcon: const Icon(Icons.password_outlined),
               label: StringConstants.kConfirmPassword,
               onTextFieldChanged: (value) {

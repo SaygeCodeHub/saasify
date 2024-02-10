@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
+import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/utils/text_validation_util.dart';
 import 'package:saasify/widgets/text/custom_text_field.dart';
+import 'package:saasify/widgets/text/field_label_widget.dart';
+import 'package:saasify/widgets/text/label_text_widget.dart';
 
-class EmailTextField extends CustomTextField {
+class EmailTextField extends LabelAndFieldWidget {
   EmailTextField({
     super.key,
     super.initialValue,
     super.onTextFieldChanged,
     super.isRequired,
   }) : super(
+            label: StringConstants.kEmailAddress,
             keyboardType: TextInputType.emailAddress,
             prefixIcon: const Icon(Icons.email_outlined),
             validator: (String? email) {
@@ -22,13 +26,13 @@ class EmailTextField extends CustomTextField {
             });
 }
 
-class PasswordTextField extends CustomTextField {
+class PasswordTextField extends LabelAndFieldWidget {
   PasswordTextField({
     super.key,
-    super.initialValue,
     super.onTextFieldChanged,
     super.isRequired = true,
   }) : super(
+            label: StringConstants.kPassword,
             keyboardType: TextInputType.visiblePassword,
             prefixIcon: const Icon(Icons.password_outlined),
             validator: (String? password) {
@@ -40,8 +44,9 @@ class PasswordTextField extends CustomTextField {
             obscureText: true);
 }
 
-class ContactTextField extends CustomTextField {
+class ContactTextField extends LabelAndFieldWidget {
   ContactTextField({
+    super.label,
     super.key,
     super.initialValue,
     super.onTextFieldChanged,
@@ -58,50 +63,97 @@ class ContactTextField extends CustomTextField {
             });
 }
 
-class DatePickerField extends CustomTextField {
-  DatePickerField({
-    super.key,
-    super.initialValue,
-    required BuildContext context,
-    super.onTextFieldChanged,
-    super.isRequired,
-  }) : super(
-            readOnly: true,
-            onTap: () {
-              showDatePicker(
-                context: context,
-                firstDate: DateTime(DateTime.now().year - 100),
-                lastDate: DateTime(DateTime.now().year + 100),
-                initialDate: DateTime.now(),
-              ).then((value) => onTextFieldChanged!((value == null)
-                  ? null
-                  : DateFormat('dd-MM-yyyy').format(value)));
-            },
-            suffixIcon: const Icon(Icons.calendar_today_outlined));
+class DatePickerField extends StatelessWidget {
+  final String? label;
+  final void Function(String) onTextFieldChanged;
+  final DateTime? initialDate;
+  final TextEditingController _dateController = TextEditingController();
+
+  DatePickerField(
+      {super.key,
+      this.label,
+      required this.onTextFieldChanged,
+      this.initialDate});
+
+  @override
+  Widget build(BuildContext context) {
+    if (initialDate != null) {
+      _dateController.value =
+          TextEditingValue(text: DateFormat('dd-MM-yyyy').format(initialDate!));
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (label != null) LabelTextWidget(label: label),
+        if (label != null) const SizedBox(height: spacingMedium),
+        CustomTextField(
+          textFieldController: _dateController,
+          readOnly: true,
+          suffixIcon: const Icon(Icons.date_range_outlined),
+          onTap: () {
+            showDatePicker(
+              context: context,
+              initialDate: initialDate ?? DateTime.now(),
+              firstDate: DateTime(DateTime.now().year - 100),
+              lastDate: DateTime(DateTime.now().year + 100),
+            ).then((value) {
+              String? textValue =
+                  (value == null) ? '' : DateFormat('dd-MM-yyyy').format(value);
+              _dateController.value = TextEditingValue(text: textValue);
+              onTextFieldChanged((value == null)
+                  ? ''
+                  : DateFormat('yyyy-MM-dd').format(value));
+            });
+          },
+        ),
+      ],
+    );
+  }
 }
 
-class TimePickerField extends CustomTextField {
+class TimePickerField extends LabelAndFieldWidget {
+  static final TextEditingController _timeController = TextEditingController();
+
   TimePickerField({
     super.key,
-    super.initialValue,
     required BuildContext context,
+    super.label,
     super.onTextFieldChanged,
     super.isRequired,
   }) : super(
+            textFieldController: _timeController,
             readOnly: true,
             onTap: () {
               showTimePicker(
                 context: context,
                 initialTime: TimeOfDay.now(),
-              ).then((value) => onTextFieldChanged!((value == null)
-                  ? null
-                  : DateFormat('hh:mm a').format(DateTime(
-                      DateTime.now().year,
-                      DateTime.now().month,
-                      DateTime.now().day,
-                      value.hour,
-                      value.minute,
-                    ))));
+              ).then((value) {
+                String? textValue = (value == null)
+                    ? ''
+                    : DateFormat('hh:mm a').format(DateTime(
+                        DateTime.now().year,
+                        DateTime.now().month,
+                        DateTime.now().day,
+                        value.hour,
+                        value.minute,
+                      ));
+                _timeController.value = TextEditingValue(text: textValue);
+                onTextFieldChanged!(textValue);
+              });
             },
             suffixIcon: const Icon(Icons.timer_outlined));
+}
+
+class NumberTextField extends LabelAndFieldWidget {
+  NumberTextField({
+    super.label,
+    super.key,
+    super.initialValue,
+    int maxLength = 10,
+    super.onTextFieldChanged,
+    super.isRequired,
+  }) : super(keyboardType: TextInputType.number, inputFormatters: [
+          LengthLimitingTextInputFormatter(maxLength),
+          FilteringTextInputFormatter.digitsOnly
+        ]);
 }

@@ -50,8 +50,6 @@ class RegisterWebScreen extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: LabelAndFieldWidget(
-                                      errorText:
-                                          'Please enter valid first name',
                                       prefixIcon:
                                           const Icon(Icons.person_2_outlined),
                                       label: StringConstants.kFirstName,
@@ -66,7 +64,6 @@ class RegisterWebScreen extends StatelessWidget {
                                   const SizedBox(width: spacingSmall),
                                   Expanded(
                                     child: LabelAndFieldWidget(
-                                      errorText: 'Please enter valid last name',
                                       prefixIcon:
                                           const Icon(Icons.person_2_outlined),
                                       label: StringConstants.kLastName,
@@ -82,7 +79,6 @@ class RegisterWebScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: spacingBetweenTextFields),
                               LabelAndFieldWidget(
-                                  errorText: 'Please enter valid email address',
                                   prefixIcon: const Icon(Icons.email_outlined),
                                   label: StringConstants.kEmailAddress,
                                   onTextFieldChanged: (value) {
@@ -93,7 +89,6 @@ class RegisterWebScreen extends StatelessWidget {
                                   }),
                               const SizedBox(height: spacingBetweenTextFields),
                               LabelAndFieldWidget(
-                                  errorText: 'Please enter valid password',
                                   prefixIcon:
                                       const Icon(Icons.password_outlined),
                                   label: StringConstants.kPassword,

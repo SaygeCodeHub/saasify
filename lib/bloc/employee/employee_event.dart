@@ -6,4 +6,10 @@ class InviteEmployee extends EmployeeEvents {
   InviteEmployee({required this.inviteDetails});
 }
 
+class UpdateEmployee extends EmployeeEvents {
+  final String? employeeId;
+
+  UpdateEmployee({this.employeeId});
+}
+
 class GetAllEmployees extends EmployeeEvents {}

@@ -10,7 +10,7 @@ class CustomTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 5,
+      length: tabData.length,
       child: Column(
         children: [
           TabBar(

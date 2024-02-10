@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/data/models/table_models/column_data_model.dart';
 import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
 import 'package:saasify/widgets/table/custom_table.dart';
@@ -38,9 +39,23 @@ class EmployeeListWeb extends StatelessWidget {
                   TableText(text: employees[index].employeeId.toString()),
                   TableText(text: employees[index].userEmail),
                   TableText(text: employees[index].userContact.toString()),
-                  TableText(text: employees[index].designations[0].toString()),
+                  TableStatusChips(
+                      status: employees[index].designations[0].toString(),
+                      color: designationColor(
+                          employees[index].designations[0].toString()))
                 ]),
       ),
     );
+  }
+
+  Color designationColor(String designation) {
+    switch (designation) {
+      case 'OWNER':
+        return AppColors.successGreen;
+      case 'MANAGER':
+        return AppColors.orange;
+      default:
+        return AppColors.lightBlue;
+    }
   }
 }

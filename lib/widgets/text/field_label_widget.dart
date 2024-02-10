@@ -7,14 +7,13 @@ import 'package:saasify/widgets/text/label_text_widget.dart';
 class LabelAndFieldWidget extends StatelessWidget {
   final String? label;
   final String? hintText;
-  final String? errorText;
   final void Function()? onTap;
   final bool isRequired;
   final void Function(String?)? onTextFieldChanged;
   final bool? readOnly;
   final String? Function(String?)? validator;
   final bool? enabled;
-  final TextEditingController? controller;
+  final TextEditingController? textFieldController;
   final bool? obscureText;
   final Widget? suffix;
   final Widget? prefixIcon;
@@ -35,7 +34,7 @@ class LabelAndFieldWidget extends StatelessWidget {
       this.onTextFieldChanged,
       this.readOnly = false,
       this.enabled,
-      this.controller,
+      this.textFieldController,
       this.obscureText,
       this.suffix,
       this.prefixIcon,
@@ -46,7 +45,6 @@ class LabelAndFieldWidget extends StatelessWidget {
       this.contentPadding,
       this.maxLines = 1,
       this.textFieldSize,
-      this.errorText = '',
       this.validator,
       this.isRequired = false,
       this.onTap,
@@ -55,37 +53,29 @@ class LabelAndFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller = TextEditingController();
-
-    if (initialValue != null && controller.text.isEmpty) {
-      controller.text = initialValue.toString();
-    }
-
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       if (label != null) LabelTextWidget(label: label),
       if (label != null) const SizedBox(height: spacingMedium),
-      SizedBox(
-          width: textFieldSize ?? MediaQuery.sizeOf(context).width,
-          child: textField ??
-              CustomTextField(
-                maxLines: maxLines,
-                suffix: suffix,
-                hintText: hintText,
-                prefixIcon: prefixIcon,
-                contentPadding: contentPadding,
-                inputFormatters: inputFormatters,
-                onTap: onTap,
-                suffixIcon: suffixIcon,
-                obscureText: obscureText ?? false,
-                validator: validator,
-                readOnly: readOnly ?? false,
-                controller: controller,
-                onTextFieldChanged: onTextFieldChanged,
-                enabled: enabled ?? true,
-                autofocus: autofocus ?? false,
-                keyboardType: keyboardType,
-                isRequired: isRequired,
-              ))
+      textField ?? CustomTextField(
+          maxLines: maxLines,
+          suffix: suffix,
+          width: textFieldSize ?? double.maxFinite,
+          isRequired: isRequired,
+          initialValue: initialValue,
+          hintText: hintText,
+          prefixIcon: prefixIcon,
+          contentPadding: contentPadding,
+          inputFormatters: inputFormatters,
+          onTap: onTap,
+          suffixIcon: suffixIcon,
+          obscureText: obscureText ?? false,
+          validator: validator,
+          readOnly: readOnly ?? false,
+          textFieldController: textFieldController,
+          onTextFieldChanged: onTextFieldChanged,
+          enabled: enabled ?? true,
+          autofocus: autofocus ?? false,
+          keyboardType: keyboardType)
     ]);
   }
 }

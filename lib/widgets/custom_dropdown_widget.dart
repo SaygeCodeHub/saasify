@@ -7,14 +7,16 @@ import 'package:saasify/configs/app_spacing.dart';
 class CustomDropdownButton extends StatelessWidget {
   final bool? showBorder;
   final String hint;
-  final List items;
-  final String? selectedValue;
+  final List<CustomDropDownItem> items;
+  final bool isRequired;
+  final dynamic selectedValue;
   final ValueChanged onChanged;
 
   const CustomDropdownButton({
     super.key,
     required this.hint,
     required this.items,
+    this.isRequired = false,
     required this.selectedValue,
     required this.onChanged,
     this.showBorder = true,
@@ -26,6 +28,7 @@ class CustomDropdownButton extends StatelessWidget {
         width: MediaQuery.sizeOf(context).width * 0.15,
         child: DropdownButtonFormField2(
             isExpanded: true,
+            value: selectedValue,
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -33,19 +36,19 @@ class CustomDropdownButton extends StatelessWidget {
                             ? AppColors.transparent
                             : AppColors.lighterBlack)),
                 contentPadding:
-                    const EdgeInsets.symmetric(vertical: spacingStandard),
+                    const EdgeInsets.symmetric(vertical: spacingMedium),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(kCardRadius))),
             hint: Text(hint, style: Theme.of(context).textTheme.titleSmall),
-            items: items
-                .map((item) => DropdownMenuItem(
-                      value: item,
-                      child: Text(item,
-                          style: const TextStyle(fontSize: spacingMedium)),
-                    ))
-                .toList(),
+            items: items.map((item) {
+              return DropdownMenuItem(
+                value: item.value,
+                child: Text(item.label,
+                    style: const TextStyle(fontSize: spacingMedium)),
+              );
+            }).toList(),
             validator: (value) {
-              if (value == null) {
+              if (value == null && isRequired) {
                 return 'Please select a value';
               }
               return null;
@@ -62,4 +65,11 @@ class CustomDropdownButton extends StatelessWidget {
             menuItemStyleData: const MenuItemStyleData(
                 padding: EdgeInsets.symmetric(horizontal: spacingStandard))));
   }
+}
+
+class CustomDropDownItem {
+  final dynamic value;
+  final String label;
+
+  CustomDropDownItem({this.value, required this.label});
 }

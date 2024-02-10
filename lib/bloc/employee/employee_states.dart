@@ -18,6 +18,30 @@ class InvitingFailed extends EmployeeStates {
   InvitingFailed({required this.errorMessage});
 }
 
+class UpdatingEmployee extends EmployeeStates {}
+
+class EmployeeUpdated extends EmployeeStates {
+  final String message;
+
+  EmployeeUpdated({required this.message});
+}
+
+class UpdatingEmployeeFailed extends EmployeeStates {
+  final String errorMessage;
+
+  UpdatingEmployeeFailed({required this.errorMessage});
+}
+
+class GettingEmployee extends EmployeeStates {}
+
+class GotEmployee extends EmployeeStates {}
+
+class GettingEmployeeFailed extends EmployeeStates {
+  final String errorMessage;
+
+  GettingEmployeeFailed({required this.errorMessage});
+}
+
 class LoadingEmployees extends EmployeeStates {}
 
 class EmployeesLoaded extends EmployeeStates {

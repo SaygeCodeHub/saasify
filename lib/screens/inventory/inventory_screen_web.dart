@@ -6,8 +6,8 @@ import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
 import 'package:saasify/widgets/table/custom_table.dart';
 import 'package:saasify/widgets/table/table_cells.dart';
 
-class OrdersScreenWeb extends StatelessWidget {
-  const OrdersScreenWeb({super.key});
+class InventoryScreenWeb extends StatelessWidget {
+  const InventoryScreenWeb({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +18,13 @@ class OrdersScreenWeb extends StatelessWidget {
             checkboxVisible: false,
             showRowCheckBox: false,
             columnList: [
-              ColumnData(header: "# Order ID"),
-              ColumnData(header: "Date"),
-              ColumnData(header: "Customer Name"),
-              ColumnData(header: "Contact"),
-              ColumnData(header: "Amount"),
-              ColumnData(header: "Payment Type"),
-              ColumnData(header: "Status"),
+              ColumnData(header: "Product ID"),
+              ColumnData(header: "Name"),
+              ColumnData(header: "Category"),
+              ColumnData(header: "Brand"),
+              ColumnData(header: "Price"),
+              ColumnData(header: "Quantity"),
+              ColumnData(header: "Updated At"),
             ],
             selectedIds: const [],
             dataCount: 10,
@@ -32,12 +32,12 @@ class OrdersScreenWeb extends StatelessWidget {
             onRowCheckboxChange: (value) {},
             generateData: (index) => [
                   TableText(text: '49399123'),
-                  TableText(text: '24/04/2024'),
-                  TableText(text: 'Ramesh Jupiter'),
-                  TableText(text: '+91-8888881890'),
-                  TableText(text: 'Rs. 29,123/-'),
-                  TableText(text: 'Cash'),
-                  TableStatusChips(status: 'PAID', color: statusColor('PAID')),
+                  TableText(text: 'Maggie'),
+                  TableText(text: 'Fast food'),
+                  TableText(text: 'Nestle'),
+                  TableText(text: 'Rs. 29/-'),
+                  TableText(text: '731'),
+                  TableText(text: '24/01/2012,  12:23 PM'),
                 ]),
       ),
     );

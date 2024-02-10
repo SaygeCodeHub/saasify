@@ -4,6 +4,7 @@ import 'package:saasify/bloc/attendance/attendance_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_events.dart';
 import 'package:saasify/bloc/initialise/initialise_states.dart';
+import 'package:saasify/configs/dashboard_route.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 
@@ -27,7 +28,11 @@ class RootScreen extends StatelessWidget {
           );
         }
         if (state is AppInitialised) {
-          print(state.initialiseAppModel.data!.accessibleModules![0].toJson().toString());
+          DashboardRouting(
+                  featureKey: state.initialiseAppModel.data!
+                      .accessibleModules![0].moduleKey!,
+                  context: context)
+              .navigateTo();
           context.read<AttendanceBloc>().isGeoFencingEnabled =
               state.isGeoFencing;
         }

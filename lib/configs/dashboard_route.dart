@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';
+import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_screen.dart';
 import 'package:saasify/screens/hrms/leaves/getMyLeaves/my_leaves_screen.dart';
 import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/pending_leave_request_screen.dart';
+import 'package:saasify/screens/inventory/inventory_screen.dart';
+import 'package:saasify/screens/orders/orders_screen.dart';
 import '../screens/hrms/timesheet/timesheet_screen.dart';
 
 class DashboardRouting {
@@ -14,6 +17,24 @@ class DashboardRouting {
 
   navigateTo() async {
     switch (featureKey) {
+      case 'HR':
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const HRMSDashboardScreen()),
+        );
+      case 'ORDERS':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const OrdersScreen()),
+        );
+      case 'INVENTORY':
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const InventoryScreen()),
+        );
       case 'HR_PENDING_APPROVAL':
         Navigator.push(
           context,

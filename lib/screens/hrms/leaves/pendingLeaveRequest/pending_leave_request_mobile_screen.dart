@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/configs/app_colors.dart';
+import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/models/leaves/get_all_leaves_model.dart';
 import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/leave_details.dart';
 import 'package:saasify/screens/hrms/leaves/widgets/leave_details_navigation_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/utils/formatters.dart';
+import 'package:saasify/widgets/generalWidgets/status_chip.dart';
 
 class PendingLeaveRequestsMobileScreen extends StatelessWidget {
   final List<MyLeaves> pendingLeaves;
@@ -14,47 +17,63 @@ class PendingLeaveRequestsMobileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-        child: ListView.separated(
-            separatorBuilder: (context, index) {
-              return const SizedBox(height: spacingSmall);
+    return ListView.separated(
+        shrinkWrap: true,
+        separatorBuilder: (context, index) {
+          return const SizedBox(height: spacingSmall);
+        },
+        itemCount: pendingLeaves.length,
+        itemBuilder: (context, index) {
+          return InkWell(
+            onTap: () {
+              Navigator.pushNamed(
+                  context, LeaveDetailsNavigationScreen.routeName,
+                  arguments: [true, pendingLeaves[index]]);
             },
-            itemCount: pendingLeaves.length,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {
-                  Navigator.pushNamed(
-                      context, LeaveDetailsNavigationScreen.routeName,
-                      arguments: [true, pendingLeaves[index]]);
-                },
-                child: Card(
-                    child: Padding(
-                        padding: const EdgeInsets.all(spacingSmall),
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
+            child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.lighterBlack),
+                    borderRadius: BorderRadius.circular(kCardRadius)),
+                child: Padding(
+                    padding: const EdgeInsets.all(spacingStandard),
+                    child: Column(children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Row(
                             children: [
-                              Text(pendingLeaves[index].name.toString(),
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w600)),
-                              const SizedBox(width: spacingLarge),
-                              Text(pendingLeaves[index].leaveType,
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.black87)),
-                              const SizedBox(width: spacingLarge),
-                              LeaveDetails(
-                                  leaveData: formatDate(pendingLeaves[index]
-                                      .startDate
-                                      .toString()),
-                                  title: StringConstants.kStartDate),
-                              const SizedBox(width: spacingLarge),
-                              LeaveDetails(
-                                  leaveData: formatDate(
-                                      pendingLeaves[index].endDate.toString()),
-                                  title: StringConstants.kEndDate)
-                            ]))),
-              );
-            }));
+                              const Icon(Icons.person),
+                              const SizedBox(width: spacingSmall),
+                              Text(pendingLeaves[index]
+                                  .name
+                                  .toString()
+                                  .toUpperCase()),
+                            ],
+                          ),
+                          StatusChip(
+                              text: pendingLeaves[index].leaveType,
+                              color: AppColors.lightBlue),
+                        ],
+                      ),
+                      const SizedBox(height: spacingStandard),
+                      Row(
+                        children: [
+                          const Icon(Icons.date_range_outlined),
+                          const SizedBox(width: spacingSmall),
+                          Text(formatDate(
+                            pendingLeaves[index].startDate.toString(),
+                          )),
+                          const Text(' - '),
+                          Text(formatDate(
+                              pendingLeaves[index].endDate.toString())),
+                          const Spacer(),
+                          const Icon(Icons.navigate_next_rounded,
+                              color: AppColors.lighterBlack)
+                        ],
+                      ),
+                    ]))),
+          );
+        });
   }
 }

@@ -79,8 +79,8 @@ class StringConstants {
   static const kTakeAction = 'Take Action';
   static const kUpdateLeaveStatus = 'Update Leave Status';
   static const kApplicantName = 'Applicant Name';
-  static const kStartDate = 'Start Date';
-  static const kEndDate = 'End Date';
+  static const kStartDate = 'From';
+  static const kEndDate = 'To';
   static const kLeaveReason = 'Leave Reason';
   static const kComments = 'Comments';
   static const kReject = 'Reject';

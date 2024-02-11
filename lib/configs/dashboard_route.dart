@@ -15,56 +15,67 @@ class DashboardRouting {
 
   DashboardRouting({required this.featureKey, required this.context});
 
-  navigateTo() async {
+  void navigateTo() async {
     switch (featureKey) {
       case 'HR':
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const HRMSDashboardScreen()),
+          buildPageRoute(const HRMSDashboardScreen()),
         );
+        break;
       case 'ORDERS':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const OrdersScreen()),
+          buildPageRoute(const OrdersScreen()),
         );
+        break;
       case 'INVENTORY':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const InventoryScreen()),
+          buildPageRoute(const InventoryScreen()),
         );
+        break;
       case 'HR_PENDING_APPROVAL':
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (context) => const PendingLeaveRequestScreen()),
+          buildPageRoute(const PendingLeaveRequestScreen()),
         );
+        break;
       case 'HR_VIEW_ALL_EMPLOYEES':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const EmployeeListScreen()),
+          buildPageRoute(const EmployeeListScreen()),
         );
+        break;
       case 'HR_SALARY_ROLLOUT':
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const EmployeeListScreen()),
-        );
       case 'HR_ADD_NEW_EMPLOYEE':
         showAddEmployeeDialog(context);
+        break;
       case 'HR_APPLY_LEAVES':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const ApplyLeaveScreen()),
+          buildPageRoute(const ApplyLeaveScreen()),
         );
+        break;
       case 'HR_MY_LEAVES':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const MyLeavesScreen()),
+          buildPageRoute(const MyLeavesScreen()),
         );
+        break;
       case 'HR_TIMESHEET':
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const TimesheetScreen()),
+          buildPageRoute(const TimesheetScreen()),
         );
+        break;
     }
+  }
+
+  PageRouteBuilder buildPageRoute(Widget page) {
+    return PageRouteBuilder(
+      transitionDuration: Duration.zero,
+      pageBuilder: (_, __, ___) => page,
+    );
   }
 }

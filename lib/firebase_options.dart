@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCwrnLrPDwubymVWLWalyrrzKEG1lufM9A',
-    appId: '1:215235023497:web:30b5609d5b7ebfac67ec58',
-    messagingSenderId: '215235023497',
-    projectId: 'saasify-dev',
-    authDomain: 'saasify-dev.firebaseapp.com',
-    storageBucket: 'saasify-dev.appspot.com',
-    measurementId: 'G-CNE64HGRSN',
+    apiKey: 'AIzaSyAwTJi4a1Zt2PF65WaEJR9xyokIAyx8A-0',
+    appId: '1:966829940851:web:1ff1a8756c7951f39fca06',
+    messagingSenderId: '966829940851',
+    projectId: 'saasify-production',
+    authDomain: 'saasify-production.firebaseapp.com',
+    storageBucket: 'saasify-production.appspot.com',
+    measurementId: 'G-9VYV04K6L1',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAlnHI3D4ru4ajgfst2o0a2qR_-yYUJFwI',
-    appId: '1:215235023497:android:dbb90efee11505d767ec58',
-    messagingSenderId: '215235023497',
-    projectId: 'saasify-dev',
-    storageBucket: 'saasify-dev.appspot.com',
+    apiKey: 'AIzaSyC-WwavOskxjMBxEaRWVsQ-pq4UOBeACqM',
+    appId: '1:966829940851:android:48cceccbf255868c9fca06',
+    messagingSenderId: '966829940851',
+    projectId: 'saasify-production',
+    storageBucket: 'saasify-production.appspot.com',
   );
 }

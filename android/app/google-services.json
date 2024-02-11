@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "215235023497",
-    "project_id": "saasify-dev",
-    "storage_bucket": "saasify-dev.appspot.com"
+    "project_number": "966829940851",
+    "project_id": "saasify-production",
+    "storage_bucket": "saasify-production.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:215235023497:android:dbb90efee11505d767ec58",
+        "mobilesdk_app_id": "1:966829940851:android:48cceccbf255868c9fca06",
         "android_client_info": {
           "package_name": "com.sayge.saasify"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAlnHI3D4ru4ajgfst2o0a2qR_-yYUJFwI"
+          "current_key": "AIzaSyC-WwavOskxjMBxEaRWVsQ-pq4UOBeACqM"
         }
       ],
       "services": {

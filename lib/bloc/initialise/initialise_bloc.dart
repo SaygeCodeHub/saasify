@@ -15,7 +15,6 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
   List<ListOfBranches?>? branches = [];
   List<FeatureDetailModel> hrmsAccessibleFeatures = [];
 
-
   InitialiseAppStates get initialState => InitialiseStates();
 
   InitialiseAppBloc() : super(InitialiseStates()) {
@@ -26,11 +25,11 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
       InitialiseApp event, Emitter<InitialiseAppStates> emit) async {
     emit(InitialisingApp());
     try {
-      // bool tokenAvailable = await NotificationUtil().ifTokenExists();
-      // if (!tokenAvailable) {
-      //   String newToken = await NotificationUtil().getToken();
-      //   cache.setFCMToken(newToken);
-      // }
+      bool tokenAvailable = await NotificationUtil().ifTokenExists();
+      if (!tokenAvailable) {
+        String newToken = await NotificationUtil().getToken();
+        cache.setFCMToken(newToken);
+      }
       InitialiseAppModel initialiseAppModel =
           await _initialiseRepository.initialiseApp();
       if (initialiseAppModel.status == 200) {

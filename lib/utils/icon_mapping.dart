@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 IconData iconMapping(String key) {
-  print(key);
-
   switch (key) {
     case 'ORDERS':
       return FontAwesomeIcons.list;

@@ -31,7 +31,7 @@ void main() async {
 
 _initFirebase() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await NotificationUtil().initNotifications();
+  //await NotificationUtil().initNotifications();
 }
 
 _initDependencies() async {

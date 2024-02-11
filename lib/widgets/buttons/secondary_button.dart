@@ -31,7 +31,7 @@ class SecondaryButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(kCircularRadius)),
             backgroundColor: AppColors.white,
             side: (side == null)
-                ? const BorderSide(color: AppColors.black)
+                ? const BorderSide(color: AppColors.orange)
                 : side,
             minimumSize: Size(buttonWidth ?? double.maxFinite, 50)),
         child: Row(
@@ -44,7 +44,7 @@ class SecondaryButton extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .buttonTextStyle
-                      .copyWith(color: AppColors.black)),
+                      .copyWith(color: AppColors.orange)),
             ]));
   }
 }

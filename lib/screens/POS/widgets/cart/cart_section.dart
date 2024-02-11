@@ -8,7 +8,7 @@ import 'package:saasify/screens/POS/widgets/cart/cart_item_list.dart';
 import 'package:saasify/screens/POS/widgets/cart/checkout_button.dart';
 
 class Cart extends StatelessWidget {
-  const Cart({
+  Cart({
     super.key,
     required this.cartItems,
     required this.productsWithCategories,
@@ -16,20 +16,21 @@ class Cart extends StatelessWidget {
 
   final List<CartItemModel> cartItems;
   final List<ProductsWithCategories> productsWithCategories;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Card(
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      const CartHeader(),
+      Form(key: _formKey, child: const CartHeader()),
       const Divider(),
       Expanded(
           child: CartItemList(
               cartItems: cartItems,
               productsWithCategories: productsWithCategories)),
-      const CartBillSection(),
+      CartBillSection(productsWithCategories: productsWithCategories),
       const SizedBox(height: spacingStandard),
-      const CheckoutButton()
+      CheckoutButton(formKey: _formKey)
     ]));
   }
 }

@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/POS/pos_bloc.dart';
+import 'package:saasify/bloc/POS/pos_event.dart';
+import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/data/models/POS/product_with_categories_model.dart';
+import 'package:saasify/widgets/buttons/primary_button.dart';
+import 'package:saasify/widgets/text/custom_text_field.dart';
 
 class CartBillSection extends StatelessWidget {
+  final List<ProductsWithCategories> productsWithCategories;
+
   const CartBillSection({
     super.key,
+    required this.productsWithCategories,
   });
 
   @override
@@ -32,13 +40,59 @@ class CartBillSection extends StatelessWidget {
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Row(
+                        Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text('Discount: '),
+                            const Text('Discount: '),
+                            IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          content: SizedBox(
+                                            width: 200,
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                const Text(
+                                                    'Enter Discount Percent: '),
+                                                const SizedBox(
+                                                    height: spacingSmall),
+                                                CustomTextField(
+                                                  onTextFieldChanged: (value) {
+                                                    context
+                                                            .read<POSBloc>()
+                                                            .billModel
+                                                            .discount =
+                                                        (double.parse(value));
+                                                  },
+                                                ),
+                                                const SizedBox(
+                                                    height: spacingSmall),
+                                                PrimaryButton(
+                                                    onPressed: () {
+                                                      context
+                                                          .read<POSBloc>()
+                                                          .add(CalculateBill(
+                                                              productsWithCategories:
+                                                                  productsWithCategories));
+                                                      Navigator.pop(context);
+                                                    },
+                                                    buttonTitle: 'Save')
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      });
+                                },
+                                padding: EdgeInsets.zero,
+                                icon: const Icon(Icons.edit,
+                                    size: 15, color: AppColors.orange))
                           ],
                         ),
-                        Text((context.read<POSBloc>().billModel.discount *
+                        Text((context.read<POSBloc>().billModel.discount /
+                                100 *
                                 context.read<POSBloc>().billModel.itemTotal)
                             .toStringAsFixed(2)),
                       ]),
@@ -46,12 +100,58 @@ class CartBillSection extends StatelessWidget {
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Row(
+                        Row(
                           children: [
-                            Text('Taxes: '),
+                            const Text('Taxes: '),
+                            IconButton(
+                                onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          content: SizedBox(
+                                            width: 200,
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                const Text(
+                                                    'Enter Tax Percent: '),
+                                                const SizedBox(
+                                                    height: spacingSmall),
+                                                CustomTextField(
+                                                  onTextFieldChanged: (value) {
+                                                    context
+                                                            .read<POSBloc>()
+                                                            .billModel
+                                                            .tax =
+                                                        (double.parse(value));
+                                                  },
+                                                ),
+                                                const SizedBox(
+                                                    height: spacingSmall),
+                                                PrimaryButton(
+                                                    onPressed: () {
+                                                      context
+                                                          .read<POSBloc>()
+                                                          .add(CalculateBill(
+                                                              productsWithCategories:
+                                                                  productsWithCategories));
+                                                      Navigator.pop(context);
+                                                    },
+                                                    buttonTitle: 'Save')
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      });
+                                },
+                                padding: EdgeInsets.zero,
+                                icon: const Icon(Icons.edit,
+                                    size: 15, color: AppColors.orange))
                           ],
                         ),
-                        Text((context.read<POSBloc>().billModel.tax *
+                        Text((context.read<POSBloc>().billModel.tax /
+                                100 *
                                 context.read<POSBloc>().billModel.itemTotal)
                             .toStringAsFixed(2)),
                       ]),
@@ -65,7 +165,7 @@ class CartBillSection extends StatelessWidget {
                             .billModel
                             .totalAmount
                             .toStringAsFixed(2)),
-                      ]),
+                      ])
                 ]))));
   }
 }

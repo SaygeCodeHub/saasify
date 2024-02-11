@@ -31,6 +31,16 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
     on<CalculateBill>(_calculateBill);
     on<AddCartItem>(_addCartItem);
     on<ReloadPOS>(_reloadPOS);
+    on<ClearCart>(_clearCart);
+    on<Checkout>(_checkout);
+  }
+
+  FutureOr<void> _clearCart(ClearCart event, Emitter<POSStates> emit) async {
+    cartProducts.clear();
+    emit(ProductByCategoryLoaded(
+        productsWithCategories: event.productsWithCategories,
+        selectedCategory: selectedCategory,
+        cartItems: cartProducts.values.toList()));
   }
 
   FutureOr<void> _fetchProductsWithCategories(
@@ -63,8 +73,8 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
       billModel.itemTotal += value.cost * value.count;
     });
     billModel.totalAmount = billModel.itemTotal +
-        billModel.itemTotal * billModel.tax -
-        billModel.itemTotal * billModel.discount;
+        (billModel.itemTotal * billModel.tax / 100) -
+        (billModel.itemTotal * billModel.discount / 100);
     emit(ProductByCategoryLoaded(
         productsWithCategories: event.productsWithCategories,
         selectedCategory: selectedCategory,
@@ -104,5 +114,39 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
         productsWithCategories: event.productsWithCategories,
         selectedCategory: selectedCategory,
         cartItems: cartProducts.values.toList()));
+  }
+
+  FutureOr<void> _checkout(Checkout event, Emitter<POSStates> emit) async {
+    try {
+      List cartItemData = cartProducts.values
+          .map((e) => {"id": e.id, "count": e.count})
+          .toList();
+      final response = await posRepository.checkout({
+        "orderDate": DateTime.now().toIso8601String(),
+        "orderNumber": '${DateTime.now().millisecondsSinceEpoch}',
+        "paymentMethod": event.paymentMethod,
+        "customer_contact": billModel.customerPhone,
+        "items": cartItemData
+      });
+      if (response.status == 200) {
+        cartProducts = {};
+        billModel = BillModel(
+          customerName: '',
+          customerPhone: '',
+          tax: 0,
+          totalAmount: 0,
+          discount: 0,
+          itemTotal: 0,
+          orderDate: DateTime.now().toIso8601String(),
+          orderNumber: '${DateTime.now().millisecondsSinceEpoch}}',
+        );
+        selectedCategory = 0;
+        add(FetchProductsWithCategories());
+      } else {
+        // Order failed
+      }
+    } catch (e) {
+      // Order failed
+    }
   }
 }

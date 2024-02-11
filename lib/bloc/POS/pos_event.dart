@@ -36,3 +36,15 @@ class CalculateBill extends POSEvents {
 
   CalculateBill({required this.productsWithCategories});
 }
+
+class ClearCart extends POSEvents {
+  final List<ProductsWithCategories> productsWithCategories;
+
+  ClearCart({required this.productsWithCategories});
+}
+
+class Checkout extends POSEvents {
+  final String paymentMethod;
+
+  Checkout({required this.paymentMethod});
+}

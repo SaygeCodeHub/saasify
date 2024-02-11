@@ -102,9 +102,10 @@ class CustomTextField extends StatelessWidget {
           if ((value == null || value.isEmpty) && isRequired) {
             return StringConstants.kFieldCannotBeEmpty;
           }
-          if (validator != null &&
-              ((value == null || value.isEmpty) && isRequired)) {
-            return validator!(value);
+          if (validator != null) {
+            if (!(value == null || value.isEmpty)) {
+              return validator!(value);
+            }
           }
           return null;
         },

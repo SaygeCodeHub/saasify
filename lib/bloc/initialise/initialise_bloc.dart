@@ -6,7 +6,6 @@ import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/initialise/initialise_app_model.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/initialise/initialise_repository.dart';
-import 'package:saasify/utils/notifications.dart';
 
 class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
   final Cache cache = getIt<Cache>();
@@ -14,7 +13,6 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
       getIt<InitialiseRepository>();
   List<ListOfBranches?>? branches = [];
   List<FeatureDetailModel> hrmsAccessibleFeatures = [];
-
 
   InitialiseAppStates get initialState => InitialiseStates();
 

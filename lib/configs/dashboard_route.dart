@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
+import 'package:saasify/screens/hrms/add_employee/widgets/add_emp_dialouge.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_screen.dart';
@@ -49,10 +49,7 @@ class DashboardRouting {
           MaterialPageRoute(builder: (context) => const EmployeeListScreen()),
         );
       case 'HR_ADD_NEW_EMPLOYEE':
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => AddEmployeeScreen()),
-        );
+        showAddEmployeeDialog(context);
       case 'HR_APPLY_LEAVES':
         Navigator.push(
           context,

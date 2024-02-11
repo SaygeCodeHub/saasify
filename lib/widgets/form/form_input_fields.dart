@@ -148,6 +148,7 @@ class NumberTextField extends LabelAndFieldWidget {
   NumberTextField({
     super.label,
     super.key,
+    super.textFieldSize,
     super.initialValue,
     int maxLength = 10,
     super.onTextFieldChanged,

@@ -16,14 +16,19 @@ class AddCartItem extends POSEvents {
   final int id;
   final Variant? variant;
 
-  AddCartItem({required this.id, required this.productsWithCategories, required this.productName, this.variant});
+  AddCartItem(
+      {required this.id,
+      required this.productsWithCategories,
+      required this.productName,
+      this.variant});
 }
 
 class RemoveCartItem extends POSEvents {
   final List<ProductsWithCategories> productsWithCategories;
   final int variantId;
 
-  RemoveCartItem({required this.productsWithCategories,required this.variantId});
+  RemoveCartItem(
+      {required this.productsWithCategories, required this.variantId});
 }
 
 class CalculateBill extends POSEvents {

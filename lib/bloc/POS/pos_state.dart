@@ -13,7 +13,9 @@ class ProductByCategoryLoaded extends POSStates {
   final int selectedCategory;
 
   ProductByCategoryLoaded(
-      {required this.cartItems,required this.selectedCategory, required this.productsWithCategories});
+      {required this.cartItems,
+      required this.selectedCategory,
+      required this.productsWithCategories});
 }
 
 class ProductByCategoryError extends POSStates {

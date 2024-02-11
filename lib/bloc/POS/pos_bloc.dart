@@ -27,10 +27,33 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
 
   POSBloc() : super(PosInitial()) {
     on<FetchProductsWithCategories>(_fetchProductsWithCategories);
-    on<CalculateBill>(_calculateBill);
     on<RemoveCartItem>(_removeCartItem);
+    on<CalculateBill>(_calculateBill);
     on<AddCartItem>(_addCartItem);
     on<ReloadPOS>(_reloadPOS);
+  }
+
+  FutureOr<void> _fetchProductsWithCategories(
+      FetchProductsWithCategories event, Emitter<POSStates> emit) async {
+    emit(ProductByCategoryLoading());
+    try {
+      final ProductsWithCategoriesModel productsWithCategoriesModel =
+          await posRepository.getAllProductsWithCategories();
+      if (productsWithCategoriesModel.status == 200) {
+        selectedCategory = productsWithCategoriesModel.data.first.categoryId;
+        emit(ProductByCategoryLoaded(
+            cartItems: cartProducts.values.toList(),
+            productsWithCategories: productsWithCategoriesModel.data,
+            selectedCategory: selectedCategory));
+        return;
+      } else {
+        emit(ProductByCategoryError(
+            errorMessage: productsWithCategoriesModel.message));
+        return;
+      }
+    } catch (e) {
+      emit(ProductByCategoryError(errorMessage: e.toString()));
+    }
   }
 
   FutureOr<void> _calculateBill(
@@ -39,7 +62,9 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
     cartProducts.forEach((key, value) {
       billModel.itemTotal += value.cost * value.count;
     });
-    billModel.totalAmount = billModel.itemTotal + billModel.tax - billModel.discount;
+    billModel.totalAmount = billModel.itemTotal +
+        billModel.itemTotal * billModel.tax -
+        billModel.itemTotal * billModel.discount;
     emit(ProductByCategoryLoaded(
         productsWithCategories: event.productsWithCategories,
         selectedCategory: selectedCategory,
@@ -79,28 +104,5 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
         productsWithCategories: event.productsWithCategories,
         selectedCategory: selectedCategory,
         cartItems: cartProducts.values.toList()));
-  }
-
-  FutureOr<void> _fetchProductsWithCategories(
-      FetchProductsWithCategories event, Emitter<POSStates> emit) async {
-    emit(ProductByCategoryLoading());
-    try {
-      final ProductsWithCategoriesModel productsWithCategoriesModel =
-          await posRepository.getAllProductsWithCategories();
-      if (productsWithCategoriesModel.status == 200) {
-        selectedCategory = productsWithCategoriesModel.data.first.categoryId;
-        emit(ProductByCategoryLoaded(
-            cartItems: cartProducts.values.toList(),
-            productsWithCategories: productsWithCategoriesModel.data,
-            selectedCategory: selectedCategory));
-        return;
-      } else {
-        emit(ProductByCategoryError(
-            errorMessage: productsWithCategoriesModel.message));
-        return;
-      }
-    } catch (e) {
-      emit(ProductByCategoryError(errorMessage: e.toString()));
-    }
   }
 }

@@ -37,7 +37,7 @@ class CheckoutButton extends StatelessWidget {
                         title: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text("Select Payment Method"),
+                              const Text("Select Payment Method"),
                               IconButton(
                                 onPressed: () {
                                   Navigator.pop(context);
@@ -64,13 +64,15 @@ class CheckoutButton extends StatelessWidget {
                                       Navigator.pop(context);
                                     },
                                     child: Card(
-                                        child: Text(paymentMethods[index],
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelTextStyle
-                                                .copyWith(
-                                                    color:
-                                                        AppColors.darkBlue))),
+                                        child: Center(
+                                          child: Text(paymentMethods[index],
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelTextStyle
+                                                  .copyWith(
+                                                      color:
+                                                          AppColors.darkBlue)),
+                                        )),
                                   );
                                 })));
                   });

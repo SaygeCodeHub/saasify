@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/POS/pos_event.dart';
@@ -121,13 +122,15 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
       List cartItemData = cartProducts.values
           .map((e) => {"id": e.id, "count": e.count})
           .toList();
-      final response = await posRepository.checkout({
+      Map orderDetails = {
         "orderDate": DateTime.now().toIso8601String(),
         "orderNumber": '${DateTime.now().millisecondsSinceEpoch}',
         "paymentMethod": event.paymentMethod,
         "customer_contact": billModel.customerPhone,
         "items": cartItemData
-      });
+      };
+      final response = await posRepository.checkout(orderDetails);
+      log(orderDetails.toString());
       if (response.status == 200) {
         cartProducts = {};
         billModel = BillModel(

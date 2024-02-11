@@ -19,7 +19,7 @@ class HrmsAttendanceSection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         const ModuleHeading(label: 'Mark Attendance'),
-        const SizedBox(height: spacingSmall),
+        const SizedBox(height: spacingLarger),
         Container(
           padding: const EdgeInsets.symmetric(
               vertical: spacingStandard, horizontal: spacingMedium),

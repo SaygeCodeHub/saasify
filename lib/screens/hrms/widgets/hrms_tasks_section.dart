@@ -7,6 +7,7 @@ import 'package:saasify/widgets/text/module_heading.dart';
 
 class HrmsTasksSection extends StatelessWidget {
   final bool isMobile;
+
   const HrmsTasksSection({super.key, required this.isMobile});
 
   @override
@@ -60,10 +61,11 @@ class HrmsTasksSection extends StatelessWidget {
                                   fontWeight: FontWeight.w600,
                                   color: AppColors.darkBlue)),
                       const SizedBox(height: spacingStandard),
-                      const Text('Upload and submit F12 & 1QC Form',
-                          maxLines: 2,
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis),
+                      const Expanded(
+                          child: Text('Upload and submit F12 & 1QC Form',
+                              maxLines: 2,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis)),
                       const SizedBox(height: spacingLarge),
                       const Row(
                         crossAxisAlignment: CrossAxisAlignment.center,

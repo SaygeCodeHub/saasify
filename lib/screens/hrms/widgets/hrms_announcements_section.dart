@@ -15,7 +15,7 @@ class HrmsAnnouncementsSection extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         const ModuleHeading(label: 'Announcements'),
-        const SizedBox(height: spacingSmall),
+        const SizedBox(height: spacingLarger),
         Container(
           height: MediaQuery.sizeOf(context).height * 0.15,
           decoration: BoxDecoration(

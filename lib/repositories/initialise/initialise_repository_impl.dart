@@ -14,10 +14,11 @@ class InitialiseRepositoryImpl implements InitialiseRepository {
     var companyId = await cache.getCompanyId();
     var branchId = await cache.getBranchId();
     var userId = await cache.getUserId();
+    var fcmToken = await cache.getFCMToken(CacheKeys.fcmToken);
     try {
       final response = await ClientServices().post(
           "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.initializeApi}",
-          {"device_token": 'xcv'});
+          {"device_token": fcmToken});
       return InitialiseAppModel.fromJson(response);
     } catch (error) {
       rethrow;

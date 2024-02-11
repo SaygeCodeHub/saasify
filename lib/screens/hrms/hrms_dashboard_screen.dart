@@ -27,15 +27,23 @@ class HRMSDashboardScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     const SizedBox(height: spacingStandard),
-                    const Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(child: HrmsAnnouncementsSection()),
-                        SizedBox(width: spacingStandard),
-                        Expanded(child: HrmsAttendanceSection())
-                      ],
-                    ),
+                    (isMobile)
+                        ? const Column(
+                            children: [
+                              HrmsAttendanceSection(),
+                              SizedBox(height: spacingHuge),
+                              HrmsAnnouncementsSection()
+                            ],
+                          )
+                        : const Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Expanded(child: HrmsAnnouncementsSection()),
+                              SizedBox(width: spacingStandard),
+                              Expanded(child: HrmsAttendanceSection())
+                            ],
+                          ),
                     const SizedBox(height: spacingHuge),
                     HrmsTasksSection(isMobile: isMobile),
                     const SizedBox(height: spacingHuge),

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/POS/pos_event.dart';
 import 'package:saasify/bloc/POS/pos_state.dart';
+import 'package:saasify/data/models/POS/bill_model.dart';
 import 'package:saasify/data/models/POS/cart_product_model.dart';
 import 'package:saasify/data/models/POS/product_with_categories_model.dart';
 import 'package:saasify/di/app_module.dart';
@@ -12,13 +13,37 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
   final POSRepository posRepository = getIt<POSRepository>();
 
   Map<int, CartItemModel> cartProducts = {};
+  BillModel billModel = BillModel(
+    customerName: '',
+    customerPhone: '',
+    tax: 0,
+    totalAmount: 0,
+    discount: 0,
+    itemTotal: 0,
+    orderDate: DateTime.now().toIso8601String(),
+    orderNumber: '${DateTime.now().millisecondsSinceEpoch}}',
+  );
   int selectedCategory = 0;
 
   POSBloc() : super(PosInitial()) {
     on<FetchProductsWithCategories>(_fetchProductsWithCategories);
+    on<CalculateBill>(_calculateBill);
     on<RemoveCartItem>(_removeCartItem);
     on<AddCartItem>(_addCartItem);
     on<ReloadPOS>(_reloadPOS);
+  }
+
+  FutureOr<void> _calculateBill(
+      CalculateBill event, Emitter<POSStates> emit) async {
+    billModel.itemTotal = 0;
+    cartProducts.forEach((key, value) {
+      billModel.itemTotal += value.cost * value.count;
+    });
+    billModel.totalAmount = billModel.itemTotal + billModel.tax - billModel.discount;
+    emit(ProductByCategoryLoaded(
+        productsWithCategories: event.productsWithCategories,
+        selectedCategory: selectedCategory,
+        cartItems: cartProducts.values.toList()));
   }
 
   FutureOr<void> _removeCartItem(
@@ -30,23 +55,23 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
         cartProducts.remove(event.variantId);
       }
     }
-    add(ReloadPOS(productsWithCategories: event.productsWithCategories));
+    add(CalculateBill(productsWithCategories: event.productsWithCategories));
   }
 
   FutureOr<void> _addCartItem(
       AddCartItem event, Emitter<POSStates> emit) async {
-    if (cartProducts[event.variant.variantId] != null) {
-      cartProducts[event.variant.variantId]!.count++;
+    if (cartProducts[event.id] != null) {
+      cartProducts[event.id]!.count++;
     } else {
-      cartProducts[event.variant.variantId] = CartItemModel(
-          id: event.variant.variantId,
-          quantity: event.variant.quantity,
+      cartProducts[event.variant!.variantId] = CartItemModel(
+          id: event.variant!.variantId,
+          quantity: event.variant!.quantity,
           name: event.productName,
-          cost: event.variant.cost,
-          image: event.variant.image,
+          cost: event.variant!.cost,
+          image: event.variant!.image,
           count: 1);
     }
-    add(ReloadPOS(productsWithCategories: event.productsWithCategories));
+    add(CalculateBill(productsWithCategories: event.productsWithCategories));
   }
 
   FutureOr<void> _reloadPOS(ReloadPOS event, Emitter<POSStates> emit) async {

@@ -70,38 +70,104 @@ class POSWeb extends StatelessWidget {
                           .firstWhere((element) =>
                               element.categoryId == selectedCategory)
                           .products,
-                      selectedCategory: selectedCategory, productsWithCategories: productsWithCategories))
+                      selectedCategory: selectedCategory,
+                      productsWithCategories: productsWithCategories,
+                      cartItems: cartItems))
             ]),
           ),
-          Expanded(
-              flex: 2,
-              child: Card(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                    const Text('Cart'),
-                    const Divider(),
-                    Expanded(
-                        child: ListView.builder(
-                            itemCount: cartItems.length,
-                            itemBuilder: (context, index) {
-                              final cartItem = cartItems[index];
-                              return ListTile(
-                                title: Text(cartItem.name),
-                                subtitle: Text('Quantity: ${cartItem.count}'),
-                                trailing: Text('₹${cartItem.cost}'),
-                              );
-                            })),
-                    const Text('Total: 0.00'),
-                    const SizedBox(height: spacingStandard),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: spacingStandard,
-                          vertical: spacingStandard),
-                      child: PrimaryButton(
-                          onPressed: () {}, buttonTitle: 'Checkout'),
-                    )
-                  ])))
+          cartItems.isEmpty
+              ? const SizedBox.shrink()
+              : Expanded(
+                  flex: 2,
+                  child: Cart(
+                      cartItems: cartItems,
+                      productsWithCategories: productsWithCategories))
         ]));
+  }
+}
+
+class Cart extends StatelessWidget {
+  const Cart({
+    super.key,
+    required this.cartItems,
+    required this.productsWithCategories,
+  });
+
+  final List<CartItemModel> cartItems;
+  final List<ProductsWithCategories> productsWithCategories;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Padding(
+        padding: const EdgeInsets.symmetric(
+            horizontal: spacingStandard, vertical: spacingStandard),
+        child: const Text('Cart'),
+      ),
+      const Divider(),
+      Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: spacingStandard, vertical: spacingStandard),
+            child: ListView.builder(
+                itemCount: cartItems.length,
+                itemBuilder: (context, index) {
+                  final cartItem = cartItems[index];
+                  return ListTile(
+                    title: Text(cartItem.name),
+                    subtitle: Row(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              context.read<POSBloc>().add(RemoveCartItem(
+                                  variantId: cartItem.id,
+                                  productsWithCategories:
+                                      productsWithCategories));
+                            },
+                            icon: const Icon(Icons.remove)),
+                        Text(cartItem.count.toString()),
+                        IconButton(
+                            onPressed: () {
+                              context.read<POSBloc>().add(AddCartItem(
+                                  productName: cartItem.name,
+                                  id: cartItem.id,
+                                  productsWithCategories:
+                                      productsWithCategories));
+                            },
+                            icon: const Icon(Icons.add)),
+                      ],
+                    ),
+                    trailing: Text('₹${cartItem.cost}'),
+                  );
+                }),
+          )),
+      Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: spacingXSmall, vertical: spacingStandard),
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: spacingXSmall, vertical: spacingStandard),
+            child: Column(
+              children: [
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text('Total: '),
+                    Text(context.read<POSBloc>().billModel.totalAmount.toStringAsFixed(2)),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+      const SizedBox(height: spacingStandard),
+      Padding(
+        padding: const EdgeInsets.symmetric(
+            horizontal: spacingStandard, vertical: spacingStandard),
+        child: PrimaryButton(onPressed: () {}, buttonTitle: 'Checkout'),
+      )
+    ]));
   }
 }

@@ -13,9 +13,10 @@ class ReloadPOS extends POSEvents {
 class AddCartItem extends POSEvents {
   final List<ProductsWithCategories> productsWithCategories;
   final String productName;
-  final Variant variant;
+  final int id;
+  final Variant? variant;
 
-  AddCartItem({required this.productsWithCategories, required this.productName, required this.variant});
+  AddCartItem({required this.id, required this.productsWithCategories, required this.productName, this.variant});
 }
 
 class RemoveCartItem extends POSEvents {
@@ -23,4 +24,10 @@ class RemoveCartItem extends POSEvents {
   final int variantId;
 
   RemoveCartItem({required this.productsWithCategories,required this.variantId});
+}
+
+class CalculateBill extends POSEvents {
+  final List<ProductsWithCategories> productsWithCategories;
+
+  CalculateBill({required this.productsWithCategories});
 }

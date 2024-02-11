@@ -8,7 +8,8 @@ class VariantsDialogue extends StatelessWidget {
   const VariantsDialogue({
     super.key,
     required this.products,
-    required this.index, required this.productsWithCategories,
+    required this.index,
+    required this.productsWithCategories,
   });
 
   final List<ProductsWithCategories> productsWithCategories;
@@ -34,15 +35,21 @@ class VariantsDialogue extends StatelessWidget {
                       context.read<POSBloc>().add(AddCartItem(
                           productsWithCategories: productsWithCategories,
                           productName: products[index].productName,
-                          variant: products[index]
-                              .variants[variantIndex]));
+                          variant: products[index].variants[variantIndex],
+                          id: products[index]
+                              .variants[variantIndex]
+                              .variantId));
                     },
                     child: Card(
                         child: Center(
-                            child: Text(products[index]
-                                .variants[variantIndex]
-                                .cost
-                                .toString()))),
+                            child: Column(
+                      children: [
+                        Text(
+                            "${products[index].variants[variantIndex].quantity} ${products[index].variants[variantIndex].unit}"),
+                        Text(
+                            "₹${products[index].variants[variantIndex].cost.toString()}"),
+                      ],
+                    ))),
                   );
                 })));
   }

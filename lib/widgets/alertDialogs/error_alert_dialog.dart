@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
+import 'package:saasify/configs/app_dimensions.dart';
+import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class ErrorAlertDialog extends StatelessWidget {
   final String description;
@@ -12,20 +14,25 @@ class ErrorAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      icon: const Icon(Icons.error, color: AppColors.errorRed),
-      title: Text(title!),
+      icon: Image.asset('assets/cross.png',
+          height: kDashboardIconContainerSize,
+          width: kDashboardIconContainerSize),
+      title: const Text('Error!'),
       content: Text(description),
       actions: [
-        TextButton(
-          onPressed: () {
-            if (onPressed != null) {
-              onPressed!();
-            } else {
-              Navigator.pop(context);
-            }
-          },
-          child: const Text('Ok'),
-        ),
+        SizedBox(
+          width: MediaQuery.sizeOf(context).height * 0.40,
+          child: PrimaryButton(
+              backgroundColor: AppColors.errorRed,
+              onPressed: () {
+                if (onPressed != null) {
+                  onPressed!();
+                } else {
+                  Navigator.pop(context);
+                }
+              },
+              buttonTitle: 'Ok'),
+        )
       ],
     );
   }

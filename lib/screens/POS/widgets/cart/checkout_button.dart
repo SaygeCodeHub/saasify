@@ -65,14 +65,13 @@ class CheckoutButton extends StatelessWidget {
                                     },
                                     child: Card(
                                         child: Center(
-                                          child: Text(paymentMethods[index],
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelTextStyle
-                                                  .copyWith(
-                                                      color:
-                                                          AppColors.darkBlue)),
-                                        )),
+                                      child: Text(paymentMethods[index],
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelTextStyle
+                                              .copyWith(
+                                                  color: AppColors.darkBlue)),
+                                    )),
                                   );
                                 })));
                   });

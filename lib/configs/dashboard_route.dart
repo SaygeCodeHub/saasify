@@ -48,6 +48,11 @@ class DashboardRouting {
         );
         break;
       case 'HR_SALARY_ROLLOUT':
+        Navigator.push(
+          context,
+          buildPageRoute(const EmployeeListScreen()),
+        );
+        break;
       case 'HR_ADD_NEW_EMPLOYEE':
         showAddEmployeeDialog(context);
         break;

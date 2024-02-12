@@ -20,6 +20,7 @@ import 'package:saasify/screens/inventory/inventory_screen.dart';
 import 'package:saasify/screens/orders/orders_screen.dart';
 import 'package:saasify/screens/root_screen.dart';
 import 'package:saasify/screens/settings/settings_screen.dart';
+import 'package:saasify/screens/task/task_screen.dart';
 
 import '../data/models/leaves/get_all_leaves_model.dart';
 import '../screens/hrms/timesheet/timesheet_screen.dart';
@@ -60,6 +61,8 @@ class AppRoutes {
         return _createRoute(const OrdersScreen());
       case InventoryScreen.routeName:
         return _createRoute(const InventoryScreen());
+      case TaskScreen.routeName:
+        return _createRoute(const TaskScreen());
       case LeaveDetailsNavigationScreen.routeName:
         List<dynamic> args = settings.arguments as List<dynamic>;
         return _createRoute(LeaveDetailsNavigationScreen(

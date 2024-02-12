@@ -25,7 +25,7 @@ class HrmsAttendanceSection extends StatelessWidget {
         const ModuleHeading(label: 'Mark Attendance'),
         const SizedBox(height: spacingLarger),
         Container(
-          width: (!isMobile!)
+          width: (isMobile!)
               ? MediaQuery.sizeOf(context).width * 0.25
               : MediaQuery.sizeOf(context).width,
           height: MediaQuery.sizeOf(context).height * 0.15,

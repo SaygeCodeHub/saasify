@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_bloc.dart';
+import 'package:saasify/bloc/attendance/attendance_event.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
@@ -10,12 +11,13 @@ import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
 class HrmsAttendanceSection extends StatelessWidget {
-  final double? sectionWidth;
+  final bool? isMobile;
 
-  const HrmsAttendanceSection({super.key, this.sectionWidth});
+  const HrmsAttendanceSection({super.key, this.isMobile = false});
 
   @override
   Widget build(BuildContext context) {
+    context.read<AttendanceBloc>().add(FetchAttendance());
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -23,7 +25,7 @@ class HrmsAttendanceSection extends StatelessWidget {
         const ModuleHeading(label: 'Mark Attendance'),
         const SizedBox(height: spacingLarger),
         Container(
-          width: (sectionWidth != null)
+          width: (!isMobile!)
               ? MediaQuery.sizeOf(context).width * 0.25
               : MediaQuery.sizeOf(context).width,
           height: MediaQuery.sizeOf(context).height * 0.15,
@@ -73,7 +75,7 @@ class HrmsAttendanceSection extends StatelessWidget {
                                     },
                                     valueListenable: context
                                         .read<AttendanceBloc>()
-                                        .checkInTime,
+                                        .checkOutTime,
                                     child: const Text("--:--"))
                               ],
                             ),

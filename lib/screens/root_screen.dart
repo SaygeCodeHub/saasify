@@ -28,7 +28,6 @@ class RootScreen extends StatelessWidget {
           );
         }
         if (state is AppInitialised) {
-          context.read<AttendanceBloc>().add(FetchAttendance());
           DashboardRouting(
                   featureKey: state.initialiseAppModel.data!
                       .accessibleModules![0].moduleKey!,

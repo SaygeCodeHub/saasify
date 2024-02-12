@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/POS/pos_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_bloc.dart';
@@ -32,7 +33,9 @@ void main() async {
 
 _initFirebase() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await NotificationUtil().initNotifications();
+  if (!kIsWeb) {
+    await NotificationUtil().initNotifications();
+  }
 }
 
 _initDependencies() async {

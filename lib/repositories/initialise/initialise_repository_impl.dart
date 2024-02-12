@@ -18,7 +18,7 @@ class InitialiseRepositoryImpl implements InitialiseRepository {
     try {
       final response = await ClientServices().post(
           "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.initializeApi}",
-          {"device_token": 'fcmToken'});
+          {"device_token": (fcmToken != null) ? fcmToken : 'xyz'});
       return InitialiseAppModel.fromJson(response);
     } catch (error) {
       rethrow;

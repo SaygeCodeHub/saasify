@@ -12,6 +12,7 @@ class NotificationUtil {
   Future<void> initNotifications() async {
     await pushNotifications.requestPermission();
     await pushNotifications.getNotificationSettings();
+    FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
   }
 
   ifTokenExists<bool>() async {

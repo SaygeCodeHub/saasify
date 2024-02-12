@@ -6,6 +6,7 @@ import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/initialise/initialise_app_model.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/initialise/initialise_repository.dart';
+import 'package:saasify/utils/notifications.dart';
 
 class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
   final Cache cache = getIt<Cache>();
@@ -24,11 +25,11 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
       InitialiseApp event, Emitter<InitialiseAppStates> emit) async {
     emit(InitialisingApp());
     try {
-      // bool tokenAvailable = await NotificationUtil().ifTokenExists();
-      // if (!tokenAvailable) {
-      //   String newToken = await NotificationUtil().getToken();
-      //   cache.setFCMToken(newToken);
-      // }
+      bool tokenAvailable = await NotificationUtil().ifTokenExists();
+      if (!tokenAvailable) {
+        String newToken = await NotificationUtil().getToken();
+        cache.setFCMToken(newToken);
+      }
       InitialiseAppModel initialiseAppModel =
           await _initialiseRepository.initialiseApp();
       if (initialiseAppModel.status == 200) {

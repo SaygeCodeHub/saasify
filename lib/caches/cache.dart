@@ -106,6 +106,21 @@ class Cache {
     return [];
   }
 
+  void setAvailableModules(List<ModulesModel> modulesModel) async {
+    final value =
+        jsonEncode(modulesModel.map((user) => user.toJson()).toList());
+    sharedPreferences.setString(CacheKeys.availableModules, value);
+  }
+
+  Future<List<ModulesModel>> getAvailableModules() async {
+    final value = sharedPreferences.getString(CacheKeys.availableModules);
+    if (value != null) {
+      final List<dynamic> jsonArray = jsonDecode(value);
+      return jsonArray.map((json) => ModulesModel.fromJson(json)).toList();
+    }
+    return [];
+  }
+
   void setAccessibleFeatures(List<FeatureDetailModel> modulesModel) async {
     final value =
         jsonEncode(modulesModel.map((user) => user.toJson()).toList());

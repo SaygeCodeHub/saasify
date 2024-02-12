@@ -111,17 +111,17 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
   FutureOr<void> _getAllEmployees(
       GetAllEmployees event, Emitter<EmployeeStates> emit) async {
     emit(LoadingEmployees());
-    //  try {
-    GetAllEmployeesModel getAllEmployeesModel =
-        await _employeeRepository.getAllEmployees();
+    try {
+      GetAllEmployeesModel getAllEmployeesModel =
+          await _employeeRepository.getAllEmployees();
 
-    if (getAllEmployeesModel.data.isNotEmpty) {
-      emit(EmployeesLoaded(employees: getAllEmployeesModel.data));
-    } else {
-      emit(LoadingEmployeesFailed(errorMessage: 'No employees found'));
+      if (getAllEmployeesModel.data.isNotEmpty) {
+        emit(EmployeesLoaded(employees: getAllEmployeesModel.data));
+      } else {
+        emit(LoadingEmployeesFailed(errorMessage: 'No employees found'));
+      }
+    } catch (e) {
+      emit(LoadingEmployeesFailed(errorMessage: e.toString()));
     }
-    // } catch (e) {
-    //   emit(InvitingFailed(errorMessage: e.toString()));
-    // }
   }
 }

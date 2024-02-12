@@ -28,11 +28,11 @@ class HRMSDashboardScreen extends StatelessWidget {
                   children: [
                     const SizedBox(height: spacingStandard),
                     (isMobile)
-                        ? const Column(
+                        ? Column(
                             children: [
-                              HrmsAttendanceSection(),
-                              SizedBox(height: spacingHuge),
-                              HrmsAnnouncementsSection()
+                              HrmsAttendanceSection(isMobile: isMobile),
+                              const SizedBox(height: spacingHuge),
+                              const HrmsAnnouncementsSection()
                             ],
                           )
                         : const Row(

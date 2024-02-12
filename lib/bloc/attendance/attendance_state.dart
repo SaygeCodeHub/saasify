@@ -4,7 +4,7 @@ class AttendanceInitial extends AttendanceStates {}
 
 class MarkingAttendance extends AttendanceStates {}
 
-class MarkedAttendance extends AttendanceStates {}
+class FetchedAttendance extends AttendanceStates {}
 
 class ErrorFetchingAttendance extends AttendanceStates {
   final String message;

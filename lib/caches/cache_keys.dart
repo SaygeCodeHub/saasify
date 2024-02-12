@@ -11,6 +11,7 @@ class CacheKeys {
   static const branchName = 'branchName';
   static const designations = 'designations';
   static const accessibleModules = 'accessibleModules';
+  static const availableModules = 'availableModules';
   static const accessibleFeatures = 'accessibleFeatures';
   static const initializeApi = 'initializeApi';
   static const fcmToken = 'fcmToken';

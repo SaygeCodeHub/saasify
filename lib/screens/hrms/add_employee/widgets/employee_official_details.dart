@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:saasify/bloc/employee/employee_bloc.dart';
+import 'package:saasify/caches/cache.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/di/app_module.dart';
+import 'package:saasify/screens/hrms/add_employee/widgets/selectableModules.dart';
 import 'package:saasify/widgets/custom_dropdown_widget.dart';
 import 'package:saasify/widgets/form/form_input_fields.dart';
 import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
 import 'package:saasify/widgets/text/dropdown_label_widget.dart';
 import 'package:saasify/widgets/text/field_label_widget.dart';
+import 'package:saasify/widgets/text/label_text_widget.dart';
 
 class EmployeeOfficialDetails extends StatelessWidget {
   const EmployeeOfficialDetails({super.key});
@@ -93,18 +97,17 @@ class EmployeeOfficialDetails extends StatelessWidget {
                 })
           ]),
           const SizedBox(height: spacingLarge),
-          MultiFieldRow(childrenWidgets: [
-            DropdownLabelWidget(
-                label: "Accessible Features",
-                initialValue: context
-                    .read<EmployeeBloc>()
-                    .employeeDetails['official']['accessible_features'],
-                items: const [],
-                onChanged: (value) {
-                  context.read<EmployeeBloc>().employeeDetails['official']
-                      ['accessible_features'] = value;
-                })
-          ])
+          const LabelTextWidget(label: "Accesible Features"),
+          FutureBuilder(
+              future: getIt<Cache>().getAvailableModules(),
+              builder: (context, snapshot) {
+                return SelectableModules(
+                    modules: snapshot.data ?? [],
+                    onSelected: (value) {
+                      context.read<EmployeeBloc>().employeeDetails['official']
+                          ['accessible_modules'] = value;
+                    });
+              })
         ]));
   }
 }

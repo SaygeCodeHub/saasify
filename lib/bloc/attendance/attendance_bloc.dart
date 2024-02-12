@@ -40,6 +40,7 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
         checkInTime.value = formatDate(attendanceModel.data.checkIn);
         checkOutTime.value = formatDate(attendanceModel.data.checkOut);
       }
+      emit(FetchedAttendance());
     } catch (e) {
       emit(ErrorFetchingAttendance(message: e.toString()));
     }
@@ -83,7 +84,7 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
           if (attendanceModel.status == 200) {
             checkInTime.value = formatDate(attendanceModel.data.checkIn);
             checkOutTime.value = formatDate(attendanceModel.data.checkOut);
-            emit(MarkedAttendance());
+            emit(FetchedAttendance());
           } else {
             emit(ErrorMarkingAttendance(message: attendanceModel.message));
             return;
@@ -99,7 +100,7 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
         if (attendanceModel.status == 200) {
           checkInTime.value = formatDate(attendanceModel.data.checkIn);
           checkOutTime.value = formatDate(attendanceModel.data.checkOut);
-          emit(MarkedAttendance());
+          emit(FetchedAttendance());
         } else {
           emit(ErrorMarkingAttendance(message: attendanceModel.message));
           return;

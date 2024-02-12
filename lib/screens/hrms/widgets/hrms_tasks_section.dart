@@ -3,8 +3,6 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
-import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
-import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
 class HrmsTasksSection extends StatelessWidget {
@@ -65,7 +63,7 @@ class HrmsTasksSection extends StatelessWidget {
                       const SizedBox(height: spacingStandard),
                       const Expanded(
                           child: Text('Upload and submit F12 & 1QC Form',
-                              maxLines: 2,
+                              maxLines: 1,
                               softWrap: true,
                               overflow: TextOverflow.ellipsis)),
                       const SizedBox(height: spacingLarge),

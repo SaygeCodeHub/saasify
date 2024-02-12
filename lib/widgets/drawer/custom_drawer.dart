@@ -94,6 +94,7 @@ import 'package:saasify/caches/cache.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/dashboard_route.dart';
 import 'package:saasify/di/app_module.dart';
+import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/widgets/drawer/module_list_tile.dart';
 import '../../utils/globals.dart';
 import '../profile/saasify_logo.dart';
@@ -164,6 +165,14 @@ class CustomDrawer extends StatelessWidget {
                                     .navigateTo();
                               });
                         }),
+                    ModuleListTile(
+                        iconData: Icons.logout,
+                        title: 'Logout',
+                        onTap: () {
+                          getIt<Cache>().clearSharedPreferences();
+                          Navigator.pushNamedAndRemoveUntil(context,
+                              AuthenticationScreen.routeName, (route) => false);
+                        })
                   ],
                 ),
               );

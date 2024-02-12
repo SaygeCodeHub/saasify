@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_bloc.dart';
+import 'package:saasify/bloc/attendance/attendance_event.dart';
 import 'package:saasify/bloc/initialise/initialise_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_events.dart';
 import 'package:saasify/bloc/initialise/initialise_states.dart';
@@ -27,6 +28,7 @@ class RootScreen extends StatelessWidget {
           );
         }
         if (state is AppInitialised) {
+          context.read<AttendanceBloc>().add(FetchAttendance());
           DashboardRouting(
                   featureKey: state.initialiseAppModel.data!
                       .accessibleModules![0].moduleKey!,
@@ -36,7 +38,7 @@ class RootScreen extends StatelessWidget {
               state.isGeoFencing;
         }
       },
-      child: const Center(child: CircularProgressIndicator()),
+      child: const Scaffold(body: Center(child: CircularProgressIndicator())),
     );
   }
 }

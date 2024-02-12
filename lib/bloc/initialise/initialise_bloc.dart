@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_events.dart';
 import 'package:saasify/bloc/initialise/initialise_states.dart';
@@ -25,10 +26,12 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
       InitialiseApp event, Emitter<InitialiseAppStates> emit) async {
     emit(InitialisingApp());
     try {
-      bool tokenAvailable = await NotificationUtil().ifTokenExists();
-      if (!tokenAvailable) {
-        String newToken = await NotificationUtil().getToken();
-        cache.setFCMToken(newToken);
+      if (!kIsWeb) {
+        bool tokenAvailable = await NotificationUtil().ifTokenExists();
+        if (!tokenAvailable) {
+          String newToken = await NotificationUtil().getToken();
+          cache.setFCMToken(newToken);
+        }
       }
       InitialiseAppModel initialiseAppModel =
           await _initialiseRepository.initialiseApp();

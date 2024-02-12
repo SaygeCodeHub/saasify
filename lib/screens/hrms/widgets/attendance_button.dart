@@ -39,9 +39,15 @@ class AttendanceButton extends StatelessWidget {
                 width: 25, height: 25, child: CircularProgressIndicator()));
       } else {
         return (checkInTimeExists() && checkOutTimeExists())
-            ? const SizedBox.shrink()
+            ? PrimaryButton(
+                buttonWidth: 40,
+                buttonHeight: 40,
+                backgroundColor: AppColors.successGreen,
+                onPressed: () {},
+                buttonTitle: 'Done for the day!')
             : PrimaryButton(
-                buttonWidth: 80,
+                buttonWidth: 40,
+                buttonHeight: 40,
                 backgroundColor: (!checkInTimeExists())
                     ? AppColors.successGreen
                     : AppColors.errorRed,

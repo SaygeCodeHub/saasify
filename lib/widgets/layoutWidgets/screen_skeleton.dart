@@ -32,7 +32,7 @@ class ScreenSkeleton extends StatelessWidget {
             child: !isMobile
                 ? Column(
                     children: [
-                      const WebAppBar(),
+                      WebAppBar(isHome: isHome),
                       Expanded(child: childScreenBuilder(isMobile)),
                     ],
                   )

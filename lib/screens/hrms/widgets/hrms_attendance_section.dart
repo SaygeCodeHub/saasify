@@ -28,68 +28,60 @@ class HrmsAttendanceSection extends StatelessWidget {
           width: (isMobile!)
               ? MediaQuery.sizeOf(context).width * 0.25
               : MediaQuery.sizeOf(context).width,
-          height: MediaQuery.sizeOf(context).height * 0.15,
           decoration: BoxDecoration(
               border: Border.all(color: AppColors.lighterBlack),
               borderRadius: BorderRadius.circular(kCardRadius)),
-          child: Row(
-            children: [
-              Image.asset('assets/human.gif'),
-              Expanded(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(spacingLarger),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(StringConstants.kCheckIn,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .cardMobileValueTextStyle),
-                                ValueListenableBuilder<String?>(
-                                    builder: (context, value, child) {
-                                      return Text(value ?? "--:--");
-                                    },
-                                    valueListenable: context
-                                        .read<AttendanceBloc>()
-                                        .checkInTime,
-                                    child: const Text("--:--"))
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(StringConstants.kCheckIn,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .cardMobileValueTextStyle),
-                                ValueListenableBuilder<String?>(
-                                    builder: (context, value, child) {
-                                      return Text(value ?? "--:--");
-                                    },
-                                    valueListenable: context
-                                        .read<AttendanceBloc>()
-                                        .checkOutTime,
-                                    child: const Text("--:--"))
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const AttendanceButton()
-                  ],
+          child: ListTile(
+            leading: Image.asset(
+              'assets/human.gif',
+              height: MediaQuery.sizeOf(context).height * 0.15,
+            ),
+            title: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(StringConstants.kCheckIn,
+                          style: Theme.of(context)
+                              .textTheme
+                              .cardMobileValueTextStyle),
+                      ValueListenableBuilder<String?>(
+                          builder: (context, value, child) {
+                            return Text(value ?? "--:--");
+                          },
+                          valueListenable:
+                              context.read<AttendanceBloc>().checkInTime,
+                          child: const Text("--:--"))
+                    ],
+                  ),
                 ),
-              )
-            ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(StringConstants.kCheckIn,
+                          style: Theme.of(context)
+                              .textTheme
+                              .cardMobileValueTextStyle),
+                      ValueListenableBuilder<String?>(
+                          builder: (context, value, child) {
+                            return Text(value ?? "--:--");
+                          },
+                          valueListenable:
+                              context.read<AttendanceBloc>().checkOutTime,
+                          child: const Text("--:--"))
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            subtitle: const Padding(
+              padding: EdgeInsets.all(spacingXSmall),
+              child: AttendanceButton(),
+            ),
           ),
-        ),
+        )
       ],
     );
   }

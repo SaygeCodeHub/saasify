@@ -90,7 +90,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
                     .read<EmployeeBloc>()
                     .employeeDetails['official']['current_location'],
                 readOnly: true,
-                maxLines: 5,
+                maxLines: 3,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['official']
                       ['current_location'] = value;

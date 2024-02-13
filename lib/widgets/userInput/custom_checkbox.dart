@@ -5,8 +5,14 @@ import 'package:saasify/configs/app_theme.dart';
 
 class CustomCheckbox extends StatefulWidget {
   final String checkBoxTitle;
+  final bool isChecked;
+  final void Function(bool?)? onChanged;
 
-  const CustomCheckbox({super.key, required this.checkBoxTitle});
+  const CustomCheckbox(
+      {super.key,
+      required this.checkBoxTitle,
+      this.onChanged,
+      required this.isChecked});
 
   @override
   CustomCheckboxState createState() => CustomCheckboxState();
@@ -14,6 +20,12 @@ class CustomCheckbox extends StatefulWidget {
 
 class CustomCheckboxState extends State<CustomCheckbox> {
   bool isChecked = false;
+
+  @override
+  initState() {
+    super.initState();
+    isChecked = widget.isChecked;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +50,7 @@ class CustomCheckboxState extends State<CustomCheckbox> {
                   activeColor: AppColors.orange,
                   value: isChecked,
                   onChanged: (value) {
+                    widget.onChanged!(value);
                     setState(() {
                       isChecked = value!;
                     });
@@ -51,7 +64,12 @@ class CustomCheckboxState extends State<CustomCheckbox> {
             ),
           ),
           const SizedBox(width: spacingXMedium),
-          IconButton(onPressed: () {}, icon: const Icon(Icons.info))
+          const Tooltip(
+              message: 'Some Information',
+              child: Icon(
+                Icons.info,
+                color: AppColors.darkBlue,
+              ))
         ],
       ),
     );

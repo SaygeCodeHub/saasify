@@ -9,7 +9,7 @@ import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/employee/employee_repository.dart';
 
 class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
-  final Map inviteDetails = {};
+  Map inviteDetails = {};
   Map<String, dynamic> employeeDetails = {
     "personal_info": <String, dynamic>{
       "active_status": 1,
@@ -42,7 +42,7 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
     emit(InvitingEmployee());
     try {
       InviteEmployeeModel inviteEmployeeModel =
-          await _employeeRepository.inviteEmployee(event.inviteDetails);
+          await _employeeRepository.inviteEmployee(inviteDetails);
       if (inviteEmployeeModel.status == 200) {
         emit(InvitationSent(inviteEmployeeModel: inviteEmployeeModel));
       } else {

@@ -83,23 +83,13 @@ class EmployeeBasicDetails extends StatelessWidget {
       MultiFieldRow(childrenWidgets: [
         DatePickerField(
             label: StringConstants.kDateOfBirth,
-            initialDate: DateFormat('dd-mm-yyyy').tryParse(context
+            initialDate: DateFormat('yyyy-mm-dd').tryParse(context
                     .read<EmployeeBloc>()
                     .employeeDetails['personal_info']['date_of_birth'] ??
                 ""),
             onTextFieldChanged: (value) {
               context.read<EmployeeBloc>().employeeDetails['personal_info']
                   ['date_of_birth'] = value;
-            }),
-        NumberTextField(
-            label: StringConstants.kAge,
-            initialValue: context
-                .read<EmployeeBloc>()
-                .employeeDetails['personal_info']['age'],
-            maxLength: 3,
-            onTextFieldChanged: (value) {
-              context.read<EmployeeBloc>().employeeDetails['personal_info']
-                  ['age'] = value;
             }),
         DropdownLabelWidget(
             label: StringConstants.kGender,

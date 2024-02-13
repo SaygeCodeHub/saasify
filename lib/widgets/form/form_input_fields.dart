@@ -49,11 +49,15 @@ class ContactTextField extends LabelAndFieldWidget {
     super.label,
     super.key,
     super.initialValue,
+    int maxLength = 10,
     super.onTextFieldChanged,
     super.isRequired,
   }) : super(
             keyboardType: TextInputType.phone,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            inputFormatters: [
+              LengthLimitingTextInputFormatter(maxLength),
+              FilteringTextInputFormatter.digitsOnly
+            ],
             prefixIcon: const Icon(Icons.phone_android_outlined),
             validator: (String? contact) {
               if (!isPhoneNumberValid(contact!)) {

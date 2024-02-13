@@ -37,7 +37,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
                 }),
             DatePickerField(
                 label: "Date of Joining",
-                initialDate: DateFormat('dd-mm-yyyy').tryParse(context
+                initialDate: DateFormat('yyyy-mm-dd').tryParse(context
                         .read<EmployeeBloc>()
                         .employeeDetails['personal_info']['DOJ'] ??
                     ""),

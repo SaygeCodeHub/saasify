@@ -94,7 +94,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             DatePickerField(
                 label: StringConstants.kExpiryDate,
-                initialDate: DateFormat('dd-mm-yyyy').tryParse(
+                initialDate: DateFormat('yyyy-mm-dd').tryParse(
                     context.read<EmployeeBloc>().employeeDetails['documents']
                             ['passport']['expiry_date'] ??
                         ""),
@@ -104,7 +104,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
                 }),
             DatePickerField(
                 label: StringConstants.kIssueDate,
-                initialDate: DateFormat('dd-mm-yyyy').tryParse(
+                initialDate: DateFormat('yyyy-mm-dd').tryParse(
                     context.read<EmployeeBloc>().employeeDetails['documents']
                             ['passport']['issue_date'] ??
                         ""),

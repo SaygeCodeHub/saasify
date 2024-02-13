@@ -74,13 +74,14 @@ class ModuleItem extends StatelessWidget {
               onChanged: (value) {
                 _handleModuleSelection(value);
               },
-              activeColor: AppColors.orange,
+              activeColor: AppColors.lightBlue,
             ),
           ],
         ),
         const SizedBox(height: spacingSmall),
         Wrap(
           spacing: spacingXXSmall,
+          runSpacing: spacingXXSmall,
           children: module.availableFeatures?.map((feature) {
                 return FeatureChip(
                     feature: feature,
@@ -172,17 +173,19 @@ class FeatureChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilterChip(
       selected: isSelected,
-      selectedColor: AppColors.orange.withOpacity(0.1),
-      checkmarkColor: AppColors.orange,
+      selectedColor: AppColors.lightBlue.withOpacity(0.1),
+      checkmarkColor: AppColors.lightBlue,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
       backgroundColor: AppColors.grey,
       side: BorderSide(
-        color: isSelected ? AppColors.orange : AppColors.black.withOpacity(0.2),
+        color:
+            isSelected ? AppColors.lightBlue : AppColors.black.withOpacity(0.2),
       ),
       label: Text(
         feature.title ?? "",
         style: Theme.of(context).textTheme.labelTextStyle.copyWith(
               color: isSelected
-                  ? AppColors.orange
+                  ? AppColors.lightBlue
                   : AppColors.black.withOpacity(0.5),
             ),
       ),

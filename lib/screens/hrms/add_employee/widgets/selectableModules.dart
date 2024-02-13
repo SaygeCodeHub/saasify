@@ -6,12 +6,14 @@ import 'package:saasify/data/models/initialise/initialise_app_model.dart';
 
 class SelectableModules extends StatefulWidget {
   final List<ModulesModel> modules;
+  final List<Map<String, dynamic>>? selectedFeatures;
   final void Function(List<Map<String, dynamic>>) onSelected;
 
   const SelectableModules({
     super.key,
     required this.modules,
     required this.onSelected,
+    this.selectedFeatures,
   });
 
   @override
@@ -20,6 +22,12 @@ class SelectableModules extends StatefulWidget {
 
 class _SelectableModulesState extends State<SelectableModules> {
   List<Map<String, dynamic>> selectedFeatures = [];
+
+  @override
+  void initState() {
+    selectedFeatures = widget.selectedFeatures ?? [];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

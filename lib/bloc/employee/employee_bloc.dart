@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/employee/employee_event.dart';
@@ -59,7 +58,6 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
       UpdateEmployee event, Emitter<EmployeeStates> emit) async {
     emit(UpdatingEmployee());
     try {
-      print(jsonEncode(employeeDetails));
       var addEmployeeModel = await _employeeRepository.updateEmployee(
           employeeDetails, event.employeeId ?? "");
       if (addEmployeeModel.status == 200) {

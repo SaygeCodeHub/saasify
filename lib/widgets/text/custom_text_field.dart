@@ -73,7 +73,6 @@ class CustomTextField extends StatelessWidget {
         obscuringCharacter: "*",
         cursorColor: AppColors.orange,
         onTap: onTap,
-        initialValue: initialValue,
         decoration: InputDecoration(
             focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.black12)),

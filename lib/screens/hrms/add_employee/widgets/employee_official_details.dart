@@ -103,6 +103,9 @@ class EmployeeOfficialDetails extends StatelessWidget {
               builder: (context, snapshot) {
                 return SelectableModules(
                     modules: snapshot.data ?? [],
+                    selectedFeatures: context
+                        .read<EmployeeBloc>()
+                        .employeeDetails['official']['accessible_modules'],
                     onSelected: (value) {
                       context.read<EmployeeBloc>().employeeDetails['official']
                           ['accessible_modules'] = value;

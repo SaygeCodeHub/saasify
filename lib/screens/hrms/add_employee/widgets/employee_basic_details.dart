@@ -64,19 +64,19 @@ class EmployeeBasicDetails extends StatelessWidget {
             label: StringConstants.kMobileNumber,
             initialValue: context
                 .read<EmployeeBloc>()
-                .employeeDetails['personal_info']['user_mobile'],
+                .employeeDetails['personal_info']['user_contact'],
             onTextFieldChanged: (value) {
               context.read<EmployeeBloc>().employeeDetails['personal_info']
-                  ['user_mobile'] = value;
+                  ['user_contact'] = value;
             }),
         ContactTextField(
             label: StringConstants.kAlternateMobileNumber,
             initialValue: context
                 .read<EmployeeBloc>()
-                .employeeDetails['personal_info']['alternate_mobile'],
+                .employeeDetails['personal_info']['alternate_contact'],
             onTextFieldChanged: (value) {
               context.read<EmployeeBloc>().employeeDetails['personal_info']
-                  ['alternate_mobile'] = value;
+                  ['alternate_contact'] = value;
             })
       ]),
       const SizedBox(height: spacingLarge),

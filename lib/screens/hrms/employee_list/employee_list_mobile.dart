@@ -3,6 +3,7 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/employee/get_all_employees_model.dart';
+import 'package:saasify/widgets/generalWidgets/status_chip.dart';
 
 class EmployeeListMobile extends StatelessWidget {
   final List<EmployeeListData> employees;
@@ -27,9 +28,23 @@ class EmployeeListMobile extends StatelessWidget {
                     child: ListTile(
                         leading: const Icon(Icons.person,
                             color: AppColors.darkBlue, size: kAvatarRadius),
-                        title: Text(employees[index].name,
-                            style:
-                                Theme.of(context).textTheme.userNameTextStyle),
+                        title: Row(
+                          children: [
+                            Text(employees[index].name,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .userNameTextStyle),
+                            const Spacer(),
+                            (employees[index].designations[0].toString() ==
+                                    'OWNER')
+                                ? StatusChip(
+                                    text: employees[index]
+                                        .designations[0]
+                                        .toString(),
+                                    color: AppColors.lightBlue)
+                                : const SizedBox.shrink(),
+                          ],
+                        ),
                         subtitle: Row(
                           children: [
                             Text('Employee ID - ${employees[index].employeeId}',

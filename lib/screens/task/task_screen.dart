@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/task/task_mobile_screen.dart';
+import 'package:saasify/widgets/buttons/primary_button.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
@@ -22,6 +23,13 @@ class _TaskScreenState extends State<TaskScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Container(
+        color: AppColors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(spacingStandard),
+          child: PrimaryButton(onPressed: () {}, buttonTitle: 'Assign'),
+        ),
+      ),
       body: ScreenSkeleton(
           childScreenBuilder: (bool isMobile) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

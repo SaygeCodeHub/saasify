@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
+import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class ErrorAlertDialog extends StatelessWidget {
@@ -18,7 +19,9 @@ class ErrorAlertDialog extends StatelessWidget {
           height: kDashboardIconContainerSize,
           width: kDashboardIconContainerSize),
       title: const Text('Error!'),
+      actionsPadding: const EdgeInsets.only(bottom: spacingSmall),
       content: Text(description),
+      actionsAlignment: MainAxisAlignment.center,
       actions: [
         SizedBox(
           width: MediaQuery.sizeOf(context).height * 0.40,

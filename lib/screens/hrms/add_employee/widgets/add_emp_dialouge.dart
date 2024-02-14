@@ -42,7 +42,7 @@ showAddEmployeeDialog(BuildContext context) {
                             context, HRMSDashboardScreen.routeName);
                       },
                       description:
-                          '${state.inviteEmployeeModel.message} on ${context.read<EmployeeBloc>().inviteDetails['user_email']} ✅');
+                          '${state.inviteEmployeeModel.message} on ${context.read<EmployeeBloc>().inviteDetails['user_email']}');
                 },
               );
             }

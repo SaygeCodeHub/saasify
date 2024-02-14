@@ -4,9 +4,10 @@ import 'package:saasify/screens/authentication/updatePassword/update_password_we
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 
 class UpdatePasswordScreen extends StatelessWidget {
+  final bool isVerifyToken;
   static const routeName = 'UpdatePasswordScreen';
 
-  UpdatePasswordScreen({super.key});
+  UpdatePasswordScreen({super.key, this.isVerifyToken = false});
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -18,7 +19,7 @@ class UpdatePasswordScreen extends StatelessWidget {
             body: Form(
                 key: formKey,
                 child: ResponsiveLayout(
-                    mobileBody: UpdatePasswordMobileScreen(formKey: formKey),
-                    desktopBody: UpdatePasswordWebScreen(formKey: formKey)))));
+                    mobileBody: UpdatePasswordMobileScreen(formKey: formKey, isVerifyToken: isVerifyToken),
+                    desktopBody: UpdatePasswordWebScreen(formKey: formKey, isVerifyToken: isVerifyToken)))));
   }
 }

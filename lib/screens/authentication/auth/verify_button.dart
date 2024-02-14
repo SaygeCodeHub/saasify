@@ -67,7 +67,7 @@ class AuthVerifyButton extends StatelessWidget {
         }
       }),
       const SizedBox(height: spacingStandard),
-      Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+      OverflowBar(alignment: MainAxisAlignment.spaceEvenly,overflowAlignment: OverflowBarAlignment.center, children: [
         InkWell(
             onTap: () {
               Navigator.pushReplacementNamed(context, RegisterScreen.routeName);
@@ -78,7 +78,7 @@ class AuthVerifyButton extends StatelessWidget {
         InkWell(
             onTap: () {
               Navigator.pushReplacementNamed(
-                  context, UpdatePasswordScreen.routeName);
+                  context, UpdatePasswordScreen.routeName,arguments: true);
             },
             child: const Text('Got a Invite otp? Verify here!',
                 style: TextStyle(color: AppColors.orange)))

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
+import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class SuccessAlertDialog extends StatelessWidget {
@@ -18,6 +19,8 @@ class SuccessAlertDialog extends StatelessWidget {
           height: kSassifyLogoSize, width: kSassifyLogoSize),
       title: const Text('Success'),
       content: Text(description),
+      actionsAlignment: MainAxisAlignment.center,
+      actionsPadding: const EdgeInsets.only(bottom: spacingSmall),
       actions: [
         SizedBox(
           width: MediaQuery.sizeOf(context).height * 0.40,

@@ -19,7 +19,9 @@ class UpdatePasswordScreen extends StatelessWidget {
             body: Form(
                 key: formKey,
                 child: ResponsiveLayout(
-                    mobileBody: UpdatePasswordMobileScreen(formKey: formKey, isVerifyToken: isVerifyToken),
-                    desktopBody: UpdatePasswordWebScreen(formKey: formKey, isVerifyToken: isVerifyToken)))));
+                    mobileBody: UpdatePasswordMobileScreen(
+                        formKey: formKey, isVerifyToken: isVerifyToken),
+                    desktopBody: UpdatePasswordWebScreen(
+                        formKey: formKey, isVerifyToken: isVerifyToken)))));
   }
 }

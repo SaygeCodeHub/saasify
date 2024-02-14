@@ -58,7 +58,6 @@ class UpdatePasswordWebScreen extends StatelessWidget {
                 label: StringConstants.kPassword,
                 isRequired: true,
                 prefixIcon: const Icon(Icons.password_outlined),
-
                 onTextFieldChanged: (value) {
                   context
                       .read<ResetPasswordBloc>()

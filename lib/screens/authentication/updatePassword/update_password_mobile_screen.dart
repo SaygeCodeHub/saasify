@@ -28,12 +28,12 @@ class UpdatePasswordMobileScreen extends StatelessWidget {
           !isVerifyToken
               ? const SizedBox.shrink()
               : EmailTextField(
-              isRequired: true,
-              onTextFieldChanged: (value) {
-                context
-                    .read<ResetPasswordBloc>()
-                    .userInputAuthenticationMap['email'] = value;
-              }),
+                  isRequired: true,
+                  onTextFieldChanged: (value) {
+                    context
+                        .read<ResetPasswordBloc>()
+                        .userInputAuthenticationMap['email'] = value;
+                  }),
           !isVerifyToken
               ? const SizedBox.shrink()
               : const SizedBox(height: spacingBetweenTextFields),
@@ -52,7 +52,6 @@ class UpdatePasswordMobileScreen extends StatelessWidget {
               label: StringConstants.kPassword,
               isRequired: true,
               prefixIcon: const Icon(Icons.password_outlined),
-
               onTextFieldChanged: (value) {
                 context
                     .read<ResetPasswordBloc>()

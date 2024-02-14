@@ -39,7 +39,8 @@ class AppRoutes {
       case POSScreen.routeName:
         return _createRoute(const POSScreen());
       case UpdatePasswordScreen.routeName:
-        return _createRoute(UpdatePasswordScreen(isVerifyToken: (settings.arguments ?? false) as bool));
+        return _createRoute(UpdatePasswordScreen(
+            isVerifyToken: (settings.arguments ?? false) as bool));
       case AddCompanyScreen.routeName:
         return _createRoute(AddCompanyScreen());
       case HRMSDashboardScreen.routeName:

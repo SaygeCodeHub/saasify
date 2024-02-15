@@ -44,14 +44,13 @@ class _DropdownLabelWidgetState extends State<DropdownLabelWidget> {
     super.initState();
   }
 
-
   @override
   void didUpdateWidget(covariant DropdownLabelWidget oldWidget) {
     selectedValue = widget.initialValue == ""
         ? null
         : widget.items.map((e) => e.value).contains(widget.initialValue)
-        ? widget.initialValue
-        : null;
+            ? widget.initialValue
+            : null;
     super.didUpdateWidget(oldWidget);
   }
 

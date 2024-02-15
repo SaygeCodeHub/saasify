@@ -27,7 +27,7 @@ class _SelectableModulesState extends State<SelectableModules> {
 
   @override
   void initState() {
-    selectedFeatures = widget.selectedFeatures ?? <Map<String,dynamic>>[];
+    selectedFeatures = widget.selectedFeatures ?? <Map<String, dynamic>>[];
     super.initState();
   }
 
@@ -232,14 +232,14 @@ class ViewOnlyModuleItem extends StatelessWidget {
         ),
         const SizedBox(height: spacingSmall),
         Wrap(
-          spacing: spacingXXSmall,
-          runSpacing: spacingXXSmall,
-          children: List<Widget>.from(
-          module["accessible_features"]?.map((feature) {
-                return FeatureChip(
-                    feature: FeatureDetailModel.fromJson(feature), isSelected: true);
-              }))
-        ),
+            spacing: spacingXXSmall,
+            runSpacing: spacingXXSmall,
+            children:
+                List<Widget>.from(module["accessible_features"]?.map((feature) {
+              return FeatureChip(
+                  feature: FeatureDetailModel.fromJson(feature),
+                  isSelected: true);
+            }))),
       ],
     );
   }

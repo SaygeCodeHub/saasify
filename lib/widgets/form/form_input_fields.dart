@@ -164,9 +164,11 @@ class NumberTextField extends LabelAndFieldWidget {
     int maxLength = 10,
     super.onTextFieldChanged,
     super.isRequired,
-  }) : super(initialValue: initialValue?.toString() ?? "",
-      keyboardType: TextInputType.number, inputFormatters: [
-          LengthLimitingTextInputFormatter(maxLength),
-          FilteringTextInputFormatter.digitsOnly
-        ]);
+  }) : super(
+            initialValue: initialValue?.toString() ?? "",
+            keyboardType: TextInputType.number,
+            inputFormatters: [
+              LengthLimitingTextInputFormatter(maxLength),
+              FilteringTextInputFormatter.digitsOnly
+            ]);
 }

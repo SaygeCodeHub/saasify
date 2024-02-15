@@ -40,36 +40,41 @@ class AddEmployeeScreen extends StatelessWidget {
                                     ? "Employee Details"
                                     : 'Update Employee'),
                           ])),
-                      !isViewOnly ? const SizedBox.shrink() : Row(mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                Navigator.pushReplacementNamed(
-                                    context, routeName);
-                              },
-                              padding: EdgeInsets.zero,
-                              icon: const Icon(Icons.edit,
-                                  color: AppColors.orange, size: 20)),
-                          const SizedBox(width: spacingSmallest),
-                          Text(
-                            "Edit",
-                            style: Theme.of(context).textTheme.labelTextStyle
-                                .copyWith(color: AppColors.orange),
-                          ),
-                          const SizedBox(width: spacingMedium),
-                        ],
-                      )
+                      !isViewOnly
+                          ? const SizedBox.shrink()
+                          : Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                    onPressed: () {
+                                      Navigator.pushReplacementNamed(
+                                          context, routeName);
+                                    },
+                                    padding: EdgeInsets.zero,
+                                    icon: const Icon(Icons.edit,
+                                        color: AppColors.orange, size: 20)),
+                                const SizedBox(width: spacingSmallest),
+                                Text(
+                                  "Edit",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelTextStyle
+                                      .copyWith(color: AppColors.orange),
+                                ),
+                                const SizedBox(width: spacingMedium),
+                              ],
+                            )
                     ],
                   ),
                   Form(
                     key: _formKey,
                     child: Expanded(
                       child: ResponsiveLayout(
-                          mobileBody: AddEmployeeMobile(formKey: _formKey,
-                              isViewOnly: isViewOnly),
+                          mobileBody: AddEmployeeMobile(
+                              formKey: _formKey, isViewOnly: isViewOnly),
                           provideMobilePadding: false,
-                          desktopBody: AddEmployeeWeb(formKey: _formKey,
-                              isViewOnly: isViewOnly)),
+                          desktopBody: AddEmployeeWeb(
+                              formKey: _formKey, isViewOnly: isViewOnly)),
                     ),
                   )
                 ]));

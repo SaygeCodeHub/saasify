@@ -8,7 +8,8 @@ import 'package:saasify/screens/hrms/add_employee/widgets/employee_official_deta
 class AddEmployeeMobile extends StatelessWidget {
   final bool isViewOnly;
   final GlobalKey<FormState> formKey;
-  const AddEmployeeMobile({super.key, required this.formKey, this.isViewOnly = false});
+  const AddEmployeeMobile(
+      {super.key, required this.formKey, this.isViewOnly = false});
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +17,12 @@ class AddEmployeeMobile extends StatelessWidget {
         isViewOnly: isViewOnly,
         formKey: formKey,
         steps: [
-          StepData(icon: Icons.info_outline, content: EmployeeBasicDetails(isViewOnly: isViewOnly)),
+          StepData(
+              icon: Icons.info_outline,
+              content: EmployeeBasicDetails(isViewOnly: isViewOnly)),
           StepData(
               icon: Icons.document_scanner_outlined,
-              content: EmployeeDocumentDetails(
-                isViewOnly: isViewOnly
-              )),
+              content: EmployeeDocumentDetails(isViewOnly: isViewOnly)),
           StepData(
               icon: Icons.monetization_on_outlined,
               content: EmployeeFinancialDetails(isViewOnly: isViewOnly)),

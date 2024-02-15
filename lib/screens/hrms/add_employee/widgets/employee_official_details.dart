@@ -128,7 +128,8 @@ class EmployeeOfficialDetails extends StatelessWidget {
                     modules: snapshot.data ?? <ModulesModel>[],
                     selectedFeatures: context
                         .read<EmployeeBloc>()
-                        .employeeDetails['official']['accessible_modules']?.cast<Map<String, dynamic>>(),
+                        .employeeDetails['official']['accessible_modules']
+                        ?.cast<Map<String, dynamic>>(),
                     onSelected: (value) {
                       context.read<EmployeeBloc>().employeeDetails['official']
                           ['accessible_modules'] = value;

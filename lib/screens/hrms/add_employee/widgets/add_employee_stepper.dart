@@ -16,7 +16,8 @@ class AddEmployeeStepper extends StatefulWidget {
       {super.key,
       required this.formKey,
       required this.steps,
-      required this.isMobile, this.isViewOnly = false});
+      required this.isMobile,
+      this.isViewOnly = false});
 
   @override
   State<AddEmployeeStepper> createState() => _AddEmployeeStepperState();
@@ -100,7 +101,9 @@ class _AddEmployeeStepperState extends State<AddEmployeeStepper> {
                       },
                       buttonTitle: 'Next',
                     )
-                  : widget.isViewOnly ? const SizedBox.shrink() : AddEmployeeButton(formKey: widget.formKey),
+                  : widget.isViewOnly
+                      ? const SizedBox.shrink()
+                      : AddEmployeeButton(formKey: widget.formKey),
             ],
           ),
         )

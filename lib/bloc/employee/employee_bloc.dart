@@ -62,7 +62,8 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
     emit(UpdatingEmployee());
     try {
       var addEmployeeModel = await _employeeRepository.updateEmployee(
-          employeeDetails, selectedEmployeeId == -1 ? "" : selectedEmployeeId.toString());
+          employeeDetails,
+          selectedEmployeeId == -1 ? "" : selectedEmployeeId.toString());
       if (addEmployeeModel.status == 200) {
         emit(EmployeeUpdated(message: addEmployeeModel.message.toString()));
       } else {
@@ -105,7 +106,8 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
         selectedEmployeeId = event.employeeId;
         emit(EmployeeLoaded());
       } else {
-        emit(LoadingEmployeeFailed(errorMessage: getEmployeeModel.message.toString()));
+        emit(LoadingEmployeeFailed(
+            errorMessage: getEmployeeModel.message.toString()));
       }
     } catch (e) {
       emit(LoadingEmployeeFailed(errorMessage: e.toString()));

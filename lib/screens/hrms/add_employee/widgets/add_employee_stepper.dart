@@ -9,13 +9,14 @@ import 'package:saasify/widgets/buttons/secondary_button.dart';
 class AddEmployeeStepper extends StatefulWidget {
   final List<StepData> steps;
   final bool isMobile;
+  final bool isViewOnly;
   final GlobalKey<FormState> formKey;
 
   const AddEmployeeStepper(
       {super.key,
       required this.formKey,
       required this.steps,
-      required this.isMobile});
+      required this.isMobile, this.isViewOnly = false});
 
   @override
   State<AddEmployeeStepper> createState() => _AddEmployeeStepperState();
@@ -99,7 +100,7 @@ class _AddEmployeeStepperState extends State<AddEmployeeStepper> {
                       },
                       buttonTitle: 'Next',
                     )
-                  : AddEmployeeButton(formKey: widget.formKey),
+                  : widget.isViewOnly ? const SizedBox.shrink() : AddEmployeeButton(formKey: widget.formKey),
             ],
           ),
         )

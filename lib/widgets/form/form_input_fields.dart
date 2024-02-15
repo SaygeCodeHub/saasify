@@ -50,11 +50,12 @@ class ContactTextField extends LabelAndFieldWidget {
     super.label,
     super.key,
     super.enabled,
-    super.initialValue,
+    dynamic initialValue,
     int maxLength = 10,
     super.onTextFieldChanged,
     super.isRequired,
   }) : super(
+            initialValue: initialValue?.toString() ?? "",
             keyboardType: TextInputType.phone,
             inputFormatters: [
               LengthLimitingTextInputFormatter(maxLength),
@@ -159,11 +160,12 @@ class NumberTextField extends LabelAndFieldWidget {
     super.key,
     super.enabled,
     super.textFieldSize,
-    super.initialValue,
+    dynamic initialValue,
     int maxLength = 10,
     super.onTextFieldChanged,
     super.isRequired,
-  }) : super(keyboardType: TextInputType.number, inputFormatters: [
+  }) : super(initialValue: initialValue?.toString() ?? "",
+      keyboardType: TextInputType.number, inputFormatters: [
           LengthLimitingTextInputFormatter(maxLength),
           FilteringTextInputFormatter.digitsOnly
         ]);

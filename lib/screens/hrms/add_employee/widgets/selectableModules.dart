@@ -27,7 +27,7 @@ class _SelectableModulesState extends State<SelectableModules> {
 
   @override
   void initState() {
-    selectedFeatures = widget.selectedFeatures ?? [];
+    selectedFeatures = widget.selectedFeatures ?? <Map<String,dynamic>>[];
     super.initState();
   }
 
@@ -179,13 +179,13 @@ class ModuleItem extends StatelessWidget {
 class FeatureChip extends StatelessWidget {
   final FeatureDetailModel feature;
   final bool isSelected;
-  final void Function(bool) onSelected;
+  final void Function(bool)? onSelected;
 
   const FeatureChip({
     super.key,
     required this.feature,
     required this.isSelected,
-    required this.onSelected,
+    this.onSelected,
   });
 
   @override
@@ -234,11 +234,11 @@ class ViewOnlyModuleItem extends StatelessWidget {
         Wrap(
           spacing: spacingXXSmall,
           runSpacing: spacingXXSmall,
-          children: module["accessible_modules"]?.map((feature) {
+          children: List<Widget>.from(
+          module["accessible_features"]?.map((feature) {
                 return FeatureChip(
-                    feature: feature, isSelected: true, onSelected: (value) {});
-              }).toList() ??
-              [],
+                    feature: FeatureDetailModel.fromJson(feature), isSelected: true);
+              }))
         ),
       ],
     );

@@ -5,6 +5,7 @@ import 'package:saasify/bloc/employee/employee_bloc.dart';
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/enums/employee_type_enum.dart';
+import 'package:saasify/data/models/initialise/initialise_app_model.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/employee/employee_repository.dart';
 import 'package:saasify/screens/hrms/add_employee/widgets/selectableModules.dart';
@@ -123,11 +124,11 @@ class EmployeeOfficialDetails extends StatelessWidget {
               future: getIt<Cache>().getAvailableModules(),
               builder: (context, snapshot) {
                 return SelectableModules(
-                    isViewOnly: !isViewOnly,
-                    modules: snapshot.data ?? [],
+                    isViewOnly: isViewOnly,
+                    modules: snapshot.data ?? <ModulesModel>[],
                     selectedFeatures: context
                         .read<EmployeeBloc>()
-                        .employeeDetails['official']['accessible_modules'],
+                        .employeeDetails['official']['accessible_modules']?.cast<Map<String, dynamic>>(),
                     onSelected: (value) {
                       context.read<EmployeeBloc>().employeeDetails['official']
                           ['accessible_modules'] = value;

@@ -2,11 +2,7 @@ abstract class EmployeeEvents {}
 
 class InviteEmployee extends EmployeeEvents {}
 
-class UpdateEmployee extends EmployeeEvents {
-  final int? employeeId;
-
-  UpdateEmployee({this.employeeId});
-}
+class UpdateEmployee extends EmployeeEvents {}
 
 class GetAllEmployees extends EmployeeEvents {}
 

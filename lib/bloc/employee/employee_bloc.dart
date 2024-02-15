@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/employee/employee_event.dart';
 import 'package:saasify/bloc/employee/employee_states.dart';
 import 'package:saasify/data/models/employee/get_all_employees_model.dart';
+import 'package:saasify/data/models/employee/get_employee_model.dart';
 import 'package:saasify/data/models/employee/invite_employee_model.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/employee/employee_repository.dart';
@@ -27,6 +28,7 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
       "department": [0],
     }
   };
+  int selectedEmployeeId = -1;
   final EmployeeRepository _employeeRepository = getIt<EmployeeRepository>();
 
   EmployeeStates get initialState => InitialisingEmployeeStates();
@@ -35,6 +37,7 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
     on<InviteEmployee>(_inviteUser);
     on<UpdateEmployee>(_updateEmployee);
     on<GetAllEmployees>(_getAllEmployees);
+    on<GetEmployee>(_getEmployee);
   }
 
   FutureOr<void> _inviteUser(
@@ -59,7 +62,7 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
     emit(UpdatingEmployee());
     try {
       var addEmployeeModel = await _employeeRepository.updateEmployee(
-          employeeDetails, event.employeeId?.toString() ?? "");
+          employeeDetails, selectedEmployeeId == -1 ? "" : selectedEmployeeId.toString());
       if (addEmployeeModel.status == 200) {
         emit(EmployeeUpdated(message: addEmployeeModel.message.toString()));
       } else {
@@ -91,19 +94,21 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
     };
   }
 
-  FutureOr<void> getEmployeeById(
+  FutureOr<void> _getEmployee(
       GetEmployee event, Emitter<EmployeeStates> emit) async {
-    emit(GettingEmployee());
+    emit(LoadingEmployee());
     try {
-      var employee =
+      GetEmployeeModel getEmployeeModel =
           await _employeeRepository.getEmployee(event.employeeId.toString());
-      if (employee.status == 200) {
-        emit(GotEmployee());
+      if (getEmployeeModel.status == 200) {
+        employeeDetails = getEmployeeModel.data;
+        selectedEmployeeId = event.employeeId;
+        emit(EmployeeLoaded());
       } else {
-        emit(GettingEmployeeFailed(errorMessage: employee.message.toString()));
+        emit(LoadingEmployeeFailed(errorMessage: getEmployeeModel.message.toString()));
       }
     } catch (e) {
-      emit(GettingEmployeeFailed(errorMessage: e.toString()));
+      emit(LoadingEmployeeFailed(errorMessage: e.toString()));
     }
   }
 

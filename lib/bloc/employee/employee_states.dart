@@ -32,16 +32,6 @@ class UpdatingEmployeeFailed extends EmployeeStates {
   UpdatingEmployeeFailed({required this.errorMessage});
 }
 
-class GettingEmployee extends EmployeeStates {}
-
-class GotEmployee extends EmployeeStates {}
-
-class GettingEmployeeFailed extends EmployeeStates {
-  final String errorMessage;
-
-  GettingEmployeeFailed({required this.errorMessage});
-}
-
 class LoadingEmployees extends EmployeeStates {}
 
 class EmployeesLoaded extends EmployeeStates {
@@ -58,11 +48,7 @@ class LoadingEmployeesFailed extends EmployeeStates {
 
 class LoadingEmployee extends EmployeeStates {}
 
-class EmployeeLoaded extends EmployeeStates {
-  final Map<String, dynamic> employee;
-
-  EmployeeLoaded({required this.employee});
-}
+class EmployeeLoaded extends EmployeeStates {}
 
 class LoadingEmployeeFailed extends EmployeeStates {
   final String errorMessage;

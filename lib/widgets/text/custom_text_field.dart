@@ -72,6 +72,19 @@ class CustomTextField extends StatelessWidget {
         obscureText: obscureText,
         obscuringCharacter: "*",
         cursorColor: AppColors.orange,
+        style: MaterialStateTextStyle.resolveWith(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.disabled)) {
+              return const TextStyle(
+                color: AppColors.darkBlue,
+              );
+            } else {
+              return const TextStyle(
+                color: AppColors.black,
+              );
+            }
+          },
+        ),
         onTap: onTap,
         decoration: InputDecoration(
             focusedBorder: const OutlineInputBorder(
@@ -85,7 +98,7 @@ class CustomTextField extends StatelessWidget {
             border: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.black12)),
             disabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.black12)),
+                borderSide: BorderSide(color: AppColors.darkBlue)),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
             suffix: suffix,

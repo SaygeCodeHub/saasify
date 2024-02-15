@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/employee/employee_bloc.dart';
 import 'package:saasify/bloc/employee/employee_event.dart';
 import 'package:saasify/configs/app_colors.dart';
+import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/data/models/employee/get_all_employees_model.dart';
 import 'package:saasify/data/models/table_models/column_data_model.dart';
 import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
 import 'package:saasify/widgets/table/custom_table.dart';
 import 'package:saasify/widgets/table/table_cells.dart';
-import '../../../configs/app_spacing.dart';
-import '../../../data/models/employee/get_all_employees_model.dart';
 
 class EmployeeListWeb extends StatelessWidget {
   final List<EmployeeListData> employees;

@@ -6,24 +6,28 @@ import 'package:saasify/screens/hrms/add_employee/widgets/employee_fianancial_de
 import 'package:saasify/screens/hrms/add_employee/widgets/employee_official_details.dart';
 
 class AddEmployeeMobile extends StatelessWidget {
+  final bool isViewOnly;
   final GlobalKey<FormState> formKey;
-  const AddEmployeeMobile({super.key, required this.formKey});
+  const AddEmployeeMobile({super.key, required this.formKey, this.isViewOnly = false});
 
   @override
   Widget build(BuildContext context) {
     return AddEmployeeStepper(
+        isViewOnly: isViewOnly,
         formKey: formKey,
         steps: [
-          StepData(icon: Icons.info_outline, content: EmployeeBasicDetails()),
+          StepData(icon: Icons.info_outline, content: EmployeeBasicDetails(isViewOnly: isViewOnly)),
           StepData(
               icon: Icons.document_scanner_outlined,
-              content: const EmployeeDocumentDetails()),
+              content: EmployeeDocumentDetails(
+                isViewOnly: isViewOnly
+              )),
           StepData(
               icon: Icons.monetization_on_outlined,
-              content: const EmployeeFinancialDetails()),
+              content: EmployeeFinancialDetails(isViewOnly: isViewOnly)),
           StepData(
               icon: Icons.work_outline,
-              content: const EmployeeOfficialDetails()),
+              content: EmployeeOfficialDetails(isViewOnly: isViewOnly)),
         ],
         isMobile: true);
   }

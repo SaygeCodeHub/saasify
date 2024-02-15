@@ -58,10 +58,12 @@ class EmployeeListScreen extends StatelessWidget {
                       }
                       if (state is EmployeeLoaded) {
                         ProgressBar.dismiss(context);
-                        context.read<EmployeeBloc>().employeeDetails =
-                            state.employee;
                         Navigator.pushNamed(
-                            context, AddEmployeeScreen.routeName);
+                                context, AddEmployeeScreen.routeName,
+                                arguments: true)
+                            .then((value) => context
+                                .read<EmployeeBloc>()
+                                .add(GetAllEmployees()));
                       }
                       if (state is LoadingEmployeeFailed) {
                         ProgressBar.dismiss(context);
@@ -73,6 +75,8 @@ class EmployeeListScreen extends StatelessWidget {
                             });
                       }
                     },
+                    buildWhen: (previous, current) =>
+                        previous.runtimeType != current.runtimeType,
                     builder: (context, state) {
                       if (state is LoadingEmployees) {
                         return const Center(child: CircularProgressIndicator());

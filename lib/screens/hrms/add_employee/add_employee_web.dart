@@ -7,26 +7,28 @@ import 'package:saasify/screens/hrms/add_employee/widgets/employee_official_deta
 import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
 
 class AddEmployeeWeb extends StatelessWidget {
+  final bool isViewOnly;
   final GlobalKey<FormState> formKey;
-  const AddEmployeeWeb({super.key, required this.formKey});
+  const AddEmployeeWeb({super.key, required this.formKey, this.isViewOnly = false});
 
   @override
   Widget build(BuildContext context) {
     return BackgroundCardWidget(
         childScreen: AddEmployeeStepper(
             formKey: formKey,
+            isViewOnly: isViewOnly,
             steps: [
               StepData(
-                  label: "Personal Details", content: EmployeeBasicDetails()),
+                  label: "Personal Details", content: EmployeeBasicDetails(isViewOnly: isViewOnly)),
               StepData(
                   label: "Document Details",
-                  content: const EmployeeDocumentDetails()),
+                  content: EmployeeDocumentDetails(isViewOnly: isViewOnly)),
               StepData(
                   label: "Financial Details",
-                  content: const EmployeeFinancialDetails()),
+                  content: EmployeeFinancialDetails(isViewOnly: isViewOnly)),
               StepData(
                   label: "Official Details",
-                  content: const EmployeeOfficialDetails()),
+                  content: EmployeeOfficialDetails(isViewOnly: isViewOnly)),
             ],
             isMobile: false));
   }

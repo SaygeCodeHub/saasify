@@ -163,4 +163,12 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
     }
     return null;
   }
+
+  bool isCheckedIn() {
+    return checkInTime.value != null && checkOutTime.value == null;
+  }
+
+  bool isCheckedOut() {
+    return checkInTime.value != null && checkOutTime.value != null;
+  }
 }

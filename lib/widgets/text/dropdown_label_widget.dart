@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/widgets/custom_dropdown_widget.dart';
+import 'package:saasify/widgets/text/custom_dropdown_widget.dart';
 import 'package:saasify/widgets/text/label_text_widget.dart';
 
 class DropdownLabelWidget extends StatefulWidget {

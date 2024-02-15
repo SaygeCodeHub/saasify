@@ -31,12 +31,26 @@ class CustomDropdownButton extends StatelessWidget {
         child: DropdownButtonFormField2(
             isExpanded: true,
             value: selectedValue,
+            style:
+                MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
+              if (states.contains(MaterialState.disabled)) {
+                return const TextStyle(
+                  color: AppColors.darkBlue,
+                );
+              } else {
+                return const TextStyle(
+                  color: AppColors.black,
+                );
+              }
+            }),
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                         color: (showBorder == false)
                             ? AppColors.transparent
-                            : AppColors.lighterBlack)),
+                            : enabled ?? true
+                                ? AppColors.lighterBlack
+                                : AppColors.darkBlue)),
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: spacingMedium),
                 border: OutlineInputBorder(

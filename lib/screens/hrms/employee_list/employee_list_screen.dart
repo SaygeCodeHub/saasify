@@ -12,8 +12,7 @@ import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
-
-import '../../../widgets/text/module_heading.dart';
+import 'package:saasify/widgets/text/module_heading.dart';
 
 class EmployeeListScreen extends StatelessWidget {
   static const routeName = 'EmployeeListScreen';

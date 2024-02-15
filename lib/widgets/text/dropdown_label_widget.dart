@@ -23,7 +23,8 @@ class DropdownLabelWidget extends StatefulWidget {
     this.isRequired = false,
     required this.onChanged,
     this.errorText,
-    this.initialValue, this.enabled,
+    this.initialValue,
+    this.enabled,
   });
 
   @override

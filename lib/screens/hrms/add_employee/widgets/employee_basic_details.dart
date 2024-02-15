@@ -199,7 +199,7 @@ class EmployeeBasicDetails extends StatelessWidget {
                 items: stringListToDropdownItems(value as List<String>),
                 onChanged: (String? value) {
                   context.read<EmployeeBloc>().employeeDetails['personal_info']
-                  ['city'] = value;
+                      ['city'] = value;
                 });
           },
         ),

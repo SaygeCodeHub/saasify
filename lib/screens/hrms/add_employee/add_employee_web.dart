@@ -17,8 +17,7 @@ class AddEmployeeWeb extends StatelessWidget {
             formKey: formKey,
             steps: [
               StepData(
-                  label: "Personal Details",
-                  content: EmployeeBasicDetails()),
+                  label: "Personal Details", content: EmployeeBasicDetails()),
               StepData(
                   label: "Document Details",
                   content: const EmployeeDocumentDetails()),

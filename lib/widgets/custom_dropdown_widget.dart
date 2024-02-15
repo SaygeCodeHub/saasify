@@ -20,7 +20,8 @@ class CustomDropdownButton extends StatelessWidget {
     this.isRequired = false,
     required this.selectedValue,
     required this.onChanged,
-    this.showBorder = true, this.enabled,
+    this.showBorder = true,
+    this.enabled,
   });
 
   @override

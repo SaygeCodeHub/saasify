@@ -15,7 +15,7 @@ class AddEmployeeMobile extends StatelessWidget {
         formKey: formKey,
         steps: [
           StepData(
-              icon: Icons.info_outline, content: const EmployeeBasicDetails()),
+              icon: Icons.info_outline, content: EmployeeBasicDetails()),
           StepData(
               icon: Icons.document_scanner_outlined,
               content: const EmployeeDocumentDetails()),

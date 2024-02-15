@@ -7,6 +7,7 @@ import 'package:saasify/configs/app_spacing.dart';
 class CustomDropdownButton extends StatelessWidget {
   final bool? showBorder;
   final String hint;
+  final bool? enabled;
   final List<CustomDropDownItem> items;
   final bool isRequired;
   final dynamic selectedValue;
@@ -19,7 +20,7 @@ class CustomDropdownButton extends StatelessWidget {
     this.isRequired = false,
     required this.selectedValue,
     required this.onChanged,
-    this.showBorder = true,
+    this.showBorder = true, this.enabled,
   });
 
   @override
@@ -53,7 +54,7 @@ class CustomDropdownButton extends StatelessWidget {
               }
               return null;
             },
-            onChanged: onChanged,
+            onChanged: enabled ?? true ? onChanged : null,
             buttonStyleData: const ButtonStyleData(
                 padding: EdgeInsets.only(right: spacingXSmall)),
             iconStyleData: const IconStyleData(

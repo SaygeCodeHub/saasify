@@ -11,6 +11,7 @@ import 'package:saasify/widgets/text/label_text_widget.dart';
 class EmailTextField extends LabelAndFieldWidget {
   EmailTextField({
     super.key,
+    super.enabled,
     super.initialValue,
     super.onTextFieldChanged,
     super.isRequired,
@@ -48,6 +49,7 @@ class ContactTextField extends LabelAndFieldWidget {
   ContactTextField({
     super.label,
     super.key,
+    super.enabled,
     super.initialValue,
     int maxLength = 10,
     super.onTextFieldChanged,
@@ -71,10 +73,12 @@ class DatePickerField extends StatelessWidget {
   final String? label;
   final void Function(String) onTextFieldChanged;
   final DateTime? initialDate;
+  final bool? enabled;
   final TextEditingController _dateController = TextEditingController();
 
   DatePickerField(
       {super.key,
+      this.enabled,
       this.label,
       required this.onTextFieldChanged,
       this.initialDate});
@@ -93,6 +97,7 @@ class DatePickerField extends StatelessWidget {
         CustomTextField(
           textFieldController: _dateController,
           readOnly: true,
+          enabled: enabled,
           suffixIcon: const Icon(Icons.date_range_outlined),
           onTap: () {
             showDatePicker(
@@ -152,6 +157,7 @@ class NumberTextField extends LabelAndFieldWidget {
   NumberTextField({
     super.label,
     super.key,
+    super.enabled,
     super.textFieldSize,
     super.initialValue,
     int maxLength = 10,

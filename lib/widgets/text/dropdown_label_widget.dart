@@ -9,6 +9,7 @@ class DropdownLabelWidget extends StatefulWidget {
   final String hint;
   final List<CustomDropDownItem> items;
   final dynamic initialValue;
+  final bool? enabled;
   final bool isRequired;
   final String? errorText;
   final ValueChanged<String?> onChanged;
@@ -22,7 +23,7 @@ class DropdownLabelWidget extends StatefulWidget {
     this.isRequired = false,
     required this.onChanged,
     this.errorText,
-    this.initialValue,
+    this.initialValue, this.enabled,
   });
 
   @override
@@ -39,6 +40,12 @@ class _DropdownLabelWidgetState extends State<DropdownLabelWidget> {
   }
 
   @override
+  void didUpdateWidget(covariant DropdownLabelWidget oldWidget) {
+    selectedValue = widget.initialValue;
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       if (widget.label != null) LabelTextWidget(label: widget.label),
@@ -48,6 +55,7 @@ class _DropdownLabelWidgetState extends State<DropdownLabelWidget> {
           child: CustomDropdownButton(
             hint: widget.hint,
             items: widget.items,
+            enabled: widget.enabled,
             selectedValue: selectedValue,
             onChanged: (value) {
               setState(() {

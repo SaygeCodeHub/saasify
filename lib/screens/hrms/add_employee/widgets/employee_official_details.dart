@@ -16,7 +16,8 @@ import 'package:saasify/widgets/text/field_label_widget.dart';
 import 'package:saasify/widgets/text/label_text_widget.dart';
 
 class EmployeeOfficialDetails extends StatelessWidget {
-  const EmployeeOfficialDetails({super.key});
+  final bool isViewOnly;
+  const EmployeeOfficialDetails({super.key, this.isViewOnly = false});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             DropdownLabelWidget(
                 label: "Designation",
+                enabled: !isViewOnly,
                 items: EmployeeType.values
                     .map((e) =>
                         CustomDropDownItem(label: e.type, value: e.typeId))
@@ -42,6 +44,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
                 }),
             DatePickerField(
                 label: "Date of Joining",
+                enabled: !isViewOnly,
                 initialDate: DateFormat('yyyy-mm-dd').tryParse(context
                         .read<EmployeeBloc>()
                         .employeeDetails['personal_info']['DOJ'] ??
@@ -52,6 +55,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
                 }),
             DropdownLabelWidget(
                 label: "Job Confirmation",
+                enabled: !isViewOnly,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['official']['job_confirmation'],
@@ -68,6 +72,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             DropdownLabelWidget(
                 label: "Reporting Manager",
+                enabled: !isViewOnly,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['official']['reporting_manager'],
@@ -81,6 +86,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
                 builder: (context, snapshot) {
                   return DropdownLabelWidget(
                       label: "Approvers",
+                      enabled: !isViewOnly,
                       initialValue: context
                           .read<EmployeeBloc>()
                           .employeeDetails['official']['approvers'],
@@ -100,6 +106,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             LabelAndFieldWidget(
                 label: "Current Address",
+                enabled: !isViewOnly,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['official']['current_location'],
@@ -116,6 +123,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
               future: getIt<Cache>().getAvailableModules(),
               builder: (context, snapshot) {
                 return SelectableModules(
+                    isViewOnly: !isViewOnly,
                     modules: snapshot.data ?? [],
                     selectedFeatures: context
                         .read<EmployeeBloc>()

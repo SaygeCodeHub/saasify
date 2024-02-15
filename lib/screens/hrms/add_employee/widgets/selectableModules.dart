@@ -6,6 +6,7 @@ import 'package:saasify/data/models/initialise/initialise_app_model.dart';
 
 class SelectableModules extends StatefulWidget {
   final List<ModulesModel> modules;
+  final bool isViewOnly;
   final List<Map<String, dynamic>>? selectedFeatures;
   final void Function(List<Map<String, dynamic>>) onSelected;
 
@@ -13,7 +14,7 @@ class SelectableModules extends StatefulWidget {
     super.key,
     required this.modules,
     required this.onSelected,
-    this.selectedFeatures,
+    this.selectedFeatures, this.isViewOnly = false,
   });
 
   @override
@@ -31,6 +32,15 @@ class _SelectableModulesState extends State<SelectableModules> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isViewOnly) {
+      return ListView.builder(
+        itemCount: selectedFeatures.length,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return ViewOnlyModuleItem(module: selectedFeatures[index]);
+        },
+      );
+    }
     return ListView.builder(
       itemCount: widget.modules.length,
       shrinkWrap: true,
@@ -198,6 +208,40 @@ class FeatureChip extends StatelessWidget {
             ),
       ),
       onSelected: onSelected,
+    );
+  }
+}
+
+class ViewOnlyModuleItem extends StatelessWidget {
+  final Map<String,dynamic> module;
+  const ViewOnlyModuleItem({super.key, required this.module});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: spacingStandard),
+        Text(
+          module["title"] ?? "",
+          style: Theme.of(context)
+              .textTheme
+              .labelTextStyle
+              .copyWith(color: AppColors.darkBlue),
+        ),
+        const SizedBox(height: spacingSmall),
+        Wrap(
+          spacing: spacingXXSmall,
+          runSpacing: spacingXXSmall,
+          children: module["accessible_modules"]?.map((feature) {
+            return FeatureChip(
+                feature: feature,
+                isSelected: true,
+                onSelected: (value) {});
+          }).toList() ??
+              [],
+        ),
+      ],
     );
   }
 }

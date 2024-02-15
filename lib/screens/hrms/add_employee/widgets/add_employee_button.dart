@@ -10,9 +10,7 @@ import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class AddEmployeeButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
-  final bool isMobile;
-  const AddEmployeeButton(
-      {super.key, required this.formKey, required this.isMobile});
+  const AddEmployeeButton({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +45,8 @@ class AddEmployeeButton extends StatelessWidget {
                 context.read<EmployeeBloc>().add(UpdateEmployee());
               }
             },
-            buttonWidth:
-                isMobile ? double.maxFinite : kGeneralActionButtonWidth,
-            buttonTitle: "Add Employee");
+            buttonWidth: kGeneralActionButtonWidth,
+            buttonTitle: "Save");
       },
     );
   }

@@ -4,7 +4,9 @@ import 'package:intl/intl.dart';
 import 'package:saasify/bloc/employee/employee_bloc.dart';
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/data/enums/employee_type_enum.dart';
 import 'package:saasify/di/app_module.dart';
+import 'package:saasify/repositories/employee/employee_repository.dart';
 import 'package:saasify/screens/hrms/add_employee/widgets/selectableModules.dart';
 import 'package:saasify/widgets/custom_dropdown_widget.dart';
 import 'package:saasify/widgets/form/form_input_fields.dart';
@@ -26,7 +28,10 @@ class EmployeeOfficialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             DropdownLabelWidget(
                 label: "Designation",
-                items: [CustomDropDownItem(label: "Employee", value: 2)],
+                items: EmployeeType.values
+                    .map((e) =>
+                        CustomDropDownItem(label: e.type, value: e.typeId))
+                    .toList(),
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['official']['designations']
@@ -71,16 +76,25 @@ class EmployeeOfficialDetails extends StatelessWidget {
                       ['reporting_manager'] = value;
                 },
                 items: const []),
-            DropdownLabelWidget(
-                label: "Approvers",
-                initialValue: context
-                    .read<EmployeeBloc>()
-                    .employeeDetails['official']['approvers'],
-                items: const [],
-                onChanged: (value) {
-                  context.read<EmployeeBloc>().employeeDetails['official']
-                      ['approvers'] = value;
-                })
+            FutureBuilder(
+                future: getIt<EmployeeRepository>().getAllEmployees(),
+                builder: (context, snapshot) {
+                  return DropdownLabelWidget(
+                      label: "Approvers",
+                      initialValue: context
+                          .read<EmployeeBloc>()
+                          .employeeDetails['official']['approvers'],
+                      items: snapshot.data == null
+                          ? []
+                          : snapshot.data!.data
+                              .map((e) => CustomDropDownItem(
+                                  label: e.userEmail, value: e.employeeId))
+                              .toList(),
+                      onChanged: (value) {
+                        context.read<EmployeeBloc>().employeeDetails['official']
+                            ['approvers'] = value;
+                      });
+                }),
           ]),
           const SizedBox(height: spacingLarge),
           MultiFieldRow(childrenWidgets: [

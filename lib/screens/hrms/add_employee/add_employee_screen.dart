@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/employee/employee_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/hrms/add_employee/add_employee_web.dart';
-import 'package:saasify/screens/hrms/add_employee/widgets/add_employee_button.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
@@ -28,36 +27,20 @@ class AddEmployeeScreen extends StatelessWidget {
                   Padding(
                       padding:
                           const EdgeInsets.symmetric(horizontal: spacingMedium),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(children: [
-                              isMobile
-                                  ? const SizedBox.shrink()
-                                  : const BackButton(),
-                              const SizedBox(width: spacingXMedium),
-                              const ModuleHeading(label: 'Add New Employee'),
-                            ]),
-                            isMobile
-                                ? const SizedBox.shrink()
-                                : AddEmployeeButton(
-                                    formKey: _formKey, isMobile: isMobile)
-                          ])),
+                      child: Row(children: [
+                        isMobile ? const SizedBox.shrink() : const BackButton(),
+                        const SizedBox(width: spacingXMedium),
+                        const ModuleHeading(label: 'Add New Employee'),
+                      ])),
                   Form(
                     key: _formKey,
-                    child: const Expanded(
+                    child: Expanded(
                       child: ResponsiveLayout(
-                          mobileBody: AddEmployeeMobile(),
+                          mobileBody: AddEmployeeMobile(formKey: _formKey),
                           provideMobilePadding: false,
-                          desktopBody: AddEmployeeWeb()),
+                          desktopBody: AddEmployeeWeb(formKey: _formKey)),
                     ),
-                  ),
-                  isMobile
-                      ? Padding(
-                          padding: const EdgeInsets.all(spacingSmall),
-                          child: AddEmployeeButton(
-                              formKey: _formKey, isMobile: isMobile))
-                      : const SizedBox.shrink()
+                  )
                 ]));
   }
 }

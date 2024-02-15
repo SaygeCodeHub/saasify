@@ -19,7 +19,8 @@ class ErrorAlertDialog extends StatelessWidget {
           height: kDashboardIconContainerSize,
           width: kDashboardIconContainerSize),
       title: const Text('Error!'),
-      actionsPadding: const EdgeInsets.only(bottom: spacingSmall),
+      actionsPadding: const EdgeInsets.only(
+          bottom: spacingSmall, left: spacingSmall, right: spacingSmall),
       content: Text(description),
       actionsAlignment: MainAxisAlignment.center,
       actions: [

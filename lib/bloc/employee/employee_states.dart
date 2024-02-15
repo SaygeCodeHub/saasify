@@ -55,3 +55,17 @@ class LoadingEmployeesFailed extends EmployeeStates {
 
   LoadingEmployeesFailed({required this.errorMessage});
 }
+
+class LoadingEmployee extends EmployeeStates {}
+
+class EmployeeLoaded extends EmployeeStates {
+  final Map<String, dynamic> employee;
+
+  EmployeeLoaded({required this.employee});
+}
+
+class LoadingEmployeeFailed extends EmployeeStates {
+  final String errorMessage;
+
+  LoadingEmployeeFailed({required this.errorMessage});
+}

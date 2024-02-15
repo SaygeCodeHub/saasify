@@ -71,17 +71,19 @@ class _AddEmployeeStepperState extends State<AddEmployeeStepper> {
                 ? MainAxisAlignment.center
                 : MainAxisAlignment.end,
             children: [
-              SecondaryButton(
-                buttonWidth: kGeneralActionButtonWidth,
-                onPressed: () {
-                  setState(() {
-                    if (currentStep > 0) {
-                      currentStep--;
-                    }
-                  });
-                },
-                buttonTitle: 'Back',
-              ),
+              currentStep == 0
+                  ? const SizedBox(width: kGeneralActionButtonWidth)
+                  : SecondaryButton(
+                      buttonWidth: kGeneralActionButtonWidth,
+                      onPressed: () {
+                        setState(() {
+                          if (currentStep > 0) {
+                            currentStep--;
+                          }
+                        });
+                      },
+                      buttonTitle: 'Back',
+                    ),
               const SizedBox(
                 width: spacingStandard,
               ),

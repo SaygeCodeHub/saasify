@@ -14,7 +14,8 @@ class SelectableModules extends StatefulWidget {
     super.key,
     required this.modules,
     required this.onSelected,
-    this.selectedFeatures, this.isViewOnly = false,
+    this.selectedFeatures,
+    this.isViewOnly = false,
   });
 
   @override
@@ -213,7 +214,7 @@ class FeatureChip extends StatelessWidget {
 }
 
 class ViewOnlyModuleItem extends StatelessWidget {
-  final Map<String,dynamic> module;
+  final Map<String, dynamic> module;
   const ViewOnlyModuleItem({super.key, required this.module});
 
   @override
@@ -234,11 +235,9 @@ class ViewOnlyModuleItem extends StatelessWidget {
           spacing: spacingXXSmall,
           runSpacing: spacingXXSmall,
           children: module["accessible_modules"]?.map((feature) {
-            return FeatureChip(
-                feature: feature,
-                isSelected: true,
-                onSelected: (value) {});
-          }).toList() ??
+                return FeatureChip(
+                    feature: feature, isSelected: true, onSelected: (value) {});
+              }).toList() ??
               [],
         ),
       ],

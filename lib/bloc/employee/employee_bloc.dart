@@ -59,7 +59,7 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
     emit(UpdatingEmployee());
     try {
       var addEmployeeModel = await _employeeRepository.updateEmployee(
-          employeeDetails, event.employeeId ?? "");
+          employeeDetails, event.employeeId?.toString() ?? "");
       if (addEmployeeModel.status == 200) {
         emit(EmployeeUpdated(message: addEmployeeModel.message.toString()));
       } else {
@@ -91,20 +91,21 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
     };
   }
 
-  // FutureOr<void> getEmployeeById(
-  //     GetEmployee event, Emitter<EmployeeStates> emit) async {
-  //   emit(GettingEmployee());
-  //   try {
-  //     var employee = await _employeeRepository.getEmployee(event.employeeId);
-  //     if (employee.status == 200) {
-  //       emit(GotEmployee());
-  //     } else {
-  //       emit(GettingEmployeeFailed(errorMessage: employee.message.toString()));
-  //     }
-  //   } catch (e) {
-  //     emit(GettingEmployeeFailed(errorMessage: e.toString()));
-  //   }
-  // }
+  FutureOr<void> getEmployeeById(
+      GetEmployee event, Emitter<EmployeeStates> emit) async {
+    emit(GettingEmployee());
+    try {
+      var employee =
+          await _employeeRepository.getEmployee(event.employeeId.toString());
+      if (employee.status == 200) {
+        emit(GotEmployee());
+      } else {
+        emit(GettingEmployeeFailed(errorMessage: employee.message.toString()));
+      }
+    } catch (e) {
+      emit(GettingEmployeeFailed(errorMessage: e.toString()));
+    }
+  }
 
   FutureOr<void> _getAllEmployees(
       GetAllEmployees event, Emitter<EmployeeStates> emit) async {

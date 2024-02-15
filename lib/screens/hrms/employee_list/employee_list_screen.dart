@@ -5,8 +5,10 @@ import 'package:saasify/bloc/employee/employee_event.dart';
 import 'package:saasify/bloc/employee/employee_states.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_mobile.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_web.dart';
+import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
@@ -44,6 +46,25 @@ class EmployeeListScreen extends StatelessWidget {
                   child: BlocConsumer<EmployeeBloc, EmployeeStates>(
                     listener: (context, state) {
                       if (state is LoadingEmployeesFailed) {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return ErrorAlertDialog(
+                                  description: state.errorMessage);
+                            });
+                      }
+                      if (state is LoadingEmployee) {
+                        ProgressBar.show(context);
+                      }
+                      if (state is EmployeeLoaded) {
+                        ProgressBar.dismiss(context);
+                        context.read<EmployeeBloc>().employeeDetails =
+                            state.employee;
+                        Navigator.pushNamed(
+                            context, AddEmployeeScreen.routeName);
+                      }
+                      if (state is LoadingEmployeeFailed) {
+                        ProgressBar.dismiss(context);
                         showDialog(
                             context: context,
                             builder: (context) {

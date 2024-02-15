@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/employee/employee_bloc.dart';
+import 'package:saasify/bloc/employee/employee_event.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/data/models/table_models/column_data_model.dart';
 import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
@@ -20,6 +23,11 @@ class EmployeeListWeb extends StatelessWidget {
         child: CustomDataTable(
             checkboxVisible: false,
             showRowCheckBox: false,
+            rowOnTap: (index) {
+              context
+                  .read<EmployeeBloc>()
+                  .add(GetEmployee(employeeId: employees[index].employeeId));
+            },
             columnList: [
               ColumnData(header: "", width: 100),
               ColumnData(header: "Name"),

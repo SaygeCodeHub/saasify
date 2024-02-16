@@ -15,6 +15,11 @@ class TimesheetMobileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (timesheetData.isEmpty) {
+      return const Center(
+        child: Text("No Attendance Marked Yet!"),
+      );
+    }
     return ListView.separated(
         separatorBuilder: (context, index) {
           return const SizedBox(height: spacingSmall);

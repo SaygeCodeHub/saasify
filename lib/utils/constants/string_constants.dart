@@ -97,4 +97,5 @@ class StringConstants {
   static const kCheckOut = 'Check Out';
   static const kRegularise = 'Regularise';
   static const kTimesheet = 'Timesheet';
+  static const kNoLeavesFound = 'No Leaves Found';
 }

@@ -122,9 +122,9 @@ String setImage(String? gender, BuildContext context) {
     }
   } else {
     if (gender == "Male") {
-      return 'assets/male_rest.jpg';
+      return 'assets/human.gif';
     } else if (gender == "Female") {
-      return 'assets/female_rest.jpg';
+      return 'assets/female_rest.gif';
     } else {
       return [
         'assets/male_rest.jpg',

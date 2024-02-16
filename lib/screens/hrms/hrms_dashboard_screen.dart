@@ -32,7 +32,7 @@ class HRMSDashboardScreen extends StatelessWidget {
                             children: [
                               HrmsAttendanceSection(isMobile: false),
                               SizedBox(height: spacingHuge),
-                              HrmsAnnouncementsSection()
+                              HrmsAnnouncementsSection(isMobile: false)
                             ],
                           )
                         : const Row(
@@ -41,7 +41,9 @@ class HRMSDashboardScreen extends StatelessWidget {
                             children: [
                               HrmsAttendanceSection(isMobile: true),
                               SizedBox(width: spacingStandard),
-                              Expanded(child: HrmsAnnouncementsSection()),
+                              Expanded(
+                                  child:
+                                      HrmsAnnouncementsSection(isMobile: true)),
                             ],
                           ),
                     const SizedBox(height: spacingHuge),

@@ -15,6 +15,7 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
       getIt<InitialiseRepository>();
   List<ListOfBranches?>? branches = [];
   List<FeatureDetailModel> hrmsAccessibleFeatures = [];
+  InitialiseAppModel? initialiseAppModel;
 
   InitialiseAppStates get initialState => InitialiseStates();
 
@@ -33,20 +34,20 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
           cache.setFCMToken(newToken);
         }
       }
-      InitialiseAppModel initialiseAppModel =
-          await _initialiseRepository.initialiseApp();
-      if (initialiseAppModel.status == 200) {
-        bool geoFencing = initialiseAppModel.data!.geoFencing ?? false;
-        branches = initialiseAppModel.data!.branches;
+      initialiseAppModel = await _initialiseRepository.initialiseApp();
+      if (initialiseAppModel!.status == 200) {
+        bool geoFencing = initialiseAppModel!.data!.geoFencing ?? false;
+        branches = initialiseAppModel!.data!.branches;
         getIt<Cache>()
-            .setAccessibleModules(initialiseAppModel.data!.accessibleModules!);
+            .setAccessibleModules(initialiseAppModel!.data!.accessibleModules!);
         getIt<Cache>()
-            .setAvailableModules(initialiseAppModel.data!.availableModules!);
+            .setAvailableModules(initialiseAppModel!.data!.availableModules!);
+
         emit(AppInitialised(
-            isGeoFencing: geoFencing, initialiseAppModel: initialiseAppModel));
+            isGeoFencing: geoFencing, initialiseAppModel: initialiseAppModel!));
       } else {
         emit(InitialisingAppFailed(
-            errorMessage: initialiseAppModel.message.toString()));
+            errorMessage: initialiseAppModel!.message.toString()));
       }
     } catch (e) {
       emit(InitialisingAppFailed(errorMessage: e.toString()));

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/initialise/initialise_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/screens/hrms/widgets/build_date.dart';
+import 'package:saasify/utils/formatters.dart';
+import 'package:saasify/widgets/generalWidgets/status_chip.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
 class HrmsTasksSection extends StatelessWidget {
@@ -12,6 +17,14 @@ class HrmsTasksSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int tasksAssignedCount = context
+        .read<InitialiseAppBloc>()
+        .initialiseAppModel!
+        .data!
+        .tasksAssignedToMe!
+        .length;
+    final bool showViewAllButton =
+        !isMobile ? tasksAssignedCount > 5 : tasksAssignedCount > 2;
     return Column(
       children: [
         Row(
@@ -19,9 +32,9 @@ class HrmsTasksSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const ModuleHeading(label: 'Task Boards'),
-            Text('View all',
-                style: Theme.of(context).textTheme.labelTextStyle.copyWith(
-                    fontWeight: FontWeight.w800, color: AppColors.orange))
+            showViewAllButton
+                ? buildViewAllButton(context)
+                : const SizedBox.shrink()
           ],
         ),
         const SizedBox(height: spacingLarger),
@@ -32,11 +45,19 @@ class HrmsTasksSection extends StatelessWidget {
               crossAxisCount: isMobile ? 2 : 5,
               mainAxisSpacing: 8.0,
               crossAxisSpacing: 8.0,
-              childAspectRatio:
-                  isMobile ? 1.4 : 1.6 // Aspect ratio of each child
-              ),
-          itemCount: isMobile ? 2 : 5,
+              childAspectRatio: isMobile ? 1.4 : 1.6),
+          itemCount: context
+              .read<InitialiseAppBloc>()
+              .initialiseAppModel!
+              .data!
+              .tasksAssignedToMe!
+              .length,
           itemBuilder: (context, index) {
+            var data = context
+                .read<InitialiseAppBloc>()
+                .initialiseAppModel!
+                .data!
+                .tasksAssignedToMe!;
             return InkWell(
               onTap: () {},
               child: Container(
@@ -50,7 +71,7 @@ class HrmsTasksSection extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('Submit Documents',
+                      Text(data[index].title,
                           maxLines: 1,
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
@@ -61,24 +82,19 @@ class HrmsTasksSection extends StatelessWidget {
                                   fontWeight: FontWeight.w600,
                                   color: AppColors.darkBlue)),
                       const SizedBox(height: spacingStandard),
-                      const Expanded(
-                          child: Text('Upload and submit F12 & 1QC Form',
+                      Expanded(
+                          child: Text(data[index].taskDescription,
                               maxLines: 1,
                               softWrap: true,
                               overflow: TextOverflow.ellipsis)),
                       const SizedBox(height: spacingLarge),
-                      const Row(
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(
-                            children: [
-                              Icon(Icons.date_range),
-                              SizedBox(width: spacingXXSmall),
-                              Text('28/12/2024')
-                            ],
-                          ),
-                          Text('High')
+                          buildDate(data[index].dueDate.toString(), context,
+                              showDateIcon: true, orangeColor: false),
+                          buildStatusChip(data[index].priority.toString())
                         ],
                       ),
                     ],
@@ -90,5 +106,19 @@ class HrmsTasksSection extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget buildViewAllButton(context) {
+    return TextButton(
+        onPressed: () {},
+        child: Text('View all',
+            style: Theme.of(context).textTheme.labelTextStyle.copyWith(
+                fontWeight: FontWeight.w800, color: AppColors.orange)));
+  }
+
+  Widget buildStatusChip(priority) {
+    return StatusChip(
+        text: getPriorityFromInt(priority).toString(),
+        color: getColorFromStatus(priority.toString()));
   }
 }

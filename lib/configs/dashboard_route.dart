@@ -59,7 +59,7 @@ class DashboardRouting {
       case 'HR_APPLY_LEAVES':
         Navigator.push(
           context,
-          buildPageRoute(const ApplyLeaveScreen()),
+          buildPageRoute(ApplyLeaveScreen()),
         );
         break;
       case 'HR_MY_LEAVES':

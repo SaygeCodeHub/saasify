@@ -51,7 +51,7 @@ class ApplyLeaveMobileScreen extends StatelessWidget {
                   (index) => CustomDropDownItem(
                       label: LeaveTypeEnum.values.elementAt(index).type,
                       value: LeaveTypeEnum.values.elementAt(index).type)),
-              onChanged: (String? value) {
+              onChanged: (value) {
                 dynamic leaveId = LeaveTypeEnum.values
                     .elementAt(LeaveTypeEnum.values
                         .indexWhere((element) => element.type == value))
@@ -67,7 +67,7 @@ class ApplyLeaveMobileScreen extends StatelessWidget {
                   (index) => CustomDropDownItem(
                       label: applyLeaveData.approvers[index].approverName,
                       value: applyLeaveData.approvers[index].approverName)),
-              onChanged: (String? value) {
+              onChanged: (value) {
                 dynamic approverId = applyLeaveData
                     .approvers[applyLeaveData.approvers
                         .indexWhere((element) => element.approverName == value)]

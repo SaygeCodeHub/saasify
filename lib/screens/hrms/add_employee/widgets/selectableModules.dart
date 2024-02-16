@@ -6,6 +6,7 @@ import 'package:saasify/data/models/initialise/initialise_app_model.dart';
 
 class SelectableModules extends StatefulWidget {
   final List<ModulesModel> modules;
+  final bool isViewOnly;
   final List<Map<String, dynamic>>? selectedFeatures;
   final void Function(List<Map<String, dynamic>>) onSelected;
 
@@ -14,6 +15,7 @@ class SelectableModules extends StatefulWidget {
     required this.modules,
     required this.onSelected,
     this.selectedFeatures,
+    this.isViewOnly = false,
   });
 
   @override
@@ -25,12 +27,21 @@ class _SelectableModulesState extends State<SelectableModules> {
 
   @override
   void initState() {
-    selectedFeatures = widget.selectedFeatures ?? [];
+    selectedFeatures = widget.selectedFeatures ?? <Map<String, dynamic>>[];
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.isViewOnly) {
+      return ListView.builder(
+        itemCount: selectedFeatures.length,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return ViewOnlyModuleItem(module: selectedFeatures[index]);
+        },
+      );
+    }
     return ListView.builder(
       itemCount: widget.modules.length,
       shrinkWrap: true,
@@ -168,13 +179,13 @@ class ModuleItem extends StatelessWidget {
 class FeatureChip extends StatelessWidget {
   final FeatureDetailModel feature;
   final bool isSelected;
-  final void Function(bool) onSelected;
+  final void Function(bool)? onSelected;
 
   const FeatureChip({
     super.key,
     required this.feature,
     required this.isSelected,
-    required this.onSelected,
+    this.onSelected,
   });
 
   @override
@@ -198,6 +209,38 @@ class FeatureChip extends StatelessWidget {
             ),
       ),
       onSelected: onSelected,
+    );
+  }
+}
+
+class ViewOnlyModuleItem extends StatelessWidget {
+  final Map<String, dynamic> module;
+  const ViewOnlyModuleItem({super.key, required this.module});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: spacingStandard),
+        Text(
+          module["title"] ?? "",
+          style: Theme.of(context)
+              .textTheme
+              .labelTextStyle
+              .copyWith(color: AppColors.darkBlue),
+        ),
+        const SizedBox(height: spacingSmall),
+        Wrap(
+            spacing: spacingXXSmall,
+            runSpacing: spacingXXSmall,
+            children:
+                List<Widget>.from(module["accessible_features"]?.map((feature) {
+              return FeatureChip(
+                  feature: FeatureDetailModel.fromJson(feature),
+                  isSelected: true);
+            }))),
+      ],
     );
   }
 }

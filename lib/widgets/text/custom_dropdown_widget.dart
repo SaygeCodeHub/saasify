@@ -7,6 +7,7 @@ import 'package:saasify/configs/app_spacing.dart';
 class CustomDropdownButton extends StatelessWidget {
   final bool? showBorder;
   final String hint;
+  final bool? enabled;
   final List<CustomDropDownItem> items;
   final bool isRequired;
   final dynamic selectedValue;
@@ -20,6 +21,7 @@ class CustomDropdownButton extends StatelessWidget {
     required this.selectedValue,
     required this.onChanged,
     this.showBorder = true,
+    this.enabled,
   });
 
   @override
@@ -29,6 +31,18 @@ class CustomDropdownButton extends StatelessWidget {
         child: DropdownButtonFormField2(
             isExpanded: true,
             value: selectedValue,
+            style:
+                MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
+              if (states.contains(MaterialState.disabled)) {
+                return const TextStyle(
+                  color: AppColors.black,
+                );
+              } else {
+                return const TextStyle(
+                  color: AppColors.black,
+                );
+              }
+            }),
             decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -53,11 +67,14 @@ class CustomDropdownButton extends StatelessWidget {
               }
               return null;
             },
-            onChanged: onChanged,
+            onChanged: enabled ?? true ? onChanged : null,
             buttonStyleData: const ButtonStyleData(
                 padding: EdgeInsets.only(right: spacingXSmall)),
-            iconStyleData: const IconStyleData(
-                icon: Icon(Icons.arrow_drop_down, color: AppColors.darkBlue),
+            iconStyleData: IconStyleData(
+                icon: Icon(Icons.arrow_drop_down,
+                    color: enabled ?? true
+                        ? AppColors.darkBlue
+                        : AppColors.transparent),
                 iconSize: kBackIconSize),
             dropdownStyleData: DropdownStyleData(
                 decoration: BoxDecoration(

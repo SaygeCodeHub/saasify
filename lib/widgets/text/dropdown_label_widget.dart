@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/widgets/custom_dropdown_widget.dart';
+import 'package:saasify/widgets/text/custom_dropdown_widget.dart';
 import 'package:saasify/widgets/text/label_text_widget.dart';
 
 class DropdownLabelWidget extends StatefulWidget {
@@ -9,6 +9,7 @@ class DropdownLabelWidget extends StatefulWidget {
   final String hint;
   final List<CustomDropDownItem> items;
   final dynamic initialValue;
+  final bool? enabled;
   final bool isRequired;
   final String? errorText;
   final ValueChanged<String?> onChanged;
@@ -23,6 +24,7 @@ class DropdownLabelWidget extends StatefulWidget {
     required this.onChanged,
     this.errorText,
     this.initialValue,
+    this.enabled,
   });
 
   @override
@@ -34,8 +36,22 @@ class _DropdownLabelWidgetState extends State<DropdownLabelWidget> {
 
   @override
   void initState() {
-    selectedValue = widget.initialValue;
+    selectedValue = widget.initialValue == ""
+        ? null
+        : widget.items.map((e) => e.value).contains(widget.initialValue)
+            ? widget.initialValue
+            : null;
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant DropdownLabelWidget oldWidget) {
+    selectedValue = widget.initialValue == ""
+        ? null
+        : widget.items.map((e) => e.value).contains(widget.initialValue)
+            ? widget.initialValue
+            : null;
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -48,6 +64,7 @@ class _DropdownLabelWidgetState extends State<DropdownLabelWidget> {
           child: CustomDropdownButton(
             hint: widget.hint,
             items: widget.items,
+            enabled: widget.enabled,
             selectedValue: selectedValue,
             onChanged: (value) {
               setState(() {

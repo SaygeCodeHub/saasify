@@ -10,7 +10,8 @@ import '../../../../widgets/text/field_label_widget.dart';
 import '../../../../widgets/text/module_heading.dart';
 
 class EmployeeDocumentDetails extends StatelessWidget {
-  const EmployeeDocumentDetails({super.key});
+  final bool isViewOnly;
+  const EmployeeDocumentDetails({super.key, this.isViewOnly = false});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +27,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             NumberTextField(
                 label: StringConstants.kAadhaarNumber,
+                enabled: !isViewOnly,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['documents']['aadhar']['aadhaar_number'],
@@ -36,6 +38,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
                 }),
             LabelAndFieldWidget(
                 label: StringConstants.kNameAsAadhaarNumber,
+                enabled: !isViewOnly,
                 initialValue:
                     context.read<EmployeeBloc>().employeeDetails['documents']
                         ['aadhar']['name_as_per_aadhaar'],
@@ -45,6 +48,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
                 }),
             LabelAndFieldWidget(
                 label: StringConstants.kPanNumber,
+                enabled: !isViewOnly,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['documents']['aadhar']['pan_number'],
@@ -64,6 +68,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             LabelAndFieldWidget(
                 label: StringConstants.kPassportNumber,
+                enabled: !isViewOnly,
                 initialValue:
                     context.read<EmployeeBloc>().employeeDetails['documents']
                         ['passport']['passport_number'],
@@ -73,6 +78,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
                 }),
             LabelAndFieldWidget(
                 label: StringConstants.kFirstName,
+                enabled: !isViewOnly,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['documents']['passport']['first_name'],
@@ -82,6 +88,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
                 }),
             LabelAndFieldWidget(
                 label: StringConstants.kLastName,
+                enabled: !isViewOnly,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['documents']['passport']['last_name'],
@@ -94,6 +101,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             DatePickerField(
                 label: StringConstants.kExpiryDate,
+                enabled: !isViewOnly,
                 initialDate: DateFormat('yyyy-mm-dd').tryParse(
                     context.read<EmployeeBloc>().employeeDetails['documents']
                             ['passport']['expiry_date'] ??
@@ -104,6 +112,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
                 }),
             DatePickerField(
                 label: StringConstants.kIssueDate,
+                enabled: !isViewOnly,
                 initialDate: DateFormat('yyyy-mm-dd').tryParse(
                     context.read<EmployeeBloc>().employeeDetails['documents']
                             ['passport']['issue_date'] ??
@@ -114,6 +123,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
                 }),
             ContactTextField(
                 label: StringConstants.kMobileNumber,
+                enabled: !isViewOnly,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['documents']['passport']['mobile_number'],
@@ -126,6 +136,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             LabelAndFieldWidget(
                 label: StringConstants.kCurrentAddress,
+                enabled: !isViewOnly,
                 initialValue:
                     context.read<EmployeeBloc>().employeeDetails['documents']
                         ['passport']['current_address'],
@@ -136,6 +147,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
                 }),
             LabelAndFieldWidget(
                 label: StringConstants.kPermanentAddress,
+                enabled: !isViewOnly,
                 initialValue:
                     context.read<EmployeeBloc>().employeeDetails['documents']
                         ['passport']['permanent_address'],

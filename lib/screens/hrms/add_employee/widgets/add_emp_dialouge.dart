@@ -78,6 +78,7 @@ showAddEmployeeDialog(BuildContext context) {
             const Text(StringConstants.kInviteMember),
             InkWell(
               onTap: () {
+                context.read<EmployeeBloc>().resetEmployeeDetails();
                 Navigator.pushReplacementNamed(
                     context, AddEmployeeScreen.routeName);
               },

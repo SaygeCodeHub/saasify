@@ -8,7 +8,7 @@ class ProgressBar {
     showDialog(
         context: context,
         barrierDismissible: false,
-        barrierColor: AppColors.transparent,
+        barrierColor: AppColors.black.withOpacity(0.01),
         builder: (context) {
           return const Center(
               child: SizedBox(

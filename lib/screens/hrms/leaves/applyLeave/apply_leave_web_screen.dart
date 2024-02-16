@@ -8,7 +8,7 @@ import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_button.dart';
 import 'package:saasify/screens/hrms/leaves/widgets/date_picker_textfield.dart';
 import 'package:saasify/screens/hrms/leaves/widgets/leave_statistic_card.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
-import 'package:saasify/widgets/custom_dropdown_widget.dart';
+import 'package:saasify/widgets/text/custom_dropdown_widget.dart';
 import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
 import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
 import 'package:saasify/widgets/text/dropdown_label_widget.dart';

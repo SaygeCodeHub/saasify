@@ -27,6 +27,7 @@ class AddCompanyWebScreen extends StatelessWidget {
               LabelAndFieldWidget(
                   prefixIcon: const Icon(Icons.store),
                   label: StringConstants.kCompanyName,
+                  isRequired: true,
                   onTextFieldChanged: (value) {
                     context
                         .read<CompaniesBloc>()

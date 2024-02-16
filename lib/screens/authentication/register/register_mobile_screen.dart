@@ -25,6 +25,7 @@ class RegisterMobileScreen extends StatelessWidget {
           LabelAndFieldWidget(
             prefixIcon: const Icon(Icons.person_2_outlined),
             label: StringConstants.kFirstName,
+            isRequired: true,
             onTextFieldChanged: (value) {
               context
                   .read<RegisterBloc>()
@@ -34,6 +35,7 @@ class RegisterMobileScreen extends StatelessWidget {
           const SizedBox(height: spacingBetweenTextFields),
           LabelAndFieldWidget(
             prefixIcon: const Icon(Icons.person_2_outlined),
+            isRequired: true,
             label: StringConstants.kLastName,
             onTextFieldChanged: (value) {
               context
@@ -44,6 +46,7 @@ class RegisterMobileScreen extends StatelessWidget {
           const SizedBox(height: spacingBetweenTextFields),
           LabelAndFieldWidget(
               prefixIcon: const Icon(Icons.email_outlined),
+              isRequired: true,
               label: StringConstants.kEmailAddress,
               onTextFieldChanged: (value) {
                 context
@@ -53,6 +56,7 @@ class RegisterMobileScreen extends StatelessWidget {
           const SizedBox(height: spacingBetweenTextFields),
           LabelAndFieldWidget(
               prefixIcon: const Icon(Icons.password_outlined),
+              isRequired: true,
               label: StringConstants.kPassword,
               onTextFieldChanged: (value) {
                 context

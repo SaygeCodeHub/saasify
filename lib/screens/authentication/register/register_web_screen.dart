@@ -52,6 +52,7 @@ class RegisterWebScreen extends StatelessWidget {
                                     child: LabelAndFieldWidget(
                                       prefixIcon:
                                           const Icon(Icons.person_2_outlined),
+                                      isRequired: true,
                                       label: StringConstants.kFirstName,
                                       onTextFieldChanged: (value) {
                                         context
@@ -67,6 +68,7 @@ class RegisterWebScreen extends StatelessWidget {
                                       prefixIcon:
                                           const Icon(Icons.person_2_outlined),
                                       label: StringConstants.kLastName,
+                                      isRequired: true,
                                       onTextFieldChanged: (value) {
                                         context
                                                 .read<RegisterBloc>()
@@ -81,6 +83,7 @@ class RegisterWebScreen extends StatelessWidget {
                               LabelAndFieldWidget(
                                   prefixIcon: const Icon(Icons.email_outlined),
                                   label: StringConstants.kEmailAddress,
+                                  isRequired: true,
                                   onTextFieldChanged: (value) {
                                     context
                                             .read<RegisterBloc>()
@@ -92,6 +95,7 @@ class RegisterWebScreen extends StatelessWidget {
                                   prefixIcon:
                                       const Icon(Icons.password_outlined),
                                   label: StringConstants.kPassword,
+                                  isRequired: true,
                                   onTextFieldChanged: (value) {
                                     context
                                             .read<RegisterBloc>()

@@ -18,21 +18,20 @@ class TaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenSkeleton(childScreenBuilder: (isMobile) {
-      return SingleChildScrollView(
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(height: spacingMedium),
-              Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: spacingMedium),
-                  child: Row(children: [
-                    isMobile ? const SizedBox.shrink() : const BackButton(),
-                    const SizedBox(width: spacingXMedium),
-                    const ModuleHeading(label: "Assign Task"),
-                  ])),
-              Expanded(
+      return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(height: spacingMedium),
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: spacingMedium),
+                child: Row(children: [
+                  isMobile ? const SizedBox.shrink() : const BackButton(),
+                  const SizedBox(width: spacingXMedium),
+                  const ModuleHeading(label: "Assign Task"),
+                ])),
+            Expanded(
+              child: SingleChildScrollView(
                 child: Form(
                     key: _formKey,
                     child: ResponsiveLayout(
@@ -54,16 +53,16 @@ class TaskScreen extends StatelessWidget {
                           ),
                         ))),
               ),
-              isMobile ? const Divider(height: 0) : const SizedBox.shrink(),
-              isMobile
-                  ? Container(
-                      color: AppColors.white,
-                      padding: const EdgeInsets.all(spacingStandard),
-                      child: AssignTaskButton(
-                          formKey: _formKey, buttonWidth: double.maxFinite))
-                  : const SizedBox.shrink()
-            ]),
-      );
+            ),
+            isMobile ? const Divider(height: 0) : const SizedBox.shrink(),
+            isMobile
+                ? Container(
+                    color: AppColors.white,
+                    padding: const EdgeInsets.all(spacingStandard),
+                    child: AssignTaskButton(
+                        formKey: _formKey, buttonWidth: double.maxFinite))
+                : const SizedBox.shrink()
+          ]);
     });
   }
 }

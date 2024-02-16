@@ -35,7 +35,7 @@ class CustomDropdownButton extends StatelessWidget {
                 MaterialStateTextStyle.resolveWith((Set<MaterialState> states) {
               if (states.contains(MaterialState.disabled)) {
                 return const TextStyle(
-                  color: AppColors.darkBlue,
+                  color: AppColors.black,
                 );
               } else {
                 return const TextStyle(
@@ -48,9 +48,7 @@ class CustomDropdownButton extends StatelessWidget {
                     borderSide: BorderSide(
                         color: (showBorder == false)
                             ? AppColors.transparent
-                            : enabled ?? true
-                                ? AppColors.lighterBlack
-                                : AppColors.darkBlue)),
+                            : AppColors.lighterBlack)),
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: spacingMedium),
                 border: OutlineInputBorder(

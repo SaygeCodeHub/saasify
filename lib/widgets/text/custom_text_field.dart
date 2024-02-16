@@ -76,7 +76,7 @@ class CustomTextField extends StatelessWidget {
           (Set<MaterialState> states) {
             if (states.contains(MaterialState.disabled)) {
               return const TextStyle(
-                color: AppColors.darkBlue,
+                color: AppColors.black,
               );
             } else {
               return const TextStyle(
@@ -98,7 +98,7 @@ class CustomTextField extends StatelessWidget {
             border: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.black12)),
             disabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: AppColors.darkBlue)),
+                borderSide: BorderSide(color: Colors.black12)),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
             suffix: suffix,

@@ -44,6 +44,21 @@ class CustomDropdownButton extends StatelessWidget {
               }
             }),
             decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: (showBorder == false)
+                            ? AppColors.transparent
+                            : AppColors.lighterBlack)),
+                focusedErrorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: (showBorder == false)
+                            ? AppColors.transparent
+                            : AppColors.errorRed)),
+                errorBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                        color: (showBorder == false)
+                            ? AppColors.transparent
+                            : AppColors.errorRed)),
                 enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                         color: (showBorder == false)

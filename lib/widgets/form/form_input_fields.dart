@@ -74,6 +74,7 @@ class DatePickerField extends StatelessWidget {
   final String? label;
   final void Function(String) onTextFieldChanged;
   final DateTime? initialDate;
+  final bool isRequired;
   final bool? enabled;
   final TextEditingController _dateController = TextEditingController();
 
@@ -82,7 +83,8 @@ class DatePickerField extends StatelessWidget {
       this.enabled,
       this.label,
       required this.onTextFieldChanged,
-      this.initialDate});
+      this.initialDate,
+      this.isRequired = false});
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +101,7 @@ class DatePickerField extends StatelessWidget {
           textFieldController: _dateController,
           readOnly: true,
           enabled: enabled,
+          isRequired: isRequired,
           suffixIcon: const Icon(Icons.date_range_outlined),
           onTap: () {
             showDatePicker(

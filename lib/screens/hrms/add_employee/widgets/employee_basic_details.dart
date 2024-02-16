@@ -176,7 +176,7 @@ class EmployeeBasicDetails extends StatelessWidget {
                 .map((e) => e['state'])
                 .toList()
                 .cast<String>()),
-            onChanged: (String? value) {
+            onChanged: (value) {
               context.read<EmployeeBloc>().employeeDetails['personal_info']
                   ['state'] = value;
               context.read<EmployeeBloc>().employeeDetails['personal_info']
@@ -197,7 +197,7 @@ class EmployeeBasicDetails extends StatelessWidget {
                     .employeeDetails['personal_info']['city'],
                 hint: '',
                 items: stringListToDropdownItems(value as List<String>),
-                onChanged: (String? value) {
+                onChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['personal_info']
                       ['city'] = value;
                 });

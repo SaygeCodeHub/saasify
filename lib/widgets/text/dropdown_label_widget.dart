@@ -12,7 +12,7 @@ class DropdownLabelWidget extends StatefulWidget {
   final bool? enabled;
   final bool isRequired;
   final String? errorText;
-  final ValueChanged<String?> onChanged;
+  final ValueChanged<dynamic> onChanged;
 
   const DropdownLabelWidget({
     super.key,
@@ -63,6 +63,7 @@ class _DropdownLabelWidgetState extends State<DropdownLabelWidget> {
           width: widget.textFieldSize ?? MediaQuery.sizeOf(context).width,
           child: CustomDropdownButton(
             hint: widget.hint,
+            isRequired: widget.isRequired,
             items: widget.items,
             enabled: widget.enabled,
             selectedValue: selectedValue,

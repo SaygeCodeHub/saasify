@@ -14,6 +14,8 @@ import 'package:saasify/repositories/register/register_repository.dart';
 import 'package:saasify/repositories/register/register_repository_impl.dart';
 import 'package:saasify/repositories/settings/settings_repository.dart';
 import 'package:saasify/repositories/settings/settings_repository_impl.dart';
+import 'package:saasify/repositories/task/task_repository.dart';
+import 'package:saasify/repositories/task/task_repository_impl.dart';
 import 'package:saasify/repositories/timesheet/timesheet_repository.dart';
 import 'package:saasify/repositories/timesheet/timesheet_repository_impl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,6 +50,7 @@ configurableDependencies() {
       () => SettingsRepositoryImpl());
   getIt.registerLazySingleton<TimeSheetRepository>(
       () => TimeSheetRepositoryImpl());
+  getIt.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl());
   getIt.registerLazySingleton<InitialiseRepository>(
       () => InitialiseRepositoryImpl());
 }

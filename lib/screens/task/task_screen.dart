@@ -32,32 +32,35 @@ class TaskScreen extends StatelessWidget {
                     const SizedBox(width: spacingXMedium),
                     const ModuleHeading(label: "Assign Task"),
                   ])),
-              Form(
-                  key: _formKey,
-                  child: ResponsiveLayout(
-                      mobileBody: const AssignTaskForm(),
-                      desktopBody: BackgroundCardWidget(
-                        childScreen: Padding(
-                          padding: const EdgeInsets.all(spacingMedium),
-                          child: Column(
-                            children: [
-                              const AssignTaskForm(),
-                              Row(
-                                children: [
-                                  const Spacer(),
-                                  AssignTaskButton(formKey: _formKey),
-                                ],
-                              )
-                            ],
+              Expanded(
+                child: Form(
+                    key: _formKey,
+                    child: ResponsiveLayout(
+                        mobileBody: const AssignTaskForm(),
+                        desktopBody: BackgroundCardWidget(
+                          childScreen: Padding(
+                            padding: const EdgeInsets.all(spacingMedium),
+                            child: Column(
+                              children: [
+                                const AssignTaskForm(),
+                                Row(
+                                  children: [
+                                    const Spacer(),
+                                    AssignTaskButton(formKey: _formKey),
+                                  ],
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                      ))),
+                        ))),
+              ),
               isMobile ? const Divider(height: 0) : const SizedBox.shrink(),
               isMobile
                   ? Container(
                       color: AppColors.white,
                       padding: const EdgeInsets.all(spacingStandard),
-                      child: AssignTaskButton(formKey: _formKey))
+                      child: AssignTaskButton(
+                          formKey: _formKey, buttonWidth: double.maxFinite))
                   : const SizedBox.shrink()
             ]),
       );

@@ -24,6 +24,7 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
 
   ValueNotifier<String?> checkInTime = ValueNotifier<String?>(null);
   ValueNotifier<String?> checkOutTime = ValueNotifier<String?>(null);
+  ValueNotifier<bool> checkedIn = ValueNotifier<bool>(false);
 
   AttendanceBloc() : super(AttendanceInitial()) {
     on<MarkAttendance>(_onMarkAttendance);
@@ -39,6 +40,11 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
       if (attendanceModel.status == 200) {
         checkInTime.value = formatDate(attendanceModel.data.checkIn);
         checkOutTime.value = formatDate(attendanceModel.data.checkOut);
+        if (isCheckedIn()) {
+          checkedIn.value = true;
+        } else {
+          checkedIn.value = false;
+        }
       }
       emit(FetchedAttendance());
     } catch (e) {
@@ -100,6 +106,11 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
         if (attendanceModel.status == 200) {
           checkInTime.value = formatDate(attendanceModel.data.checkIn);
           checkOutTime.value = formatDate(attendanceModel.data.checkOut);
+          if (isCheckedIn()) {
+            checkedIn.value = true;
+          } else {
+            checkedIn.value = false;
+          }
           emit(FetchedAttendance());
         } else {
           emit(ErrorMarkingAttendance(message: attendanceModel.message));

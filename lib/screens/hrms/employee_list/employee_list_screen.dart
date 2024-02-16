@@ -65,6 +65,7 @@ class EmployeeListScreen extends StatelessWidget {
                                 .add(GetAllEmployees()));
                       }
                       if (state is LoadingEmployeeFailed) {
+                        context.read<EmployeeBloc>().add(GetAllEmployees());
                         ProgressBar.dismiss(context);
                         showDialog(
                             context: context,
@@ -74,8 +75,11 @@ class EmployeeListScreen extends StatelessWidget {
                             });
                       }
                     },
-                    buildWhen: (previous, current) =>
-                        previous.runtimeType != current.runtimeType,
+                    buildWhen: (previous, current) {
+                      return current is LoadingEmployees ||
+                          current is EmployeesLoaded ||
+                          current is LoadingEmployeesFailed;
+                    },
                     builder: (context, state) {
                       if (state is LoadingEmployees) {
                         return const Center(child: CircularProgressIndicator());

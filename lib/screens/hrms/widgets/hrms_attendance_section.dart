@@ -37,12 +37,12 @@ class HrmsAttendanceSection extends StatelessWidget {
           child: Row(
             children: [
               ValueListenableBuilder(
-                  valueListenable: context.read<AttendanceBloc>().checkInTime,
-                  builder:
-                      (BuildContext context, String? value, Widget? child) {
+                  valueListenable: context.read<AttendanceBloc>().checkedIn,
+                  builder: (BuildContext context, bool value, Widget? child) {
                     return Image.asset(
                       setImage(gender, context),
                       height: MediaQuery.sizeOf(context).height * 0.15,
+                      width: MediaQuery.sizeOf(context).height * 0.20,
                     );
                   }),
               Expanded(
@@ -75,7 +75,7 @@ class HrmsAttendanceSection extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(StringConstants.kCheckIn,
+                                Text(StringConstants.kCheckOut,
                                     style: Theme.of(context)
                                         .textTheme
                                         .cardMobileValueTextStyle),

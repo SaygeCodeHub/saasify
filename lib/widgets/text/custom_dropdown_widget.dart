@@ -72,8 +72,11 @@ class CustomDropdownButton extends StatelessWidget {
             onChanged: enabled ?? true ? onChanged : null,
             buttonStyleData: const ButtonStyleData(
                 padding: EdgeInsets.only(right: spacingXSmall)),
-            iconStyleData: const IconStyleData(
-                icon: Icon(Icons.arrow_drop_down, color: AppColors.darkBlue),
+            iconStyleData: IconStyleData(
+                icon: Icon(Icons.arrow_drop_down,
+                    color: enabled ?? true
+                        ? AppColors.darkBlue
+                        : AppColors.transparent),
                 iconSize: kBackIconSize),
             dropdownStyleData: DropdownStyleData(
                 decoration: BoxDecoration(

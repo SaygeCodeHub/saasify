@@ -42,27 +42,32 @@ class AddEmployeeScreen extends StatelessWidget {
                           ])),
                       !isViewOnly
                           ? const SizedBox.shrink()
-                          : Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                    onPressed: () {
-                                      Navigator.pushReplacementNamed(
-                                          context, routeName);
-                                    },
-                                    padding: EdgeInsets.zero,
-                                    icon: const Icon(Icons.edit,
-                                        color: AppColors.orange, size: 20)),
-                                const SizedBox(width: spacingSmallest),
-                                Text(
-                                  "Edit",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .labelTextStyle
-                                      .copyWith(color: AppColors.orange),
-                                ),
-                                const SizedBox(width: spacingMedium),
-                              ],
+                          : Card(
+                              color: AppColors.orange,
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: spacingMedium),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                      onPressed: () {
+                                        Navigator.pushReplacementNamed(
+                                            context, routeName);
+                                      },
+                                      padding: EdgeInsets.zero,
+                                      icon: const Icon(Icons.edit,
+                                          color: AppColors.white, size: 20)),
+                                  const SizedBox(width: spacingSmallest),
+                                  Text(
+                                    "Edit",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelTextStyle
+                                        .copyWith(color: AppColors.white),
+                                  ),
+                                  const SizedBox(width: spacingStandard)
+                                ],
+                              ),
                             )
                     ],
                   ),

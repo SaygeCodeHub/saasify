@@ -112,6 +112,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
                 }),
             DatePickerField(
                 label: StringConstants.kIssueDate,
+                enabled: !isViewOnly,
                 initialDate: DateFormat('yyyy-mm-dd').tryParse(
                     context.read<EmployeeBloc>().employeeDetails['documents']
                             ['passport']['issue_date'] ??

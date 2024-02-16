@@ -100,10 +100,13 @@ showAddEmployeeDialog(BuildContext context) {
                 children: [
                   const Divider(),
                   const SizedBox(height: spacingStandard),
-                  EmailTextField(onTextFieldChanged: (value) {
-                    context.read<EmployeeBloc>().inviteDetails['user_email'] =
-                        value;
-                  }),
+                  EmailTextField(
+                      isRequired: true,
+                      onTextFieldChanged: (value) {
+                        context
+                            .read<EmployeeBloc>()
+                            .inviteDetails['user_email'] = value;
+                      }),
                   const SizedBox(height: spacingStandard),
                   Text(StringConstants.kAssignRole,
                       style: Theme.of(context).textTheme.userNameTextStyle),

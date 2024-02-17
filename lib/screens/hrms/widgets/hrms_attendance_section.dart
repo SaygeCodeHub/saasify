@@ -29,23 +29,31 @@ class HrmsAttendanceSection extends StatelessWidget {
         const SizedBox(height: spacingLarger),
         Container(
           width: (isMobile!)
-              ? MediaQuery.sizeOf(context).width * 0.25
+              ? MediaQuery.sizeOf(context).width * 0.30
               : MediaQuery.sizeOf(context).width,
+          height: MediaQuery.sizeOf(context).height * 0.20,
           decoration: BoxDecoration(
               border: Border.all(color: AppColors.lighterBlack),
               borderRadius: BorderRadius.circular(kCardRadius)),
           child: Row(
             children: [
-              ValueListenableBuilder(
-                  valueListenable: context.read<AttendanceBloc>().checkedIn,
-                  builder: (BuildContext context, bool value, Widget? child) {
-                    return Image.asset(
-                      setImage(gender, context),
-                      height: MediaQuery.sizeOf(context).height * 0.15,
-                      width: MediaQuery.sizeOf(context).height * 0.20,
-                    );
-                  }),
               Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: spacingLarger),
+                  child: ValueListenableBuilder(
+                      valueListenable: context.read<AttendanceBloc>().checkedIn,
+                      builder:
+                          (BuildContext context, bool value, Widget? child) {
+                        return Image.asset(
+                          setImage(gender, context),
+                          fit: BoxFit.cover,
+                        );
+                      }),
+                ),
+              ),
+              Expanded(
+                flex: 3,
                 child: Column(
                   children: [
                     Padding(
@@ -57,6 +65,7 @@ class HrmsAttendanceSection extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(StringConstants.kCheckIn,
+                                    maxLines: 1,
                                     style: Theme.of(context)
                                         .textTheme
                                         .cardMobileValueTextStyle),
@@ -76,6 +85,7 @@ class HrmsAttendanceSection extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Text(StringConstants.kCheckOut,
+                                    maxLines: 1,
                                     style: Theme.of(context)
                                         .textTheme
                                         .cardMobileValueTextStyle),

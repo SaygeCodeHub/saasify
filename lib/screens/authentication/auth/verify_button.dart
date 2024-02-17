@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/auth/auth_bloc.dart';
 import 'package:saasify/bloc/auth/auth_events.dart';
 import 'package:saasify/bloc/auth/auth_states.dart';
+import 'package:saasify/bloc/register/register_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/authentication/register/register_screen.dart';
@@ -73,6 +74,10 @@ class AuthVerifyButton extends StatelessWidget {
           children: [
             InkWell(
                 onTap: () {
+                  context
+                      .read<RegisterBloc>()
+                      .userInputAuthenticationMap
+                      .clear();
                   Navigator.pushReplacementNamed(
                       context, RegisterScreen.routeName);
                 },

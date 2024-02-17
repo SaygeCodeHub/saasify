@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/auth/auth_bloc.dart';
 import 'package:saasify/bloc/register/register_bloc.dart';
 import 'package:saasify/bloc/register/register_events.dart';
 import 'package:saasify/bloc/register/register_states.dart';
@@ -53,6 +54,7 @@ class RegisterButton extends StatelessWidget {
         }),
         InkWell(
           onTap: () {
+            context.read<AuthBloc>().userInputAuthenticationMap.clear();
             Navigator.pushReplacementNamed(
                 context, AuthenticationScreen.routeName);
           },

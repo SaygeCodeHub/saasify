@@ -21,43 +21,49 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<SettingsBloc>().add(GetAllSettings());
     return Scaffold(
-      body: ScreenSkeleton(
-          childScreenBuilder: (bool isMobile) => Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const SizedBox(height: spacingMedium),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: spacingMedium, right: spacingMedium),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const BackButton(),
-                        const SizedBox(width: spacingXMedium),
-                        const ModuleHeading(label: 'Settings'),
-                        const Spacer(),
-                        EditSettingsButton(
-                          buttonTitle: 'Edit',
-                          onPressed: () {},
-                        )
-                      ],
-                    ),
-                  ),
-                  BlocBuilder<SettingsBloc, SettingsState>(
-                      builder: (context, state) {
-                    if (state is FetchingSettings) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (state is SettingsFetched) {
-                      return const ResponsiveLayout(
-                          mobileBody: SettingsMobileScreen(),
-                          desktopBody: SettingsWebScreen());
-                    } else {
-                      return const SizedBox.shrink();
-                    }
-                  })
-                ],
-              )),
-    );
+        body: ScreenSkeleton(
+            childScreenBuilder: (bool isMobile) => Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: spacingMedium),
+                      Padding(
+                          padding: const EdgeInsets.only(
+                              left: spacingMedium, right: spacingMedium),
+                          child: isMobile
+                              ? Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                      const ModuleHeading(label: 'Settings'),
+                                      const Spacer(),
+                                      EditSettingsButton(
+                                          buttonTitle: 'Edit', onPressed: () {})
+                                    ])
+                              : Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                      const BackButton(),
+                                      const SizedBox(width: spacingXMedium),
+                                      const ModuleHeading(label: 'Settings'),
+                                      const Spacer(),
+                                      EditSettingsButton(
+                                          buttonTitle: 'Edit', onPressed: () {})
+                                    ])),
+                      Expanded(child: BlocBuilder<SettingsBloc, SettingsState>(
+                          builder: (context, state) {
+                        if (state is FetchingSettings) {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        } else if (state is SettingsFetched) {
+                          return ResponsiveLayout(
+                              mobileBody: SettingsMobileScreen(
+                                  settingsData: state.settingsModel.data),
+                              desktopBody: SettingsWebScreen(
+                                  settingsData: state.settingsModel.data));
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      }))
+                    ])));
   }
 }

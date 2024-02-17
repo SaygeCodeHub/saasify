@@ -6,73 +6,80 @@ SettingsModel settingsModelFromJson(String str) =>
 String settingsModelToJson(SettingsModel data) => json.encode(data.toJson());
 
 class SettingsModel {
-  int status;
-  String message;
-  Data data;
+  final int status;
+  final String message;
+  final SettingsData data;
 
-  SettingsModel({
-    required this.status,
-    required this.message,
-    required this.data,
-  });
+  SettingsModel(
+      {required this.status, required this.message, required this.data});
 
   factory SettingsModel.fromJson(Map<String, dynamic> json) => SettingsModel(
-        status: json["status"],
-        message: json["message"],
-        data: Data.fromJson(json["data"]),
-      );
+      status: json["status"],
+      message: json["message"],
+      data: SettingsData.fromJson(json["data"]));
 
-  Map<String, dynamic> toJson() => {
-        "status": status,
-        "message": message,
-        "data": data.toJson(),
-      };
+  Map<String, dynamic> toJson() =>
+      {"status": status, "message": message, "data": data.toJson()};
 }
 
-class Data {
-  dynamic timeIn;
-  dynamic timeOut;
-  dynamic timezone;
-  dynamic currency;
-  int defaultApprover;
-  dynamic overtimeRate;
-  dynamic overtimeRatePer;
-  int totalMedicalLeaves;
-  int totalCasualLeaves;
+class SettingsData {
+  final DateTime timeIn;
+  final DateTime timeOut;
+  final DateTime timezone;
+  final dynamic currency;
+  final DefaultApprover defaultApprover;
+  final dynamic overtimeRate;
+  final String overtimeRatePer;
+  final int totalMedicalLeaves;
+  final int totalCasualLeaves;
+  final bool geoFencing;
 
-  Data({
-    required this.timeIn,
-    required this.timeOut,
-    required this.timezone,
-    required this.currency,
-    required this.defaultApprover,
-    required this.overtimeRate,
-    required this.overtimeRatePer,
-    required this.totalMedicalLeaves,
-    required this.totalCasualLeaves,
-  });
+  SettingsData(
+      {required this.timeIn,
+      required this.timeOut,
+      required this.timezone,
+      required this.currency,
+      required this.defaultApprover,
+      required this.overtimeRate,
+      required this.overtimeRatePer,
+      required this.totalMedicalLeaves,
+      required this.totalCasualLeaves,
+      required this.geoFencing});
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        timeIn: json["time_in"],
-        timeOut: json["time_out"],
-        timezone: json["timezone"],
-        currency: json["currency"],
-        defaultApprover: json["default_approver"],
-        overtimeRate: json["overtime_rate"],
-        overtimeRatePer: json["overtime_rate_per"],
-        totalMedicalLeaves: json["total_medical_leaves"],
-        totalCasualLeaves: json["total_casual_leaves"],
-      );
+  factory SettingsData.fromJson(Map<String, dynamic> json) => SettingsData(
+      timeIn: DateTime.parse(json["time_in"]),
+      timeOut: DateTime.parse(json["time_out"]),
+      timezone: DateTime.parse(json["timezone"]),
+      currency: json["currency"],
+      defaultApprover: DefaultApprover.fromJson(json["default_approver"]),
+      overtimeRate: json["overtime_rate"],
+      overtimeRatePer: json["overtime_rate_per"],
+      totalMedicalLeaves: json["total_medical_leaves"],
+      totalCasualLeaves: json["total_casual_leaves"],
+      geoFencing: json["geo_fencing"]);
 
   Map<String, dynamic> toJson() => {
-        "time_in": timeIn,
-        "time_out": timeOut,
-        "timezone": timezone,
+        "time_in": timeIn.toIso8601String(),
+        "time_out": timeOut.toIso8601String(),
+        "timezone": timezone.toIso8601String(),
         "currency": currency,
-        "default_approver": defaultApprover,
+        "default_approver": defaultApprover.toJson(),
         "overtime_rate": overtimeRate,
         "overtime_rate_per": overtimeRatePer,
         "total_medical_leaves": totalMedicalLeaves,
         "total_casual_leaves": totalCasualLeaves,
+        "geo_fencing": geoFencing
       };
+}
+
+class DefaultApprover {
+  final int id;
+  final String approverName;
+
+  DefaultApprover({required this.id, required this.approverName});
+
+  factory DefaultApprover.fromJson(Map<String, dynamic> json) =>
+      DefaultApprover(id: json["id"], approverName: json["approver_name"]);
+
+  Map<String, dynamic> toJson() => {"id": id, "approver_name": approverName};
 }

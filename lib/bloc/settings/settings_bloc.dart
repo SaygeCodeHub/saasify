@@ -12,13 +12,14 @@ import 'package:saasify/repositories/settings/settings_repository.dart';
 class SettingsBloc extends Bloc<SettingsEvents, SettingsState> {
   final SettingsRepository _settingsRepository = getIt<SettingsRepository>();
   final Cache cache = getIt<Cache>();
-  final Map userInputAuthenticationMap = {};
-  ValueNotifier<bool> isEdit = ValueNotifier<bool>(false);
+  final Map updateSettingsMap = {};
+  ValueNotifier<bool> isEdit = ValueNotifier<bool>(true);
 
   SettingsState get initialState => InitialisingSettings();
 
   SettingsBloc() : super(InitialisingSettings()) {
     on<GetAllSettings>(_getAllSettings);
+    on<UpdateSettings>(_updateBranchSettings);
   }
 
   FutureOr<void> _getAllSettings(
@@ -27,12 +28,28 @@ class SettingsBloc extends Bloc<SettingsEvents, SettingsState> {
     try {
       SettingsModel settingsModel = await _settingsRepository.getSettings();
       if (settingsModel.status == 200) {
-        emit(SettingsFetched());
+        emit(SettingsFetched(settingsModel: settingsModel));
       } else {
         emit(FetchingSettingsFailed(error: settingsModel.message));
       }
     } catch (e) {
       emit(FetchingSettingsFailed(error: e.toString()));
+    }
+  }
+
+  FutureOr<void> _updateBranchSettings(
+      UpdateSettings event, Emitter<SettingsState> emit) async {
+    emit(UpdatingSettings());
+    try {
+      SettingsModel settingsModel =
+          await _settingsRepository.updateSettings(updateSettingsMap);
+      if (settingsModel.status == 200) {
+        emit(SettingsUpdated(settingsModel: settingsModel));
+      } else {
+        emit(UpdateSettingsFailed(error: settingsModel.message));
+      }
+    } catch (e) {
+      emit(UpdateSettingsFailed(error: e.toString()));
     }
   }
 }

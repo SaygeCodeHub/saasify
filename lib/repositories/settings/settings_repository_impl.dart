@@ -21,4 +21,19 @@ class SettingsRepositoryImpl implements SettingsRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<SettingsModel> updateSettings(Map updateSettingsMap) async {
+    var companyId = await cache.getCompanyId();
+    var branchId = await cache.getBranchId();
+    var userId = await cache.getUserId();
+    try {
+      final response = await ClientServices().put(
+          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.updateBranchSettings}",
+          updateSettingsMap);
+      return SettingsModel.fromJson(response);
+    } catch (error) {
+      rethrow;
+    }
+  }
 }

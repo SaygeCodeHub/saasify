@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_bloc.dart';
-import 'package:saasify/bloc/attendance/attendance_event.dart';
 import 'package:saasify/bloc/initialise/initialise_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_events.dart';
 import 'package:saasify/bloc/initialise/initialise_states.dart';

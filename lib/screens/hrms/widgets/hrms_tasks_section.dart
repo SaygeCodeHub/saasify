@@ -26,6 +26,7 @@ class HrmsTasksSection extends StatelessWidget {
     final bool showViewAllButton =
         !isMobile ? tasksAssignedCount > 5 : tasksAssignedCount > 2;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -38,72 +39,75 @@ class HrmsTasksSection extends StatelessWidget {
           ],
         ),
         const SizedBox(height: spacingLarger),
-        GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: isMobile ? 2 : 5,
-              mainAxisSpacing: 8.0,
-              crossAxisSpacing: 8.0,
-              childAspectRatio: isMobile ? 1.4 : 1.6),
-          itemCount: context
-              .read<InitialiseAppBloc>()
-              .initialiseAppModel!
-              .data!
-              .tasksAssignedToMe!
-              .length,
-          itemBuilder: (context, index) {
-            var data = context
+        context
                 .read<InitialiseAppBloc>()
                 .initialiseAppModel!
                 .data!
-                .tasksAssignedToMe!;
-            return InkWell(
-              onTap: () {},
-              child: Container(
-                decoration: BoxDecoration(
-                    color: AppColors.lightestYellow,
-                    border: Border.all(color: AppColors.lighterBlack),
-                    borderRadius: BorderRadius.circular(kCardRadius)),
-                child: Padding(
-                  padding:
-                      EdgeInsets.all(isMobile ? spacingSmall : spacingMedium),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(data[index].title,
-                          maxLines: 1,
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelTextStyle
-                              .copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.darkBlue)),
-                      const SizedBox(height: spacingStandard),
-                      Expanded(
-                          child: Text(data[index].taskDescription,
-                              maxLines: 1,
-                              softWrap: true,
-                              overflow: TextOverflow.ellipsis)),
-                      const SizedBox(height: spacingLarge),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          buildDate(data[index].dueDate.toString(), context,
-                              showDateIcon: true, orangeColor: false),
-                          buildStatusChip(data[index].priority.toString())
-                        ],
+                .tasksAssignedToMe!
+                .isEmpty
+            ? buildEmptyTasks(context)
+            : GridView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: isMobile ? 2 : 5,
+                    mainAxisSpacing: 8.0,
+                    crossAxisSpacing: 8.0,
+                    childAspectRatio: isMobile ? 1.4 : 1.6),
+                itemCount: isMobile ? 2 : 5,
+                itemBuilder: (context, index) {
+                  var data = context
+                      .read<InitialiseAppBloc>()
+                      .initialiseAppModel!
+                      .data!
+                      .tasksAssignedToMe!;
+                  return InkWell(
+                    onTap: () {},
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: AppColors.lightestYellow,
+                          border: Border.all(color: AppColors.lighterBlack),
+                          borderRadius: BorderRadius.circular(kCardRadius)),
+                      child: Padding(
+                        padding: EdgeInsets.all(
+                            isMobile ? spacingSmall : spacingMedium),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(data[index].title,
+                                maxLines: 1,
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .labelTextStyle
+                                    .copyWith(
+                                        fontWeight: FontWeight.w600,
+                                        color: AppColors.darkBlue)),
+                            const SizedBox(height: spacingStandard),
+                            Expanded(
+                                child: Text(data[index].taskDescription,
+                                    maxLines: 1,
+                                    softWrap: true,
+                                    overflow: TextOverflow.ellipsis)),
+                            const SizedBox(height: spacingLarge),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                buildDate(
+                                    data[index].dueDate.toString(), context,
+                                    showDateIcon: true, orangeColor: false),
+                                buildStatusChip(data[index].priority.toString())
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ],
-                  ),
-                ),
+                    ),
+                  );
+                },
               ),
-            );
-          },
-        ),
       ],
     );
   }
@@ -120,5 +124,28 @@ class HrmsTasksSection extends StatelessWidget {
     return StatusChip(
         text: getPriorityFromInt(priority).toString(),
         color: getColorFromStatus(priority.toString()));
+  }
+
+  Widget buildEmptyTasks(context) {
+    return Container(
+      padding: const EdgeInsets.all(spacingLarger),
+      decoration: BoxDecoration(
+          color: AppColors.lightestYellow,
+          border: Border.all(color: AppColors.lighterBlack),
+          borderRadius: BorderRadius.circular(kCardRadius)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.assignment, color: AppColors.darkBlue, size: 40),
+          const SizedBox(height: spacingStandard),
+          Text('No tasks assigned to you',
+              style: Theme.of(context)
+                  .textTheme
+                  .labelTextStyle
+                  .copyWith(color: AppColors.darkBlue)),
+        ],
+      ),
+    );
   }
 }

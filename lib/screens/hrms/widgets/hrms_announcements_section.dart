@@ -28,35 +28,42 @@ class HrmsAnnouncementsSection extends StatelessWidget {
               borderRadius: BorderRadius.circular(kCardRadius)),
           child: Padding(
             padding: const EdgeInsets.all(spacingSmall),
-            child: ListView.builder(
-                itemCount: context
+            child: context
                     .read<InitialiseAppBloc>()
                     .initialiseAppModel!
                     .data!
                     .announcements!
-                    .length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  var data = context
-                      .read<InitialiseAppBloc>()
-                      .initialiseAppModel!
-                      .data!
-                      .announcements!;
-                  return SizedBox(
-                    width: MediaQuery.sizeOf(context).width * 0.15,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        buildDate(data[index].dueDate.toString(), context),
-                        const Text(' : '),
-                        Expanded(
-                          child: Text(data[index].description, maxLines: 2),
-                        )
-                      ],
-                    ),
-                  );
-                }),
+                    .isEmpty
+                ? buildEmptyAnnouncements(context)
+                : ListView.builder(
+                    itemCount: context
+                        .read<InitialiseAppBloc>()
+                        .initialiseAppModel!
+                        .data!
+                        .announcements!
+                        .length,
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      var data = context
+                          .read<InitialiseAppBloc>()
+                          .initialiseAppModel!
+                          .data!
+                          .announcements!;
+                      return SizedBox(
+                        width: MediaQuery.sizeOf(context).width * 0.15,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            buildDate(data[index].dueDate.toString(), context),
+                            const Text(' : '),
+                            Expanded(
+                              child: Text(data[index].description, maxLines: 2),
+                            )
+                          ],
+                        ),
+                      );
+                    }),
           ),
         ),
       ],
@@ -69,5 +76,15 @@ class HrmsAnnouncementsSection extends StatelessWidget {
         child: Text('View all',
             style: Theme.of(context).textTheme.labelTextStyle.copyWith(
                 fontWeight: FontWeight.w800, color: AppColors.orange)));
+  }
+
+  Widget buildEmptyAnnouncements(context) {
+    return Center(
+      child: Text('No Announcements',
+          style: Theme.of(context)
+              .textTheme
+              .labelTextStyle
+              .copyWith(fontWeight: FontWeight.w800, color: AppColors.orange)),
+    );
   }
 }

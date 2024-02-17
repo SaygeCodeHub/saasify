@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/initialise/initialise_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/screens/hrms/widgets/build_date.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
 class HrmsAnnouncementsSection extends StatelessWidget {
-  const HrmsAnnouncementsSection({super.key});
+  final bool isMobile;
+
+  const HrmsAnnouncementsSection({super.key, required this.isMobile});
 
   @override
   Widget build(BuildContext context) {
@@ -24,25 +29,29 @@ class HrmsAnnouncementsSection extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(spacingSmall),
             child: ListView.builder(
-                itemCount: 2,
+                itemCount: context
+                    .read<InitialiseAppBloc>()
+                    .initialiseAppModel!
+                    .data!
+                    .announcements!
+                    .length,
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
+                  var data = context
+                      .read<InitialiseAppBloc>()
+                      .initialiseAppModel!
+                      .data!
+                      .announcements!;
                   return SizedBox(
                     width: MediaQuery.sizeOf(context).width * 0.15,
                     child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('12:01 am',
-                            style: Theme.of(context)
-                                .textTheme
-                                .cardMobileHeadingTextStyle
-                                .copyWith(color: AppColors.orange)),
+                        buildDate(data[index].dueDate.toString(), context),
                         const Text(' : '),
-                        const Expanded(
-                          child: Text(
-                              'Make sure to regularise the attendance by next Monday.Make sure to regularise the attendance by next Monday.',
-                              maxLines: 2),
+                        Expanded(
+                          child: Text(data[index].description, maxLines: 2),
                         )
                       ],
                     ),
@@ -52,5 +61,13 @@ class HrmsAnnouncementsSection extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  Widget buildViewAllButton(context) {
+    return TextButton(
+        onPressed: () {},
+        child: Text('View all',
+            style: Theme.of(context).textTheme.labelTextStyle.copyWith(
+                fontWeight: FontWeight.w800, color: AppColors.orange)));
   }
 }

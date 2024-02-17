@@ -77,7 +77,7 @@ showAddEmployeeDialog(BuildContext context) {
         )
       ],
       title: SizedBox(
-          width: MediaQuery.sizeOf(context).width * 0.30,
+          width: MediaQuery.sizeOf(context).width * 0.60,
           child:
               OverflowBar(alignment: MainAxisAlignment.spaceBetween, children: [
             const Text(StringConstants.kInviteMember),
@@ -113,7 +113,7 @@ showAddEmployeeDialog(BuildContext context) {
                             .inviteDetails['user_email'] = value;
                       }),
                   const SizedBox(height: spacingStandard),
-                  Text(StringConstants.kAssignRole,
+                  Text(StringConstants.kDesignation,
                       style: Theme.of(context).textTheme.userNameTextStyle),
                   const SizedBox(height: spacingSmall),
                   Row(

@@ -10,13 +10,29 @@ String formatDate(String inputDate) {
 
 Color getColorFromStatus(String text) {
   switch (text) {
+    case '2':
     case 'REJECTED':
       return AppColors.errorRed;
+    case '1':
     case 'ACCEPTED':
       return AppColors.successGreen;
+    case '3':
     case 'PENDING':
       return AppColors.lightBlue;
     default:
       return AppColors.lightGrey;
+  }
+}
+
+String getPriorityFromInt(String priority) {
+  switch (priority) {
+    case '2':
+      return 'High';
+    case '1':
+      return 'Medium';
+    case '0':
+      return 'Low';
+    default:
+      return 'High';
   }
 }

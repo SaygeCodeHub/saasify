@@ -5,6 +5,7 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/screens/announcements/add_announcement_screen.dart';
 import 'package:saasify/screens/hrms/widgets/build_date.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
@@ -19,7 +20,21 @@ class HrmsAnnouncementsSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        const ModuleHeading(label: 'Announcements'),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const ModuleHeading(label: 'Announcements'),
+            TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, AddAnnouncementScreen.routeName);
+                },
+                child: Text('Add Announcement',
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelTextStyle
+                        .copyWith(color: AppColors.orange)))
+          ],
+        ),
         const SizedBox(height: spacingLarger),
         Container(
           height: MediaQuery.sizeOf(context).height * 0.20,

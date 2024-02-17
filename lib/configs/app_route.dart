@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
 import 'package:saasify/screens/POS/pos_screen.dart';
+import 'package:saasify/screens/announcements/add_announcement_screen.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/authentication/forgotPassword/forgot_password_screen.dart';
 import 'package:saasify/screens/authentication/register/register_screen.dart';
@@ -47,11 +48,13 @@ class AppRoutes {
         return _createRoute(const HRMSDashboardScreen());
       case EmployeeListScreen.routeName:
         return _createRoute(const EmployeeListScreen());
+      case AddAnnouncementScreen.routeName:
+        return _createRoute(AddAnnouncementScreen());
       case AddEmployeeScreen.routeName:
         return _createRoute(AddEmployeeScreen(
             isViewOnly: (settings.arguments ?? false) as bool));
       case ApplyLeaveScreen.routeName:
-        return _createRoute(ApplyLeaveScreen());
+        return _createRoute(const ApplyLeaveScreen());
       case AllCompaniesScreen.routeName:
         return _createRoute(AllCompaniesScreen(
             authenticateUserData: settings.arguments as AuthenticateUserData));

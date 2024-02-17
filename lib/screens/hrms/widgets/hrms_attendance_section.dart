@@ -29,7 +29,7 @@ class HrmsAttendanceSection extends StatelessWidget {
         const SizedBox(height: spacingLarger),
         Container(
           width: (isMobile!)
-              ? MediaQuery.sizeOf(context).width * 0.25
+              ? MediaQuery.sizeOf(context).width * 0.30
               : MediaQuery.sizeOf(context).width,
           height: MediaQuery.sizeOf(context).height * 0.20,
           decoration: BoxDecoration(

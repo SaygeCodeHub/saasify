@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/POS/pos_bloc.dart';
+import 'package:saasify/bloc/announcemnet/announcement_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_bloc.dart';
 import 'package:saasify/bloc/auth/auth_events.dart';
 import 'package:saasify/bloc/auth/auth_states.dart';
@@ -65,7 +66,8 @@ class MyPosApp extends StatelessWidget {
         BlocProvider(create: (context) => SettingsBloc()),
         BlocProvider(create: (context) => InitialiseAppBloc()),
         BlocProvider(create: (context) => POSBloc()),
-        BlocProvider(create: (context) => TaskBloc())
+        BlocProvider(create: (context) => TaskBloc()),
+        BlocProvider(create: (context) => AnnouncementBloc()),
       ],
       child: GestureDetector(
           onTap: () {

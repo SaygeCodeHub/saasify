@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_bloc.dart';
@@ -54,7 +56,14 @@ class HrmsTasksSection extends StatelessWidget {
                     mainAxisSpacing: 8.0,
                     crossAxisSpacing: 8.0,
                     childAspectRatio: isMobile ? 1.4 : 1.6),
-                itemCount: isMobile ? 2 : 5,
+                itemCount: min(
+                    context
+                        .read<InitialiseAppBloc>()
+                        .initialiseAppModel!
+                        .data!
+                        .tasksAssignedToMe!
+                        .length,
+                    isMobile ? 2 : 5),
                 itemBuilder: (context, index) {
                   var data = context
                       .read<InitialiseAppBloc>()

@@ -56,7 +56,7 @@ class StringConstants {
 
   static const kAddEmployee = 'Add Employee';
   static const kInviteMember = 'Invite a team member';
-  static const kAssignRole = 'Assign Role';
+  static const kDesignation = 'Designation';
 
   //Validation
   static const kEnterValidEmail = 'Please enter valid email address';

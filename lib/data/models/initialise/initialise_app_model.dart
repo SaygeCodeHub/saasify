@@ -37,31 +37,47 @@ class InitialiseAppData {
   final List<ListOfBranches>? branches;
   final List<ModulesModel>? accessibleModules;
   final List<ModulesModel>? availableModules;
+  List<TasksAssignedMe>? tasksAssignedToMe;
+  List<TasksAssignedMe>? tasksAssignedByMe;
+  List<Announcement>? announcements;
   final bool? geoFencing;
+  dynamic gender;
 
-  InitialiseAppData({
-    this.branches,
-    this.accessibleModules,
-    this.availableModules,
-    this.geoFencing,
-  });
+  InitialiseAppData(
+      {this.branches,
+      this.accessibleModules,
+      this.availableModules,
+      this.geoFencing,
+      this.gender,
+      this.tasksAssignedToMe,
+      this.tasksAssignedByMe,
+      this.announcements});
 
-  factory InitialiseAppData.fromJson(Map<String, dynamic> json) =>
-      InitialiseAppData(
-        branches: json["branches"] == null
-            ? []
-            : List<ListOfBranches>.from(
-                json["branches"]!.map((x) => ListOfBranches.fromJson(x))),
-        accessibleModules: json["accessible_modules"] == null
-            ? []
-            : List<ModulesModel>.from(json["accessible_modules"]!
-                .map((x) => ModulesModel.fromJson(x))),
-        availableModules: json["available_modules"] == null
-            ? []
-            : List<ModulesModel>.from(json["available_modules"]!
-                .map((x) => ModulesModel.fromJson(x))),
-        geoFencing: json["geo_fencing"],
-      );
+  factory InitialiseAppData.fromJson(Map<String, dynamic> json) => InitialiseAppData(
+      branches: json["branches"] == null
+          ? []
+          : List<ListOfBranches>.from(
+              json["branches"]!.map((x) => ListOfBranches.fromJson(x))),
+      accessibleModules: json["accessible_modules"] == null
+          ? []
+          : List<ModulesModel>.from(
+              json["accessible_modules"]!.map((x) => ModulesModel.fromJson(x))),
+      availableModules: json["available_modules"] == null
+          ? []
+          : List<ModulesModel>.from(
+              json["available_modules"]!.map((x) => ModulesModel.fromJson(x))),
+      tasksAssignedToMe: json["tasks_assigned_to_me"] == null
+          ? []
+          : List<TasksAssignedMe>.from(json["tasks_assigned_to_me"]!
+              .map((x) => TasksAssignedMe.fromJson(x))),
+      tasksAssignedByMe: json["tasks_assigned_by_me"] == null
+          ? []
+          : List<TasksAssignedMe>.from(json["tasks_assigned_by_me"]!
+              .map((x) => TasksAssignedMe.fromJson(x))),
+      announcements:
+          json["announcements"] == null ? [] : List<Announcement>.from(json["announcements"]!.map((x) => Announcement.fromJson(x))),
+      geoFencing: json["geo_fencing"],
+      gender: json["gender"]);
 
   Map<String, dynamic> toJson() => {
         "branches": branches == null
@@ -73,7 +89,17 @@ class InitialiseAppData {
         "available_modules": availableModules == null
             ? []
             : List<dynamic>.from(availableModules!.map((x) => x.toJson())),
+        "tasks_assigned_by_me": tasksAssignedByMe == null
+            ? []
+            : List<dynamic>.from(tasksAssignedByMe!.map((x) => x.toJson())),
+        "tasks_assigned_to_me": tasksAssignedToMe == null
+            ? []
+            : List<dynamic>.from(tasksAssignedToMe!.map((x) => x.toJson())),
+        "announcements": announcements == null
+            ? []
+            : List<dynamic>.from(announcements!.map((x) => x.toJson())),
         "geo_fencing": geoFencing,
+        "gender": gender
       };
 }
 
@@ -177,5 +203,108 @@ class ListOfBranches {
   Map<String, dynamic> toJson() => {
         "branch_name": branchName,
         "branch_id": branchId,
+      };
+}
+
+class Announcement {
+  int id;
+  DateTime dueDate;
+  String description;
+  bool isActive;
+  DateTime publishedTime;
+
+  Announcement({
+    required this.id,
+    required this.dueDate,
+    required this.description,
+    required this.isActive,
+    required this.publishedTime,
+  });
+
+  factory Announcement.fromJson(Map<String, dynamic> json) => Announcement(
+        id: json["id"],
+        dueDate: DateTime.parse(json["due_date"]),
+        description: json["description"],
+        isActive: json["is_active"],
+        publishedTime: DateTime.parse(json["published_time"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "due_date":
+            "${dueDate.year.toString().padLeft(4, '0')}-${dueDate.month.toString().padLeft(2, '0')}-${dueDate.day.toString().padLeft(2, '0')}",
+        "description": description,
+        "is_active": isActive,
+        "published_time": publishedTime.toIso8601String(),
+      };
+}
+
+class TasksAssignedMe {
+  String title;
+  String taskDescription;
+  DateTime dueDate;
+  int priority;
+  Assigned? assignedTo;
+  String taskStatus;
+  int taskId;
+  Assigned? assignedBy;
+
+  TasksAssignedMe({
+    required this.title,
+    required this.taskDescription,
+    required this.dueDate,
+    required this.priority,
+    this.assignedTo,
+    required this.taskStatus,
+    required this.taskId,
+    this.assignedBy,
+  });
+
+  factory TasksAssignedMe.fromJson(Map<String, dynamic> json) =>
+      TasksAssignedMe(
+        title: json["title"],
+        taskDescription: json["task_description"],
+        dueDate: DateTime.parse(json["due_date"]),
+        priority: json["priority"],
+        assignedTo: json["assigned_to"] == null
+            ? null
+            : Assigned.fromJson(json["assigned_to"]),
+        taskStatus: json["task_status"],
+        taskId: json["task_id"],
+        assignedBy: json["assigned_by"] == null
+            ? null
+            : Assigned.fromJson(json["assigned_by"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "title": title,
+        "task_description": taskDescription,
+        "due_date":
+            "${dueDate.year.toString().padLeft(4, '0')}-${dueDate.month.toString().padLeft(2, '0')}-${dueDate.day.toString().padLeft(2, '0')}",
+        "priority": priority,
+        "assigned_to": assignedTo?.toJson(),
+        "task_status": taskStatus,
+        "task_id": taskId,
+        "assigned_by": assignedBy?.toJson(),
+      };
+}
+
+class Assigned {
+  int id;
+  String name;
+
+  Assigned({
+    required this.id,
+    required this.name,
+  });
+
+  factory Assigned.fromJson(Map<String, dynamic> json) => Assigned(
+        id: json["id"],
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
       };
 }

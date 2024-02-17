@@ -51,7 +51,7 @@ class AppRoutes {
         return _createRoute(AddEmployeeScreen(
             isViewOnly: (settings.arguments ?? false) as bool));
       case ApplyLeaveScreen.routeName:
-        return _createRoute(const ApplyLeaveScreen());
+        return _createRoute(ApplyLeaveScreen());
       case AllCompaniesScreen.routeName:
         return _createRoute(AllCompaniesScreen(
             authenticateUserData: settings.arguments as AuthenticateUserData));

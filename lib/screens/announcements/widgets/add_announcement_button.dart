@@ -57,7 +57,7 @@ class AddAnnouncementButton extends StatelessWidget {
                   context.read<AnnouncementBloc>().add(AddAnnouncement());
                 }
               },
-              buttonTitle: 'Assign',
+              buttonTitle: 'Add Announcement',
             );
           },
         ),

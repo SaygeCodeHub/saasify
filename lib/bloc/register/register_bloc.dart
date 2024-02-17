@@ -26,6 +26,7 @@ class RegisterBloc extends Bloc<RegisterEvents, RegisterStates> {
           await _registerRepository.registerUser(event.userDetails);
       if (registerUserModel.status == 200) {
         await saveUserSelections(registerUserModel);
+        userInputAuthenticationMap.clear();
         emit(UserRegistered(registerData: registerUserModel.data));
       } else {
         emit(FailedToRegisterUser(errorMessage: registerUserModel.message));

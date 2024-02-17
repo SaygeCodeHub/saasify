@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:saasify/bloc/attendance/attendance_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_event.dart';
 import 'package:saasify/bloc/attendance/attendance_state.dart';
 import 'package:saasify/configs/app_colors.dart';
+import 'package:saasify/configs/app_dimensions.dart';
+import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
-
-import '../../../utils/constants/string_constants.dart';
 
 class AttendanceButton extends StatelessWidget {
   const AttendanceButton({super.key});
@@ -52,12 +54,70 @@ class AttendanceButton extends StatelessWidget {
                     ? AppColors.successGreen
                     : AppColors.errorRed,
                 onPressed: () {
-                  context.read<AttendanceBloc>().add(MarkAttendance());
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const AcknowledgementDialogue();
+                      });
                 },
                 buttonTitle: !checkInTimeExists()
                     ? StringConstants.kCheckIn
                     : StringConstants.kCheckOut);
       }
     });
+  }
+}
+
+class AcknowledgementDialogue extends StatefulWidget {
+  const AcknowledgementDialogue({
+    super.key,
+  });
+
+  @override
+  State<AcknowledgementDialogue> createState() =>
+      _AcknowledgementDialogueState();
+}
+
+class _AcknowledgementDialogueState extends State<AcknowledgementDialogue> {
+  bool _isChecked = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      icon: const Icon(FontAwesomeIcons.circleExclamation,
+          color: AppColors.warningYellow, size: 30),
+      title: const Text('Important!'),
+      content: Row(
+        children: [
+          const Expanded(
+              child: Text(
+                  'I acknowledge that I have read all the important announcements')),
+          const SizedBox(height: 10),
+          Checkbox(
+              value: _isChecked,
+              checkColor: AppColors.white,
+              activeColor: AppColors.darkBlue,
+              onChanged: (value) {
+                setState(() {
+                  _isChecked = value!;
+                });
+              }),
+        ],
+      ),
+      actionsPadding: const EdgeInsets.only(
+          bottom: spacingXLarge, left: spacingXLarge, right: spacingXLarge),
+      actionsAlignment: MainAxisAlignment.center,
+      actions: [
+        PrimaryButton(
+            buttonWidth: kGeneralActionButtonWidth,
+            onPressed: _isChecked
+                ? () {
+                    Navigator.pop(context);
+                    context.read<AttendanceBloc>().add(MarkAttendance());
+                  }
+                : null,
+            buttonTitle: 'Yes')
+      ],
+    );
   }
 }

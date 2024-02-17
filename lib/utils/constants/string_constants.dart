@@ -42,6 +42,7 @@ class StringConstants {
 
   //General
   static const kNext = 'Next';
+  static const kEdit  = 'Edit';
 
   // Company
   static const kCompanyName = 'Company Name';

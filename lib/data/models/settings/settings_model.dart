@@ -25,14 +25,18 @@ class SettingsModel {
 class SettingsData {
   final DateTime timeIn;
   final DateTime timeOut;
-  final DateTime timezone;
-  final dynamic currency;
+  final dynamic timezone;
+  final String currency;
   final DefaultApprover defaultApprover;
-  final dynamic overtimeRate;
-  final String overtimeRatePer;
+  final int workingDays;
   final int totalMedicalLeaves;
   final int totalCasualLeaves;
-  final bool geoFencing;
+  final int overtimeRate;
+  final String overtimeRatePer;
+  final String branchAddress;
+  final dynamic pincode;
+  final dynamic longitude;
+  final dynamic latitude;
 
   SettingsData(
       {required this.timeIn,
@@ -40,35 +44,47 @@ class SettingsData {
       required this.timezone,
       required this.currency,
       required this.defaultApprover,
-      required this.overtimeRate,
-      required this.overtimeRatePer,
+      required this.workingDays,
       required this.totalMedicalLeaves,
       required this.totalCasualLeaves,
-      required this.geoFencing});
+      required this.overtimeRate,
+      required this.overtimeRatePer,
+      required this.branchAddress,
+      required this.pincode,
+      required this.longitude,
+      required this.latitude});
 
   factory SettingsData.fromJson(Map<String, dynamic> json) => SettingsData(
       timeIn: DateTime.parse(json["time_in"]),
       timeOut: DateTime.parse(json["time_out"]),
-      timezone: DateTime.parse(json["timezone"]),
+      timezone: json["timezone"],
       currency: json["currency"],
       defaultApprover: DefaultApprover.fromJson(json["default_approver"]),
-      overtimeRate: json["overtime_rate"],
-      overtimeRatePer: json["overtime_rate_per"],
+      workingDays: json["working_days"],
       totalMedicalLeaves: json["total_medical_leaves"],
       totalCasualLeaves: json["total_casual_leaves"],
-      geoFencing: json["geo_fencing"]);
+      overtimeRate: json["overtime_rate"],
+      overtimeRatePer: json["overtime_rate_per"],
+      branchAddress: json["branch_address"],
+      pincode: json["pincode"],
+      longitude: json["longitude"],
+      latitude: json["latitude"]);
 
   Map<String, dynamic> toJson() => {
         "time_in": timeIn.toIso8601String(),
         "time_out": timeOut.toIso8601String(),
-        "timezone": timezone.toIso8601String(),
+        "timezone": timezone,
         "currency": currency,
         "default_approver": defaultApprover.toJson(),
-        "overtime_rate": overtimeRate,
-        "overtime_rate_per": overtimeRatePer,
+        "working_days": workingDays,
         "total_medical_leaves": totalMedicalLeaves,
         "total_casual_leaves": totalCasualLeaves,
-        "geo_fencing": geoFencing
+        "overtime_rate": overtimeRate,
+        "overtime_rate_per": overtimeRatePer,
+        "branch_address": branchAddress,
+        "pincode": pincode,
+        "longitude": longitude,
+        "latitude": latitude
       };
 }
 

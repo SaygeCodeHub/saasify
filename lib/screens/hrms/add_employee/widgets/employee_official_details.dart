@@ -41,7 +41,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
                     .first,
                 onChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['official']
-                      ['designations'] = value;
+                      ['designations'] = [value];
                 }),
             DatePickerField(
                 label: "Date of Joining",

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 class ClientServices {
@@ -28,14 +30,18 @@ class ClientServices {
 
   Future<Map<String, dynamic>> post(String requestUrl, Map body) async {
     try {
+      print("body : ${jsonEncode(body)}");
+      print("requestUrl : $requestUrl");
       final response = await dio.post(requestUrl, data: body);
       dynamic jsonResponse = response.data;
       return jsonResponse;
     } catch (e) {
       if (e is DioException) {
         if (e.response != null) {
+          print("DioException=======>${e.response!.data}");
           throw Exception('Response Error: ${e.response!.statusCode}');
         } else {
+          print("DioException=======>${e.response!.data}");
           throw Exception('Request Error: ${e.message}');
         }
       } else {

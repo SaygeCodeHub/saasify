@@ -12,7 +12,7 @@ import 'package:saasify/repositories/settings/settings_repository.dart';
 class SettingsBloc extends Bloc<SettingsEvents, SettingsState> {
   final SettingsRepository _settingsRepository = getIt<SettingsRepository>();
   final Cache cache = getIt<Cache>();
-  final Map updateSettingsMap = {};
+  Map updateSettingsMap = {};
   ValueNotifier<bool> isEdit = ValueNotifier<bool>(true);
 
   SettingsState get initialState => InitialisingSettings();
@@ -25,9 +25,12 @@ class SettingsBloc extends Bloc<SettingsEvents, SettingsState> {
   FutureOr<void> _getAllSettings(
       GetAllSettings event, Emitter<SettingsState> emit) async {
     emit(FetchingSettings());
+    updateSettingsMap = {};
     try {
       SettingsModel settingsModel = await _settingsRepository.getSettings();
       if (settingsModel.status == 200) {
+        updateSettingsMap.addAll(settingsModel.data.toJson());
+        updateSettingsMap["default_approver"]= settingsModel.data.defaultApprover.id;
         emit(SettingsFetched(settingsModel: settingsModel));
       } else {
         emit(FetchingSettingsFailed(error: settingsModel.message));

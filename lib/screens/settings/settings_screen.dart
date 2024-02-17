@@ -5,7 +5,7 @@ import 'package:saasify/bloc/settings/settings_events.dart';
 import 'package:saasify/bloc/settings/settings_states.dart';
 import 'package:saasify/screens/settings/settings_mobile_screen.dart';
 import 'package:saasify/screens/settings/settings_web_screen.dart';
-import 'package:saasify/screens/settings/widgets/edit_settings_button.dart';
+import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 
@@ -27,30 +27,17 @@ class SettingsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       const SizedBox(height: spacingMedium),
-                      Padding(
-                          padding: const EdgeInsets.only(
+                      const Padding(
+                          padding: EdgeInsets.only(
                               left: spacingMedium, right: spacingMedium),
-                          child: isMobile
-                              ? Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                      const ModuleHeading(label: 'Settings'),
-                                      const Spacer(),
-                                      EditSettingsButton(
-                                          buttonTitle: 'Edit', onPressed: () {})
-                                    ])
-                              : Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                      const BackButton(),
-                                      const SizedBox(width: spacingXMedium),
-                                      const ModuleHeading(label: 'Settings'),
-                                      const Spacer(),
-                                      EditSettingsButton(
-                                          buttonTitle: 'Edit', onPressed: () {})
-                                    ])),
-                      Expanded(child: BlocBuilder<SettingsBloc, SettingsState>(
-                          builder: (context, state) {
+                          child: ModuleHeading(label: 'Settings')),
+                      Expanded(
+                          child: BlocConsumer<SettingsBloc, SettingsState>(
+                              listener: (context, state) {
+                        if (state is FetchingSettingsFailed) {
+                          ErrorAlertDialog(description: state.error);
+                        }
+                      }, builder: (context, state) {
                         if (state is FetchingSettings) {
                           return const Center(
                               child: CircularProgressIndicator());

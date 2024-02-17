@@ -1,63 +1,87 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/employee/employee_bloc.dart';
+import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/screens/hrms/add_employee/add_employee_web.dart';
-import 'package:saasify/screens/hrms/add_employee/widgets/add_employee_button.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 import 'add_employee_mobile.dart';
 
 class AddEmployeeScreen extends StatelessWidget {
+  final bool isViewOnly;
   static const routeName = 'AddEmployeeScreen';
 
-  AddEmployeeScreen({super.key});
+  AddEmployeeScreen({super.key, this.isViewOnly = false});
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    context.read<EmployeeBloc>().resetEmployeeDetails();
     return ScreenSkeleton(
         childScreenBuilder: (isMobile) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   const SizedBox(height: spacingMedium),
-                  Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: spacingMedium),
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(children: [
-                              isMobile
-                                  ? const SizedBox.shrink()
-                                  : const BackButton(),
-                              const SizedBox(width: spacingXMedium),
-                              const ModuleHeading(label: 'Add New Employee'),
-                            ]),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: spacingMedium),
+                          child: Row(children: [
                             isMobile
                                 ? const SizedBox.shrink()
-                                : AddEmployeeButton(
-                                    formKey: _formKey, isMobile: isMobile)
+                                : const BackButton(),
+                            const SizedBox(width: spacingXMedium),
+                            ModuleHeading(
+                                label: isViewOnly
+                                    ? "Employee Details"
+                                    : 'Update Employee'),
                           ])),
+                      !isViewOnly
+                          ? const SizedBox.shrink()
+                          : Card(
+                              color: AppColors.orange,
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: spacingMedium),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                      onPressed: () {
+                                        Navigator.pushReplacementNamed(
+                                            context, routeName);
+                                      },
+                                      padding: EdgeInsets.zero,
+                                      icon: const Icon(Icons.edit,
+                                          color: AppColors.white, size: 20)),
+                                  const SizedBox(width: spacingSmallest),
+                                  Text(
+                                    "Edit",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelTextStyle
+                                        .copyWith(color: AppColors.white),
+                                  ),
+                                  const SizedBox(width: spacingStandard)
+                                ],
+                              ),
+                            )
+                    ],
+                  ),
                   Form(
                     key: _formKey,
-                    child: const Expanded(
+                    child: Expanded(
                       child: ResponsiveLayout(
-                          mobileBody: AddEmployeeMobile(),
+                          mobileBody: AddEmployeeMobile(
+                              formKey: _formKey, isViewOnly: isViewOnly),
                           provideMobilePadding: false,
-                          desktopBody: AddEmployeeWeb()),
+                          desktopBody: AddEmployeeWeb(
+                              formKey: _formKey, isViewOnly: isViewOnly)),
                     ),
-                  ),
-                  isMobile
-                      ? Padding(
-                          padding: const EdgeInsets.all(spacingSmall),
-                          child: AddEmployeeButton(
-                              formKey: _formKey, isMobile: isMobile))
-                      : const SizedBox.shrink()
+                  )
                 ]));
   }
 }

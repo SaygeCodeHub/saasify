@@ -3,7 +3,6 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/models/leaves/get_all_leaves_model.dart';
-import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/leave_details.dart';
 import 'package:saasify/screens/hrms/leaves/widgets/leave_details_navigation_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/utils/formatters.dart';
@@ -17,6 +16,11 @@ class PendingLeaveRequestsMobileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (pendingLeaves.isEmpty) {
+      return const Center(
+        child: Text(StringConstants.kNoLeavesFound),
+      );
+    }
     return ListView.separated(
         shrinkWrap: true,
         separatorBuilder: (context, index) {

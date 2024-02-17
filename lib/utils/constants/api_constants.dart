@@ -15,4 +15,5 @@ class ApiConstants {
   static const attendanceHistory = 'attendanceHistory';
   static const initializeApi = 'initializeApi';
   static const updateBranchSettings = 'updateBranchSettings';
+  static const assignTask = 'assignTask';
 }

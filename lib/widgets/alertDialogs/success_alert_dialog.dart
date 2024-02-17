@@ -20,7 +20,8 @@ class SuccessAlertDialog extends StatelessWidget {
       title: const Text('Success'),
       content: Text(description),
       actionsAlignment: MainAxisAlignment.center,
-      actionsPadding: const EdgeInsets.only(bottom: spacingSmall),
+      actionsPadding: const EdgeInsets.only(
+          bottom: spacingSmall, left: spacingSmall, right: spacingSmall),
       actions: [
         SizedBox(
           width: MediaQuery.sizeOf(context).height * 0.40,

@@ -72,6 +72,19 @@ class CustomTextField extends StatelessWidget {
         obscureText: obscureText,
         obscuringCharacter: "*",
         cursorColor: AppColors.orange,
+        style: MaterialStateTextStyle.resolveWith(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.disabled)) {
+              return const TextStyle(
+                color: AppColors.black,
+              );
+            } else {
+              return const TextStyle(
+                color: AppColors.black,
+              );
+            }
+          },
+        ),
         onTap: onTap,
         decoration: InputDecoration(
             focusedBorder: const OutlineInputBorder(

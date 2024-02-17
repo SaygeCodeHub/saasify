@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/employee/employee_bloc.dart';
+import 'package:saasify/bloc/employee/employee_event.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_theme.dart';
@@ -26,6 +29,10 @@ class EmployeeListMobile extends StatelessWidget {
                         border: Border.all(color: AppColors.lighterBlack),
                         borderRadius: BorderRadius.circular(kCardRadius)),
                     child: ListTile(
+                        onTap: () {
+                          context.read<EmployeeBloc>().add(GetEmployee(
+                              employeeId: employees[index].employeeId));
+                        },
                         leading: const Icon(Icons.person,
                             color: AppColors.darkBlue, size: kAvatarRadius),
                         title: Row(

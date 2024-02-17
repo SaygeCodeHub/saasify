@@ -1,6 +1,7 @@
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/employee/add_employee_model.dart';
 import 'package:saasify/data/models/employee/get_all_employees_model.dart';
+import 'package:saasify/data/models/employee/get_employee_model.dart';
 import 'package:saasify/data/models/employee/invite_employee_model.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/employee/employee_repository.dart';
@@ -50,6 +51,20 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
       final response = await ClientServices().get(
           "${ApiConstants.baseUrl}$companyId/$branchId/$userId/getEmployees");
       return GetAllEmployeesModel.fromJson(response);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<GetEmployeeModel> getEmployee(String employeeId) async {
+    try {
+      var companyId = await cache.getCompanyId();
+      var branchId = await cache.getBranchId();
+      var userId = await cache.getUserId();
+      final response = await ClientServices().get(
+          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/getUser/$employeeId");
+      return GetEmployeeModel.fromJson(response);
     } catch (error) {
       rethrow;
     }

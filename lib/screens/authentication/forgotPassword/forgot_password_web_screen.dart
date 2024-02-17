@@ -29,6 +29,7 @@ class ForgotPasswordWebScreen extends StatelessWidget {
             const SizedBox(height: spacingBetweenTextFields),
             LabelAndFieldWidget(
                 label: StringConstants.kEmailAddress,
+                isRequired: true,
                 onTextFieldChanged: (value) {
                   context
                       .read<ResetPasswordBloc>()

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_bloc.dart';
@@ -12,8 +14,9 @@ import 'package:saasify/widgets/text/module_heading.dart';
 
 class HrmsAttendanceSection extends StatelessWidget {
   final bool? isMobile;
+  final String? gender;
 
-  const HrmsAttendanceSection({super.key, this.isMobile = false});
+  const HrmsAttendanceSection({super.key, this.isMobile = false, this.gender});
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +36,15 @@ class HrmsAttendanceSection extends StatelessWidget {
               borderRadius: BorderRadius.circular(kCardRadius)),
           child: Row(
             children: [
-              Image.asset(
-                'assets/human.gif',
-                height: MediaQuery.sizeOf(context).height * 0.15,
-              ),
+              ValueListenableBuilder(
+                  valueListenable: context.read<AttendanceBloc>().checkedIn,
+                  builder: (BuildContext context, bool value, Widget? child) {
+                    return Image.asset(
+                      setImage(gender, context),
+                      height: MediaQuery.sizeOf(context).height * 0.15,
+                      width: MediaQuery.sizeOf(context).height * 0.20,
+                    );
+                  }),
               Expanded(
                 child: Column(
                   children: [
@@ -67,7 +75,7 @@ class HrmsAttendanceSection extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Text(StringConstants.kCheckIn,
+                                Text(StringConstants.kCheckOut,
                                     style: Theme.of(context)
                                         .textTheme
                                         .cardMobileValueTextStyle),
@@ -97,5 +105,31 @@ class HrmsAttendanceSection extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+String setImage(String? gender, BuildContext context) {
+  if (context.read<AttendanceBloc>().isCheckedIn()) {
+    if (gender == "Male") {
+      return 'assets/male_working.gif';
+    } else if (gender == "Female") {
+      return 'assets/female_working.gif';
+    } else {
+      return [
+        'assets/male_working.gif',
+        'assets/female_working.gif'
+      ][Random().nextInt(1)];
+    }
+  } else {
+    if (gender == "Male") {
+      return 'assets/male_rest.jpg';
+    } else if (gender == "Female") {
+      return 'assets/female_rest.jpg';
+    } else {
+      return [
+        'assets/male_rest.jpg',
+        'assets/female_rest.jpg'
+      ][Random().nextInt(1)];
+    }
   }
 }

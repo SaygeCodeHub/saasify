@@ -4,6 +4,7 @@ import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/models/leaves/get_all_leaves_model.dart';
 import 'package:saasify/screens/hrms/leaves/widgets/leave_details_navigation_screen.dart';
+import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/utils/formatters.dart';
 import 'package:saasify/widgets/generalWidgets/status_chip.dart';
 
@@ -14,6 +15,11 @@ class MyLeavesMobileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (myLeaves.isEmpty) {
+      return const Center(
+        child: Text(StringConstants.kNoLeavesFound),
+      );
+    }
     return ListView.separated(
         separatorBuilder: (context, index) {
           return const SizedBox(height: spacingSmall);

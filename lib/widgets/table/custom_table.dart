@@ -11,6 +11,7 @@ class CustomDataTable extends StatelessWidget {
   final bool checkboxVisible;
   final bool showRowCheckBox;
   final List<DataCell> Function(int index) generateData;
+  final void Function(int index)? rowOnTap;
   final void Function()? onHeaderCheckboxChange;
   final void Function(int index) onRowCheckboxChange;
 
@@ -24,7 +25,8 @@ class CustomDataTable extends StatelessWidget {
       required this.onRowCheckboxChange,
       required this.generateData,
       this.checkboxVisible = true,
-      this.showRowCheckBox = true});
+      this.showRowCheckBox = true,
+      this.rowOnTap});
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +77,12 @@ class CustomDataTable extends StatelessWidget {
                                   fontWeight: FontWeight.w700)))),
           rows: List.generate(
               dataCount,
-              (index) => DataRow(
+              (index) => DataRow2(
+                  onTap: () {
+                    if (rowOnTap != null) {
+                      rowOnTap!(index);
+                    }
+                  },
                   cells: ((checkboxVisible)
                           ? [
                               DataCell(Align(

@@ -3,14 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/employee/employee_bloc.dart';
 import 'package:saasify/bloc/employee/employee_event.dart';
 import 'package:saasify/bloc/employee/employee_states.dart';
-import 'package:saasify/caches/cache.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/enums/employee_type_enum.dart';
-import 'package:saasify/di/app_module.dart';
 import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
-import 'package:saasify/screens/hrms/add_employee/widgets/selectableModules.dart';
+import 'package:saasify/screens/hrms/add_employee/widgets/selectable_modules_form_field.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/utils/progress_bar.dart';
@@ -23,6 +21,13 @@ import 'package:saasify/widgets/userInput/custom_checkbox.dart';
 
 showAddEmployeeDialog(BuildContext context) {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  context.read<EmployeeBloc>().inviteDetails = {
+    "user_email": "",
+    "designations": [2],
+    "approvers": [],
+    "accessible_modules": <Map<String, dynamic>>[]
+  };
 
   AlertDialog alert = AlertDialog(
       actions: [
@@ -78,6 +83,7 @@ showAddEmployeeDialog(BuildContext context) {
             const Text(StringConstants.kInviteMember),
             InkWell(
               onTap: () {
+                context.read<EmployeeBloc>().resetEmployeeDetails();
                 Navigator.pushReplacementNamed(
                     context, AddEmployeeScreen.routeName);
               },
@@ -99,74 +105,68 @@ showAddEmployeeDialog(BuildContext context) {
                 children: [
                   const Divider(),
                   const SizedBox(height: spacingStandard),
-                  EmailTextField(onTextFieldChanged: (value) {
-                    context.read<EmployeeBloc>().inviteDetails['user_email'] =
-                        value;
-                  }),
+                  EmailTextField(
+                      isRequired: true,
+                      onTextFieldChanged: (value) {
+                        context
+                            .read<EmployeeBloc>()
+                            .inviteDetails['user_email'] = value;
+                      }),
                   const SizedBox(height: spacingStandard),
                   Text(StringConstants.kAssignRole,
                       style: Theme.of(context).textTheme.userNameTextStyle),
                   const SizedBox(height: spacingSmall),
-                  SizedBox(
-                    height: MediaQuery.sizeOf(context).height * 0.20,
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      itemCount: EmployeeType.values.length,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: spacingXXSmall),
-                      itemBuilder: (context, index) {
-                        return CustomCheckbox(
-                            onChanged: (value) {
-                              if (value!) {
-                                context
-                                    .read<EmployeeBloc>()
-                                    .inviteDetails['designations']
-                                    .add(EmployeeType.values[index].index);
-                              } else {
-                                context
-                                    .read<EmployeeBloc>()
-                                    .inviteDetails['designations']
-                                    .remove(EmployeeType.values[index].index);
-                              }
-                            },
-                            checkBoxTitle: EmployeeType.values[index].name,
-                            isChecked: context
-                                .read<EmployeeBloc>()
-                                .inviteDetails['designations']
-                                .contains(EmployeeType.values[index].index));
-                      },
-                    ),
-                  ),
+                  Row(
+                      children: List.generate(
+                          EmployeeType.values.length,
+                          (index) => Expanded(
+                                child: Padding(
+                                  padding: index == 0
+                                      ? const EdgeInsets.only(
+                                          right: spacingXXSmall)
+                                      : index == EmployeeType.values.length - 1
+                                          ? const EdgeInsets.only(
+                                              left: spacingXXSmall)
+                                          : const EdgeInsets.symmetric(
+                                              horizontal: spacingXXSmall),
+                                  child: CustomCheckbox(
+                                      onChanged: (value) {
+                                        if (value!) {
+                                          context
+                                              .read<EmployeeBloc>()
+                                              .inviteDetails['designations']
+                                              .add(EmployeeType
+                                                  .values[index].index);
+                                        } else {
+                                          context
+                                              .read<EmployeeBloc>()
+                                              .inviteDetails['designations']
+                                              .remove(EmployeeType
+                                                  .values[index].index);
+                                        }
+                                      },
+                                      checkBoxTitle:
+                                          EmployeeType.values[index].name,
+                                      isChecked: context
+                                          .read<EmployeeBloc>()
+                                          .inviteDetails["designations"]
+                                          .contains(EmployeeType
+                                              .values[index].index)),
+                                ),
+                              ))),
                   const SizedBox(height: spacingStandard),
                   const LabelTextWidget(label: "Accesible Features"),
-                  SizedBox(
-                    height: MediaQuery.sizeOf(context).height * 0.20,
-                    child: SingleChildScrollView(
-                      child: FutureBuilder(
-                          future: getIt<Cache>().getAvailableModules(),
-                          builder: (context, snapshot) {
-                            return SelectableModules(
-                                modules: snapshot.data ?? [],
-                                selectedFeatures: context
-                                    .read<EmployeeBloc>()
-                                    .inviteDetails['accessible_modules'],
-                                onSelected: (value) {
-                                  context
-                                          .read<EmployeeBloc>()
-                                          .inviteDetails['accessible_modules'] =
-                                      value;
-                                });
-                          }),
-                    ),
-                  )
+                  SelectableModulesFormField(
+                      selectedFeatures: context
+                          .read<EmployeeBloc>()
+                          .inviteDetails['accessible_modules'],
+                      onSelected: (value) {
+                        context
+                            .read<EmployeeBloc>()
+                            .inviteDetails['accessible_modules'] = value;
+                      })
                 ]),
           )));
-  context.read<EmployeeBloc>().inviteDetails = {
-    "user_email": "",
-    "designations": [2],
-    "approvers": [],
-    "accessible_modules": <Map<String, dynamic>>[]
-  };
   showDialog(
       context: context,
       builder: (BuildContext context) {

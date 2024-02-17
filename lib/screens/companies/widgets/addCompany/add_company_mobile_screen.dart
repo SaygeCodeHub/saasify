@@ -24,6 +24,7 @@ class AddCompanyMobileScreen extends StatelessWidget {
           const SizedBox(height: spacingBetweenTextFieldAndButton),
           LabelAndFieldWidget(
               label: StringConstants.kCompanyName,
+              isRequired: true,
               prefixIcon: const Icon(Icons.store),
               onTextFieldChanged: (value) {
                 context

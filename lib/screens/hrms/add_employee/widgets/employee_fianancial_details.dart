@@ -10,7 +10,8 @@ import 'package:saasify/widgets/text/field_label_widget.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
 class EmployeeFinancialDetails extends StatelessWidget {
-  const EmployeeFinancialDetails({super.key});
+  final bool isViewOnly;
+  const EmployeeFinancialDetails({super.key, this.isViewOnly = false});
 
   @override
   Widget build(BuildContext context) {
@@ -26,24 +27,28 @@ class EmployeeFinancialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             NumberTextField(
                 label: "Salary",
+                enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
                       ['finances']['basic_salary'] = value;
                 }),
             NumberTextField(
                 label: "Basket of Allowance",
+                enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
                       ['finances']['BOA'] = value;
                 }),
             NumberTextField(
                 label: "Bonus",
+                enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
                       ['finances']['bonus'] = value;
                 }),
             NumberTextField(
                 label: "Performance Bonus",
+                enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
                       ['finances']['performance_bonus'] = value;
@@ -53,18 +58,21 @@ class EmployeeFinancialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             NumberTextField(
                 label: "Provisional Fund",
+                enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
                       ['finances']['PF'] = value;
                 }),
             NumberTextField(
                 label: "Deduction",
+                enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
                       ['finances']['deduction'] = value;
                 }),
             NumberTextField(
                 label: "Gratuity",
+                enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
                       ['finances']['gratuity'] = value;
@@ -74,12 +82,14 @@ class EmployeeFinancialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             NumberTextField(
                 label: "Fixed Monthly Gross",
+                enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
                       ['finances']['fixed_monthly_gross'] = value;
                 }),
             NumberTextField(
                 label: "Total Annual Gross",
+                enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
                       ['finances']['total_annual_gross'] = value;
@@ -95,12 +105,14 @@ class EmployeeFinancialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             LabelAndFieldWidget(
                 label: "Bank Name",
+                enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
                       ['bank_details']['bank_name'] = value;
                 }),
             LabelAndFieldWidget(
                 label: "Branch Name",
+                enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
                       ['bank_details']['branch_name'] = value;
@@ -110,24 +122,28 @@ class EmployeeFinancialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             NumberTextField(
                 label: "Account Number",
+                enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
                       ['bank_details']['account_number'] = value;
                 }),
             LabelAndFieldWidget(
                 label: "IFSC Code",
+                enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
                       ['bank_details']['ifsc_code'] = value;
                 }),
             LabelAndFieldWidget(
                 label: "Account Type",
+                enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
                       ['bank_details']['account_type'] = value;
                 }),
             DropdownLabelWidget(
                 label: "Country",
+                enabled: !isViewOnly,
                 items: stringListToDropdownItems(["India"]),
                 onChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']

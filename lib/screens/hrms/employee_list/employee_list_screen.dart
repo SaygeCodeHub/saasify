@@ -5,13 +5,14 @@ import 'package:saasify/bloc/employee/employee_event.dart';
 import 'package:saasify/bloc/employee/employee_states.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_mobile.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_web.dart';
+import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
-
-import '../../../widgets/text/module_heading.dart';
+import 'package:saasify/widgets/text/module_heading.dart';
 
 class EmployeeListScreen extends StatelessWidget {
   static const routeName = 'EmployeeListScreen';
@@ -51,6 +52,33 @@ class EmployeeListScreen extends StatelessWidget {
                                   description: state.errorMessage);
                             });
                       }
+                      if (state is LoadingEmployee) {
+                        ProgressBar.show(context);
+                      }
+                      if (state is EmployeeLoaded) {
+                        ProgressBar.dismiss(context);
+                        Navigator.pushNamed(
+                                context, AddEmployeeScreen.routeName,
+                                arguments: true)
+                            .then((value) => context
+                                .read<EmployeeBloc>()
+                                .add(GetAllEmployees()));
+                      }
+                      if (state is LoadingEmployeeFailed) {
+                        context.read<EmployeeBloc>().add(GetAllEmployees());
+                        ProgressBar.dismiss(context);
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return ErrorAlertDialog(
+                                  description: state.errorMessage);
+                            });
+                      }
+                    },
+                    buildWhen: (previous, current) {
+                      return current is LoadingEmployees ||
+                          current is EmployeesLoaded ||
+                          current is LoadingEmployeesFailed;
                     },
                     builder: (context, state) {
                       if (state is LoadingEmployees) {

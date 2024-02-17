@@ -8,7 +8,7 @@ import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_button.dart';
 import 'package:saasify/screens/hrms/leaves/widgets/date_picker_textfield.dart';
 import 'package:saasify/screens/hrms/leaves/widgets/leave_statistic_card.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
-import 'package:saasify/widgets/custom_dropdown_widget.dart';
+import 'package:saasify/widgets/text/custom_dropdown_widget.dart';
 import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
 import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
 import 'package:saasify/widgets/text/dropdown_label_widget.dart';
@@ -54,7 +54,7 @@ class ApplyLeaveWebScreen extends StatelessWidget {
                       (index) => CustomDropDownItem(
                           label: LeaveTypeEnum.values.elementAt(index).type,
                           value: LeaveTypeEnum.values.elementAt(index).type)),
-                  onChanged: (String? value) {
+                  onChanged: (value) {
                     dynamic leaveId = LeaveTypeEnum.values
                         .elementAt(LeaveTypeEnum.values
                             .indexWhere((element) => element.type == value))
@@ -72,7 +72,7 @@ class ApplyLeaveWebScreen extends StatelessWidget {
                       (index) => CustomDropDownItem(
                           label: applyLeaveData.approvers[index].approverName,
                           value: applyLeaveData.approvers[index].approverName)),
-                  onChanged: (String? value) {
+                  onChanged: (value) {
                     dynamic approverId = applyLeaveData
                         .approvers[applyLeaveData.approvers.indexWhere(
                             (element) => element.approverName == value)]

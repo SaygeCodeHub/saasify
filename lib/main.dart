@@ -12,6 +12,7 @@ import 'package:saasify/bloc/leaves/leaves_bloc.dart';
 import 'package:saasify/bloc/register/register_bloc.dart';
 import 'package:saasify/bloc/resetPassword/reset_password_bloc.dart';
 import 'package:saasify/bloc/settings/settings_bloc.dart';
+import 'package:saasify/bloc/task/task_bloc.dart';
 import 'package:saasify/bloc/timesheet/timesheet_bloc.dart';
 import 'package:saasify/configs/app_route.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
@@ -63,7 +64,8 @@ class MyPosApp extends StatelessWidget {
         BlocProvider(create: (context) => TimeSheetBloc()),
         BlocProvider(create: (context) => SettingsBloc()),
         BlocProvider(create: (context) => InitialiseAppBloc()),
-        BlocProvider(create: (context) => POSBloc())
+        BlocProvider(create: (context) => POSBloc()),
+        BlocProvider(create: (context) => TaskBloc())
       ],
       child: GestureDetector(
           onTap: () {

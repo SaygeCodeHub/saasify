@@ -55,7 +55,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
             errorMessage: authenticateUserModel.message));
       }
     } catch (e) {
-      emit(FailedToAuthenticateUser());
+      emit(FailedToAuthenticateUser(errorMessage: e.toString()));
     }
   }
 

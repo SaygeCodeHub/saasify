@@ -17,7 +17,7 @@ class HrmsAnnouncementsSection extends StatelessWidget {
         const ModuleHeading(label: 'Announcements'),
         const SizedBox(height: spacingLarger),
         Container(
-          height: MediaQuery.sizeOf(context).height * 0.15,
+          height: MediaQuery.sizeOf(context).height * 0.20,
           decoration: BoxDecoration(
               border: Border.all(color: AppColors.lighterBlack),
               borderRadius: BorderRadius.circular(kCardRadius)),

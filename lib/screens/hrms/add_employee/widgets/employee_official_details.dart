@@ -15,9 +15,11 @@ import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
 import 'package:saasify/widgets/text/dropdown_label_widget.dart';
 import 'package:saasify/widgets/text/field_label_widget.dart';
 import 'package:saasify/widgets/text/label_text_widget.dart';
+import 'package:saasify/widgets/text/multi_select_drop_down.dart';
 
 class EmployeeOfficialDetails extends StatelessWidget {
   final bool isViewOnly;
+
   const EmployeeOfficialDetails({super.key, this.isViewOnly = false});
 
   @override
@@ -85,12 +87,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
             FutureBuilder(
                 future: getIt<EmployeeRepository>().getAllEmployees(),
                 builder: (context, snapshot) {
-                  return DropdownLabelWidget(
-                      label: "Approvers",
-                      enabled: !isViewOnly,
-                      initialValue: context
-                          .read<EmployeeBloc>()
-                          .employeeDetails['official']['approvers'],
+                  return MultiSelectDropDown(
                       items: snapshot.data == null
                           ? []
                           : snapshot.data!.data
@@ -99,8 +96,24 @@ class EmployeeOfficialDetails extends StatelessWidget {
                               .toList(),
                       onChanged: (value) {
                         context.read<EmployeeBloc>().employeeDetails['official']
-                            ['approvers'] = value;
+                            ['reporting_manager'] = value;
                       });
+                  // return DropdownLabelWidget(
+                  //     label: "Approvers",
+                  //     enabled: !isViewOnly,
+                  //     initialValue: context
+                  //         .read<EmployeeBloc>()
+                  //         .employeeDetails['official']['approvers'],
+                  //     items: snapshot.data == null
+                  //         ? []
+                  //         : snapshot.data!.data
+                  //             .map((e) => CustomDropDownItem(
+                  //                 label: e.userEmail, value: e.employeeId))
+                  //             .toList(),
+                  //     onChanged: (value) {
+                  //       context.read<EmployeeBloc>().employeeDetails['official']
+                  //           ['approvers'] = value;
+                  //     });
                 }),
           ]),
           const SizedBox(height: spacingLarge),

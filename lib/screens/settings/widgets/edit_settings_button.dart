@@ -10,7 +10,8 @@ class EditSettingsButton extends StatelessWidget {
   final bool isMobile;
   final GlobalKey<FormState> formKey;
 
-  const EditSettingsButton({super.key, this.isMobile = false, required this.formKey});
+  const EditSettingsButton(
+      {super.key, this.isMobile = false, required this.formKey});
 
   @override
   Widget build(BuildContext context) {

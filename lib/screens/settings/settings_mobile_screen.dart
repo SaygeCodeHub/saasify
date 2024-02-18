@@ -7,11 +7,11 @@ import '../../bloc/settings/settings_bloc.dart';
 import '../../configs/app_spacing.dart';
 import '../../di/app_module.dart';
 import '../../repositories/employee/employee_repository.dart';
+import '../../widgets/text/time_picker_lable_widget.dart';
 import '../../widgets/text/custom_dropdown_widget.dart';
 import '../../widgets/text/dropdown_label_widget.dart';
 import '../../widgets/text/field_label_widget.dart';
 import '../../widgets/text/module_heading.dart';
-import '../../widgets/text/time_popup_lable_widget.dart';
 
 class SettingsMobileScreen extends StatelessWidget {
   final SettingsData settingsData;
@@ -104,7 +104,7 @@ class SettingsMobileScreen extends StatelessWidget {
                                   });
                             }),
                         const SizedBox(height: spacingLarge),
-                        TimePopUpLabelWidget(
+                        TimePickerPopUp(
                             label: 'Time In',
                             isRequired: true,
                             initialValue: settingsData.timeIn.toLocal(),
@@ -114,7 +114,7 @@ class SettingsMobileScreen extends StatelessWidget {
                                   .updateSettingsMap["time_in"] = value;
                             }),
                         const SizedBox(height: spacingLarge),
-                        TimePopUpLabelWidget(
+                        TimePickerPopUp(
                             isRequired: true,
                             label: 'Time Out',
                             initialValue: settingsData.timeOut.toLocal(),
@@ -182,7 +182,7 @@ class SettingsMobileScreen extends StatelessWidget {
                                   value;
                             }),
                         const SizedBox(height: spacingLarge),
-                         EditSettingsButton(isMobile: true, formKey: formKey)
+                        EditSettingsButton(isMobile: true, formKey: formKey)
                       ])));
         });
   }

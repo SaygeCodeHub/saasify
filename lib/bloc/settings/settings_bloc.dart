@@ -9,6 +9,8 @@ import 'package:saasify/data/models/settings/settings_model.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/settings/settings_repository.dart';
 
+import '../../data/models/settings/update_settings_model.dart';
+
 class SettingsBloc extends Bloc<SettingsEvents, SettingsState> {
   final SettingsRepository _settingsRepository = getIt<SettingsRepository>();
   final Cache cache = getIt<Cache>();
@@ -30,7 +32,8 @@ class SettingsBloc extends Bloc<SettingsEvents, SettingsState> {
       SettingsModel settingsModel = await _settingsRepository.getSettings();
       if (settingsModel.status == 200) {
         updateSettingsMap.addAll(settingsModel.data.toJson());
-        updateSettingsMap["default_approver"]= settingsModel.data.defaultApprover.id;
+        updateSettingsMap["default_approver"] =
+            settingsModel.data.defaultApprover.id;
         emit(SettingsFetched(settingsModel: settingsModel));
       } else {
         emit(FetchingSettingsFailed(error: settingsModel.message));
@@ -44,12 +47,12 @@ class SettingsBloc extends Bloc<SettingsEvents, SettingsState> {
       UpdateSettings event, Emitter<SettingsState> emit) async {
     emit(UpdatingSettings());
     try {
-      SettingsModel settingsModel =
+      UpdateSettingsModel updateSettingsModel =
           await _settingsRepository.updateSettings(updateSettingsMap);
-      if (settingsModel.status == 200) {
-        emit(SettingsUpdated(settingsModel: settingsModel));
+      if (updateSettingsModel.status == 200) {
+        emit(SettingsUpdated(updateSettingsModel: updateSettingsModel));
       } else {
-        emit(UpdateSettingsFailed(error: settingsModel.message));
+        emit(UpdateSettingsFailed(error: updateSettingsModel.message));
       }
     } catch (e) {
       emit(UpdateSettingsFailed(error: e.toString()));

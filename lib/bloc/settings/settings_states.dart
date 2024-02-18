@@ -1,4 +1,5 @@
 import '../../data/models/settings/settings_model.dart';
+import '../../data/models/settings/update_settings_model.dart';
 
 abstract class SettingsState {}
 
@@ -21,9 +22,9 @@ class FetchingSettingsFailed extends SettingsState {
 class UpdatingSettings extends SettingsState {}
 
 class SettingsUpdated extends SettingsState {
-  final SettingsModel settingsModel;
+  final UpdateSettingsModel updateSettingsModel;
 
-  SettingsUpdated({required this.settingsModel});
+  SettingsUpdated({required this.updateSettingsModel});
 }
 
 class UpdateSettingsFailed extends SettingsState {

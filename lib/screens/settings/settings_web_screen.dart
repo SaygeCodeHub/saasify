@@ -8,11 +8,11 @@ import 'package:saasify/widgets/text/field_label_widget.dart';
 import '../../configs/app_spacing.dart';
 import '../../di/app_module.dart';
 import '../../repositories/employee/employee_repository.dart';
+import '../../widgets/text/time_picker_lable_widget.dart';
 import '../../widgets/layoutWidgets/multifield_row.dart';
 import '../../widgets/text/custom_dropdown_widget.dart';
 import '../../widgets/text/dropdown_label_widget.dart';
 import '../../widgets/text/module_heading.dart';
-import '../../widgets/text/time_popup_lable_widget.dart';
 
 class SettingsWebScreen extends StatelessWidget {
   final SettingsData settingsData;
@@ -110,19 +110,19 @@ class SettingsWebScreen extends StatelessWidget {
                                               "default_approver"] = value;
                                         });
                                   }),
-                              TimePopUpLabelWidget(
+                              TimePickerPopUp(
                                   label: 'Time In',
                                   isRequired: true,
-                                  initialValue: settingsData.timeIn.toLocal(),
+                                  initialValue: settingsData.timeIn,
                                   onTextFieldChanged: (String? value) {
                                     context
                                         .read<SettingsBloc>()
                                         .updateSettingsMap["time_in"] = value;
                                   }),
-                              TimePopUpLabelWidget(
+                              TimePickerPopUp(
                                   isRequired: true,
                                   label: 'Time Out',
-                                  initialValue: settingsData.timeOut.toLocal(),
+                                  initialValue: settingsData.timeOut,
                                   onTextFieldChanged: (String? value) {
                                     context
                                         .read<SettingsBloc>()

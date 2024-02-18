@@ -26,14 +26,14 @@ class SettingsData {
   final DateTime timeIn;
   final DateTime timeOut;
   final dynamic timezone;
-  final String currency;
+  final dynamic currency;
   final DefaultApprover defaultApprover;
-  final int workingDays;
+  final dynamic workingDays;
   final int totalMedicalLeaves;
   final int totalCasualLeaves;
-  final int overtimeRate;
+  final dynamic overtimeRate;
   final String overtimeRatePer;
-  final String branchAddress;
+  final dynamic branchAddress;
   final dynamic pincode;
   final dynamic longitude;
   final dynamic latitude;
@@ -89,7 +89,7 @@ class SettingsData {
 }
 
 class DefaultApprover {
-  final int id;
+  final dynamic id;
   final String approverName;
 
   DefaultApprover({required this.id, required this.approverName});

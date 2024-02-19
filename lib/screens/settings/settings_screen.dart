@@ -46,7 +46,17 @@ class SettingsScreen extends StatelessWidget {
                           child: BlocConsumer<SettingsBloc, SettingsState>(
                               listener: (context, state) {
                         if (state is FetchingSettingsFailed) {
-                          ErrorAlertDialog(description: state.error);
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) {
+                                return ErrorAlertDialog(
+                                    description: state.error,
+                                    onPressed: () {
+                                      Navigator.popUntil(
+                                          context, (route) => route.isFirst);
+                                    });
+                              });
                         }
                         if (state is UpdatingSettings) {
                           ProgressBar.show(context);

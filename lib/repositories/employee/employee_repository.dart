@@ -1,4 +1,5 @@
 import 'package:saasify/data/models/employee/add_employee_model.dart';
+import 'package:saasify/data/models/employee/delete_employee_model.dart';
 import 'package:saasify/data/models/employee/get_all_employees_model.dart';
 import 'package:saasify/data/models/employee/get_employee_model.dart';
 import 'package:saasify/data/models/employee/invite_employee_model.dart';
@@ -9,4 +10,5 @@ abstract class EmployeeRepository {
       Map employeeDetails, String employeeId);
   Future<GetAllEmployeesModel> getAllEmployees();
   Future<GetEmployeeModel> getEmployee(String employeeId);
+  Future<DeleteEmployeeModel> deleteEmployee(String employeeId);
 }

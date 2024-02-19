@@ -7,15 +7,15 @@ import 'package:saasify/screens/hrms/add_employee/widgets/employee_official_deta
 
 class AddEmployeeMobile extends StatelessWidget {
   final bool isViewOnly;
-  final GlobalKey<FormState> formKey;
+  final List<GlobalKey<FormState>> formKeys;
   const AddEmployeeMobile(
-      {super.key, required this.formKey, this.isViewOnly = false});
+      {super.key, required this.formKeys, this.isViewOnly = false});
 
   @override
   Widget build(BuildContext context) {
     return AddEmployeeStepper(
         isViewOnly: isViewOnly,
-        formKey: formKey,
+        formKeys: formKeys,
         steps: [
           StepData(
               icon: Icons.info_outline,

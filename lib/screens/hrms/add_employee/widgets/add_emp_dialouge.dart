@@ -126,18 +126,15 @@ showAddEmployeeDialog(BuildContext context) {
                                   context
                                       .read<EmployeeBloc>()
                                       .inviteDetails['designations']
-                                      .add(EmployeeType
-                                          .values[index].index);
+                                      .add(EmployeeType.values[index].index);
                                 } else {
                                   context
                                       .read<EmployeeBloc>()
                                       .inviteDetails['designations']
-                                      .remove(EmployeeType
-                                          .values[index].index);
+                                      .remove(EmployeeType.values[index].index);
                                 }
                               },
-                              checkBoxTitle:
-                                  EmployeeType.values[index].name,
+                              checkBoxTitle: EmployeeType.values[index].name,
                               isChecked: context
                                   .read<EmployeeBloc>()
                                   .inviteDetails["designations"]

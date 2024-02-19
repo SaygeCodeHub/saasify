@@ -1,5 +1,6 @@
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/employee/add_employee_model.dart';
+import 'package:saasify/data/models/employee/delete_employee_model.dart';
 import 'package:saasify/data/models/employee/get_all_employees_model.dart';
 import 'package:saasify/data/models/employee/get_employee_model.dart';
 import 'package:saasify/data/models/employee/invite_employee_model.dart';
@@ -65,6 +66,21 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
       final response = await ClientServices().get(
           "${ApiConstants.baseUrl}$companyId/$branchId/$userId/getUser/$employeeId");
       return GetEmployeeModel.fromJson(response);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<DeleteEmployeeModel> deleteEmployee(String employeeId) async {
+    try {
+      var companyId = await cache.getCompanyId();
+      var branchId = await cache.getBranchId();
+      var userId = await cache.getUserId();
+      final response = await ClientServices().delete(
+          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/deleteUser/$employeeId",
+          {});
+      return DeleteEmployeeModel.fromJson(response);
     } catch (error) {
       rethrow;
     }

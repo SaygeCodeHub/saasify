@@ -105,6 +105,7 @@ class EmployeeFinancialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             LabelAndFieldWidget(
                 label: "Bank Name",
+                isRequired: true,
                 enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -112,6 +113,7 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 }),
             LabelAndFieldWidget(
                 label: "Branch Name",
+                isRequired: true,
                 enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -122,6 +124,7 @@ class EmployeeFinancialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             NumberTextField(
                 label: "Account Number",
+                isRequired: true,
                 enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -129,6 +132,7 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 }),
             LabelAndFieldWidget(
                 label: "IFSC Code",
+                isRequired: true,
                 enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -136,6 +140,7 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 }),
             LabelAndFieldWidget(
                 label: "Account Type",
+                isRequired: true,
                 enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -143,6 +148,7 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 }),
             DropdownLabelWidget(
                 label: "Country",
+                isRequired: true,
                 enabled: !isViewOnly,
                 items: stringListToDropdownItems(["India"]),
                 onChanged: (value) {

@@ -28,6 +28,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
             NumberTextField(
                 label: StringConstants.kAadhaarNumber,
                 enabled: !isViewOnly,
+                isRequired: true,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['documents']['aadhar']['aadhaar_number'],
@@ -39,6 +40,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
             LabelAndFieldWidget(
                 label: StringConstants.kNameAsAadhaarNumber,
                 enabled: !isViewOnly,
+                isRequired: true,
                 initialValue:
                     context.read<EmployeeBloc>().employeeDetails['documents']
                         ['aadhar']['name_as_per_aadhaar'],
@@ -49,6 +51,7 @@ class EmployeeDocumentDetails extends StatelessWidget {
             LabelAndFieldWidget(
                 label: StringConstants.kPanNumber,
                 enabled: !isViewOnly,
+                isRequired: true,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['documents']['aadhar']['pan_number'],

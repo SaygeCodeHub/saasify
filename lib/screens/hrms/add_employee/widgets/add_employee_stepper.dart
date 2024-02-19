@@ -10,11 +10,11 @@ class AddEmployeeStepper extends StatefulWidget {
   final List<StepData> steps;
   final bool isMobile;
   final bool isViewOnly;
-  final GlobalKey<FormState> formKey;
+  final List<GlobalKey<FormState>> formKeys;
 
   const AddEmployeeStepper(
       {super.key,
-      required this.formKey,
+      required this.formKeys,
       required this.steps,
       required this.isMobile,
       this.isViewOnly = false});
@@ -58,7 +58,9 @@ class _AddEmployeeStepperState extends State<AddEmployeeStepper> {
               steps: widget.steps
                   .map((e) => Step(
                       title: e.header,
-                      content: e.content,
+                      content: Form(
+                          key: widget.formKeys[widget.steps.indexOf(e)],
+                          child: e.content),
                       isActive: currentStep >= widget.steps.indexOf(e)))
                   .toList()),
         ),
@@ -93,17 +95,21 @@ class _AddEmployeeStepperState extends State<AddEmployeeStepper> {
                   ? PrimaryButton(
                       buttonWidth: kGeneralActionButtonWidth,
                       onPressed: () {
-                        setState(() {
-                          if (currentStep < 3) {
-                            currentStep++;
-                          }
-                        });
+                        if (widget.formKeys[currentStep].currentState
+                                ?.validate() ??
+                            false) {
+                          setState(() {
+                            if (currentStep < 3) {
+                              currentStep++;
+                            }
+                          });
+                        }
                       },
                       buttonTitle: 'Next',
                     )
                   : widget.isViewOnly
                       ? const SizedBox.shrink()
-                      : AddEmployeeButton(formKey: widget.formKey),
+                      : AddEmployeeButton(formKey: widget.formKeys.last),
             ],
           ),
         )

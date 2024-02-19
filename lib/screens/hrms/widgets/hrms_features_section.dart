@@ -9,38 +9,49 @@ import 'package:saasify/utils/icon_mapping.dart';
 import 'package:saasify/widgets/generalWidgets/value_card.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
+import '../../../utils/globals.dart';
+
 class HrmsFeaturesSection extends StatelessWidget {
   final bool isMobile;
+
   const HrmsFeaturesSection({super.key, required this.isMobile});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const ModuleHeading(label: 'Features'),
-        const SizedBox(height: spacingStandard),
-        FutureBuilder(
-            future: getIt<Cache>().getAccessibleModules(),
-            builder: (context, snapshot) {
-              context.read<InitialiseAppBloc>().hrmsAccessibleFeatures.clear();
-              if (snapshot.hasData) {
-                snapshot.data?.forEach((element) {
-                  if (element.moduleKey == 'HR') {
-                    context
-                        .read<InitialiseAppBloc>()
-                        .hrmsAccessibleFeatures
-                        .addAll(element.accessibleFeatures!);
-                  }
-                });
-                return GridView.builder(
+    bool isTab = MediaQuery.of(context).size.width < tabBreakPoint;
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      const ModuleHeading(label: 'Features'),
+      const SizedBox(height: spacingStandard),
+      FutureBuilder(
+          future: getIt<Cache>().getAccessibleModules(),
+          builder: (context, snapshot) {
+            context.read<InitialiseAppBloc>().hrmsAccessibleFeatures.clear();
+            if (snapshot.hasData) {
+              snapshot.data?.forEach((element) {
+                if (element.moduleKey == 'HR') {
+                  context
+                      .read<InitialiseAppBloc>()
+                      .hrmsAccessibleFeatures
+                      .addAll(element.accessibleFeatures!
+                          .where((element) => element.featureId != 0.0));
+                }
+              });
+              return GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: isMobile ? 2 : 5,
+                      crossAxisCount: isMobile
+                          ? 2
+                          : isTab
+                              ? 4
+                              : 5,
                       mainAxisSpacing: 8.0,
                       crossAxisSpacing: 8.0,
-                      childAspectRatio: isMobile ? 1.4 : 1.9),
+                      childAspectRatio: isMobile
+                          ? 1.4
+                          : isTab
+                              ? 1.68
+                              : 2),
                   itemCount: context
                       .read<InitialiseAppBloc>()
                       .hrmsAccessibleFeatures
@@ -73,13 +84,11 @@ class HrmsFeaturesSection extends StatelessWidget {
                                 .hrmsAccessibleFeatures[index]
                                 .featureKey
                                 .toString())));
-                  },
-                );
-              } else {
-                return const CircularProgressIndicator();
-              }
-            })
-      ],
-    );
+                  });
+            } else {
+              return const CircularProgressIndicator();
+            }
+          })
+    ]);
   }
 }

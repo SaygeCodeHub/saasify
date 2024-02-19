@@ -17,7 +17,9 @@ class EditSettingsButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return PrimaryButton(
         onPressed: () {
-          context.read<SettingsBloc>().add(UpdateSettings());
+          if (formKey.currentState?.validate() ?? false) {
+            context.read<SettingsBloc>().add(UpdateSettings());
+          }
         },
         buttonTitle: StringConstants.kEdit,
         buttonWidth:

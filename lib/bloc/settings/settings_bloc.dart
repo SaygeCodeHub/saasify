@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/settings/settings_events.dart';
 import 'package:saasify/bloc/settings/settings_states.dart';
@@ -15,7 +14,6 @@ class SettingsBloc extends Bloc<SettingsEvents, SettingsState> {
   final SettingsRepository _settingsRepository = getIt<SettingsRepository>();
   final Cache cache = getIt<Cache>();
   Map updateSettingsMap = {};
-  ValueNotifier<bool> isEdit = ValueNotifier<bool>(true);
 
   SettingsState get initialState => InitialisingSettings();
 

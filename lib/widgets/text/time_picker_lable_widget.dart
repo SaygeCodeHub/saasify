@@ -11,6 +11,7 @@ class TimePickerPopUp extends StatelessWidget {
   final dynamic initialValue;
   final void Function(String?)? onTextFieldChanged;
   final String? Function(String?)? validator;
+  final bool enabled;
 
   const TimePickerPopUp(
       {super.key,
@@ -18,7 +19,8 @@ class TimePickerPopUp extends StatelessWidget {
       required this.isRequired,
       this.initialValue,
       this.onTextFieldChanged,
-      this.validator});
+      this.validator,
+      this.enabled = false});
 
   @override
   Widget build(BuildContext context) {
@@ -36,26 +38,29 @@ class TimePickerPopUp extends StatelessWidget {
               onTextFieldChanged: onTextFieldChanged,
               isRequired: isRequired,
               readOnly: true,
-              onTap: () async {
-                final TimeOfDay? pickedDate = await showTimePicker(
-                    context: context,
-                    initialTime: TimeOfDay(
-                        hour: apiDateFormat.hour,
-                        minute: apiDateFormat.minute));
+              enabled: enabled,
+              onTap: enabled
+                  ? null
+                  : () async {
+                      final TimeOfDay? pickedDate = await showTimePicker(
+                          context: context,
+                          initialTime: TimeOfDay(
+                              hour: apiDateFormat.hour,
+                              minute: apiDateFormat.minute));
 
-                if (pickedDate != null) {
-                  apiDateFormat = DateTime.parse(DateTime(
-                          DateTime.now().year,
-                          DateTime.now().month,
-                          DateTime.now().day,
-                          pickedDate.hour,
-                          pickedDate.minute)
-                      .toIso8601String());
-                  textEditingController.text =
-                      DateFormat("hh:mm a").format(apiDateFormat);
-                  onTextFieldChanged!(apiDateFormat.toIso8601String());
-                }
-              },
+                      if (pickedDate != null) {
+                        apiDateFormat = DateTime.parse(DateTime(
+                                DateTime.now().year,
+                                DateTime.now().month,
+                                DateTime.now().day,
+                                pickedDate.hour,
+                                pickedDate.minute)
+                            .toIso8601String());
+                        textEditingController.text =
+                            DateFormat("hh:mm a").format(apiDateFormat);
+                        onTextFieldChanged!(apiDateFormat.toIso8601String());
+                      }
+                    },
               initialValue: initialValue != null
                   ? DateFormat("hh:mm a").format(initialValue)
                   : null,

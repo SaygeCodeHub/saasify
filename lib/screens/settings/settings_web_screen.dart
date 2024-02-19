@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/settings/settings_bloc.dart';
 import 'package:saasify/data/models/settings/settings_model.dart';
 import 'package:saasify/screens/settings/widgets/edit_settings_button.dart';
+import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
 import 'package:saasify/widgets/text/field_label_widget.dart';
 import '../../configs/app_spacing.dart';
@@ -36,12 +37,12 @@ class SettingsWebScreen extends StatelessWidget {
                             const Padding(
                                 padding: EdgeInsets.only(
                                     bottom: spacingLarge, top: spacingXXSmall),
-                                child:
-                                    ModuleHeading(label: 'Address & Location')),
+                                child: ModuleHeading(
+                                    label: StringConstants.kAddressLocation)),
                             MultiFieldRow(childrenWidgets: [
                               LabelAndFieldWidget(
-                                  label: 'Branch Address',
-                                  readOnly: !value,
+                                  label: StringConstants.kBranchAddress,
+                                  enabled: value,
                                   initialValue: settingsData.branchAddress,
                                   onTextFieldChanged: (String? value) {
                                     context
@@ -50,8 +51,8 @@ class SettingsWebScreen extends StatelessWidget {
                                         "branch_address"] = value;
                                   }),
                               LabelAndFieldWidget(
-                                  label: 'Branch Latitude',
-                                  readOnly: !value,
+                                  label: StringConstants.kBranchLatitude,
+                                  enabled: value,
                                   initialValue: settingsData.latitude,
                                   onTextFieldChanged: (String? value) {
                                     context
@@ -59,8 +60,8 @@ class SettingsWebScreen extends StatelessWidget {
                                         .updateSettingsMap["latitude"] = value;
                                   }),
                               LabelAndFieldWidget(
-                                  label: 'Branch Longitude',
-                                  readOnly: !value,
+                                  label: StringConstants.kBranchLongitude,
+                                  enabled: value,
                                   initialValue: settingsData.longitude,
                                   onTextFieldChanged: (String? value) {
                                     context
@@ -68,7 +69,8 @@ class SettingsWebScreen extends StatelessWidget {
                                         .updateSettingsMap["longitude"] = value;
                                   }),
                               LabelAndFieldWidget(
-                                  label: 'Branch Pincode',
+                                  label: StringConstants.kBranchPinCode,
+                                  enabled: value,
                                   initialValue: settingsData.pincode,
                                   onTextFieldChanged: (String? value) {
                                     context
@@ -82,15 +84,16 @@ class SettingsWebScreen extends StatelessWidget {
                             const Padding(
                                 padding: EdgeInsets.only(
                                     bottom: spacingLarge, top: spacingXXSmall),
-                                child:
-                                    ModuleHeading(label: 'General Settings')),
+                                child: ModuleHeading(
+                                    label: StringConstants.kGeneralSettings)),
                             MultiFieldRow(childrenWidgets: [
                               FutureBuilder(
                                   future: getIt<EmployeeRepository>()
                                       .getAllEmployees(),
                                   builder: (context, snapshot) {
                                     return DropdownLabelWidget(
-                                        label: "Default Approvers",
+                                        enabled: value,
+                                        label: StringConstants.kDefaultApprover,
                                         initialValue:
                                             settingsData.defaultApprover.id,
                                         items: snapshot.data == null
@@ -111,7 +114,8 @@ class SettingsWebScreen extends StatelessWidget {
                                         });
                                   }),
                               TimePickerPopUp(
-                                  label: 'Time In',
+                                  enabled: value,
+                                  label: StringConstants.kTimeIn,
                                   isRequired: true,
                                   initialValue: settingsData.timeIn,
                                   onTextFieldChanged: (String? value) {
@@ -120,8 +124,9 @@ class SettingsWebScreen extends StatelessWidget {
                                         .updateSettingsMap["time_in"] = value;
                                   }),
                               TimePickerPopUp(
+                                  enabled: value,
                                   isRequired: true,
-                                  label: 'Time Out',
+                                  label: StringConstants.kTimeOut,
                                   initialValue: settingsData.timeOut,
                                   onTextFieldChanged: (String? value) {
                                     context
@@ -129,7 +134,8 @@ class SettingsWebScreen extends StatelessWidget {
                                         .updateSettingsMap["time_out"] = value;
                                   }),
                               LabelAndFieldWidget(
-                                  label: 'Currency',
+                                  label: StringConstants.kCurrency,
+                                  enabled: value,
                                   initialValue: settingsData.currency,
                                   onTextFieldChanged: (String? value) {
                                     context
@@ -142,11 +148,13 @@ class SettingsWebScreen extends StatelessWidget {
                             const Padding(
                                 padding: EdgeInsets.only(
                                     bottom: spacingLarge, top: spacingXXSmall),
-                                child: ModuleHeading(label: 'Leaves Settings')),
+                                child: ModuleHeading(
+                                    label: StringConstants.kLeaveSettings)),
                             const SizedBox(height: spacingLarge),
                             MultiFieldRow(childrenWidgets: [
                               LabelAndFieldWidget(
-                                  label: 'No of working days',
+                                  enabled: value,
+                                  label: StringConstants.kWorkingDays,
                                   initialValue: settingsData.workingDays,
                                   onTextFieldChanged: (String? value) {
                                     context
@@ -155,7 +163,8 @@ class SettingsWebScreen extends StatelessWidget {
                                         value;
                                   }),
                               LabelAndFieldWidget(
-                                  label: 'Total Medical Leaves',
+                                  enabled: value,
+                                  label: StringConstants.kTotalMedicalLeaves,
                                   initialValue: settingsData.totalMedicalLeaves,
                                   onTextFieldChanged: (String? value) {
                                     context
@@ -164,7 +173,8 @@ class SettingsWebScreen extends StatelessWidget {
                                         "total_medical_leaves"] = value;
                                   }),
                               LabelAndFieldWidget(
-                                  label: 'Total Casual Leaves',
+                                  enabled: value,
+                                  label: StringConstants.kTotalCasualLeaves,
                                   initialValue: settingsData.totalCasualLeaves,
                                   onTextFieldChanged: (String? value) {
                                     context
@@ -173,7 +183,8 @@ class SettingsWebScreen extends StatelessWidget {
                                         "total_casual_leaves"] = value;
                                   }),
                               LabelAndFieldWidget(
-                                  label: 'Overtime rate',
+                                  enabled: value,
+                                  label: StringConstants.kOvertimeRate,
                                   initialValue: settingsData.overtimeRate,
                                   onTextFieldChanged: (String? value) {
                                     context
@@ -182,7 +193,8 @@ class SettingsWebScreen extends StatelessWidget {
                                         "overtime_rate"] = value;
                                   }),
                               LabelAndFieldWidget(
-                                  label: 'Overtime rate per',
+                                  enabled: value,
+                                  label: StringConstants.kOverTimeRatePer,
                                   initialValue: settingsData.overtimeRatePer,
                                   onTextFieldChanged: (String? value) {
                                     context

@@ -5,6 +5,7 @@ import 'package:saasify/bloc/settings/settings_events.dart';
 import 'package:saasify/bloc/settings/settings_states.dart';
 import 'package:saasify/screens/settings/settings_mobile_screen.dart';
 import 'package:saasify/screens/settings/settings_web_screen.dart';
+import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
@@ -33,15 +34,14 @@ class SettingsScreen extends StatelessWidget {
                       Padding(
                           padding: const EdgeInsets.only(
                               left: spacingMedium, right: spacingMedium),
-                          child: Row(
-                            children: [
-                              isMobile
-                                  ? const SizedBox.shrink()
-                                  : const BackButton(),
-                              const SizedBox(width: spacingXMedium),
-                              const ModuleHeading(label: 'Settings'),
-                            ],
-                          )),
+                          child: Row(children: [
+                            isMobile
+                                ? const SizedBox.shrink()
+                                : const BackButton(),
+                            const SizedBox(width: spacingXMedium),
+                            const ModuleHeading(
+                                label: StringConstants.kSettings)
+                          ])),
                       Expanded(
                           child: BlocConsumer<SettingsBloc, SettingsState>(
                               listener: (context, state) {
@@ -54,6 +54,7 @@ class SettingsScreen extends StatelessWidget {
                         if (state is SettingsUpdated) {
                           ProgressBar.dismiss(context);
                           showDialog(
+                              barrierDismissible: false,
                               context: context,
                               builder: (context) {
                                 return SuccessAlertDialog(
@@ -68,6 +69,7 @@ class SettingsScreen extends StatelessWidget {
                         if (state is UpdateSettingsFailed) {
                           ProgressBar.dismiss(context);
                           showDialog(
+                              barrierDismissible: false,
                               context: context,
                               builder: (context) {
                                 return ErrorAlertDialog(

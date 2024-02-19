@@ -43,6 +43,7 @@ class StringConstants {
   //General
   static const kNext = 'Next';
   static const kEdit = 'Edit';
+  static const kSettings = 'Settings';
 
   // Company
   static const kCompanyName = 'Company Name';
@@ -99,4 +100,22 @@ class StringConstants {
   static const kRegularise = 'Regularise';
   static const kTimesheet = 'Timesheet';
   static const kNoLeavesFound = 'No Leaves Found';
+
+  //Branch Settings
+  static const kBranchAddress = 'Branch Address';
+  static const kAddressLocation = 'Address & Location';
+  static const kBranchLatitude = 'Branch Latitude';
+  static const kBranchLongitude = 'Branch Longitude';
+  static const kBranchPinCode = 'Branch PIN Code';
+  static const kGeneralSettings = 'General Settings';
+  static const kDefaultApprover = 'Default Approver';
+  static const kTimeIn = 'Time In';
+  static const kTimeOut = 'Time Out';
+  static const kCurrency = 'Currency';
+  static const kLeaveSettings = 'Leave Settings';
+  static const kWorkingDays = 'No of working days';
+  static const kTotalMedicalLeaves = 'Total Medical Leaves';
+  static const kTotalCasualLeaves = 'Total Casual Leaves';
+  static const kOvertimeRate = 'Overtime Rate';
+  static const kOverTimeRatePer = 'Overtime Rate per';
 }

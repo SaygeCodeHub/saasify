@@ -7,6 +7,7 @@ import '../../bloc/settings/settings_bloc.dart';
 import '../../configs/app_spacing.dart';
 import '../../di/app_module.dart';
 import '../../repositories/employee/employee_repository.dart';
+import '../../utils/constants/string_constants.dart';
 import '../../widgets/text/time_picker_lable_widget.dart';
 import '../../widgets/text/custom_dropdown_widget.dart';
 import '../../widgets/text/dropdown_label_widget.dart';
@@ -34,9 +35,10 @@ class SettingsMobileScreen extends StatelessWidget {
                         const Padding(
                             padding: EdgeInsets.only(
                                 bottom: spacingLarge, top: spacingXXSmall),
-                            child: ModuleHeading(label: 'Address & Location')),
+                            child: ModuleHeading(
+                                label: StringConstants.kAddressLocation)),
                         LabelAndFieldWidget(
-                            label: 'Branch Address',
+                            label: StringConstants.kBranchAddress,
                             readOnly: !value,
                             initialValue: settingsData.branchAddress,
                             onTextFieldChanged: (String? value) {
@@ -44,9 +46,8 @@ class SettingsMobileScreen extends StatelessWidget {
                                   .read<SettingsBloc>()
                                   .updateSettingsMap["branch_address"] = value;
                             }),
-                        const SizedBox(height: spacingLarge),
                         LabelAndFieldWidget(
-                            label: 'Branch Latitude',
+                            label: StringConstants.kBranchLatitude,
                             readOnly: !value,
                             initialValue: settingsData.latitude,
                             onTextFieldChanged: (String? value) {
@@ -54,9 +55,8 @@ class SettingsMobileScreen extends StatelessWidget {
                                   .read<SettingsBloc>()
                                   .updateSettingsMap["latitude"] = value;
                             }),
-                        const SizedBox(height: spacingLarge),
                         LabelAndFieldWidget(
-                            label: 'Branch Longitude',
+                            label: StringConstants.kBranchLongitude,
                             readOnly: !value,
                             initialValue: settingsData.longitude,
                             onTextFieldChanged: (String? value) {
@@ -64,9 +64,8 @@ class SettingsMobileScreen extends StatelessWidget {
                                   .read<SettingsBloc>()
                                   .updateSettingsMap["longitude"] = value;
                             }),
-                        const SizedBox(height: spacingLarge),
                         LabelAndFieldWidget(
-                            label: 'Branch Pincode',
+                            label: StringConstants.kBranchPinCode,
                             initialValue: settingsData.pincode,
                             onTextFieldChanged: (String? value) {
                               context
@@ -84,7 +83,7 @@ class SettingsMobileScreen extends StatelessWidget {
                                 getIt<EmployeeRepository>().getAllEmployees(),
                             builder: (context, snapshot) {
                               return DropdownLabelWidget(
-                                  label: "Default Approvers",
+                                  label: StringConstants.kDefaultApprover,
                                   initialValue: settingsData.defaultApprover.id,
                                   items: snapshot.data == null
                                       ? []
@@ -103,29 +102,26 @@ class SettingsMobileScreen extends StatelessWidget {
                                         "default_approver"] = value;
                                   });
                             }),
-                        const SizedBox(height: spacingLarge),
                         TimePickerPopUp(
-                            label: 'Time In',
+                            label: StringConstants.kTimeIn,
                             isRequired: true,
-                            initialValue: settingsData.timeIn.toLocal(),
+                            initialValue: settingsData.timeIn,
                             onTextFieldChanged: (String? value) {
                               context
                                   .read<SettingsBloc>()
                                   .updateSettingsMap["time_in"] = value;
                             }),
-                        const SizedBox(height: spacingLarge),
                         TimePickerPopUp(
                             isRequired: true,
-                            label: 'Time Out',
-                            initialValue: settingsData.timeOut.toLocal(),
+                            label: StringConstants.kTimeOut,
+                            initialValue: settingsData.timeOut,
                             onTextFieldChanged: (String? value) {
                               context
                                   .read<SettingsBloc>()
                                   .updateSettingsMap["time_out"] = value;
                             }),
-                        const SizedBox(height: spacingXMedium),
                         LabelAndFieldWidget(
-                            label: 'Currency',
+                            label: StringConstants.kCurrency,
                             initialValue: settingsData.currency,
                             onTextFieldChanged: (String? value) {
                               context
@@ -139,41 +135,37 @@ class SettingsMobileScreen extends StatelessWidget {
                                 bottom: spacingLarge, top: spacingXXSmall),
                             child: ModuleHeading(label: 'Leaves Settings')),
                         LabelAndFieldWidget(
-                            label: 'No of working days',
+                            label: StringConstants.kWorkingDays,
                             initialValue: settingsData.workingDays,
                             onTextFieldChanged: (String? value) {
                               context
                                   .read<SettingsBloc>()
                                   .updateSettingsMap["working_days"] = value;
                             }),
-                        const SizedBox(height: spacingXMedium),
                         LabelAndFieldWidget(
-                            label: 'Total Medical Leaves',
+                            label: StringConstants.kTotalMedicalLeaves,
                             initialValue: settingsData.totalMedicalLeaves,
                             onTextFieldChanged: (String? value) {
                               context.read<SettingsBloc>().updateSettingsMap[
                                   "total_medical_leaves"] = value;
                             }),
-                        const SizedBox(height: spacingXMedium),
                         LabelAndFieldWidget(
-                            label: 'Total Casual Leaves',
+                            label: StringConstants.kTotalCasualLeaves,
                             initialValue: settingsData.totalCasualLeaves,
                             onTextFieldChanged: (String? value) {
                               context.read<SettingsBloc>().updateSettingsMap[
                                   "total_casual_leaves"] = value;
                             }),
-                        const SizedBox(height: spacingXMedium),
                         LabelAndFieldWidget(
-                            label: 'Overtime rate',
+                            label: StringConstants.kOvertimeRate,
                             initialValue: settingsData.overtimeRate,
                             onTextFieldChanged: (String? value) {
                               context
                                   .read<SettingsBloc>()
                                   .updateSettingsMap["overtime_rate"] = value;
                             }),
-                        const SizedBox(height: spacingXMedium),
                         LabelAndFieldWidget(
-                            label: 'Overtime rate per',
+                            label: StringConstants.kOverTimeRatePer,
                             initialValue: settingsData.overtimeRatePer,
                             onTextFieldChanged: (String? value) {
                               context

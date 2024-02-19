@@ -48,6 +48,7 @@ class AuthBloc extends Bloc<AuthEvents, AuthStates> {
           await _authenticationRepository.authenticateUser(event.userDetails);
       if (authenticateUserModel.status == 200) {
         await saveUserSelections(authenticateUserModel.data);
+        userInputAuthenticationMap.clear();
         emit(UserAuthenticated(
             authenticateUserData: authenticateUserModel.data));
       } else {

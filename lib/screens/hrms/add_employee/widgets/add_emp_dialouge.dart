@@ -16,6 +16,7 @@ import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 import 'package:saasify/widgets/form/form_input_fields.dart';
+import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
 import 'package:saasify/widgets/text/label_text_widget.dart';
 import 'package:saasify/widgets/userInput/custom_checkbox.dart';
 
@@ -116,43 +117,33 @@ showAddEmployeeDialog(BuildContext context) {
                   Text(StringConstants.kDesignation,
                       style: Theme.of(context).textTheme.userNameTextStyle),
                   const SizedBox(height: spacingSmall),
-                  Row(
-                      children: List.generate(
+                  MultiFieldRow(
+                      childrenWidgets: List.generate(
                           EmployeeType.values.length,
                           (index) => Expanded(
-                                child: Padding(
-                                  padding: index == 0
-                                      ? const EdgeInsets.only(
-                                          right: spacingXXSmall)
-                                      : index == EmployeeType.values.length - 1
-                                          ? const EdgeInsets.only(
-                                              left: spacingXXSmall)
-                                          : const EdgeInsets.symmetric(
-                                              horizontal: spacingXXSmall),
-                                  child: CustomCheckbox(
-                                      onChanged: (value) {
-                                        if (value!) {
-                                          context
-                                              .read<EmployeeBloc>()
-                                              .inviteDetails['designations']
-                                              .add(EmployeeType
-                                                  .values[index].index);
-                                        } else {
-                                          context
-                                              .read<EmployeeBloc>()
-                                              .inviteDetails['designations']
-                                              .remove(EmployeeType
-                                                  .values[index].index);
-                                        }
-                                      },
-                                      checkBoxTitle:
-                                          EmployeeType.values[index].name,
-                                      isChecked: context
-                                          .read<EmployeeBloc>()
-                                          .inviteDetails["designations"]
-                                          .contains(EmployeeType
-                                              .values[index].index)),
-                                ),
+                                child: CustomCheckbox(
+                                    onChanged: (value) {
+                                      if (value!) {
+                                        context
+                                            .read<EmployeeBloc>()
+                                            .inviteDetails['designations']
+                                            .add(EmployeeType
+                                                .values[index].index);
+                                      } else {
+                                        context
+                                            .read<EmployeeBloc>()
+                                            .inviteDetails['designations']
+                                            .remove(EmployeeType
+                                                .values[index].index);
+                                      }
+                                    },
+                                    checkBoxTitle:
+                                        EmployeeType.values[index].name,
+                                    isChecked: context
+                                        .read<EmployeeBloc>()
+                                        .inviteDetails["designations"]
+                                        .contains(
+                                            EmployeeType.values[index].index)),
                               ))),
                   const SizedBox(height: spacingStandard),
                   const LabelTextWidget(label: "Accesible Features"),

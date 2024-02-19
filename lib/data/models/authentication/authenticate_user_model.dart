@@ -44,10 +44,10 @@ class AuthenticateUserData {
 
   factory AuthenticateUserData.fromJson(Map<String, dynamic> json) =>
       AuthenticateUserData(
-        userId: json["user_id"],
-        name: json["name"],
-        company:
-            List<Company>.from(json["company"].map((x) => Company.fromJson(x))),
+        userId: json["user_id"] ?? -1,
+        name: json["name"] ?? "",
+        company: List<Company>.from(
+            json["company"]?.map((x) => Company.fromJson(x)) ?? []),
       );
 
   Map<String, dynamic> toJson() => {

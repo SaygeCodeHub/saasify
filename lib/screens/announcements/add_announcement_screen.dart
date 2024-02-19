@@ -28,7 +28,7 @@ class AddAnnouncementScreen extends StatelessWidget {
                 child: Row(children: [
                   isMobile ? const SizedBox.shrink() : const BackButton(),
                   const SizedBox(width: spacingXMedium),
-                  const ModuleHeading(label: "Assign Task"),
+                  const ModuleHeading(label: "Add Announcement"),
                 ])),
             Expanded(
               child: SingleChildScrollView(

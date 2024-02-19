@@ -22,7 +22,7 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final double width;
   final bool autofocus;
-  final String? initialValue;
+  final dynamic initialValue;
   final TextInputType? keyboardType;
   final void Function()? onTap;
   final List<TextInputFormatter>? inputFormatters;

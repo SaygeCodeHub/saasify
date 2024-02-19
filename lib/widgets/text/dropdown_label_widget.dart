@@ -62,18 +62,17 @@ class _DropdownLabelWidgetState extends State<DropdownLabelWidget> {
       SizedBox(
           width: widget.textFieldSize ?? MediaQuery.sizeOf(context).width,
           child: CustomDropdownButton(
-            hint: widget.hint,
-            isRequired: widget.isRequired,
-            items: widget.items,
-            enabled: widget.enabled,
-            selectedValue: selectedValue,
-            onChanged: (value) {
-              setState(() {
-                selectedValue = value;
-              });
-              widget.onChanged(selectedValue);
-            },
-          ))
+              hint: widget.hint,
+              isRequired: widget.isRequired,
+              items: widget.items,
+              enabled: widget.enabled,
+              selectedValue: selectedValue,
+              onChanged: (value) {
+                setState(() {
+                  selectedValue = value;
+                });
+                widget.onChanged(selectedValue);
+              }))
     ]);
   }
 }

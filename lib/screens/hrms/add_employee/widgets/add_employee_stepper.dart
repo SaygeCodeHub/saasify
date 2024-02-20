@@ -51,9 +51,18 @@ class _AddEmployeeStepperState extends State<AddEmployeeStepper> {
                         size: 14, color: AppColors.white);
               },
               onStepTapped: (step) {
-                setState(() {
-                  currentStep = step;
-                });
+                if (step > currentStep) {
+                  if ((widget.formKeys[currentStep].currentState?.validate() ??
+                      false)) {
+                    setState(() {
+                      currentStep = step;
+                    });
+                  }
+                } else {
+                  setState(() {
+                    currentStep = step;
+                  });
+                }
               },
               steps: widget.steps
                   .map((e) => Step(

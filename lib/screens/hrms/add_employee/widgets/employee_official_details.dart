@@ -21,6 +21,9 @@ class EmployeeOfficialDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool canEditOfficial =
+        context.read<EmployeeBloc>().employeeDetails['official']?['can_edit'] ??
+            true;
     return SingleChildScrollView(
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +33,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
             DropdownLabelWidget(
                 label: "Designation",
                 isRequired: true,
-                enabled: !isViewOnly,
+                enabled: !isViewOnly && canEditOfficial,
                 items: EmployeeType.values
                     .map((e) =>
                         CustomDropDownItem(label: e.type, value: e.typeId))
@@ -46,7 +49,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
             DatePickerField(
                 label: "Date of Joining",
                 isRequired: true,
-                enabled: !isViewOnly,
+                enabled: !isViewOnly && canEditOfficial,
                 initialDate: DateFormat('yyyy-mm-dd').tryParse(context
                         .read<EmployeeBloc>()
                         .employeeDetails['personal_info']['DOJ'] ??
@@ -58,7 +61,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
             DropdownLabelWidget(
                 label: "Job Confirmation",
                 isRequired: true,
-                enabled: !isViewOnly,
+                enabled: !isViewOnly && canEditOfficial,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['official']['job_confirmation'],
@@ -76,7 +79,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
             DropdownLabelWidget(
                 label: "Reporting Manager",
                 isRequired: true,
-                enabled: !isViewOnly,
+                enabled: !isViewOnly && canEditOfficial,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['official']['reporting_manager'],
@@ -90,7 +93,8 @@ class EmployeeOfficialDetails extends StatelessWidget {
                 builder: (context, snapshot) {
                   return DropdownLabelWidget(
                       label: "Approvers",
-                      enabled: !isViewOnly,
+                      enabled: !isViewOnly && canEditOfficial,
+                      isRequired: true,
                       initialValue: context
                           .read<EmployeeBloc>()
                           .employeeDetails['official']['approvers']
@@ -112,11 +116,10 @@ class EmployeeOfficialDetails extends StatelessWidget {
             LabelAndFieldWidget(
                 label: "Current Address",
                 isRequired: true,
-                enabled: !isViewOnly,
+                enabled: !isViewOnly && canEditOfficial,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['official']['current_location'],
-                readOnly: true,
                 maxLines: 3,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['official']
@@ -126,7 +129,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
           const SizedBox(height: spacingLarge),
           const LabelTextWidget(label: "Accesible Features"),
           SelectableModulesFormField(
-              isViewOnly: isViewOnly,
+              isViewOnly: isViewOnly || !canEditOfficial,
               selectedFeatures: context
                       .read<EmployeeBloc>()
                       .employeeDetails['official']['accessible_modules']

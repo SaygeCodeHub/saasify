@@ -46,7 +46,7 @@ class AddEmployeeScreen extends StatelessWidget {
                                     ? "Employee Details"
                                     : 'Update Employee'),
                           ])),
-                      !isViewOnly
+                      context.read<EmployeeBloc>().selectedEmployeeId == -1
                           ? const SizedBox.shrink()
                           : Card(
                               margin: const EdgeInsets.symmetric(
@@ -54,17 +54,21 @@ class AddEmployeeScreen extends StatelessWidget {
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Card(
-                                    color: AppColors.orange,
-                                    child: IconButton(
-                                        onPressed: () {
-                                          Navigator.pushReplacementNamed(
-                                              context, routeName);
-                                        },
-                                        padding: EdgeInsets.zero,
-                                        icon: const Icon(Icons.edit_outlined,
-                                            color: AppColors.white, size: 20)),
-                                  ),
+                                  !isViewOnly
+                                      ? const SizedBox.shrink()
+                                      : Card(
+                                          color: AppColors.orange,
+                                          child: IconButton(
+                                              onPressed: () {
+                                                Navigator.pushReplacementNamed(
+                                                    context, routeName);
+                                              },
+                                              padding: EdgeInsets.zero,
+                                              icon: const Icon(
+                                                  Icons.edit_outlined,
+                                                  color: AppColors.white,
+                                                  size: 20)),
+                                        ),
                                   BlocListener<EmployeeBloc, EmployeeStates>(
                                     listener: (context, state) {
                                       if (state is DeletingEmployee) {

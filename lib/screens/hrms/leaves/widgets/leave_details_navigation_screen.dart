@@ -141,15 +141,20 @@ class LeaveDetailsNavigationScreen extends StatelessWidget {
                     ]))),
         bottomNavigationBar: Visibility(
             visible: isPending,
-            replacement: Padding(
-                padding: const EdgeInsets.only(bottom: spacingLarge),
-                child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      const SizedBox(width: spacingLarge),
-                      Expanded(child: WithdrawButton(leaveId: leaves.leaveId)),
-                      const SizedBox(width: spacingLarge)
-                    ])),
+            replacement: Visibility(
+              visible: leaves.startDate.isAfter(DateTime.now()) &&
+                  leaves.leaveStatus == "PENDING",
+              child: Padding(
+                  padding: const EdgeInsets.only(bottom: spacingLarge),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        const SizedBox(width: spacingLarge),
+                        Expanded(
+                            child: WithdrawButton(leaveId: leaves.leaveId)),
+                        const SizedBox(width: spacingLarge)
+                      ])),
+            ),
             child: Padding(
                 padding: const EdgeInsets.only(bottom: spacingLarge),
                 child: Row(

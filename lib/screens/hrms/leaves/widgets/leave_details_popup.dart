@@ -184,7 +184,8 @@ class LeaveDetailsPopup extends StatelessWidget {
           Visibility(
               visible: isFromPending,
               replacement: Visibility(
-                  visible: leaves.startDate.isAfter(DateTime.now()),
+                  visible: leaves.startDate.isAfter(DateTime.now()) &&
+                      leaves.leaveStatus == "PENDING",
                   child: Padding(
                       padding: const EdgeInsets.only(
                           bottom: spacingLarge, right: spacingLarge),

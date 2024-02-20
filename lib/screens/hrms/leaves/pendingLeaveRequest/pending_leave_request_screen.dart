@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/leaves/leave_events.dart';
 import 'package:saasify/bloc/leaves/leave_states.dart';
 import 'package:saasify/bloc/leaves/leaves_bloc.dart';
+import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/pending_leave_request_mobile_screen.dart';
 import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/pending_leave_request_web_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
@@ -53,26 +55,25 @@ class PendingLeaveRequestScreen extends StatelessWidget {
                           context: context,
                           builder: (BuildContext context) {
                             return ErrorAlertDialog(
-                                description: state.errorMessage.toString());
+                                description: state.errorMessage.toString(),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  Navigator.pop(context);
+                                });
                           },
                         );
                       } else if (state is UpdatingLeaveStatus) {
                         ProgressBar.show(context);
                       } else if (state is LeaveStatusUpdated) {
                         ProgressBar.dismiss(context);
+                        context.read<LeavesBloc>().add(GetAllLeaves());
                         showDialog(
                             context: context,
                             builder: (context) {
                               return SuccessAlertDialog(
                                   description: state
                                       .updateLeaveStatusModel.message
-                                      .toString(),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                    context
-                                        .read<LeavesBloc>()
-                                        .add(GetAllLeaves());
-                                  });
+                                      .toString());
                             });
                       } else if (state is LeaveStatusUpdateFailed) {
                         ProgressBar.dismiss(context);
@@ -89,21 +90,31 @@ class PendingLeaveRequestScreen extends StatelessWidget {
                     },
                     buildWhen: (previousState, currentState) =>
                         currentState is FetchingAllLeaves ||
-                        currentState is LeavesFetched ||
-                        currentState is LeavesFetchingFailed,
+                        currentState is LeavesFetched,
                     builder: (context, state) {
                       if (state is FetchingAllLeaves) {
                         return const Expanded(
                             child: Center(child: CircularProgressIndicator()));
                       } else if (state is LeavesFetched) {
                         return Expanded(
-                            child: ResponsiveLayout(
-                                mobileBody: PendingLeaveRequestsMobileScreen(
-                                    pendingLeaves: state
-                                        .getAllLeavesModel.data.pendingLeaves),
-                                desktopBody: PendingLeaveRequestsWebScreen(
-                                    pendingLeaves: state.getAllLeavesModel.data
-                                        .pendingLeaves)));
+                            child: state.getAllLeavesModel.data.pendingLeaves
+                                    .isEmpty
+                                ? Center(
+                                    child: Text(StringConstants.kNoLeavesFound,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelTextStyle
+                                            .copyWith(color: AppColors.orange)))
+                                : ResponsiveLayout(
+                                    mobileBody:
+                                        PendingLeaveRequestsMobileScreen(
+                                            pendingLeaves: state
+                                                .getAllLeavesModel
+                                                .data
+                                                .pendingLeaves),
+                                    desktopBody: PendingLeaveRequestsWebScreen(
+                                        pendingLeaves: state.getAllLeavesModel
+                                            .data.pendingLeaves)));
                       } else {
                         return const SizedBox.shrink();
                       }

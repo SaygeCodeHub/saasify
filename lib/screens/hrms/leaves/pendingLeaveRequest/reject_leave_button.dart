@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/leaves/leave_events.dart';
 import 'package:saasify/bloc/leaves/leaves_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
+import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/data/models/leaves/get_all_leaves_model.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
@@ -21,7 +22,7 @@ class RejectLeaveButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PrimaryButton(
-        buttonWidth: 100,
+        buttonWidth: kGeneralActionButtonWidth,
         backgroundColor: AppColors.errorRed,
         buttonTitle: StringConstants.kReject,
         onPressed: () {

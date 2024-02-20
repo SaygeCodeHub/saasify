@@ -54,6 +54,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                               });
                         }
                         if (state is ApplyLeaveFailed) {
+                          ProgressBar.dismiss(context);
                           showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -61,7 +62,6 @@ class ApplyLeaveScreen extends StatelessWidget {
                                   description: state.errorMessage.toString(),
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    ProgressBar.dismiss(context);
                                   },
                                 );
                               });
@@ -70,6 +70,7 @@ class ApplyLeaveScreen extends StatelessWidget {
                           return ProgressBar.show(context);
                         }
                         if (state is LeaveApplied) {
+                          ProgressBar.dismiss(context);
                           showDialog(
                               context: context,
                               builder: (BuildContext context) {
@@ -78,14 +79,15 @@ class ApplyLeaveScreen extends StatelessWidget {
                                       state.applyLeaveModel.message.toString(),
                                   onPressed: () {
                                     Navigator.pop(context);
-                                    ProgressBar.dismiss(context);
-                                    context
-                                        .read<LeavesBloc>()
-                                        .add(LoadApplyLeaveScreen());
+                                    Navigator.pop(context);
                                   },
                                 );
                               });
                         }
+                      }, buildWhen: (previous, current) {
+                        return current is LoadingApplyLeaveScreen ||
+                            current is ApplyLeaveScreenLoaded ||
+                            current is ErrorLoadingApplyLeaveScreen;
                       }, builder: (context, state) {
                         if (state is LoadingApplyLeaveScreen) {
                           return const Center(

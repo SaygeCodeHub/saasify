@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:saasify/bloc/employee/employee_bloc.dart';
-import 'package:saasify/caches/cache.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/enums/employee_type_enum.dart';
-import 'package:saasify/data/models/initialise/initialise_app_model.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/employee/employee_repository.dart';
-import 'package:saasify/screens/hrms/add_employee/widgets/selectable_modules.dart';
+import 'package:saasify/screens/hrms/add_employee/widgets/selectable_modules_form_field.dart';
 import 'package:saasify/widgets/text/custom_dropdown_widget.dart';
 import 'package:saasify/widgets/form/form_input_fields.dart';
 import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
@@ -18,10 +16,14 @@ import 'package:saasify/widgets/text/label_text_widget.dart';
 
 class EmployeeOfficialDetails extends StatelessWidget {
   final bool isViewOnly;
+
   const EmployeeOfficialDetails({super.key, this.isViewOnly = false});
 
   @override
   Widget build(BuildContext context) {
+    bool canEditOfficial =
+        context.read<EmployeeBloc>().employeeDetails['official']?['can_edit'] ??
+            true;
     return SingleChildScrollView(
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +32,8 @@ class EmployeeOfficialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             DropdownLabelWidget(
                 label: "Designation",
-                enabled: !isViewOnly,
+                isRequired: true,
+                enabled: !isViewOnly && canEditOfficial,
                 items: EmployeeType.values
                     .map((e) =>
                         CustomDropDownItem(label: e.type, value: e.typeId))
@@ -41,11 +44,12 @@ class EmployeeOfficialDetails extends StatelessWidget {
                     .first,
                 onChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['official']
-                      ['designations'] = [value];
+                      ['designations'] = value;
                 }),
             DatePickerField(
                 label: "Date of Joining",
-                enabled: !isViewOnly,
+                isRequired: true,
+                enabled: !isViewOnly && canEditOfficial,
                 initialDate: DateFormat('yyyy-mm-dd').tryParse(context
                         .read<EmployeeBloc>()
                         .employeeDetails['personal_info']['DOJ'] ??
@@ -56,7 +60,8 @@ class EmployeeOfficialDetails extends StatelessWidget {
                 }),
             DropdownLabelWidget(
                 label: "Job Confirmation",
-                enabled: !isViewOnly,
+                isRequired: true,
+                enabled: !isViewOnly && canEditOfficial,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['official']['job_confirmation'],
@@ -73,7 +78,8 @@ class EmployeeOfficialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             DropdownLabelWidget(
                 label: "Reporting Manager",
-                enabled: !isViewOnly,
+                isRequired: true,
+                enabled: !isViewOnly && canEditOfficial,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['official']['reporting_manager'],
@@ -87,10 +93,12 @@ class EmployeeOfficialDetails extends StatelessWidget {
                 builder: (context, snapshot) {
                   return DropdownLabelWidget(
                       label: "Approvers",
-                      enabled: !isViewOnly,
+                      enabled: !isViewOnly && canEditOfficial,
+                      isRequired: true,
                       initialValue: context
                           .read<EmployeeBloc>()
-                          .employeeDetails['official']['approvers'],
+                          .employeeDetails['official']['approvers']
+                          ?.first,
                       items: snapshot.data == null
                           ? []
                           : snapshot.data!.data
@@ -99,7 +107,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
                               .toList(),
                       onChanged: (value) {
                         context.read<EmployeeBloc>().employeeDetails['official']
-                            ['approvers'] = value;
+                            ['approvers'] = [value];
                       });
                 }),
           ]),
@@ -107,11 +115,11 @@ class EmployeeOfficialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             LabelAndFieldWidget(
                 label: "Current Address",
-                enabled: !isViewOnly,
+                isRequired: true,
+                enabled: !isViewOnly && canEditOfficial,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['official']['current_location'],
-                readOnly: true,
                 maxLines: 3,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['official']
@@ -120,20 +128,16 @@ class EmployeeOfficialDetails extends StatelessWidget {
           ]),
           const SizedBox(height: spacingLarge),
           const LabelTextWidget(label: "Accesible Features"),
-          FutureBuilder(
-              future: getIt<Cache>().getAvailableModules(),
-              builder: (context, snapshot) {
-                return SelectableModules(
-                    isViewOnly: isViewOnly,
-                    modules: snapshot.data ?? <ModulesModel>[],
-                    selectedFeatures: context
-                        .read<EmployeeBloc>()
-                        .employeeDetails['official']['accessible_modules']
-                        ?.cast<Map<String, dynamic>>(),
-                    onSelected: (value) {
-                      context.read<EmployeeBloc>().employeeDetails['official']
-                          ['accessible_modules'] = value;
-                    });
+          SelectableModulesFormField(
+              isViewOnly: isViewOnly || !canEditOfficial,
+              selectedFeatures: context
+                      .read<EmployeeBloc>()
+                      .employeeDetails['official']['accessible_modules']
+                      ?.cast<Map<String, dynamic>>() ??
+                  [],
+              onSelected: (value) {
+                context.read<EmployeeBloc>().employeeDetails['official']
+                    ['accessible_modules'] = value;
               })
         ]));
   }

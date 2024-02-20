@@ -120,31 +120,26 @@ showAddEmployeeDialog(BuildContext context) {
                   MultiFieldRow(
                       childrenWidgets: List.generate(
                           EmployeeType.values.length,
-                          (index) => Expanded(
-                                child: CustomCheckbox(
-                                    onChanged: (value) {
-                                      if (value!) {
-                                        context
-                                            .read<EmployeeBloc>()
-                                            .inviteDetails['designations']
-                                            .add(EmployeeType
-                                                .values[index].index);
-                                      } else {
-                                        context
-                                            .read<EmployeeBloc>()
-                                            .inviteDetails['designations']
-                                            .remove(EmployeeType
-                                                .values[index].index);
-                                      }
-                                    },
-                                    checkBoxTitle:
-                                        EmployeeType.values[index].name,
-                                    isChecked: context
-                                        .read<EmployeeBloc>()
-                                        .inviteDetails["designations"]
-                                        .contains(
-                                            EmployeeType.values[index].index)),
-                              ))),
+                          (index) => CustomCheckbox(
+                              onChanged: (value) {
+                                if (value!) {
+                                  context
+                                      .read<EmployeeBloc>()
+                                      .inviteDetails['designations']
+                                      .add(EmployeeType.values[index].index);
+                                } else {
+                                  context
+                                      .read<EmployeeBloc>()
+                                      .inviteDetails['designations']
+                                      .remove(EmployeeType.values[index].index);
+                                }
+                              },
+                              checkBoxTitle: EmployeeType.values[index].name,
+                              isChecked: context
+                                  .read<EmployeeBloc>()
+                                  .inviteDetails["designations"]
+                                  .contains(
+                                      EmployeeType.values[index].index)))),
                   const SizedBox(height: spacingStandard),
                   const LabelTextWidget(label: "Accesible Features"),
                   SelectableModulesFormField(

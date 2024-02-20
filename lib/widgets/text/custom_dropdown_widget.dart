@@ -10,6 +10,7 @@ class CustomDropdownButton extends StatelessWidget {
   final bool? enabled;
   final List<CustomDropDownItem> items;
   final bool isRequired;
+  final List<Widget> Function(BuildContext)? selectedItemBuilder;
   final dynamic selectedValue;
   final ValueChanged onChanged;
 
@@ -22,6 +23,7 @@ class CustomDropdownButton extends StatelessWidget {
     required this.onChanged,
     this.showBorder = true,
     this.enabled,
+    this.selectedItemBuilder,
   });
 
   @override
@@ -43,6 +45,7 @@ class CustomDropdownButton extends StatelessWidget {
                 );
               }
             }),
+            selectedItemBuilder: selectedItemBuilder,
             decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(

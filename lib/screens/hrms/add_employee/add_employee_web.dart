@@ -8,15 +8,15 @@ import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
 
 class AddEmployeeWeb extends StatelessWidget {
   final bool isViewOnly;
-  final GlobalKey<FormState> formKey;
+  final List<GlobalKey<FormState>> formKeys;
   const AddEmployeeWeb(
-      {super.key, required this.formKey, this.isViewOnly = false});
+      {super.key, required this.formKeys, this.isViewOnly = false});
 
   @override
   Widget build(BuildContext context) {
     return BackgroundCardWidget(
         childScreen: AddEmployeeStepper(
-            formKey: formKey,
+            formKeys: formKeys,
             isViewOnly: isViewOnly,
             steps: [
               StepData(

@@ -55,3 +55,13 @@ class LoadingEmployeeFailed extends EmployeeStates {
 
   LoadingEmployeeFailed({required this.errorMessage});
 }
+
+class DeletingEmployee extends EmployeeStates {}
+
+class EmployeeDeleted extends EmployeeStates {}
+
+class DeletingEmployeeFailed extends EmployeeStates {
+  final String errorMessage;
+
+  DeletingEmployeeFailed({required this.errorMessage});
+}

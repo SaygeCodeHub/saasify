@@ -38,6 +38,7 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
     on<UpdateEmployee>(_updateEmployee);
     on<GetAllEmployees>(_getAllEmployees);
     on<GetEmployee>(_getEmployee);
+    on<DeleteEmployee>(_deleteEmployee);
   }
 
   FutureOr<void> _inviteUser(
@@ -129,6 +130,23 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
       }
     } catch (e) {
       emit(LoadingEmployeesFailed(errorMessage: e.toString()));
+    }
+  }
+
+  FutureOr<void> _deleteEmployee(
+      DeleteEmployee event, Emitter<EmployeeStates> emit) async {
+    emit(DeletingEmployee());
+    try {
+      var deleteEmployeeModel = await _employeeRepository.deleteEmployee(
+          selectedEmployeeId == -1 ? "" : selectedEmployeeId.toString());
+      if (deleteEmployeeModel.status == 200) {
+        emit(EmployeeDeleted());
+      } else {
+        emit(DeletingEmployeeFailed(
+            errorMessage: deleteEmployeeModel.message.toString()));
+      }
+    } catch (e) {
+      emit(DeletingEmployeeFailed(errorMessage: e.toString()));
     }
   }
 }

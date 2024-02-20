@@ -8,12 +8,14 @@ import 'package:saasify/screens/hrms/add_employee/widgets/selectable_modules.dar
 class SelectableModulesFormField extends StatelessWidget {
   final List<Map<String, dynamic>> selectedFeatures;
   final void Function(List<Map<String, dynamic>>) onSelected;
-  final isRequired = true;
-
+  final bool isRequired;
+  final bool isViewOnly;
   const SelectableModulesFormField({
     super.key,
     required this.selectedFeatures,
     required this.onSelected,
+    this.isRequired = true,
+    this.isViewOnly = false,
   });
 
   @override
@@ -38,6 +40,7 @@ class SelectableModulesFormField extends StatelessWidget {
                       builder: (context, snapshot) {
                         return SelectableModules(
                             modules: snapshot.data ?? [],
+                            isViewOnly: isViewOnly,
                             selectedFeatures: selectedFeatures,
                             onSelected: (features) {
                               onSelected(features);

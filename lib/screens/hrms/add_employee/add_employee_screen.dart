@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/employee/employee_bloc.dart';
+import 'package:saasify/bloc/employee/employee_event.dart';
+import 'package:saasify/bloc/employee/employee_states.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/screens/hrms/add_employee/add_employee_web.dart';
+import 'package:saasify/utils/progress_bar.dart';
+import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
+import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
@@ -14,7 +20,7 @@ class AddEmployeeScreen extends StatelessWidget {
 
   AddEmployeeScreen({super.key, this.isViewOnly = false});
 
-  final _formKey = GlobalKey<FormState>();
+  final _formKeys = List.generate(4, (index) => GlobalKey<FormState>());
 
   @override
   Widget build(BuildContext context) {
@@ -40,47 +46,79 @@ class AddEmployeeScreen extends StatelessWidget {
                                     ? "Employee Details"
                                     : 'Update Employee'),
                           ])),
-                      !isViewOnly
+                      context.read<EmployeeBloc>().selectedEmployeeId == -1
                           ? const SizedBox.shrink()
                           : Card(
-                              color: AppColors.orange,
                               margin: const EdgeInsets.symmetric(
                                   horizontal: spacingMedium),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  IconButton(
-                                      onPressed: () {
-                                        Navigator.pushReplacementNamed(
-                                            context, routeName);
-                                      },
-                                      padding: EdgeInsets.zero,
-                                      icon: const Icon(Icons.edit,
-                                          color: AppColors.white, size: 20)),
-                                  const SizedBox(width: spacingSmallest),
-                                  Text(
-                                    "Edit",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .labelTextStyle
-                                        .copyWith(color: AppColors.white),
+                                  !isViewOnly
+                                      ? const SizedBox.shrink()
+                                      : Card(
+                                          color: AppColors.orange,
+                                          child: IconButton(
+                                              onPressed: () {
+                                                Navigator.pushReplacementNamed(
+                                                    context, routeName);
+                                              },
+                                              padding: EdgeInsets.zero,
+                                              icon: const Icon(
+                                                  Icons.edit_outlined,
+                                                  color: AppColors.white,
+                                                  size: 20)),
+                                        ),
+                                  BlocListener<EmployeeBloc, EmployeeStates>(
+                                    listener: (context, state) {
+                                      if (state is DeletingEmployee) {
+                                        ProgressBar.show(context);
+                                      }
+                                      if (state is EmployeeDeleted) {
+                                        ProgressBar.dismiss(context);
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                const SuccessAlertDialog(
+                                                    description:
+                                                        "Employee Deleted Successfully"));
+                                      }
+                                      if (state is DeletingEmployeeFailed) {
+                                        ProgressBar.dismiss(context);
+                                        showDialog(
+                                            context: context,
+                                            builder: (context) =>
+                                                ErrorAlertDialog(
+                                                    description:
+                                                        state.errorMessage));
+                                      }
+                                    },
+                                    child: Card(
+                                      color: AppColors.errorRed,
+                                      child: IconButton(
+                                          onPressed: () {
+                                            context
+                                                .read<EmployeeBloc>()
+                                                .add(DeleteEmployee());
+                                          },
+                                          padding: EdgeInsets.zero,
+                                          icon: const Icon(Icons.delete_outline,
+                                              color: AppColors.white,
+                                              size: 20)),
+                                    ),
                                   ),
-                                  const SizedBox(width: spacingStandard)
                                 ],
                               ),
-                            )
+                            ),
                     ],
                   ),
-                  Form(
-                    key: _formKey,
-                    child: Expanded(
-                      child: ResponsiveLayout(
-                          mobileBody: AddEmployeeMobile(
-                              formKey: _formKey, isViewOnly: isViewOnly),
-                          provideMobilePadding: false,
-                          desktopBody: AddEmployeeWeb(
-                              formKey: _formKey, isViewOnly: isViewOnly)),
-                    ),
+                  Expanded(
+                    child: ResponsiveLayout(
+                        mobileBody: AddEmployeeMobile(
+                            formKeys: _formKeys, isViewOnly: isViewOnly),
+                        provideMobilePadding: false,
+                        desktopBody: AddEmployeeWeb(
+                            formKeys: _formKeys, isViewOnly: isViewOnly)),
                   )
                 ]));
   }

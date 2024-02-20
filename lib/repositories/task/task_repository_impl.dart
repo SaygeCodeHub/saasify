@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/task/assign_task_model.dart';
 import 'package:saasify/di/app_module.dart';
@@ -15,9 +13,6 @@ class TaskRepositoryImpl extends TaskRepository {
       var companyId = await cache.getCompanyId();
       var branchId = await cache.getBranchId();
       var userId = await cache.getUserId();
-      print(jsonEncode(taskDetails));
-      print(
-          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.assignTask}");
       final response = await ClientServices().post(
           "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.assignTask}",
           taskDetails);

@@ -31,11 +31,11 @@ class EmployeeDocumentDetails extends StatelessWidget {
                 isRequired: true,
                 initialValue: context
                     .read<EmployeeBloc>()
-                    .employeeDetails['documents']['aadhar']['aadhaar_number'],
+                    .employeeDetails['documents']['aadhar']['aadhar_number'],
                 maxLength: 12,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['documents']
-                      ['aadhar']['aadhaar_number'] = value;
+                      ['aadhar']['aadhar_number'] = value;
                 }),
             LabelAndFieldWidget(
                 label: StringConstants.kNameAsAadhaarNumber,
@@ -43,10 +43,10 @@ class EmployeeDocumentDetails extends StatelessWidget {
                 isRequired: true,
                 initialValue:
                     context.read<EmployeeBloc>().employeeDetails['documents']
-                        ['aadhar']['name_as_per_aadhaar'],
+                        ['aadhar']['name_as_per_aadhar'],
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['documents']
-                      ['aadhar']['name_as_per_aadhaar'] = value;
+                      ['aadhar']['name_as_per_aadhar'] = value;
                 }),
             LabelAndFieldWidget(
                 label: StringConstants.kPanNumber,
@@ -72,32 +72,32 @@ class EmployeeDocumentDetails extends StatelessWidget {
             LabelAndFieldWidget(
                 label: StringConstants.kPassportNumber,
                 enabled: !isViewOnly,
-                initialValue:
-                    context.read<EmployeeBloc>().employeeDetails['documents']
-                        ['passport']['passport_number'],
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['documents']['passport']['passport_num'],
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['documents']
-                      ['passport']['passport_number'] = value;
+                      ['passport']['passport_num'] = value;
                 }),
             LabelAndFieldWidget(
                 label: StringConstants.kFirstName,
                 enabled: !isViewOnly,
                 initialValue: context
                     .read<EmployeeBloc>()
-                    .employeeDetails['documents']['passport']['first_name'],
+                    .employeeDetails['documents']['passport']['passport_fname'],
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['documents']
-                      ['passport']['first_name'] = value;
+                      ['passport']['passport_fname'] = value;
                 }),
             LabelAndFieldWidget(
                 label: StringConstants.kLastName,
                 enabled: !isViewOnly,
                 initialValue: context
                     .read<EmployeeBloc>()
-                    .employeeDetails['documents']['passport']['last_name'],
+                    .employeeDetails['documents']['passport']['passport_lname'],
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['documents']
-                      ['passport']['last_name'] = value;
+                      ['passport']['passport_lname'] = value;
                 })
           ]),
           const SizedBox(height: spacingLarge),

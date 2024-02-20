@@ -9,6 +9,7 @@ import 'package:saasify/screens/hrms/add_employee/add_employee_web.dart';
 import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
+import 'package:saasify/widgets/alertDialogs/warning_alert_dialogue.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
@@ -44,7 +45,12 @@ class AddEmployeeScreen extends StatelessWidget {
                             ModuleHeading(
                                 label: isViewOnly
                                     ? "Employee Details"
-                                    : 'Update Employee'),
+                                    : context
+                                                .read<EmployeeBloc>()
+                                                .selectedEmployeeId ==
+                                            -1
+                                        ? 'Add Employee'
+                                        : 'Update Employee'),
                           ])),
                       context.read<EmployeeBloc>().selectedEmployeeId == -1
                           ? const SizedBox.shrink()
@@ -79,9 +85,13 @@ class AddEmployeeScreen extends StatelessWidget {
                                         showDialog(
                                             context: context,
                                             builder: (context) =>
-                                                const SuccessAlertDialog(
+                                                SuccessAlertDialog(
                                                     description:
-                                                        "Employee Deleted Successfully"));
+                                                        "Employee Deleted Successfully",
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      Navigator.pop(context);
+                                                    }));
                                       }
                                       if (state is DeletingEmployeeFailed) {
                                         ProgressBar.dismiss(context);
@@ -97,9 +107,21 @@ class AddEmployeeScreen extends StatelessWidget {
                                       color: AppColors.errorRed,
                                       child: IconButton(
                                           onPressed: () {
-                                            context
-                                                .read<EmployeeBloc>()
-                                                .add(DeleteEmployee());
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return WarningAlertDialogue(
+                                                      description:
+                                                          "Are you sure you want to delete this employee?",
+                                                      onPressed: () {
+                                                        context
+                                                            .read<
+                                                                EmployeeBloc>()
+                                                            .add(
+                                                                DeleteEmployee());
+                                                        Navigator.pop(context);
+                                                      });
+                                                });
                                           },
                                           padding: EdgeInsets.zero,
                                           icon: const Icon(Icons.delete_outline,

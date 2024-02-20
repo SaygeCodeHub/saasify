@@ -85,9 +85,13 @@ class AddEmployeeScreen extends StatelessWidget {
                                         showDialog(
                                             context: context,
                                             builder: (context) =>
-                                                const SuccessAlertDialog(
+                                                SuccessAlertDialog(
                                                     description:
-                                                        "Employee Deleted Successfully"));
+                                                        "Employee Deleted Successfully",
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      Navigator.pop(context);
+                                                    }));
                                       }
                                       if (state is DeletingEmployeeFailed) {
                                         ProgressBar.dismiss(context);
@@ -115,6 +119,7 @@ class AddEmployeeScreen extends StatelessWidget {
                                                                 EmployeeBloc>()
                                                             .add(
                                                                 DeleteEmployee());
+                                                        Navigator.pop(context);
                                                       });
                                                 });
                                           },

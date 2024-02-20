@@ -19,52 +19,51 @@ class MyLeavesWebScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BackgroundCardWidget(
-      childScreen: Padding(
-        padding: const EdgeInsets.all(spacingMedium),
-        child: CustomDataTable(
-            checkboxVisible: false,
-            showRowCheckBox: false,
-            columnList: [
-              ColumnData(header: StringConstants.kLeaveType),
-              ColumnData(header: StringConstants.kStartDate),
-              ColumnData(header: StringConstants.kEndDate),
-              ColumnData(header: StringConstants.kApprovers),
-              ColumnData(header: StringConstants.kLeaveStatus),
-              ColumnData(header: StringConstants.kShowDetails)
-            ],
-            selectedIds: const [],
-            dataCount: myLeaves.length,
-            dataIds: List.generate(myLeaves.length, (index) => myLeaves),
-            onRowCheckboxChange: (value) {},
-            generateData: (index) => [
-                  TableText(text: myLeaves[index].leaveType),
-                  TableText(
-                      text: formatDate(myLeaves[index].startDate.toString())),
-                  TableText(
-                      text: formatDate(myLeaves[index].endDate.toString())),
-                  TableText(text: myLeaves[index].approvers.join(", ")),
-                  TableStatusChips(
-                      status: myLeaves[index].leaveStatus.toString(),
-                      color: getColorFromStatus(
-                          myLeaves[index].leaveStatus.toString())),
-                  TableButton(
-                      title: StringConstants.kShowDetails,
-                      textStyle: Theme.of(context)
-                          .textTheme
-                          .cardMobileHeadingTextStyle
-                          .copyWith(
-                              color: AppColors.white,
-                              fontWeight: FontWeight.normal),
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) => LeaveDetailsPopup(
-                                isMobile: false,
-                                leaves: myLeaves[index],
-                                isPending: false));
-                      }),
-                ]),
-      ),
-    );
+        childScreen: Padding(
+            padding: const EdgeInsets.all(spacingMedium),
+            child: CustomDataTable(
+                checkboxVisible: false,
+                showRowCheckBox: false,
+                columnList: [
+                  ColumnData(header: StringConstants.kLeaveType),
+                  ColumnData(header: StringConstants.kStartDate),
+                  ColumnData(header: StringConstants.kEndDate),
+                  ColumnData(header: StringConstants.kApprovers),
+                  ColumnData(header: StringConstants.kLeaveStatus),
+                  ColumnData(header: StringConstants.kShowDetails)
+                ],
+                selectedIds: const [],
+                dataCount: myLeaves.length,
+                dataIds: List.generate(myLeaves.length, (index) => myLeaves),
+                onRowCheckboxChange: (value) {},
+                generateData: (index) => [
+                      TableText(text: myLeaves[index].leaveType),
+                      TableText(
+                          text:
+                              formatDate(myLeaves[index].startDate.toString())),
+                      TableText(
+                          text: formatDate(myLeaves[index].endDate.toString())),
+                      TableText(text: myLeaves[index].approvers.join(", ")),
+                      TableStatusChips(
+                          status: myLeaves[index].leaveStatus.toString(),
+                          color: getColorFromStatus(
+                              myLeaves[index].leaveStatus.toString())),
+                      TableButton(
+                          title: StringConstants.kShowDetails,
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .cardMobileHeadingTextStyle
+                              .copyWith(
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.normal),
+                          onPressed: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) => LeaveDetailsPopup(
+                                    isMobile: false,
+                                    leaves: myLeaves[index],
+                                    isFromPending: false));
+                          })
+                    ])));
   }
 }

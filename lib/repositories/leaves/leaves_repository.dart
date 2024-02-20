@@ -11,4 +11,6 @@ abstract class LeavesRepository {
   Future<GetAllLeavesModel> getAllLeaves();
 
   Future<UpdateLeaveStatusModel> updateLeaveStatus(Map leaveStatusMap);
+
+  Future<UpdateLeaveStatusModel> withdrawLeave(int leaveId);
 }

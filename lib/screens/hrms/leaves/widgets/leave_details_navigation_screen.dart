@@ -41,16 +41,13 @@ class LeaveDetailsNavigationScreen extends StatelessWidget {
                     children: [
                       Visibility(
                           visible: isPending,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              LeaveDetails(
+                          child:
+                              Column(mainAxisSize: MainAxisSize.min, children: [
+                            LeaveDetails(
                                 title: StringConstants.kApplicantName,
-                                leaveData: leaves.name.toString(),
-                              ),
-                              const SizedBox(height: spacingSmall)
-                            ],
-                          )),
+                                leaveData: leaves.name.toString()),
+                            const SizedBox(height: spacingSmall)
+                          ])),
                       Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -60,11 +57,10 @@ class LeaveDetailsNavigationScreen extends StatelessWidget {
                             Visibility(
                                 visible: isPending ? false : true,
                                 child: Center(
-                                  child: StatusChip(
-                                      text: leaves.leaveStatus.toString(),
-                                      color: getColorFromStatus(
-                                          leaves.leaveStatus.toString())),
-                                ))
+                                    child: StatusChip(
+                                        text: leaves.leaveStatus.toString(),
+                                        color: getColorFromStatus(
+                                            leaves.leaveStatus.toString()))))
                           ]),
                       const SizedBox(height: spacingSmall),
                       LeaveDetails(
@@ -87,7 +83,7 @@ class LeaveDetailsNavigationScreen extends StatelessWidget {
                             const SizedBox(height: spacingSmall),
                             LeaveDetails(
                                 title: StringConstants.kApprovers,
-                                leaveData: leaves.approvers.join(", ")),
+                                leaveData: leaves.approvers.join(", "))
                           ])),
                       Visibility(
                           visible: isPending,
@@ -145,14 +141,14 @@ class LeaveDetailsNavigationScreen extends StatelessWidget {
                     ]))),
         bottomNavigationBar: Visibility(
             visible: isPending,
-            replacement: const Padding(
-                padding: EdgeInsets.only(bottom: spacingLarge),
+            replacement: Padding(
+                padding: const EdgeInsets.only(bottom: spacingLarge),
                 child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      SizedBox(width: spacingLarge),
-                      Expanded(child: WithdrawButton()),
-                      SizedBox(width: spacingLarge)
+                      const SizedBox(width: spacingLarge),
+                      Expanded(child: WithdrawButton(leaveId: leaves.leaveId)),
+                      const SizedBox(width: spacingLarge)
                     ])),
             child: Padding(
                 padding: const EdgeInsets.only(bottom: spacingLarge),
@@ -161,14 +157,12 @@ class LeaveDetailsNavigationScreen extends StatelessWidget {
                     children: [
                       const SizedBox(width: spacingLarge),
                       Expanded(
-                        child: RejectLeaveButton(
-                            updateKey: updateKey, pendingLeaves: leaves),
-                      ),
+                          child: RejectLeaveButton(
+                              updateKey: updateKey, pendingLeaves: leaves)),
                       const SizedBox(width: spacingLarge),
                       Expanded(
-                        child: ApproveLeaveButton(
-                            updateKey: updateKey, pendingLeaves: leaves),
-                      ),
+                          child: ApproveLeaveButton(
+                              updateKey: updateKey, pendingLeaves: leaves)),
                       const SizedBox(width: spacingLarge)
                     ]))));
   }

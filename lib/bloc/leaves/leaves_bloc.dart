@@ -23,6 +23,7 @@ class LeavesBloc extends Bloc<LeaveEvents, LeaveStates> {
     on<ApplyLeave>(_applyLeave);
     on<GetAllLeaves>(_getAllLeaves);
     on<UpdateLeaveStatus>(_updateLeaveStatus);
+    on<WithdrawLeave>(_withdrawLeave);
   }
 
   FutureOr<void> _loadApplyLeaveScreen(
@@ -81,6 +82,24 @@ class LeavesBloc extends Bloc<LeaveEvents, LeaveStates> {
     try {
       UpdateLeaveStatusModel updateLeaveStatusModel =
           await _leavesRepository.updateLeaveStatus(leaveStatusMap);
+      if (updateLeaveStatusModel.status == 200) {
+        emit(
+            LeaveStatusUpdated(updateLeaveStatusModel: updateLeaveStatusModel));
+      } else {
+        emit(LeaveStatusUpdateFailed(
+            errorMessage: updateLeaveStatusModel.message));
+      }
+    } catch (e) {
+      emit(LeaveStatusUpdateFailed(errorMessage: e.toString()));
+    }
+  }
+
+  FutureOr<void> _withdrawLeave(
+      WithdrawLeave event, Emitter<LeaveStates> emit) async {
+    emit(UpdatingLeaveStatus());
+    try {
+      UpdateLeaveStatusModel updateLeaveStatusModel =
+          await _leavesRepository.withdrawLeave(event.leaveId);
       if (updateLeaveStatusModel.status == 200) {
         emit(
             LeaveStatusUpdated(updateLeaveStatusModel: updateLeaveStatusModel));

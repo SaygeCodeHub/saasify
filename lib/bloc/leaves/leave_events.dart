@@ -13,3 +13,9 @@ class GetAllLeaves extends LeaveEvents {}
 class UpdateLeaveStatus extends LeaveEvents {
   UpdateLeaveStatus();
 }
+
+class WithdrawLeave extends LeaveEvents {
+  final int leaveId;
+
+  WithdrawLeave({required this.leaveId});
+}

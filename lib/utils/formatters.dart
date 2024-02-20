@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:saasify/configs/app_colors.dart';
 
@@ -14,13 +14,13 @@ Color getColorFromStatus(String text) {
     case 'REJECTED':
       return AppColors.errorRed;
     case '1':
-    case 'ACCEPTED':
+    case 'APPROVED':
       return AppColors.successGreen;
     case '3':
     case 'PENDING':
       return AppColors.lightBlue;
     default:
-      return AppColors.lightGrey;
+      return Colors.grey;
   }
 }
 

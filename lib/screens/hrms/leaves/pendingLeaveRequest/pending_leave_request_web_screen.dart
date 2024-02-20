@@ -61,7 +61,7 @@ class PendingLeaveRequestsWebScreen extends StatelessWidget {
                             builder: (context) => LeaveDetailsPopup(
                                   isMobile: false,
                                   leaves: pendingLeaves[index],
-                                  isPending: true,
+                                  isFromPending: true,
                                 ));
                       }),
                 ]),

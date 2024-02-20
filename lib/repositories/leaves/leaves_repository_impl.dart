@@ -68,4 +68,19 @@ class LeavesRepositoryImpl implements LeavesRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<UpdateLeaveStatusModel> withdrawLeave(int leaveId) async {
+    try {
+      var companyId = await cache.getCompanyId();
+      var branchId = await cache.getBranchId();
+      var userId = await cache.getUserId();
+      final response = await ClientServices().put(
+          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.withdrawLeave}?leave_id=$leaveId",
+          {});
+      return UpdateLeaveStatusModel.fromJson(response);
+    } catch (error) {
+      rethrow;
+    }
+  }
 }

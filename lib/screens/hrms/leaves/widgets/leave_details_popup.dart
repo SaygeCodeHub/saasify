@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:saasify/bloc/leaves/leaves_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/models/leaves/get_all_leaves_model.dart';
+import 'package:saasify/screens/hrms/leaves/getMyLeaves/withdraw_button.dart';
 import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/approve_leave_button.dart';
 import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/leave_details.dart';
 import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/reject_leave_button.dart';
@@ -18,7 +19,7 @@ class LeaveDetailsPopup extends StatelessWidget {
   final bool isMobile;
   final MyLeaves leaves;
   final Function? onPressed;
-  final bool isPending;
+  final bool isFromPending;
   final GlobalKey<FormState> updateKey = GlobalKey<FormState>();
 
   LeaveDetailsPopup(
@@ -26,7 +27,7 @@ class LeaveDetailsPopup extends StatelessWidget {
       required this.isMobile,
       required this.leaves,
       this.onPressed,
-      required this.isPending});
+      required this.isFromPending});
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class LeaveDetailsPopup extends StatelessWidget {
                 },
                 child: const Icon(Icons.close))),
         title: ModuleHeading(
-            label: isPending
+            label: isFromPending
                 ? StringConstants.kUpdateLeaveStatus
                 : StringConstants.kMyLeaveDetails),
         content: SizedBox(
@@ -58,55 +59,53 @@ class LeaveDetailsPopup extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Visibility(
-                                  visible: isPending,
+                                  visible: isFromPending,
                                   child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      LeaveDetails(
-                                        title: StringConstants.kApplicantName,
-                                        leaveData: leaves.name.toString(),
-                                      ),
-                                      const SizedBox(height: spacingSmall)
-                                    ],
-                                  )),
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        LeaveDetails(
+                                            title:
+                                                StringConstants.kApplicantName,
+                                            leaveData: leaves.name.toString()),
+                                        const SizedBox(height: spacingSmall)
+                                      ])),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  LeaveDetails(
-                                      title: StringConstants.kLeaveType,
-                                      leaveData: leaves.leaveType),
-                                  Visibility(
-                                      visible: isPending ? false : true,
-                                      child: Center(
-                                        child: StatusChip(
-                                            text: leaves.leaveStatus.toString(),
-                                            color: getColorFromStatus(
-                                                leaves.leaveStatus.toString())),
-                                      )),
-                                ],
-                              ),
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    LeaveDetails(
+                                        title: StringConstants.kLeaveType,
+                                        leaveData: leaves.leaveType),
+                                    Visibility(
+                                        visible: isFromPending ? false : true,
+                                        child: Center(
+                                            child: StatusChip(
+                                                text: leaves.leaveStatus
+                                                    .toString(),
+                                                color: getColorFromStatus(leaves
+                                                    .leaveStatus
+                                                    .toString()))))
+                                  ]),
                               const SizedBox(height: spacingSmall),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  LeaveDetails(
-                                      title: StringConstants.kStartDate,
-                                      leaveData: DateFormat("yyyy-MM-dd")
-                                          .format(leaves.startDate)),
-                                  const SizedBox(width: spacingXXHuge),
-                                  LeaveDetails(
-                                      title: StringConstants.kEndDate,
-                                      leaveData: DateFormat("yyyy-MM-dd")
-                                          .format(leaves.endDate)),
-                                ],
-                              ),
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    LeaveDetails(
+                                        title: StringConstants.kStartDate,
+                                        leaveData: DateFormat("yyyy-MM-dd")
+                                            .format(leaves.startDate)),
+                                    const SizedBox(width: spacingXXHuge),
+                                    LeaveDetails(
+                                        title: StringConstants.kEndDate,
+                                        leaveData: DateFormat("yyyy-MM-dd")
+                                            .format(leaves.endDate))
+                                  ]),
                               const SizedBox(height: spacingSmall),
                               LeaveDetails(
                                   title: StringConstants.kLeaveReason,
                                   leaveData: leaves.leaveReason),
                               Visibility(
-                                  visible: isPending ? false : true,
+                                  visible: isFromPending ? false : true,
                                   child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
@@ -114,10 +113,10 @@ class LeaveDetailsPopup extends StatelessWidget {
                                         LeaveDetails(
                                             title: StringConstants.kApprovers,
                                             leaveData:
-                                                leaves.approvers.join(", ")),
+                                                leaves.approvers.join(", "))
                                       ])),
                               Visibility(
-                                  visible: isPending,
+                                  visible: isFromPending,
                                   replacement: leaves.leaveStatus == "PENDING"
                                       ? const SizedBox()
                                       : Column(
@@ -183,10 +182,16 @@ class LeaveDetailsPopup extends StatelessWidget {
                             ]))))),
         actions: [
           Visibility(
-              visible: isPending,
-              replacement: const SizedBox.shrink(),
+              visible: isFromPending,
+              replacement: Visibility(
+                  visible: leaves.startDate.isAfter(DateTime.now()),
+                  child: Padding(
+                      padding: const EdgeInsets.only(
+                          bottom: spacingLarge, right: spacingLarge),
+                      child: WithdrawButton(leaveId: leaves.leaveId))),
               child: Padding(
-                  padding: const EdgeInsets.only(bottom: spacingLarge),
+                  padding: const EdgeInsets.only(
+                      bottom: spacingLarge, right: spacingLarge),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

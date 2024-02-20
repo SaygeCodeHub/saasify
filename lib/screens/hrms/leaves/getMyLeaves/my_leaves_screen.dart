@@ -12,6 +12,9 @@ import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
+import '../../../../utils/progress_bar.dart';
+import '../../../../widgets/alertDialogs/success_alert_dialog.dart';
+
 class MyLeavesScreen extends StatelessWidget {
   static const routeName = 'GetMyLeavesScreen';
 
@@ -37,7 +40,7 @@ class MyLeavesScreen extends StatelessWidget {
                                   : const BackButton(),
                               const SizedBox(width: spacingXMedium),
                               const ModuleHeading(
-                                  label: StringConstants.kMyLeaves),
+                                  label: StringConstants.kMyLeaves)
                             ])
                           ])),
                   BlocConsumer<LeavesBloc, LeaveStates>(
@@ -48,6 +51,42 @@ class MyLeavesScreen extends StatelessWidget {
                           builder: (BuildContext context) {
                             return ErrorAlertDialog(
                                 description: state.errorMessage.toString());
+                          });
+                    }
+                    if (state is UpdatingLeaveStatus) {
+                      ProgressBar.show(context);
+                    }
+                    if (state is LeaveStatusUpdated) {
+                      ProgressBar.dismiss(context);
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return SuccessAlertDialog(
+                                description:
+                                    state.updateLeaveStatusModel.message,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  context
+                                      .read<LeavesBloc>()
+                                      .add(GetAllLeaves());
+                                });
+                          });
+                    }
+                    if (state is LeaveStatusUpdateFailed) {
+                      ProgressBar.dismiss(context);
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return ErrorAlertDialog(
+                                description: state.errorMessage,
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                  context
+                                      .read<LeavesBloc>()
+                                      .add(GetAllLeaves());
+                                });
                           });
                     }
                   }, builder: (context, state) {

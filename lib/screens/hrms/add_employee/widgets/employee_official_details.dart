@@ -11,6 +11,7 @@ import 'package:saasify/widgets/text/custom_dropdown_widget.dart';
 import 'package:saasify/widgets/form/form_input_fields.dart';
 import 'package:saasify/widgets/layoutWidgets/multifield_row.dart';
 import 'package:saasify/widgets/text/dropdown_label_widget.dart';
+import 'package:saasify/widgets/text/dynamic_drop_down.dart';
 import 'package:saasify/widgets/text/field_label_widget.dart';
 import 'package:saasify/widgets/text/label_text_widget.dart';
 
@@ -52,11 +53,11 @@ class EmployeeOfficialDetails extends StatelessWidget {
                 enabled: !isViewOnly && canEditOfficial,
                 initialDate: DateFormat('yyyy-mm-dd').tryParse(context
                         .read<EmployeeBloc>()
-                        .employeeDetails['personal_info']['DOJ'] ??
+                        .employeeDetails['official']['doj'] ??
                     ""),
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['official']
-                      ['DOJ'] = value;
+                      ['doj'] = value;
                 }),
             DropdownLabelWidget(
                 label: "Job Confirmation",
@@ -66,8 +67,8 @@ class EmployeeOfficialDetails extends StatelessWidget {
                     .read<EmployeeBloc>()
                     .employeeDetails['official']['job_confirmation'],
                 items: [
-                  CustomDropDownItem(label: "Yes", value: 0),
-                  CustomDropDownItem(label: "No", value: 1)
+                  CustomDropDownItem(label: "Yes", value: true),
+                  CustomDropDownItem(label: "No", value: false)
                 ],
                 onChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['official']
@@ -76,39 +77,30 @@ class EmployeeOfficialDetails extends StatelessWidget {
           ]),
           const SizedBox(height: spacingLarge),
           MultiFieldRow(childrenWidgets: [
-            DropdownLabelWidget(
+            DynamicDropDown(
+                future: getIt<EmployeeRepository>().getAllEmployees(),
                 label: "Reporting Manager",
-                isRequired: true,
-                enabled: !isViewOnly && canEditOfficial,
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['official']['reporting_manager'],
+                isRequired: true,
+                enabled: !isViewOnly && canEditOfficial,
                 onChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['official']
                       ['reporting_manager'] = value;
-                },
-                items: const []),
-            FutureBuilder(
+                }),
+            DynamicDropDown(
                 future: getIt<EmployeeRepository>().getAllEmployees(),
-                builder: (context, snapshot) {
-                  return DropdownLabelWidget(
-                      label: "Approvers",
-                      enabled: !isViewOnly && canEditOfficial,
-                      isRequired: true,
-                      initialValue: context
-                          .read<EmployeeBloc>()
-                          .employeeDetails['official']['approvers']
-                          ?.first,
-                      items: snapshot.data == null
-                          ? []
-                          : snapshot.data!.data
-                              .map((e) => CustomDropDownItem(
-                                  label: e.userEmail, value: e.employeeId))
-                              .toList(),
-                      onChanged: (value) {
-                        context.read<EmployeeBloc>().employeeDetails['official']
-                            ['approvers'] = [value];
-                      });
+                label: "Approvers",
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['official']['approvers']
+                    ?.first,
+                isRequired: true,
+                enabled: !isViewOnly && canEditOfficial,
+                onChanged: (value) {
+                  context.read<EmployeeBloc>().employeeDetails['official']
+                      ['approvers'] = [value];
                 }),
           ]),
           const SizedBox(height: spacingLarge),
@@ -127,7 +119,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
                 })
           ]),
           const SizedBox(height: spacingLarge),
-          const LabelTextWidget(label: "Accesible Features"),
+          const LabelTextWidget(label: "Accessible Features"),
           SelectableModulesFormField(
               isViewOnly: isViewOnly || !canEditOfficial,
               selectedFeatures: context

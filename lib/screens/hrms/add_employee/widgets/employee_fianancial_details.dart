@@ -31,6 +31,9 @@ class EmployeeFinancialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             NumberTextField(
                 label: "Salary",
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['financial']['finances']['basic_salary'],
                 enabled: !isViewOnly && canEditFinancial,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -38,6 +41,9 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 }),
             NumberTextField(
                 label: "Basket of Allowance",
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['financial']['finances']['BOA'],
                 enabled: !isViewOnly && canEditFinancial,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -45,6 +51,9 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 }),
             NumberTextField(
                 label: "Bonus",
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['financial']['finances']['bonus'],
                 enabled: !isViewOnly && canEditFinancial,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -52,6 +61,9 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 }),
             NumberTextField(
                 label: "Performance Bonus",
+                initialValue:
+                    context.read<EmployeeBloc>().employeeDetails['financial']
+                        ['finances']['performance_bonus'],
                 enabled: !isViewOnly && canEditFinancial,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -62,6 +74,9 @@ class EmployeeFinancialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             NumberTextField(
                 label: "Provisional Fund",
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['financial']['finances']['PF'],
                 enabled: !isViewOnly && canEditFinancial,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -69,6 +84,9 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 }),
             NumberTextField(
                 label: "Deduction",
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['financial']['finances']['deduction'],
                 enabled: !isViewOnly && canEditFinancial,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -76,6 +94,9 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 }),
             NumberTextField(
                 label: "Gratuity",
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['financial']['finances']['gratuity'],
                 enabled: !isViewOnly && canEditFinancial,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -86,6 +107,9 @@ class EmployeeFinancialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             NumberTextField(
                 label: "Fixed Monthly Gross",
+                initialValue:
+                    context.read<EmployeeBloc>().employeeDetails['financial']
+                        ['finances']['fixed_monthly_gross'],
                 enabled: !isViewOnly && canEditFinancial,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -93,6 +117,9 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 }),
             NumberTextField(
                 label: "Total Annual Gross",
+                initialValue:
+                    context.read<EmployeeBloc>().employeeDetails['financial']
+                        ['finances']['total_annual_gross'],
                 enabled: !isViewOnly && canEditFinancial,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -109,6 +136,9 @@ class EmployeeFinancialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             LabelAndFieldWidget(
                 label: "Bank Name",
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['financial']['bank_details']['bank_name'],
                 isRequired: true,
                 enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
@@ -117,6 +147,9 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 }),
             LabelAndFieldWidget(
                 label: "Branch Name",
+                initialValue:
+                    context.read<EmployeeBloc>().employeeDetails['financial']
+                        ['bank_details']['branch_name'],
                 isRequired: true,
                 enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
@@ -128,7 +161,11 @@ class EmployeeFinancialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             NumberTextField(
                 label: "Account Number",
+                initialValue:
+                    context.read<EmployeeBloc>().employeeDetails['financial']
+                        ['bank_details']['account_number'],
                 isRequired: true,
+                maxLength: 18,
                 enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -136,6 +173,9 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 }),
             LabelAndFieldWidget(
                 label: "IFSC Code",
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['financial']['bank_details']['ifsc_code'],
                 isRequired: true,
                 enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
@@ -144,6 +184,9 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 }),
             LabelAndFieldWidget(
                 label: "Account Type",
+                initialValue:
+                    context.read<EmployeeBloc>().employeeDetails['financial']
+                        ['bank_details']['account_type'],
                 isRequired: true,
                 enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
@@ -152,6 +195,9 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 }),
             DropdownLabelWidget(
                 label: "Country",
+                initialValue: context
+                    .read<EmployeeBloc>()
+                    .employeeDetails['financial']['bank_details']['country'],
                 isRequired: true,
                 enabled: !isViewOnly,
                 items: stringListToDropdownItems(["India"]),

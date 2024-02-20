@@ -95,11 +95,11 @@ class EmployeeBasicDetails extends StatelessWidget {
             enabled: !isViewOnly,
             initialDate: DateFormat('yyyy-mm-dd').tryParse(context
                     .read<EmployeeBloc>()
-                    .employeeDetails['personal_info']['date_of_birth'] ??
+                    .employeeDetails['personal_info']['user_birthdate'] ??
                 ""),
             onTextFieldChanged: (value) {
               context.read<EmployeeBloc>().employeeDetails['personal_info']
-                  ['date_of_birth'] = value;
+                  ['user_birthdate'] = value;
             }),
         DropdownLabelWidget(
             label: StringConstants.kGender,
@@ -112,7 +112,8 @@ class EmployeeBasicDetails extends StatelessWidget {
                   ['gender'] = value;
             },
             hint: '',
-            items: stringListToDropdownItems(const ["Male", "Female"])),
+            items:
+                stringListToDropdownItems(const ["Male", "Female", "Other"])),
         DropdownLabelWidget(
             label: StringConstants.kNationality,
             enabled: !isViewOnly,

@@ -74,9 +74,12 @@ class DatePickerField extends StatelessWidget {
   final String? label;
   final void Function(String) onTextFieldChanged;
   final DateTime? initialDate;
+  final String? Function(String?)? validator;
   final bool isRequired;
   final bool? enabled;
   final TextEditingController _dateController = TextEditingController();
+  final DateTime? firstDate;
+  final DateTime? lastDate;
 
   DatePickerField(
       {super.key,
@@ -84,7 +87,10 @@ class DatePickerField extends StatelessWidget {
       this.label,
       required this.onTextFieldChanged,
       this.initialDate,
-      this.isRequired = false});
+      this.isRequired = false,
+      this.validator,
+      this.firstDate,
+      this.lastDate});
 
   @override
   Widget build(BuildContext context) {
@@ -102,13 +108,14 @@ class DatePickerField extends StatelessWidget {
           readOnly: true,
           enabled: enabled,
           isRequired: isRequired,
+          validator: validator,
           suffixIcon: const Icon(Icons.date_range_outlined),
           onTap: () {
             showDatePicker(
               context: context,
               initialDate: initialDate ?? DateTime.now(),
-              firstDate: DateTime(DateTime.now().year - 100),
-              lastDate: DateTime(DateTime.now().year + 100),
+              firstDate: firstDate ?? DateTime(DateTime.now().year - 100),
+              lastDate: lastDate ?? DateTime(DateTime.now().year + 100),
             ).then((value) {
               String? textValue =
                   (value == null) ? '' : DateFormat('dd-MM-yyyy').format(value);

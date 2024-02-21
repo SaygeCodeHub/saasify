@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/leaves/leave_events.dart';
 import 'package:saasify/bloc/leaves/leave_states.dart';
 import 'package:saasify/bloc/leaves/leaves_bloc.dart';
+import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/screens/hrms/leaves/getMyLeaves/my_leaves_mobile_screen.dart';
 import 'package:saasify/screens/hrms/leaves/getMyLeaves/my_leaves_web_screen.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
@@ -95,13 +97,20 @@ class MyLeavesScreen extends StatelessWidget {
                           child: Center(child: CircularProgressIndicator()));
                     } else if (state is LeavesFetched) {
                       return Expanded(
-                        child: ResponsiveLayout(
-                            mobileBody: MyLeavesMobileScreen(
-                                myLeaves:
-                                    state.getAllLeavesModel.data.myLeaves),
-                            desktopBody: MyLeavesWebScreen(
-                                myLeaves:
-                                    state.getAllLeavesModel.data.myLeaves)),
+                        child: state.getAllLeavesModel.data.myLeaves.isEmpty
+                            ? Center(
+                                child: Text(StringConstants.kNoLeavesFound,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelTextStyle
+                                        .copyWith(color: AppColors.grey)))
+                            : ResponsiveLayout(
+                                mobileBody: MyLeavesMobileScreen(
+                                    myLeaves:
+                                        state.getAllLeavesModel.data.myLeaves),
+                                desktopBody: MyLeavesWebScreen(
+                                    myLeaves:
+                                        state.getAllLeavesModel.data.myLeaves)),
                       );
                     } else {
                       return const SizedBox.shrink();

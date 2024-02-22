@@ -22,8 +22,9 @@ class UpdatingEmployee extends EmployeeStates {}
 
 class EmployeeUpdated extends EmployeeStates {
   final String message;
+  final bool isSaveAndNext;
 
-  EmployeeUpdated({required this.message});
+  EmployeeUpdated({required this.message, this.isSaveAndNext = false});
 }
 
 class UpdatingEmployeeFailed extends EmployeeStates {

@@ -32,9 +32,15 @@ class UpdateEmployeeModel {
 }
 
 class Data {
-  Data();
+  int? userId;
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data();
+  Data({required this.userId});
 
-  Map<String, dynamic> toJson() => {};
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
+        userId: json["user_id"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "user_id": userId,
+      };
 }

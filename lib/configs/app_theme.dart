@@ -141,7 +141,17 @@ extension AppTextTheme on TextTheme {
 
   TextStyle get buttonTextStyle {
     return const TextStyle(
-        fontSize: 18, color: AppColors.white, fontWeight: FontWeight.w700);
+        fontSize: 18, color: AppColors.white, fontWeight: FontWeight.w500);
+  }
+
+  TextStyle get dialogueHeadingTextStyle {
+    return const TextStyle(
+        fontSize: 20, color: AppColors.black, fontWeight: FontWeight.w500);
+  }
+
+  TextStyle get dialogueContentTextStyle {
+    return const TextStyle(
+        fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w500);
   }
 
   TextStyle get headingTextStyle {

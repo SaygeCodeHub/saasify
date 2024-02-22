@@ -33,7 +33,6 @@ class EmployeeOfficialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             DropdownLabelWidget(
                 label: "Designation",
-                isRequired: true,
                 enabled: !isViewOnly && canEditOfficial,
                 items: EmployeeType.values
                     .map((e) =>
@@ -49,7 +48,6 @@ class EmployeeOfficialDetails extends StatelessWidget {
                 }),
             DatePickerField(
                 label: "Date of Joining",
-                isRequired: true,
                 enabled: !isViewOnly && canEditOfficial,
                 initialDate: DateFormat('yyyy-mm-dd').tryParse(context
                         .read<EmployeeBloc>()
@@ -61,7 +59,6 @@ class EmployeeOfficialDetails extends StatelessWidget {
                 }),
             DropdownLabelWidget(
                 label: "Job Confirmation",
-                isRequired: true,
                 enabled: !isViewOnly && canEditOfficial,
                 initialValue: context
                     .read<EmployeeBloc>()
@@ -83,7 +80,6 @@ class EmployeeOfficialDetails extends StatelessWidget {
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['official']['reporting_manager'],
-                isRequired: true,
                 enabled: !isViewOnly && canEditOfficial,
                 onChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['official']
@@ -96,7 +92,6 @@ class EmployeeOfficialDetails extends StatelessWidget {
                     .read<EmployeeBloc>()
                     .employeeDetails['official']['approvers']
                     ?.first,
-                isRequired: true,
                 enabled: !isViewOnly && canEditOfficial,
                 onChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['official']
@@ -107,7 +102,6 @@ class EmployeeOfficialDetails extends StatelessWidget {
           MultiFieldRow(childrenWidgets: [
             LabelAndFieldWidget(
                 label: "Current Address",
-                isRequired: true,
                 enabled: !isViewOnly && canEditOfficial,
                 initialValue: context
                     .read<EmployeeBloc>()
@@ -122,6 +116,7 @@ class EmployeeOfficialDetails extends StatelessWidget {
           const LabelTextWidget(label: "Accessible Features"),
           SelectableModulesFormField(
               isViewOnly: isViewOnly || !canEditOfficial,
+              isRequired: false,
               selectedFeatures: context
                       .read<EmployeeBloc>()
                       .employeeDetails['official']['accessible_modules']

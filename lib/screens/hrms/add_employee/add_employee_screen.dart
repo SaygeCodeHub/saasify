@@ -32,50 +32,41 @@ class AddEmployeeScreen extends StatelessWidget {
                 children: [
                   const SizedBox(height: spacingMedium),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: spacingMedium),
-                          child: Row(children: [
-                            isMobile
-                                ? const SizedBox.shrink()
-                                : const BackButton(),
-                            const SizedBox(width: spacingXMedium),
-                            ModuleHeading(
-                                label: isViewOnly
-                                    ? "Employee Details"
-                                    : context
-                                                .read<EmployeeBloc>()
-                                                .selectedEmployeeId ==
-                                            -1
-                                        ? 'Add Employee'
-                                        : 'Update Employee'),
-                          ])),
-                      context.read<EmployeeBloc>().selectedEmployeeId == -1
-                          ? const SizedBox.shrink()
-                          : Card(
-                              margin: const EdgeInsets.symmetric(
-                                  horizontal: spacingMedium),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  !isViewOnly
-                                      ? const SizedBox.shrink()
-                                      : Card(
-                                          color: AppColors.orange,
-                                          child: IconButton(
-                                              onPressed: () {
-                                                Navigator.pushReplacementNamed(
-                                                    context, routeName);
-                                              },
-                                              padding: EdgeInsets.zero,
-                                              icon: const Icon(
-                                                  Icons.edit_outlined,
-                                                  color: AppColors.white,
-                                                  size: 20)),
-                                        ),
-                                  BlocListener<EmployeeBloc, EmployeeStates>(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: spacingMedium),
+                            child: Row(children: [
+                              isMobile
+                                  ? const SizedBox.shrink()
+                                  : const BackButton(),
+                              const SizedBox(width: spacingXMedium),
+                              ModuleHeading(
+                                  label: isViewOnly
+                                      ? "Employee Details"
+                                      : context
+                                                  .read<EmployeeBloc>()
+                                                  .selectedEmployeeId ==
+                                              -1
+                                          ? 'Add Employee'
+                                          : 'Update Employee'),
+                            ])),
+                        context.read<EmployeeBloc>().selectedEmployeeId == -1
+                            ? const SizedBox.shrink()
+                            : Row(mainAxisSize: MainAxisSize.min, children: [
+                                !isViewOnly
+                                    ? const SizedBox.shrink()
+                                    : IconButton(
+                                        onPressed: () {
+                                          Navigator.pushReplacementNamed(
+                                              context, routeName);
+                                        },
+                                        padding: EdgeInsets.zero,
+                                        icon: const Icon(Icons.edit_outlined,
+                                            color: AppColors.darkBlue,
+                                            size: 25)),
+                                BlocListener<EmployeeBloc, EmployeeStates>(
                                     listener: (context, state) {
                                       if (state is DeletingEmployee) {
                                         ProgressBar.show(context);
@@ -103,45 +94,37 @@ class AddEmployeeScreen extends StatelessWidget {
                                                         state.errorMessage));
                                       }
                                     },
-                                    child: Card(
-                                      color: AppColors.errorRed,
-                                      child: IconButton(
-                                          onPressed: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return WarningAlertDialogue(
-                                                      description:
-                                                          "Are you sure you want to delete this employee?",
-                                                      onPressed: () {
-                                                        context
-                                                            .read<
-                                                                EmployeeBloc>()
-                                                            .add(
-                                                                DeleteEmployee());
-                                                        Navigator.pop(context);
-                                                      });
-                                                });
-                                          },
-                                          padding: EdgeInsets.zero,
-                                          icon: const Icon(Icons.delete_outline,
-                                              color: AppColors.white,
-                                              size: 20)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                    ],
-                  ),
+                                    child: IconButton(
+                                        onPressed: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return WarningAlertDialogue(
+                                                    description:
+                                                        "Are you sure you want to delete this employee?",
+                                                    onPressed: () {
+                                                      context
+                                                          .read<EmployeeBloc>()
+                                                          .add(
+                                                              DeleteEmployee());
+                                                      Navigator.pop(context);
+                                                    });
+                                              });
+                                        },
+                                        padding: EdgeInsets.zero,
+                                        icon: const Icon(Icons.delete_outline,
+                                            color: AppColors.darkBlue,
+                                            size: 25))),
+                                const SizedBox(width: spacingLarge)
+                              ])
+                      ]),
                   Expanded(
-                    child: ResponsiveLayout(
-                        mobileBody: AddEmployeeMobile(
-                            formKeys: _formKeys, isViewOnly: isViewOnly),
-                        provideMobilePadding: false,
-                        desktopBody: AddEmployeeWeb(
-                            formKeys: _formKeys, isViewOnly: isViewOnly)),
-                  )
+                      child: ResponsiveLayout(
+                          mobileBody: AddEmployeeMobile(
+                              formKeys: _formKeys, isViewOnly: isViewOnly),
+                          provideMobilePadding: false,
+                          desktopBody: AddEmployeeWeb(
+                              formKeys: _formKeys, isViewOnly: isViewOnly)))
                 ]));
   }
 }

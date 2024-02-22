@@ -2,7 +2,11 @@ abstract class EmployeeEvents {}
 
 class InviteEmployee extends EmployeeEvents {}
 
-class UpdateEmployee extends EmployeeEvents {}
+class UpdateEmployee extends EmployeeEvents {
+  final bool isSaveAndNext;
+
+  UpdateEmployee({this.isSaveAndNext = false});
+}
 
 class GetAllEmployees extends EmployeeEvents {}
 

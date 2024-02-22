@@ -10,7 +10,9 @@ import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class AddEmployeeButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
-  const AddEmployeeButton({super.key, required this.formKey});
+  final bool isSaveAndNext;
+  const AddEmployeeButton(
+      {super.key, required this.formKey, this.isSaveAndNext = false});
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +26,13 @@ class AddEmployeeButton extends StatelessWidget {
                 return SuccessAlertDialog(
                     description: state.message.toString(),
                     onPressed: () {
-                      context.read<EmployeeBloc>().add(GetAllEmployees());
-                      Navigator.pop(context);
-                      Navigator.pop(context);
+                      if (state.isSaveAndNext) {
+                        Navigator.pop(context);
+                      } else {
+                        context.read<EmployeeBloc>().add(GetAllEmployees());
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      }
                     });
               });
         } else if (state is UpdatingEmployeeFailed) {
@@ -49,7 +55,9 @@ class AddEmployeeButton extends StatelessWidget {
         return PrimaryButton(
             onPressed: () {
               if (formKey.currentState?.validate() ?? false) {
-                context.read<EmployeeBloc>().add(UpdateEmployee());
+                context
+                    .read<EmployeeBloc>()
+                    .add(UpdateEmployee(isSaveAndNext: isSaveAndNext));
               }
             },
             buttonWidth: kGeneralActionButtonWidth,

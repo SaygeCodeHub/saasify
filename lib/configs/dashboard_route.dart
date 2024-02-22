@@ -5,6 +5,7 @@ import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_screen.dart';
 import 'package:saasify/screens/hrms/leaves/getMyLeaves/my_leaves_screen.dart';
 import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/pending_leave_request_screen.dart';
+import 'package:saasify/screens/hrms/salaryRollout/employee_salary_screen.dart';
 import 'package:saasify/screens/inventory/inventory_screen.dart';
 import 'package:saasify/screens/orders/orders_screen.dart';
 import '../screens/hrms/timesheet/timesheet_screen.dart';
@@ -50,7 +51,7 @@ class DashboardRouting {
       case 'HR_SALARY_ROLLOUT':
         Navigator.push(
           context,
-          buildPageRoute(const EmployeeListScreen()),
+          buildPageRoute(const EmployeeSalaryListScreen()),
         );
         break;
       case 'HR_ADD_NEW_EMPLOYEE':

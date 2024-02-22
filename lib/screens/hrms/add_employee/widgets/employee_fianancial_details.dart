@@ -139,7 +139,6 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['financial']['bank_details']['bank_name'],
-                isRequired: true,
                 enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -150,7 +149,6 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 initialValue:
                     context.read<EmployeeBloc>().employeeDetails['financial']
                         ['bank_details']['branch_name'],
-                isRequired: true,
                 enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -164,7 +162,6 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 initialValue:
                     context.read<EmployeeBloc>().employeeDetails['financial']
                         ['bank_details']['account_number'],
-                isRequired: true,
                 maxLength: 18,
                 enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
@@ -176,7 +173,6 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['financial']['bank_details']['ifsc_code'],
-                isRequired: true,
                 enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -187,7 +183,6 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 initialValue:
                     context.read<EmployeeBloc>().employeeDetails['financial']
                         ['bank_details']['account_type'],
-                isRequired: true,
                 enabled: !isViewOnly,
                 onTextFieldChanged: (value) {
                   context.read<EmployeeBloc>().employeeDetails['financial']
@@ -198,7 +193,6 @@ class EmployeeFinancialDetails extends StatelessWidget {
                 initialValue: context
                     .read<EmployeeBloc>()
                     .employeeDetails['financial']['bank_details']['country'],
-                isRequired: true,
                 enabled: !isViewOnly,
                 items: stringListToDropdownItems(["India"]),
                 onChanged: (value) {

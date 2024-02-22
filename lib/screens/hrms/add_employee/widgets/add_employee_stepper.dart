@@ -28,9 +28,8 @@ class _AddEmployeeStepperState extends State<AddEmployeeStepper> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
+    return Column(children: [
+      Expanded(
           child: Stepper(
               type: StepperType.horizontal,
               currentStep: currentStep,
@@ -40,38 +39,40 @@ class _AddEmployeeStepperState extends State<AddEmployeeStepper> {
               },
               stepIconBuilder: (int index, StepState state) {
                 return widget.steps[index].icon == null
-                    ? Text(
-                        (index + 1).toString(),
+                    ? Text((index + 1).toString(),
                         style: const TextStyle(
                             color: AppColors.white,
                             fontSize: 14,
-                            fontWeight: FontWeight.w600),
-                      )
+                            fontWeight: FontWeight.w600))
                     : Icon(widget.steps[index].icon,
                         size: 14, color: AppColors.white);
               },
               onStepTapped: (step) {
-                if (!widget.isViewOnly) {
-                  if (step > currentStep) {
-                    if ((widget.formKeys[currentStep].currentState
-                            ?.validate() ??
-                        false)) {
-                      if (step - currentStep == 1) {
-                        setState(() {
-                          currentStep = step;
-                        });
-                      }
-                    }
-                  } else {
-                    setState(() {
-                      currentStep = step;
-                    });
-                  }
-                } else {
-                  setState(() {
-                    currentStep = step;
-                  });
-                }
+                setState(() {
+                  currentStep = step;
+                });
+                // Ajay: Validations commented for now
+                // if (!widget.isViewOnly) {
+                //   if (step > currentStep) {
+                //     if ((widget.formKeys[currentStep].currentState
+                //             ?.validate() ??
+                //         false)) {
+                //       if (step - currentStep == 1) {
+                //         setState(() {
+                //           currentStep = step;
+                //         });
+                //       }
+                //     }
+                //   } else {
+                //     setState(() {
+                //       currentStep = step;
+                //     });
+                //   }
+                // } else {
+                //   setState(() {
+                //     currentStep = step;
+                //   });
+                // }
               },
               steps: widget.steps
                   .map((e) => Step(
@@ -80,40 +81,33 @@ class _AddEmployeeStepperState extends State<AddEmployeeStepper> {
                           key: widget.formKeys[widget.steps.indexOf(e)],
                           child: e.content),
                       isActive: currentStep >= widget.steps.indexOf(e)))
-                  .toList()),
-        ),
-        const Divider(
-          height: 1,
-        ),
-        Padding(
+                  .toList())),
+      const Divider(height: 1),
+      Padding(
           padding: const EdgeInsets.symmetric(
               vertical: spacingSmall, horizontal: spacingStandard),
           child: Row(
-            mainAxisAlignment: widget.isMobile
-                ? MainAxisAlignment.center
-                : MainAxisAlignment.end,
-            children: [
-              currentStep == 0
-                  ? const SizedBox(width: kGeneralActionButtonWidth)
-                  : SecondaryButton(
-                      buttonWidth: kGeneralActionButtonWidth,
-                      onPressed: () {
-                        setState(() {
-                          if (currentStep > 0) {
-                            currentStep--;
-                          }
-                        });
-                      },
-                      buttonTitle: 'Back',
-                    ),
-              const SizedBox(
-                width: spacingStandard,
-              ),
-              currentStep < 3
-                  ? PrimaryButton(
-                      buttonWidth: kGeneralActionButtonWidth,
-                      onPressed: () {
-                        if (!widget.isViewOnly) {
+              mainAxisAlignment: widget.isMobile
+                  ? MainAxisAlignment.center
+                  : MainAxisAlignment.end,
+              children: [
+                currentStep == 0
+                    ? const SizedBox(width: kGeneralActionButtonWidth)
+                    : SecondaryButton(
+                        buttonWidth: kGeneralActionButtonWidth,
+                        onPressed: () {
+                          setState(() {
+                            if (currentStep > 0) {
+                              currentStep--;
+                            }
+                          });
+                        },
+                        buttonTitle: 'Back'),
+                const SizedBox(width: spacingStandard),
+                currentStep < 3
+                    ? PrimaryButton(
+                        buttonWidth: kGeneralActionButtonWidth,
+                        onPressed: () {
                           if (widget.formKeys[currentStep].currentState
                                   ?.validate() ??
                               false) {
@@ -123,24 +117,35 @@ class _AddEmployeeStepperState extends State<AddEmployeeStepper> {
                               }
                             });
                           }
-                        } else {
-                          setState(() {
-                            if (currentStep < 3) {
-                              currentStep++;
-                            }
-                          });
-                        }
-                      },
-                      buttonTitle: 'Next',
-                    )
-                  : widget.isViewOnly
-                      ? const SizedBox.shrink()
-                      : AddEmployeeButton(formKey: widget.formKeys.last),
-            ],
-          ),
-        )
-      ],
-    );
+                          // Ajay: Validations commented for now
+                          // if (!widget.isViewOnly) {
+                          //   if (widget.formKeys[currentStep].currentState
+                          //           ?.validate() ??
+                          //       false) {
+                          //     setState(() {
+                          //       if (currentStep < 3) {
+                          //         currentStep++;
+                          //       }
+                          //     });
+                          //   }
+                          // } else {
+                          //   setState(() {
+                          //     if (currentStep < 3) {
+                          //       currentStep++;
+                          //     }
+                          //   });
+                          // }
+                        },
+                        buttonTitle: 'Next')
+                    : const SizedBox.shrink(),
+                const SizedBox(width: spacingStandard),
+                widget.isViewOnly
+                    ? const SizedBox.shrink()
+                    : AddEmployeeButton(
+                        isSaveAndNext: currentStep < 3,
+                        formKey: widget.formKeys.first)
+              ]))
+    ]);
   }
 }
 

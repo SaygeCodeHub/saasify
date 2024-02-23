@@ -41,6 +41,7 @@ class SettingsMobileScreen extends StatelessWidget {
                         .read<SettingsBloc>()
                         .updateSettingsMap["branch_address"] = value;
                   }),
+              const SizedBox(height: spacingXMedium),
               LabelAndFieldWidget(
                   label: StringConstants.kBranchLatitude,
                   initialValue: settingsData.latitude,
@@ -48,6 +49,7 @@ class SettingsMobileScreen extends StatelessWidget {
                     context.read<SettingsBloc>().updateSettingsMap["latitude"] =
                         value;
                   }),
+              const SizedBox(height: spacingXMedium),
               LabelAndFieldWidget(
                   label: StringConstants.kBranchLongitude,
                   initialValue: settingsData.longitude,
@@ -56,6 +58,7 @@ class SettingsMobileScreen extends StatelessWidget {
                         .read<SettingsBloc>()
                         .updateSettingsMap["longitude"] = value;
                   }),
+              const SizedBox(height: spacingXMedium),
               LabelAndFieldWidget(
                   label: StringConstants.kBranchPinCode,
                   initialValue: settingsData.pincode,
@@ -89,6 +92,7 @@ class SettingsMobileScreen extends StatelessWidget {
                               .updateSettingsMap["default_approver"] = value;
                         });
                   }),
+              const SizedBox(height: spacingXMedium),
               TimePickerPopUp(
                   label: StringConstants.kTimeIn,
                   isRequired: true,
@@ -97,6 +101,7 @@ class SettingsMobileScreen extends StatelessWidget {
                     context.read<SettingsBloc>().updateSettingsMap["time_in"] =
                         value;
                   }),
+              const SizedBox(height: spacingXMedium),
               TimePickerPopUp(
                   isRequired: true,
                   label: StringConstants.kTimeOut,
@@ -105,6 +110,7 @@ class SettingsMobileScreen extends StatelessWidget {
                     context.read<SettingsBloc>().updateSettingsMap["time_out"] =
                         value;
                   }),
+              const SizedBox(height: spacingXMedium),
               LabelAndFieldWidget(
                   label: StringConstants.kCurrency,
                   initialValue: settingsData.currency,
@@ -126,6 +132,7 @@ class SettingsMobileScreen extends StatelessWidget {
                         .read<SettingsBloc>()
                         .updateSettingsMap["working_days"] = value;
                   }),
+              const SizedBox(height: spacingXMedium),
               LabelAndFieldWidget(
                   isRequired: true,
                   label: StringConstants.kTotalMedicalLeaves,
@@ -135,6 +142,7 @@ class SettingsMobileScreen extends StatelessWidget {
                         .read<SettingsBloc>()
                         .updateSettingsMap["total_medical_leaves"] = value;
                   }),
+              const SizedBox(height: spacingXMedium),
               LabelAndFieldWidget(
                   isRequired: true,
                   label: StringConstants.kTotalCasualLeaves,
@@ -144,6 +152,7 @@ class SettingsMobileScreen extends StatelessWidget {
                         .read<SettingsBloc>()
                         .updateSettingsMap["total_casual_leaves"] = value;
                   }),
+              const SizedBox(height: spacingXMedium),
               LabelAndFieldWidget(
                   label: StringConstants.kOvertimeRate,
                   initialValue: settingsData.overtimeRate,
@@ -152,6 +161,7 @@ class SettingsMobileScreen extends StatelessWidget {
                         .read<SettingsBloc>()
                         .updateSettingsMap["overtime_rate"] = value;
                   }),
+              const SizedBox(height: spacingXMedium),
               LabelAndFieldWidget(
                   label: StringConstants.kOverTimeRatePer,
                   initialValue: settingsData.overtimeRatePer,

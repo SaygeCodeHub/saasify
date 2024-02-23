@@ -10,9 +10,13 @@ import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class AddEmployeeButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
+  final double? buttonWidth;
   final bool isSaveAndNext;
   const AddEmployeeButton(
-      {super.key, required this.formKey, this.isSaveAndNext = false});
+      {super.key,
+      required this.formKey,
+      this.isSaveAndNext = false,
+      this.buttonWidth});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +64,7 @@ class AddEmployeeButton extends StatelessWidget {
                     .add(UpdateEmployee(isSaveAndNext: isSaveAndNext));
               }
             },
-            buttonWidth: kGeneralActionButtonWidth,
+            buttonWidth: buttonWidth,
             buttonTitle: "Save");
       },
     );

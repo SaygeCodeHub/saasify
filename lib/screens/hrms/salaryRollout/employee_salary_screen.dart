@@ -32,28 +32,12 @@ class EmployeeSalaryListScreen extends StatelessWidget {
               children: [
                 const SizedBox(height: spacingMedium),
                 Padding(
-                  padding: const EdgeInsets.only(left: spacingMedium),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(children: [
-                        isMobile ? const SizedBox.shrink() : const BackButton(),
-                        const SizedBox(width: spacingXMedium),
-                        const ModuleHeading(label: 'Employee List')
-                      ]),
-                      isMobile
-                          ? const SizedBox.shrink()
-                          : Padding(
-                              padding:
-                                  const EdgeInsets.only(right: spacingLarger),
-                              child: PrimaryButton(
-                                  buttonWidth: kGeneralActionButtonWidth,
-                                  onPressed: () {},
-                                  buttonTitle: "Pay All"),
-                            )
-                    ],
-                  ),
-                ),
+                    padding: const EdgeInsets.only(left: spacingMedium),
+                    child: Row(children: [
+                      isMobile ? const SizedBox.shrink() : const BackButton(),
+                      const SizedBox(width: spacingXMedium),
+                      const ModuleHeading(label: 'Employee List')
+                    ])),
                 Expanded(
                   child: BlocConsumer<EmployeeBloc, EmployeeStates>(
                     listener: (context, state) {
@@ -116,14 +100,19 @@ class EmployeeSalaryListScreen extends StatelessWidget {
                     },
                   ),
                 ),
-                isMobile ? const Divider(height: 0) : const SizedBox.shrink(),
-                isMobile
-                    ? Container(
-                        padding: const EdgeInsets.all(spacingStandard),
-                        color: AppColors.white,
-                        child: PrimaryButton(
-                            onPressed: () {}, buttonTitle: "Pay All"))
-                    : const SizedBox(height: spacingMedium)
+                const Divider(height: 0),
+                Container(
+                    padding: const EdgeInsets.all(spacingStandard),
+                    color: AppColors.white,
+                    child: Align(
+                      alignment:
+                          isMobile ? Alignment.center : Alignment.centerRight,
+                      child: PrimaryButton(
+                          buttonWidth:
+                              isMobile ? null : kGeneralActionButtonWidth,
+                          onPressed: () {},
+                          buttonTitle: "Pay All"),
+                    ))
               ],
             ));
   }

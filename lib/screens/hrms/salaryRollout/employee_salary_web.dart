@@ -33,7 +33,6 @@ class EmployeeSalaryWeb extends StatelessWidget {
               ColumnData(header: "Name"),
               ColumnData(header: "Employee ID"),
               ColumnData(header: "Email"),
-              ColumnData(header: "Phone"),
               ColumnData(header: "Payroll"),
               ColumnData(header: "Actions")
             ],
@@ -47,7 +46,6 @@ class EmployeeSalaryWeb extends StatelessWidget {
                   TableText(text: employees[index].name),
                   TableText(text: employees[index].employeeId.toString()),
                   TableText(text: employees[index].userEmail),
-                  TableText(text: employees[index].userContact.toString()),
                   TableText(text: employees[index].payroll.toString()),
                   TableButton(title: "Rollout", onPressed: () {})
                 ]),

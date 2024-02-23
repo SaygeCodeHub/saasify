@@ -86,65 +86,143 @@ class _AddEmployeeStepperState extends State<AddEmployeeStepper> {
       Padding(
           padding: const EdgeInsets.symmetric(
               vertical: spacingSmall, horizontal: spacingStandard),
-          child: Row(
-              mainAxisAlignment: widget.isMobile
-                  ? MainAxisAlignment.center
-                  : MainAxisAlignment.end,
-              children: [
-                currentStep == 0
-                    ? const SizedBox(width: kGeneralActionButtonWidth)
-                    : SecondaryButton(
-                        buttonWidth: kGeneralActionButtonWidth,
-                        onPressed: () {
-                          setState(() {
-                            if (currentStep > 0) {
-                              currentStep--;
-                            }
-                          });
-                        },
-                        buttonTitle: 'Back'),
-                const SizedBox(width: spacingStandard),
-                currentStep < 3
-                    ? PrimaryButton(
-                        buttonWidth: kGeneralActionButtonWidth,
-                        onPressed: () {
-                          if (widget.formKeys[currentStep].currentState
-                                  ?.validate() ??
-                              false) {
-                            setState(() {
-                              if (currentStep < 3) {
-                                currentStep++;
-                              }
-                            });
-                          }
-                          // Ajay: Validations commented for now
-                          // if (!widget.isViewOnly) {
-                          //   if (widget.formKeys[currentStep].currentState
-                          //           ?.validate() ??
-                          //       false) {
-                          //     setState(() {
-                          //       if (currentStep < 3) {
-                          //         currentStep++;
-                          //       }
-                          //     });
-                          //   }
-                          // } else {
-                          //   setState(() {
-                          //     if (currentStep < 3) {
-                          //       currentStep++;
-                          //     }
-                          //   });
-                          // }
-                        },
-                        buttonTitle: 'Next')
-                    : const SizedBox.shrink(),
-                const SizedBox(width: spacingStandard),
-                widget.isViewOnly
-                    ? const SizedBox.shrink()
-                    : AddEmployeeButton(
-                        isSaveAndNext: currentStep < 3,
-                        formKey: widget.formKeys.first)
-              ]))
+          child: Column(
+            children: [
+              widget.isMobile
+                  ? Row(
+                      children: [
+                        Expanded(
+                            child: currentStep == 0
+                                ? const SizedBox(
+                                    width: kGeneralActionButtonWidth)
+                                : SecondaryButton(
+                                    buttonWidth: kGeneralActionButtonWidth,
+                                    onPressed: () {
+                                      setState(() {
+                                        if (currentStep > 0) {
+                                          currentStep--;
+                                        }
+                                      });
+                                    },
+                                    buttonTitle: 'Back')),
+                        const SizedBox(width: spacingStandard),
+                        Expanded(
+                            child: currentStep < 3
+                                ? SecondaryButton(
+                                    buttonWidth: kGeneralActionButtonWidth,
+                                    onPressed: () {
+                                      if (widget.formKeys[currentStep]
+                                              .currentState
+                                              ?.validate() ??
+                                          false) {
+                                        setState(() {
+                                          if (currentStep < 3) {
+                                            currentStep++;
+                                          }
+                                        });
+                                      }
+                                      // Ajay: Validations commented for now
+                                      // if (!widget.isViewOnly) {
+                                      //   if (widget.formKeys[currentStep].currentState
+                                      //           ?.validate() ??
+                                      //       false) {
+                                      //     setState(() {
+                                      //       if (currentStep < 3) {
+                                      //         currentStep++;
+                                      //       }
+                                      //     });
+                                      //   }
+                                      // } else {
+                                      //   setState(() {
+                                      //     if (currentStep < 3) {
+                                      //       currentStep++;
+                                      //     }
+                                      //   });
+                                      // }
+                                    },
+                                    buttonTitle: 'Next')
+                                : const SizedBox.shrink())
+                      ],
+                    )
+                  : Row(
+                      mainAxisAlignment: widget.isMobile
+                          ? MainAxisAlignment.center
+                          : MainAxisAlignment.end,
+                      children: [
+                          currentStep == 0
+                              ? const SizedBox(width: kGeneralActionButtonWidth)
+                              : SecondaryButton(
+                                  buttonWidth: kGeneralActionButtonWidth,
+                                  onPressed: () {
+                                    setState(() {
+                                      if (currentStep > 0) {
+                                        currentStep--;
+                                      }
+                                    });
+                                  },
+                                  buttonTitle: 'Back'),
+                          widget.isViewOnly
+                              ? const SizedBox.shrink()
+                              : const SizedBox(width: spacingStandard),
+                          widget.isViewOnly
+                              ? const SizedBox.shrink()
+                              : AddEmployeeButton(
+                                  buttonWidth: kGeneralActionButtonWidth,
+                                  isSaveAndNext: currentStep < 3,
+                                  formKey: widget.formKeys.first),
+                          currentStep < 3
+                              ? const SizedBox(width: spacingStandard)
+                              : const SizedBox.shrink(),
+                          currentStep < 3
+                              ? PrimaryButton(
+                                  buttonWidth: kGeneralActionButtonWidth,
+                                  onPressed: () {
+                                    if (widget
+                                            .formKeys[currentStep].currentState
+                                            ?.validate() ??
+                                        false) {
+                                      setState(() {
+                                        if (currentStep < 3) {
+                                          currentStep++;
+                                        }
+                                      });
+                                    }
+                                    // Ajay: Validations commented for now
+                                    // if (!widget.isViewOnly) {
+                                    //   if (widget.formKeys[currentStep].currentState
+                                    //           ?.validate() ??
+                                    //       false) {
+                                    //     setState(() {
+                                    //       if (currentStep < 3) {
+                                    //         currentStep++;
+                                    //       }
+                                    //     });
+                                    //   }
+                                    // } else {
+                                    //   setState(() {
+                                    //     if (currentStep < 3) {
+                                    //       currentStep++;
+                                    //     }
+                                    //   });
+                                    // }
+                                  },
+                                  buttonTitle: 'Next')
+                              : const SizedBox.shrink()
+                        ]),
+              widget.isMobile
+                  ? widget.isViewOnly
+                      ? const SizedBox.shrink()
+                      : const SizedBox(height: spacingStandard)
+                  : const SizedBox.shrink(),
+              widget.isMobile
+                  ? widget.isViewOnly
+                      ? const SizedBox.shrink()
+                      : AddEmployeeButton(
+                          isSaveAndNext: currentStep < 3,
+                          formKey: widget.formKeys.first)
+                  : const SizedBox(height: spacingStandard)
+            ],
+          ))
     ]);
   }
 }

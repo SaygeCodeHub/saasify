@@ -84,7 +84,7 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
         "department": [0],
       }
     };
-    selectedEmployeeId == -1;
+    selectedEmployeeId = -1;
   }
 
   FutureOr<void> _getEmployee(

@@ -23,11 +23,13 @@ const double kDialogueWidth = 370;
 const double kCounterContainerSize = 22;
 const double kStockContainerSize = 50;
 const double kGeneralActionButtonWidth = 180;
+const double kDialogueTextBoxWidth = 400;
 const double kProductImageHeight = 25;
 const double kProductImageWidth = 25;
 const double kAvatarRadius = 30;
 const double kPaymentCircleSize = 8;
 const double kCloseIconSize = 20;
+const double kErrorPopButtonWidth = 130;
 
 const double kBackIconSize = 20;
 

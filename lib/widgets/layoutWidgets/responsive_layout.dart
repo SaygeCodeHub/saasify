@@ -15,19 +15,16 @@ class ResponsiveLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      if (constraints.maxWidth < mobileBreakPoint) {
-        return SafeArea(
-          child: Padding(
-            padding: provideMobilePadding
-                ? const EdgeInsets.all(mobileBodyPadding)
-                : const EdgeInsets.all(0),
-            child: mobileBody,
-          ),
-        );
-      } else {
-        return desktopBody;
-      }
-    });
+    bool isMobile = MediaQuery.of(context).size.width < mobileBreakPoint;
+    return isMobile
+        ? SafeArea(
+            child: Padding(
+              padding: provideMobilePadding
+                  ? const EdgeInsets.all(mobileBodyPadding)
+                  : const EdgeInsets.all(0),
+              child: mobileBody,
+            ),
+          )
+        : desktopBody;
   }
 }

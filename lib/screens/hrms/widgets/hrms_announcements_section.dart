@@ -29,10 +29,8 @@ class HrmsAnnouncementsSection extends StatelessWidget {
                   Navigator.pushNamed(context, AddAnnouncementScreen.routeName);
                 },
                 child: Text('Add Announcement',
-                    style: Theme.of(context)
-                        .textTheme
-                        .labelTextStyle
-                        .copyWith(color: AppColors.orange)))
+                    style: Theme.of(context).textTheme.labelTextStyle.copyWith(
+                        fontWeight: FontWeight.w800, color: AppColors.orange)))
           ],
         ),
         const SizedBox(height: spacingLarger),

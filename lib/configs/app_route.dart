@@ -21,6 +21,7 @@ import 'package:saasify/screens/inventory/inventory_screen.dart';
 import 'package:saasify/screens/orders/orders_screen.dart';
 import 'package:saasify/screens/root_screen.dart';
 import 'package:saasify/screens/settings/settings_screen.dart';
+import 'package:saasify/screens/task/task_board_screen.dart';
 import 'package:saasify/screens/task/task_screen.dart';
 
 import '../data/models/leaves/get_all_leaves_model.dart';
@@ -50,6 +51,8 @@ class AppRoutes {
         return _createRoute(const EmployeeListScreen());
       case AddAnnouncementScreen.routeName:
         return _createRoute(AddAnnouncementScreen());
+      case TaskBoardScreen.routeName:
+        return _createRoute(const TaskBoardScreen());
       case AddEmployeeScreen.routeName:
         return _createRoute(AddEmployeeScreen(
             isViewOnly: (settings.arguments ?? false) as bool));

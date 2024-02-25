@@ -48,7 +48,8 @@ class AuthVerifyButton extends StatelessWidget {
             context: context,
             builder: (BuildContext context) {
               return ErrorAlertDialog(
-                  description: state.errorMessage.toString());
+                  description: state.errorMessage.toString(),
+                  showLogoutButton: false);
             },
           );
         }

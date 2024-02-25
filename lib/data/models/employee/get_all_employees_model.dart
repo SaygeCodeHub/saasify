@@ -49,6 +49,7 @@ class EmployeeListData {
   final List<String> designations;
   final String userEmail;
   final dynamic currentAddress;
+  final double payroll;
 
   EmployeeListData({
     required this.employeeId,
@@ -57,6 +58,7 @@ class EmployeeListData {
     required this.designations,
     required this.userEmail,
     required this.currentAddress,
+    this.payroll = 0.0,
   });
 
   factory EmployeeListData.fromJson(Map<String, dynamic>? json) {
@@ -64,16 +66,16 @@ class EmployeeListData {
       throw const FormatException("Invalid JSON format. Data is null.");
     }
     return EmployeeListData(
-      employeeId: json["employee_id"] ?? 0,
-      name: json["name"] ?? "",
-      userContact: json["user_contact"] ?? 0,
-      designations: (json["designations"] as List<dynamic>?)
-              ?.map((e) => e.toString())
-              .toList() ??
-          [],
-      userEmail: json["user_email"] ?? "",
-      currentAddress: json["current_address"],
-    );
+        employeeId: json["employee_id"] ?? 0,
+        name: json["name"] ?? "",
+        userContact: json["user_contact"] ?? 0,
+        designations: (json["designations"] as List<dynamic>?)
+                ?.map((e) => e.toString())
+                .toList() ??
+            [],
+        userEmail: json["user_email"] ?? "",
+        currentAddress: json["current_address"],
+        payroll: json["payroll"] ?? 0.0);
   }
 
   Map<String, dynamic> toJson() => {

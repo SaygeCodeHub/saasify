@@ -23,7 +23,7 @@ class TableButton extends DataCell {
       required void Function()? onPressed,
       TextStyle? textStyle})
       : super(Padding(
-          padding: const EdgeInsets.all(spacingMedium),
+          padding: const EdgeInsets.symmetric(vertical: spacingMedium),
           child: PrimaryButton(
             buttonWidth: 50,
             onPressed: onPressed,

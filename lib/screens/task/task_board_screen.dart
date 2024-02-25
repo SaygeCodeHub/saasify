@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_bloc.dart';
@@ -7,47 +5,92 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/data/models/initialise/initialise_app_model.dart';
 import 'package:saasify/screens/hrms/widgets/build_date.dart';
-import 'package:saasify/screens/task/task_board_screen.dart';
 import 'package:saasify/utils/formatters.dart';
+import 'package:saasify/utils/globals.dart';
 import 'package:saasify/widgets/generalWidgets/status_chip.dart';
+import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
+import 'package:saasify/widgets/tab_bar/custom_tab_bar.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
-import '../../../utils/globals.dart';
+class TaskBoardScreen extends StatelessWidget {
+  static const routeName = 'TaskBoardScreen';
 
-class HrmsTasksSection extends StatelessWidget {
-  final bool isMobile;
-
-  const HrmsTasksSection({super.key, required this.isMobile});
+  const TaskBoardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final int tasksAssignedCount = context
-        .read<InitialiseAppBloc>()
-        .initialiseAppModel!
-        .data!
-        .tasksAssignedToMe!
-        .length;
-    final bool showViewAllButton =
-        !isMobile ? tasksAssignedCount > 5 : tasksAssignedCount > 2;
+    return ScreenSkeleton(
+        childScreenBuilder: (isMobile) => Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(height: spacingMedium),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: spacingMedium),
+                            child: Row(children: [
+                              isMobile
+                                  ? const SizedBox.shrink()
+                                  : const BackButton(),
+                              const SizedBox(width: spacingXMedium),
+                              const ModuleHeading(label: "Tasks Board"),
+                            ]))
+                      ]),
+                  Expanded(
+                      child: CustomTabBar(tabData: [
+                    TabData(
+                        label: "Tasks Assigned To Me",
+                        icon: isMobile ? Icons.assignment_ind_outlined : null,
+                        content: TasksGrid(
+                            label: "Tasks Assigned To Me",
+                            data: context
+                                .read<InitialiseAppBloc>()
+                                .initialiseAppModel!
+                                .data!
+                                .tasksAssignedToMe!)),
+                    TabData(
+                        label: "Tasks Assigned By Me",
+                        icon: isMobile
+                            ? Icons.assignment_turned_in_outlined
+                            : null,
+                        content: TasksGrid(
+                            label: "Tasks Assigned By Me",
+                            data: context
+                                .read<InitialiseAppBloc>()
+                                .initialiseAppModel!
+                                .data!
+                                .tasksAssignedByMe!)),
+                  ]))
+                ]));
+  }
+}
+
+class TasksGrid extends StatelessWidget {
+  final List<TasksAssignedMe> data;
+  final String label;
+
+  const TasksGrid({super.key, required this.data, required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    bool isMobile = MediaQuery.of(context).size.width < mobileBreakPoint;
     bool isTab = MediaQuery.of(context).size.width < tabBreakPoint;
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const ModuleHeading(label: 'Task Boards'),
-                 buildViewAllButton(context)
-          ]),
-      const SizedBox(height: spacingLarger),
-      context
-              .read<InitialiseAppBloc>()
-              .initialiseAppModel!
-              .data!
-              .tasksAssignedToMe!
-              .isEmpty
-          ? buildEmptyTasks(context)
-          : GridView.builder(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        isMobile
+            ? Padding(
+                padding: const EdgeInsets.only(bottom: spacingStandard),
+                child: ModuleHeading(label: label),
+              )
+            : const SizedBox.shrink(),
+        Expanded(
+          child: GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -63,20 +106,8 @@ class HrmsTasksSection extends StatelessWidget {
                       : isTab
                           ? 1.685
                           : 2),
-              itemCount: min(
-                  context
-                      .read<InitialiseAppBloc>()
-                      .initialiseAppModel!
-                      .data!
-                      .tasksAssignedToMe!
-                      .length,
-                  isMobile ? 2 : 5),
+              itemCount: data.length,
               itemBuilder: (context, index) {
-                var data = context
-                    .read<InitialiseAppBloc>()
-                    .initialiseAppModel!
-                    .data!
-                    .tasksAssignedToMe!;
                 return InkWell(
                     onTap: () {},
                     child: Container(
@@ -108,7 +139,9 @@ class HrmsTasksSection extends StatelessWidget {
                                           overflow: TextOverflow.ellipsis)),
                                   SizedBox(height: isMobile ? 2 : spacingSmall),
                                   Flex(
-                                    direction: isMobile ? Axis.vertical : Axis.horizontal,
+                                      direction: isMobile
+                                          ? Axis.vertical
+                                          : Axis.horizontal,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       mainAxisAlignment:
@@ -124,44 +157,15 @@ class HrmsTasksSection extends StatelessWidget {
                                             data[index].priority.toString())
                                       ])
                                 ]))));
-              })
-    ]);
-  }
-
-  Widget buildViewAllButton(context) {
-    return TextButton(
-        onPressed: () {
-          Navigator.pushNamed(context, TaskBoardScreen.routeName);
-        },
-        child: Text('View all',
-            style: Theme.of(context).textTheme.labelTextStyle.copyWith(
-                fontWeight: FontWeight.w800, color: AppColors.orange)));
+              }),
+        ),
+      ],
+    );
   }
 
   Widget buildStatusChip(priority) {
     return StatusChip(
         text: getPriorityFromInt(priority).toString(),
         color: getColorFromStatus(priority.toString()));
-  }
-
-  Widget buildEmptyTasks(context) {
-    return Container(
-        padding: const EdgeInsets.all(spacingLarger),
-        decoration: BoxDecoration(
-            color: AppColors.lightestYellow,
-            border: Border.all(color: AppColors.lighterBlack),
-            borderRadius: BorderRadius.circular(kCardRadius)),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.assignment, color: AppColors.darkBlue, size: 40),
-              const SizedBox(height: spacingStandard),
-              Text('No tasks assigned to you',
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelTextStyle
-                      .copyWith(color: AppColors.darkBlue))
-            ]));
   }
 }

@@ -10,6 +10,7 @@ class SelectableModulesFormField extends StatelessWidget {
   final void Function(List<Map<String, dynamic>>) onSelected;
   final bool isRequired;
   final bool isViewOnly;
+
   const SelectableModulesFormField({
     super.key,
     required this.selectedFeatures,
@@ -30,38 +31,32 @@ class SelectableModulesFormField extends StatelessWidget {
         },
         builder: (FormFieldState<dynamic> state) {
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: MediaQuery.sizeOf(context).height * 0.20,
-                child: SingleChildScrollView(
-                  child: FutureBuilder(
-                      future: getIt<Cache>().getAvailableModules(),
-                      builder: (context, snapshot) {
-                        return SelectableModules(
-                            modules: snapshot.data ?? [],
-                            isViewOnly: isViewOnly,
-                            selectedFeatures: selectedFeatures,
-                            onSelected: (features) {
-                              onSelected(features);
-                              state.didChange(features);
-                            });
-                      }),
-                ),
-              ),
-              state.hasError
-                  ? Padding(
-                      padding: const EdgeInsets.only(
-                          top: spacingXSmall, left: spacingStandard),
-                      child: Text(
-                        state.errorText.toString(),
-                        style:
-                            Theme.of(context).textTheme.errorSubtitleTextStyle,
-                      ),
-                    )
-                  : const SizedBox(height: spacingStandard),
-            ],
-          );
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                    child: SingleChildScrollView(
+                        child: FutureBuilder(
+                            future: getIt<Cache>().getAvailableModules(),
+                            builder: (context, snapshot) {
+                              return SelectableModules(
+                                  modules: snapshot.data ?? [],
+                                  isViewOnly: isViewOnly,
+                                  selectedFeatures: selectedFeatures,
+                                  onSelected: (features) {
+                                    onSelected(features);
+                                    state.didChange(features);
+                                  });
+                            }))),
+                state.hasError
+                    ? Padding(
+                        padding: const EdgeInsets.only(
+                            top: spacingXSmall, left: spacingStandard),
+                        child: Text(state.errorText.toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .errorSubtitleTextStyle))
+                    : const SizedBox(height: spacingStandard)
+              ]);
         });
   }
 }

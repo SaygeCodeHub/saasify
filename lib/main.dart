@@ -52,43 +52,42 @@ class MyPosApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-            lazy: false,
-            create: (context) => AuthBloc()..add(CheckActiveSession())),
-        BlocProvider(lazy: false, create: (context) => AttendanceBloc()),
-        BlocProvider(create: (context) => RegisterBloc()),
-        BlocProvider(create: (context) => EmployeeBloc()),
-        BlocProvider(create: (context) => CompaniesBloc()),
-        BlocProvider(create: (context) => LeavesBloc()),
-        BlocProvider(create: (context) => ResetPasswordBloc()),
-        BlocProvider(create: (context) => TimeSheetBloc()),
-        BlocProvider(create: (context) => SettingsBloc()),
-        BlocProvider(create: (context) => InitialiseAppBloc()),
-        BlocProvider(create: (context) => POSBloc()),
-        BlocProvider(create: (context) => TaskBloc()),
-        BlocProvider(create: (context) => AnnouncementBloc()),
-      ],
-      child: GestureDetector(
-          onTap: () {
-            FocusManager.instance.primaryFocus?.unfocus();
-          },
-          child: MaterialApp(
-              debugShowCheckedModeBanner: false,
-              scrollBehavior:
-                  const MaterialScrollBehavior().copyWith(scrollbars: false),
-              onGenerateRoute: AppRoutes.routes,
-              theme: appTheme,
-              home:
-                  BlocBuilder<AuthBloc, AuthStates>(builder: (context, state) {
-                if (state is ActiveSession) {
-                  return const RootScreen();
-                } else if (state is NoCompanySelected) {
-                  return AddCompanyScreen();
-                } else {
-                  return AuthenticationScreen();
-                }
-              }))),
-    );
+        providers: [
+          BlocProvider(
+              lazy: false,
+              create: (context) => AuthBloc()..add(CheckActiveSession())),
+          BlocProvider(lazy: false, create: (context) => AttendanceBloc()),
+          BlocProvider(create: (context) => RegisterBloc()),
+          BlocProvider(create: (context) => EmployeeBloc()),
+          BlocProvider(create: (context) => CompaniesBloc()),
+          BlocProvider(create: (context) => LeavesBloc()),
+          BlocProvider(create: (context) => ResetPasswordBloc()),
+          BlocProvider(create: (context) => TimeSheetBloc()),
+          BlocProvider(create: (context) => SettingsBloc()),
+          BlocProvider(create: (context) => InitialiseAppBloc()),
+          BlocProvider(create: (context) => POSBloc()),
+          BlocProvider(create: (context) => TaskBloc()),
+          BlocProvider(create: (context) => AnnouncementBloc())
+        ],
+        child: GestureDetector(
+            onTap: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+            child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                scrollBehavior:
+                    const MaterialScrollBehavior().copyWith(scrollbars: false),
+                onGenerateRoute: AppRoutes.routes,
+                theme: appTheme,
+                home: BlocBuilder<AuthBloc, AuthStates>(
+                    builder: (context, state) {
+                  if (state is ActiveSession) {
+                    return const RootScreen();
+                  } else if (state is NoCompanySelected) {
+                    return AddCompanyScreen();
+                  } else {
+                    return AuthenticationScreen();
+                  }
+                }))));
   }
 }

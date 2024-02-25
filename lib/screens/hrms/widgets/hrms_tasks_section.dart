@@ -37,7 +37,7 @@ class HrmsTasksSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const ModuleHeading(label: 'Task Boards'),
-                 buildViewAllButton(context)
+            buildViewAllButton(context)
           ]),
       const SizedBox(height: spacingLarger),
       context
@@ -108,7 +108,9 @@ class HrmsTasksSection extends StatelessWidget {
                                           overflow: TextOverflow.ellipsis)),
                                   SizedBox(height: isMobile ? 2 : spacingSmall),
                                   Flex(
-                                    direction: isMobile ? Axis.vertical : Axis.horizontal,
+                                      direction: isMobile
+                                          ? Axis.vertical
+                                          : Axis.horizontal,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       mainAxisAlignment:

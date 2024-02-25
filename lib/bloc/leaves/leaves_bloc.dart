@@ -30,6 +30,7 @@ class LeavesBloc extends Bloc<LeaveEvents, LeaveStates> {
       LoadApplyLeaveScreen event, Emitter<LeaveStates> emit) async {
     emit(LoadingApplyLeaveScreen());
     try {
+      leaveDetailsMap.clear();
       LoadApplyLeaveScreenModel loadApplyLeaveScreenModel =
           await _leavesRepository.loadApplyLeaveScreen();
       if (loadApplyLeaveScreenModel.status == 200) {

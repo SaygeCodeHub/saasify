@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/task/task_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/task/task_screen.dart';
@@ -18,6 +20,7 @@ class MobileAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: isHome
               ? IconButton(
                   onPressed: () {
+                    context.read<TaskBloc>().resetTaskDetails();
                     Navigator.pushNamed(context, TaskScreen.routeName);
                   },
                   icon: const Icon(Icons.add, color: AppColors.darkBlue))

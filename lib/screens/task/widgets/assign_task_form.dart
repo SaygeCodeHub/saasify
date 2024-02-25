@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:saasify/bloc/task/task_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/enums/task_priority_enum.dart';
@@ -41,7 +42,8 @@ class AssignTaskForm extends StatelessWidget {
           DatePickerField(
               label: 'Due Date',
               isRequired: true,
-              initialDate: context.read<TaskBloc>().taskDetails['due_date'],
+              initialDate: DateFormat('yyyy-MM-dd').parse(
+                  context.read<TaskBloc>().taskDetails['due_date'] ?? ''),
               onTextFieldChanged: (date) {
                 context.read<TaskBloc>().taskDetails['due_date'] = date;
               }),

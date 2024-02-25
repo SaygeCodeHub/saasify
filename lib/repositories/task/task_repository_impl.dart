@@ -8,7 +8,7 @@ import 'package:saasify/utils/constants/api_constants.dart';
 class TaskRepositoryImpl extends TaskRepository {
   final Cache cache = getIt<Cache>();
   @override
-  Future<AssignTaskModel> assignTask(Map<String, dynamic> taskDetails) async {
+  Future<TaskModel> assignTask(Map<String, dynamic> taskDetails) async {
     try {
       var companyId = await cache.getCompanyId();
       var branchId = await cache.getBranchId();
@@ -16,7 +16,38 @@ class TaskRepositoryImpl extends TaskRepository {
       final response = await ClientServices().post(
           "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.assignTask}",
           taskDetails);
-      return AssignTaskModel.fromJson(response);
+      return TaskModel.fromJson(response);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<TaskModel> editTask(Map<String, dynamic> taskDetails) async {
+    try {
+      var companyId = await cache.getCompanyId();
+      var branchId = await cache.getBranchId();
+      var userId = await cache.getUserId();
+      final response = await ClientServices().post(
+          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.editTask}",
+          taskDetails);
+      return TaskModel.fromJson(response);
+    } catch (error) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<TaskModel> updateTaskStatus(
+      Map<String, dynamic> updateTaskDetails) async {
+    try {
+      var companyId = await cache.getCompanyId();
+      var branchId = await cache.getBranchId();
+      var userId = await cache.getUserId();
+      final response = await ClientServices().post(
+          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.updateTaskStatus}",
+          updateTaskDetails);
+      return TaskModel.fromJson(response);
     } catch (error) {
       rethrow;
     }

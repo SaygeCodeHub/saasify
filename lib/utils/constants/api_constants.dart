@@ -18,4 +18,6 @@ class ApiConstants {
   static const assignTask = 'assignTask';
   static const addAnnouncements = 'addAnnouncements';
   static const withdrawLeave = 'withdrawLeave';
+  static const editTask = 'editTask';
+  static const updateTaskStatus = 'updateTaskStatus';
 }

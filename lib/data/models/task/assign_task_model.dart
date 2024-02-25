@@ -1,13 +1,12 @@
-class AssignTaskModel {
+class TaskModel {
   final String message;
   final int status;
   final Map data;
 
-  AssignTaskModel(
-      {required this.message, required this.status, required this.data});
+  TaskModel({required this.message, required this.status, required this.data});
 
-  factory AssignTaskModel.fromJson(Map<String, dynamic> json) {
-    return AssignTaskModel(
+  factory TaskModel.fromJson(Map<String, dynamic> json) {
+    return TaskModel(
         message: json['message'], status: json['status'], data: json['data']);
   }
 

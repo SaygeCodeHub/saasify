@@ -24,15 +24,41 @@ Color getColorFromStatus(String text) {
   }
 }
 
+Color getTaskColorFromStatus(String text) {
+  switch (text) {
+    case 'CLOSED':
+      return AppColors.errorRed;
+    case 'DONE':
+      return AppColors.successGreen;
+    case 'PENDING':
+      return AppColors.lightBlue;
+    default:
+      return Colors.grey;
+  }
+}
+
+Color getTaskColorFromPriority(String text) {
+  switch (text) {
+    case '0':
+      return AppColors.errorRed;
+    case '2':
+      return AppColors.successGreen;
+    case '1':
+      return AppColors.lightBlue;
+    default:
+      return Colors.grey;
+  }
+}
+
 String getPriorityFromInt(String priority) {
   switch (priority) {
-    case '2':
-      return 'High';
-    case '1':
-      return 'Medium';
     case '0':
-      return 'Low';
+      return 'HIGH';
+    case '1':
+      return 'MEDIUM';
+    case '2':
+      return 'LOW';
     default:
-      return 'High';
+      return 'HIGH';
   }
 }

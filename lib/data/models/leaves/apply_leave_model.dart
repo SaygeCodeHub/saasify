@@ -32,29 +32,9 @@ class ApplyLeaveModel {
 }
 
 class Data {
-  final int leaveId;
-  final String leaveStatus;
-  final bool isLeaveApproved;
-  final dynamic comment;
+  Data();
 
-  Data({
-    required this.leaveId,
-    required this.leaveStatus,
-    required this.isLeaveApproved,
-    required this.comment,
-  });
+  factory Data.fromJson(Map<String, dynamic> json) => Data();
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-        leaveId: json["leave_id"],
-        leaveStatus: json["leave_status"],
-        isLeaveApproved: json["is_leave_approved"],
-        comment: json["comment"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "leave_id": leaveId,
-        "leave_status": leaveStatus,
-        "is_leave_approved": isLeaveApproved,
-        "comment": comment,
-      };
+  Map<String, dynamic> toJson() => {};
 }

@@ -40,7 +40,7 @@ class TaskBoardScreen extends StatelessWidget {
                         label: "Tasks Assigned To Me",
                         icon: isMobile ? Icons.assignment_ind_outlined : null,
                         content: TasksGrid(
-                            label: "Tasks Assigned To Me",
+                            isTaskAssignedToMe: true,
                             data: context
                                 .read<InitialiseAppBloc>()
                                 .initialiseAppModel!
@@ -52,7 +52,7 @@ class TaskBoardScreen extends StatelessWidget {
                             ? Icons.assignment_turned_in_outlined
                             : null,
                         content: TasksGrid(
-                            label: "Tasks Assigned By Me",
+                            isTaskAssignedToMe: false,
                             data: context
                                 .read<InitialiseAppBloc>()
                                 .initialiseAppModel!

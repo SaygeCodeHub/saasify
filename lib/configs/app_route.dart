@@ -70,7 +70,8 @@ class AppRoutes {
       case InventoryScreen.routeName:
         return _createRoute(const InventoryScreen());
       case TaskScreen.routeName:
-        return _createRoute(TaskScreen());
+        return _createRoute(
+            TaskScreen(isEdit: settings.arguments as bool? ?? false));
       case LeaveDetailsNavigationScreen.routeName:
         List<dynamic> args = settings.arguments as List<dynamic>;
         return _createRoute(LeaveDetailsNavigationScreen(

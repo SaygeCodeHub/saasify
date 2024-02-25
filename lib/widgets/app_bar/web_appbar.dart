@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/task/task_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/task/task_screen.dart';
 import 'package:saasify/widgets/app_bar/profile_dropdown.dart';
@@ -30,6 +32,7 @@ class WebAppBar extends StatelessWidget {
             child: isHome
                 ? IconButton(
                     onPressed: () {
+                      context.read<TaskBloc>().resetTaskDetails();
                       Navigator.pushNamed(context, TaskScreen.routeName);
                     },
                     icon: const Icon(Icons.add, color: AppColors.darkBlue))

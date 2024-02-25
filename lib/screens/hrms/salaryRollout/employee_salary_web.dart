@@ -18,39 +18,36 @@ class EmployeeSalaryWeb extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BackgroundCardWidget(
-      childScreen: Padding(
-        padding: const EdgeInsets.all(spacingMedium),
-        child: CustomDataTable(
-            checkboxVisible: false,
-            showRowCheckBox: false,
-            rowOnTap: (index) {
-              context
-                  .read<EmployeeBloc>()
-                  .add(GetEmployee(employeeId: employees[index].employeeId));
-            },
-            columnList: [
-              ColumnData(header: "", width: 100),
-              ColumnData(header: "Name"),
-              ColumnData(header: "Employee ID"),
-              ColumnData(header: "Email"),
-              ColumnData(header: "Payroll"),
-              ColumnData(header: "Actions")
-            ],
-            selectedIds: const [],
-            dataCount: employees.length,
-            dataIds: List.generate(
-                employees.length, (index) => employees[index].employeeId),
-            onRowCheckboxChange: (value) {},
-            generateData: (index) => [
-                  const TableAvatar(),
-                  TableText(text: employees[index].name),
-                  TableText(text: employees[index].employeeId.toString()),
-                  TableText(text: employees[index].userEmail),
-                  TableText(text: employees[index].payroll.toString()),
-                  TableButton(title: "Rollout", onPressed: () {})
-                ]),
-      ),
-    );
+        childScreen: Padding(
+            padding: const EdgeInsets.all(spacingMedium),
+            child: CustomDataTable(
+                checkboxVisible: false,
+                showRowCheckBox: false,
+                rowOnTap: (index) {
+                  context.read<EmployeeBloc>().add(
+                      GetEmployee(employeeId: employees[index].employeeId));
+                },
+                columnList: [
+                  ColumnData(header: "", width: 100),
+                  ColumnData(header: "Name"),
+                  ColumnData(header: "Employee ID"),
+                  ColumnData(header: "Email"),
+                  ColumnData(header: "Payroll"),
+                  ColumnData(header: "")
+                ],
+                selectedIds: const [],
+                dataCount: employees.length,
+                dataIds: List.generate(
+                    employees.length, (index) => employees[index].employeeId),
+                onRowCheckboxChange: (value) {},
+                generateData: (index) => [
+                      const TableAvatar(),
+                      TableText(text: employees[index].name),
+                      TableText(text: employees[index].employeeId.toString()),
+                      TableText(text: employees[index].userEmail),
+                      TableText(text: employees[index].payroll.toString()),
+                      TableButton(title: "Pay", onPressed: () {})
+                    ])));
   }
 
   Color designationColor(String designation) {

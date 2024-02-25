@@ -14,9 +14,8 @@ class EmployeeSalaryMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
+    return Column(children: [
+      Expanded(
           child: ListView.separated(
               itemCount: employees.length,
               shrinkWrap: true,
@@ -42,7 +41,7 @@ class EmployeeSalaryMobile extends StatelessWidget {
                                     horizontal: 10, vertical: 5),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5))),
-                            child: const Text('Rollout',
+                            child: const Text('Pay',
                                 style: TextStyle(
                                     color: AppColors.white,
                                     fontWeight: FontWeight.bold,
@@ -50,28 +49,24 @@ class EmployeeSalaryMobile extends StatelessWidget {
                         title: Text(employees[index].name,
                             style:
                                 Theme.of(context).textTheme.userNameTextStyle),
-                        subtitle: Row(
-                          children: [
-                            Text('Employee ID - ${employees[index].employeeId}',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .statusTextStyle
-                                    .copyWith(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 10)),
-                            const SizedBox(width: 10),
-                            Text("Payroll - ${employees[index].payroll}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .statusTextStyle
-                                    .copyWith(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 10)),
-                          ],
-                        )));
-              }),
-        ),
-      ],
-    );
+                        subtitle: Row(children: [
+                          Text('Employee ID - ${employees[index].employeeId}',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .statusTextStyle
+                                  .copyWith(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 10)),
+                          const SizedBox(width: 10),
+                          Text("Payroll - ${employees[index].payroll}",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .statusTextStyle
+                                  .copyWith(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 10))
+                        ])));
+              }))
+    ]);
   }
 }

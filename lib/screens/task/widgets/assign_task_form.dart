@@ -42,7 +42,7 @@ class AssignTaskForm extends StatelessWidget {
           DatePickerField(
               label: 'Due Date',
               isRequired: true,
-              initialDate: DateFormat('yyyy-MM-dd').parse(
+              initialDate: DateFormat('yyyy-MM-dd').tryParse(
                   context.read<TaskBloc>().taskDetails['due_date'] ?? ''),
               onTextFieldChanged: (date) {
                 context.read<TaskBloc>().taskDetails['due_date'] = date;

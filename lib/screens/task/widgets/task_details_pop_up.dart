@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:saasify/bloc/initialise/initialise_bloc.dart';
-import 'package:saasify/bloc/initialise/initialise_events.dart';
 import 'package:saasify/bloc/task/task_bloc.dart';
+import 'package:saasify/bloc/task/task_event.dart';
 import 'package:saasify/bloc/task/task_state.dart';
-import 'package:saasify/configs/app_colors.dart';
-import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/data/models/initialise/initialise_app_model.dart';
-import 'package:saasify/screens/task/task_screen.dart';
+import 'package:saasify/data/models/task/get_all_tasks_model.dart';
 import 'package:saasify/screens/task/widgets/task_widget_utils.dart';
-import 'package:saasify/screens/task/widgets/update_task_status_button.dart';
 import 'package:saasify/utils/formatters.dart';
 import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/widgets/actions/detailsPopUp.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
-import 'package:saasify/widgets/buttons/primary_button.dart';
 import 'package:saasify/widgets/generalWidgets/status_chip.dart';
 
 class TaskDetailsPopup extends StatelessWidget {
@@ -38,11 +32,15 @@ class TaskDetailsPopup extends StatelessWidget {
             ProgressBar.show(context);
           } else if (state is TaskStatusUpdated) {
             ProgressBar.dismiss(context);
-            context.read<InitialiseAppBloc>().add(InitialiseApp());
+            context.read<TaskBloc>().add(FetchAllTasks());
             showDialog(
                 context: context,
-                builder: (context) =>
-                    SuccessAlertDialog(description: state.message));
+                builder: (context) => SuccessAlertDialog(
+                    description: state.message,
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    }));
           } else if (state is ErrorUpdatingTaskStatus) {
             ProgressBar.dismiss(context);
             showDialog(
@@ -54,26 +52,11 @@ class TaskDetailsPopup extends StatelessWidget {
         child: DetailsPopUp(
             title: "Task Details",
             onCommentsChanged: (comments) {
-              context.read<TaskBloc>().taskDetails["comments"] = comments;
+              context.read<TaskBloc>().taskDetails["comment"] = comments;
             },
-            actionsBuilder: (updateKey) => [
-                  UpdateTaskStatusButton(
-                      task: task, status: 'CLOSED', formKey: updateKey),
-                  isTaskAssignedToMe
-                      ? UpdateTaskStatusButton(
-                          task: task, status: 'DONE', formKey: updateKey)
-                      : PrimaryButton(
-                          buttonWidth: kGeneralActionButtonWidth,
-                          onPressed: () {
-                            context.read<TaskBloc>().setTaskDetails(task);
-                            if (updateKey.currentState!.validate()) {
-                              Navigator.pushNamed(context, TaskScreen.routeName,
-                                  arguments: true);
-                            }
-                          },
-                          backgroundColor: AppColors.darkBlue,
-                          buttonTitle: "Edit Task")
-                ],
+            initialComments: task.comment,
+            actionsBuilder: (updateKey) => getTaskDetailsActions(
+                context, updateKey, isTaskAssignedToMe, task),
             details: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 DetailsField(title: "Title", data: task.title),
@@ -82,8 +65,11 @@ class TaskDetailsPopup extends StatelessWidget {
                     color: getTaskColorFromStatus(task.taskStatus))
               ]),
               const SizedBox(height: spacingSmall),
-              DetailsField(
-                  title: "Assigned By", data: task.assignedBy?.name ?? ""),
+              isTaskAssignedToMe
+                  ? DetailsField(
+                      title: "Assigned By", data: task.assignedBy?.name ?? "")
+                  : DetailsField(
+                      title: "Assigned To", data: task.assignedTo?.name ?? ""),
               const SizedBox(height: spacingSmall),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 DetailsField(
@@ -95,7 +81,7 @@ class TaskDetailsPopup extends StatelessWidget {
               DetailsField(
                   data: task.taskDescription, title: "Task Description")
             ],
-            commentsEditable: true,
+            commentsEditable: task.taskStatus == 'CLOSED' ? false : true,
             commentsRequired: true));
   }
 }

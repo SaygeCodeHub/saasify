@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:saasify/data/models/task/get_all_tasks_model.dart';
+
 InitialiseAppModel initialiseAppModelFromJson(String str) =>
     InitialiseAppModel.fromJson(json.decode(str));
 
@@ -236,75 +238,5 @@ class Announcement {
         "description": description,
         "is_active": isActive,
         "published_time": publishedTime.toIso8601String(),
-      };
-}
-
-class TasksAssignedMe {
-  String title;
-  String taskDescription;
-  DateTime dueDate;
-  int priority;
-  Assigned? assignedTo;
-  String taskStatus;
-  int taskId;
-  Assigned? assignedBy;
-
-  TasksAssignedMe({
-    required this.title,
-    required this.taskDescription,
-    required this.dueDate,
-    required this.priority,
-    this.assignedTo,
-    required this.taskStatus,
-    required this.taskId,
-    this.assignedBy,
-  });
-
-  factory TasksAssignedMe.fromJson(Map<String, dynamic> json) =>
-      TasksAssignedMe(
-        title: json["title"],
-        taskDescription: json["task_description"],
-        dueDate: DateTime.parse(json["due_date"]),
-        priority: json["priority"],
-        assignedTo: json["assigned_to"] == null
-            ? null
-            : Assigned.fromJson(json["assigned_to"]),
-        taskStatus: json["task_status"],
-        taskId: json["task_id"],
-        assignedBy: json["assigned_by"] == null
-            ? null
-            : Assigned.fromJson(json["assigned_by"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "title": title,
-        "task_description": taskDescription,
-        "due_date":
-            "${dueDate.year.toString().padLeft(4, '0')}-${dueDate.month.toString().padLeft(2, '0')}-${dueDate.day.toString().padLeft(2, '0')}",
-        "priority": priority,
-        "assigned_to": assignedTo?.toJson(),
-        "task_status": taskStatus,
-        "task_id": taskId,
-        "assigned_by": assignedBy?.toJson(),
-      };
-}
-
-class Assigned {
-  int id;
-  String name;
-
-  Assigned({
-    required this.id,
-    required this.name,
-  });
-
-  factory Assigned.fromJson(Map<String, dynamic> json) => Assigned(
-        id: json["id"],
-        name: json["name"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
       };
 }

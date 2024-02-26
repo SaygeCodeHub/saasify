@@ -20,4 +20,5 @@ class ApiConstants {
   static const withdrawLeave = 'withdrawLeave';
   static const editTask = 'editTask';
   static const updateTaskStatus = 'updateTaskStatus';
+  static const getTasks = 'getTasks';
 }

@@ -3,7 +3,7 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
-import 'package:saasify/data/models/initialise/initialise_app_model.dart';
+import 'package:saasify/data/models/task/get_all_tasks_model.dart';
 import 'package:saasify/screens/hrms/widgets/build_date.dart';
 import 'package:saasify/screens/task/widgets/task_details_pop_up.dart';
 import 'package:saasify/screens/task/widgets/task_details_screen.dart';

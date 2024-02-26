@@ -2,8 +2,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:saasify/bloc/task/task_event.dart';
 import 'package:saasify/bloc/task/task_state.dart';
-import 'package:saasify/data/models/initialise/initialise_app_model.dart';
+import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/task/assign_task_model.dart';
+import 'package:saasify/data/models/task/get_all_tasks_model.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/task/task_repository.dart';
 
@@ -15,6 +16,7 @@ class TaskBloc extends Bloc<TaskEvents, TaskStates> {
   TaskBloc() : super(TaskInitial()) {
     on<AssignTask>(_onAddTask);
     on<UpdateTaskStatus>(_onUpdateTaskStatus);
+    on<FetchAllTasks>(_onFetchAllTasks);
   }
 
   void _onAddTask(AssignTask event, Emitter<TaskStates> emit) async {
@@ -41,7 +43,7 @@ class TaskBloc extends Bloc<TaskEvents, TaskStates> {
         "task_id": event.task.taskId,
         "title": event.task.title,
         "monitored_by": event.task.assignedBy?.id,
-        "status": event.status
+        "task_status": event.status
       };
       TaskModel taskModel = await taskRepository.updateTaskStatus(taskDetails);
       if (taskModel.status == 200) {
@@ -54,14 +56,28 @@ class TaskBloc extends Bloc<TaskEvents, TaskStates> {
     }
   }
 
-  setTaskDetails(TasksAssignedMe task) {
+  void _onFetchAllTasks(FetchAllTasks event, Emitter<TaskStates> emit) async {
+    emit(FetchingAllTasks());
+    try {
+      GetAllTasksModel getAllTasksModel = await taskRepository.getTasks();
+      if (getAllTasksModel.status == 200) {
+        emit(AllTasksFetched(getAllTasksModel.data));
+      } else {
+        emit(ErrorFetchingAllTasks(getAllTasksModel.message));
+      }
+    } catch (error) {
+      emit(ErrorFetchingAllTasks(error.toString()));
+    }
+  }
+
+  setTaskDetails(TasksAssignedMe task) async {
     taskDetails["task_id"] = task.taskId;
     taskDetails["title"] = task.title;
     taskDetails["task_description"] = task.taskDescription;
     taskDetails["assigned_to"] = task.assignedTo?.id;
     taskDetails["due_date"] = DateFormat('yyyy-MM-dd').format(task.dueDate);
     taskDetails["priority"] = task.priority;
-    taskDetails["monitored_by"] = task.assignedBy?.id;
+    taskDetails["monitored_by"] = int.parse(await getIt<Cache>().getUserId());
   }
 
   resetTaskDetails() {

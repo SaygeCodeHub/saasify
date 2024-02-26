@@ -9,6 +9,7 @@ class DetailsScreen extends StatelessWidget {
   final List<Widget> details;
   final bool showComments;
   final bool commentsEditable;
+  final String? initialComments;
   final bool commentsRequired;
   final List<Widget> Function(GlobalKey<FormState>) actionsBuilder;
   final void Function(String?)? onCommentsChanged;
@@ -23,6 +24,7 @@ class DetailsScreen extends StatelessWidget {
     this.commentsEditable = false,
     required this.details,
     required this.commentsRequired,
+    this.initialComments,
   });
 
   @override
@@ -58,6 +60,7 @@ class DetailsScreen extends StatelessWidget {
                         LabelAndFieldWidget(
                           isRequired: commentsRequired,
                           enabled: commentsEditable,
+                          initialValue: initialComments,
                           label: StringConstants.kComments,
                           maxLines: 5,
                           onTextFieldChanged: onCommentsChanged,

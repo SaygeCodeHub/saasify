@@ -12,6 +12,7 @@ class DetailsPopUp extends StatelessWidget {
   final bool showComments;
   final bool commentsEditable;
   final bool commentsRequired;
+  final String? initialComments;
   final List<Widget> Function(GlobalKey<FormState>) actionsBuilder;
   final void Function(String?)? onCommentsChanged;
   final GlobalKey<FormState> updateKey = GlobalKey<FormState>();
@@ -25,6 +26,7 @@ class DetailsPopUp extends StatelessWidget {
     this.commentsEditable = false,
     required this.details,
     required this.commentsRequired,
+    this.initialComments,
   });
 
   @override
@@ -54,6 +56,7 @@ class DetailsPopUp extends StatelessWidget {
                                     LabelAndFieldWidget(
                                         isRequired: commentsRequired,
                                         enabled: commentsEditable,
+                                        initialValue: initialComments,
                                         label: StringConstants.kComments,
                                         maxLines: 5,
                                         onTextFieldChanged: onCommentsChanged)

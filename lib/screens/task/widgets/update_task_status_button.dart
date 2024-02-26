@@ -4,7 +4,7 @@ import 'package:saasify/bloc/task/task_bloc.dart';
 import 'package:saasify/bloc/task/task_event.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
-import 'package:saasify/data/models/initialise/initialise_app_model.dart';
+import 'package:saasify/data/models/task/get_all_tasks_model.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class UpdateTaskStatusButton extends StatelessWidget {

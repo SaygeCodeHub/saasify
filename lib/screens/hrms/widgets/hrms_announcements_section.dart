@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/announcemnet/announcement_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
@@ -16,6 +17,11 @@ class HrmsAnnouncementsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var data = context
+        .read<InitialiseAppBloc>()
+        .initialiseAppModel!
+        .data!
+        .announcements!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -26,6 +32,7 @@ class HrmsAnnouncementsSection extends StatelessWidget {
             const ModuleHeading(label: 'Announcements'),
             InkWell(
                 onTap: () {
+                  context.read<AnnouncementBloc>().announcementDetails.clear();
                   Navigator.pushNamed(context, AddAnnouncementScreen.routeName);
                 },
                 child: Text('Add Announcement',
@@ -41,41 +48,22 @@ class HrmsAnnouncementsSection extends StatelessWidget {
               borderRadius: BorderRadius.circular(kCardRadius)),
           child: Padding(
             padding: const EdgeInsets.all(spacingSmall),
-            child: context
-                    .read<InitialiseAppBloc>()
-                    .initialiseAppModel!
-                    .data!
-                    .announcements!
-                    .isEmpty
+            child: data.isEmpty
                 ? buildEmptyAnnouncements(context)
                 : ListView.builder(
-                    itemCount: context
-                        .read<InitialiseAppBloc>()
-                        .initialiseAppModel!
-                        .data!
-                        .announcements!
-                        .length,
+                    itemCount: data.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      var data = context
-                          .read<InitialiseAppBloc>()
-                          .initialiseAppModel!
-                          .data!
-                          .announcements!;
-                      return SizedBox(
-                        width: MediaQuery.sizeOf(context).width * 0.15,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            buildDate(data[index].dueDate.toString(), context),
-                            const Text(' : '),
-                            Expanded(
-                              child: Text(data[index].description, maxLines: 2),
-                            )
-                          ],
-                        ),
-                      );
+                      return ListTile(
+                          leading: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              buildDate(
+                                  data[index].dueDate.toString(), context),
+                              const Text(" : ")
+                            ],
+                          ),
+                          title: Text(data[index].description, maxLines: 2));
                     }),
           ),
         ),

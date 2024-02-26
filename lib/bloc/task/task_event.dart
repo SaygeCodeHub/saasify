@@ -1,4 +1,4 @@
-import 'package:saasify/data/models/initialise/initialise_app_model.dart';
+import 'package:saasify/data/models/task/get_all_tasks_model.dart';
 
 abstract class TaskEvents {}
 
@@ -15,3 +15,5 @@ class UpdateTaskStatus extends TaskEvents {
 
   UpdateTaskStatus({this.comments, required this.task, required this.status});
 }
+
+class FetchAllTasks extends TaskEvents {}

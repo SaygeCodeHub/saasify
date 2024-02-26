@@ -1,5 +1,5 @@
 import 'package:saasify/caches/cache.dart';
-import 'package:saasify/data/models/task/assign_task_model.dart';
+import 'package:saasify/data/models/task/task_model.dart';
 import 'package:saasify/data/models/task/get_all_tasks_model.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/repositories/task/task_repository.dart';

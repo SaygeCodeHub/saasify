@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:saasify/data/models/announcement/get_all_announcements_model.dart';
 import 'package:saasify/data/models/task/get_all_tasks_model.dart';
 
 InitialiseAppModel initialiseAppModelFromJson(String str) =>
@@ -205,38 +206,5 @@ class ListOfBranches {
   Map<String, dynamic> toJson() => {
         "branch_name": branchName,
         "branch_id": branchId,
-      };
-}
-
-class Announcement {
-  int id;
-  DateTime dueDate;
-  String description;
-  bool isActive;
-  DateTime publishedTime;
-
-  Announcement({
-    required this.id,
-    required this.dueDate,
-    required this.description,
-    required this.isActive,
-    required this.publishedTime,
-  });
-
-  factory Announcement.fromJson(Map<String, dynamic> json) => Announcement(
-        id: json["id"],
-        dueDate: DateTime.parse(json["due_date"]),
-        description: json["description"],
-        isActive: json["is_active"],
-        publishedTime: DateTime.parse(json["published_time"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "due_date":
-            "${dueDate.year.toString().padLeft(4, '0')}-${dueDate.month.toString().padLeft(2, '0')}-${dueDate.day.toString().padLeft(2, '0')}",
-        "description": description,
-        "is_active": isActive,
-        "published_time": publishedTime.toIso8601String(),
       };
 }

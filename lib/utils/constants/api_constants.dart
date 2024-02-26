@@ -21,4 +21,7 @@ class ApiConstants {
   static const editTask = 'editTask';
   static const updateTaskStatus = 'updateTaskStatus';
   static const getTasks = 'getTasks';
+  static const deleteAnnouncements = 'deleteAnnouncements';
+  static const getAnnouncements = 'getAnnouncements';
+  static const updateAnnouncements = 'updateAnnouncements';
 }

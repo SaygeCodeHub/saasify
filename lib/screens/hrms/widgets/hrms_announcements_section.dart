@@ -5,6 +5,8 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/screens/announcements/all_announcements_screen.dart';
+import 'package:saasify/screens/announcements/widgets/announcements_widget_utils.dart';
 import 'package:saasify/screens/hrms/widgets/build_date.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
@@ -29,7 +31,10 @@ class HrmsAnnouncementsSection extends StatelessWidget {
             children: [
               const ModuleHeading(label: 'Announcements'),
               InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pushNamed(
+                        context, AllAnnouncementsScreen.routeName);
+                  },
                   child: Text('View All',
                       style: Theme.of(context)
                           .textTheme
@@ -53,43 +58,11 @@ class HrmsAnnouncementsSection extends StatelessWidget {
                           itemCount: 3,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(spacingSmall),
-                              child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                        width: 78,
-                                        child: buildDate(
-                                            data[index].dueDate.toString(),
-                                            context)),
-                                    const Text(' : '),
-                                    Expanded(
-                                      child: Text(data[index].description,
-                                          maxLines: 2),
-                                    )
-                                  ]),
-                            );
+                            return buildAnnouncementItem(
+                                context,
+                                data[index].dueDate.toString(),
+                                data[index].description);
                           })))
         ]);
-  }
-
-  Widget buildViewAllButton(context) {
-    return TextButton(
-        onPressed: () {},
-        child: Text('View all',
-            style: Theme.of(context).textTheme.labelTextStyle.copyWith(
-                fontWeight: FontWeight.w800, color: AppColors.orange)));
-  }
-
-  Widget buildEmptyAnnouncements(context) {
-    return Center(
-      child: Text('No Announcements',
-          style: Theme.of(context)
-              .textTheme
-              .labelTextStyle
-              .copyWith(fontWeight: FontWeight.w800, color: AppColors.orange)),
-    );
   }
 }

@@ -23,7 +23,9 @@ class AnnouncementBloc extends Bloc<AnnouncementEvents, AnnouncementStates> {
     emit(AddingAnnouncement());
     try {
       AnnouncementModel addAnnouncementModel =
-          await announcementRepository.addAnnouncement(announcementDetails);
+          event.isEdit
+              ? await announcementRepository.updateAnnouncement(announcementDetails)
+              : await announcementRepository.addAnnouncement(announcementDetails);
       if (addAnnouncementModel.status == 200) {
         emit(AnnouncementAdded());
       } else {
@@ -64,5 +66,9 @@ class AnnouncementBloc extends Bloc<AnnouncementEvents, AnnouncementStates> {
     } catch (e) {
       emit(ErrorGettingAllAnnouncements(e.toString()));
     }
+  }
+
+  void setAnnouncementDetails(Announcement details) {
+    announcementDetails = details.toJson();
   }
 }

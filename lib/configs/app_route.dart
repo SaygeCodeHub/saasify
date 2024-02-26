@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
 import 'package:saasify/screens/POS/pos_screen.dart';
 import 'package:saasify/screens/announcements/add_announcement_screen.dart';
+import 'package:saasify/screens/announcements/all_announcements_screen.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/authentication/forgotPassword/forgot_password_screen.dart';
 import 'package:saasify/screens/authentication/register/register_screen.dart';
@@ -50,7 +51,8 @@ class AppRoutes {
       case EmployeeListScreen.routeName:
         return _createRoute(const EmployeeListScreen());
       case AddAnnouncementScreen.routeName:
-        return _createRoute(AddAnnouncementScreen());
+        return _createRoute(AddAnnouncementScreen(
+            isEdit: settings.arguments as bool? ?? false));
       case TaskBoardScreen.routeName:
         return _createRoute(const TaskBoardScreen());
       case AddEmployeeScreen.routeName:
@@ -69,6 +71,8 @@ class AppRoutes {
         return _createRoute(const OrdersScreen());
       case InventoryScreen.routeName:
         return _createRoute(const InventoryScreen());
+      case AllAnnouncementsScreen.routeName:
+        return _createRoute(const AllAnnouncementsScreen());
       case TaskScreen.routeName:
         return _createRoute(
             TaskScreen(isEdit: settings.arguments as bool? ?? false));

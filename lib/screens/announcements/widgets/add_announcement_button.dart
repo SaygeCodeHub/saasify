@@ -12,12 +12,13 @@ import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class AddAnnouncementButton extends StatelessWidget {
   final double buttonWidth;
+  final bool isEdit;
   final GlobalKey<FormState> formKey;
 
   const AddAnnouncementButton(
       {super.key,
       required this.formKey,
-      this.buttonWidth = kGeneralActionButtonWidth});
+      this.buttonWidth = kGeneralActionButtonWidth, required this.isEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +55,10 @@ class AddAnnouncementButton extends StatelessWidget {
               buttonWidth: buttonWidth,
               onPressed: () {
                 if (formKey.currentState?.validate() ?? false) {
-                  context.read<AnnouncementBloc>().add(AddAnnouncement());
+                  context.read<AnnouncementBloc>().add(AddAnnouncement(isEdit: isEdit));
                 }
               },
-              buttonTitle: 'Add Announcement',
+              buttonTitle:isEdit ? 'Edit Announcement' : 'Add Announcement',
             );
           },
         ),

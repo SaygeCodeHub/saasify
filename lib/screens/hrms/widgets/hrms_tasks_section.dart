@@ -12,9 +12,7 @@ import 'package:saasify/screens/task/widgets/task_details_screen.dart';
 import 'package:saasify/screens/task/widgets/task_widget_utils.dart';
 import 'package:saasify/screens/task/task_board_screen.dart';
 import 'package:saasify/screens/task/widgets/task_details_pop_up.dart';
-import 'package:saasify/utils/formatters.dart';
 import 'package:saasify/utils/globals.dart';
-import 'package:saasify/widgets/generalWidgets/status_chip.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
 class HrmsTasksSection extends StatelessWidget {

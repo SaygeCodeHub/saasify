@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/leaves/leave_events.dart';
 import 'package:saasify/bloc/leaves/leave_states.dart';
 import 'package:saasify/bloc/leaves/leaves_bloc.dart';
-import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/pending_leave_request_mobile_screen.dart';

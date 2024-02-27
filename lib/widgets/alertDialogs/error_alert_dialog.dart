@@ -27,9 +27,28 @@ class ErrorAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isMobile = MediaQuery.of(context).size.width < mobileBreakPoint;
     return AlertDialog(
-        icon: SizedBox.square(
-            dimension: kSassifyLogoSize,
-            child: Image.asset('assets/xmark-circle.png')),
+        icon: Stack(
+          alignment: Alignment.center,
+          children: [
+            showLogoutButton
+                ? Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {
+                          getIt<Cache>().clearSharedPreferences();
+                          Navigator.pushNamedAndRemoveUntil(context,
+                              AuthenticationScreen.routeName, (route) => false);
+                        },
+                        icon: const Icon(Icons.logout,
+                            color: AppColors.errorRed)),
+                  )
+                : const SizedBox.shrink(),
+            SizedBox.square(
+                dimension: kSassifyLogoSize,
+                child: Image.asset('assets/xmark-circle.png')),
+          ],
+        ),
         title: Text('Error!',
             style: Theme.of(context).textTheme.dialogueHeadingTextStyle),
         actionsPadding: const EdgeInsets.only(
@@ -50,24 +69,7 @@ class ErrorAlertDialog extends StatelessWidget {
                   Navigator.pop(context);
                 }
               },
-              buttonTitle: 'Dismiss'),
-          showLogoutButton
-              ? PrimaryButton(
-                  buttonWidth: isMobile
-                      ? kErrorPopButtonWidth
-                      : kGeneralActionButtonWidth,
-                  backgroundColor: AppColors.errorRed,
-                  onPressed: () {
-                    if (onPressed != null) {
-                      onPressed!();
-                    } else {
-                      getIt<Cache>().clearSharedPreferences();
-                      Navigator.pushNamedAndRemoveUntil(context,
-                          AuthenticationScreen.routeName, (route) => false);
-                    }
-                  },
-                  buttonTitle: 'Log Out')
-              : const SizedBox.shrink()
+              buttonTitle: 'Dismiss')
         ]);
   }
 }

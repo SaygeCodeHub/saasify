@@ -1,6 +1,16 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/employee/employee_bloc.dart';
+import 'package:saasify/bloc/employee/employee_event.dart';
+import 'package:saasify/bloc/employee/employee_states.dart';
+import 'package:saasify/caches/cache.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/data/models/screenArguments/update_employee_screen_arguments.dart';
+import 'package:saasify/di/app_module.dart';
+import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
+import 'package:saasify/utils/progress_bar.dart';
+import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/profile/user_profile_widget.dart';
 
 class WebProfileDropdown extends StatelessWidget {
@@ -9,27 +19,48 @@ class WebProfileDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
-        child: DropdownButton2(
-            customButton: const UserProfileWidget(),
-            items: [
-              ...MenuItems.firstItems.map((item) => DropdownMenuItem<MenuItem>(
-                  value: item, child: MenuItems.buildItem(item)))
-            ],
-            onChanged: (value) {
-              MenuItems.onChanged(context, value!);
-            },
-            buttonStyleData: ButtonStyleData(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(40))),
-            dropdownStyleData: DropdownStyleData(
-                width: 160,
-                padding: const EdgeInsets.symmetric(vertical: 6),
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(4)),
-                offset: const Offset(40, -4)),
-            menuItemStyleData: MenuItemStyleData(customHeights: [
-              ...List<double>.filled(MenuItems.firstItems.length, 48)
-            ], padding: const EdgeInsets.only(left: 16, right: 16))));
+        child: BlocListener<EmployeeBloc, EmployeeStates>(
+      listener: (context, state) {
+        if (state is LoadingEmployee) {
+          ProgressBar.show(context);
+        }
+        if (state is EmployeeLoaded) {
+          ProgressBar.dismiss(context);
+          Navigator.pushNamed(context, AddEmployeeScreen.routeName,
+              arguments: UpdateEmployeeScreenArguments(
+                  isViewOnly: true, isProfile: true));
+        }
+        if (state is LoadingEmployeeFailed) {
+          context.read<EmployeeBloc>().add(GetAllEmployees());
+          ProgressBar.dismiss(context);
+          showDialog(
+              context: context,
+              builder: (context) {
+                return ErrorAlertDialog(description: state.errorMessage);
+              });
+        }
+      },
+      child: DropdownButton2(
+          customButton: const UserProfileWidget(),
+          items: [
+            ...MenuItems.firstItems.map((item) => DropdownMenuItem<MenuItem>(
+                value: item, child: MenuItems.buildItem(item)))
+          ],
+          onChanged: (value) {
+            MenuItems.onChanged(context, value!);
+          },
+          buttonStyleData: ButtonStyleData(
+              decoration:
+                  BoxDecoration(borderRadius: BorderRadius.circular(40))),
+          dropdownStyleData: DropdownStyleData(
+              width: 160,
+              padding: const EdgeInsets.symmetric(vertical: 6),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
+              offset: const Offset(40, -4)),
+          menuItemStyleData: MenuItemStyleData(customHeights: [
+            ...List<double>.filled(MenuItems.firstItems.length, 48)
+          ], padding: const EdgeInsets.only(left: 16, right: 16))),
+    ));
   }
 }
 
@@ -56,9 +87,15 @@ class MenuItems {
     ]);
   }
 
-  static void onChanged(BuildContext context, MenuItem item) {
+  static void onChanged(BuildContext context, MenuItem item) async {
+    String userId = await getIt<Cache>().getUserId();
     switch (item) {
       case MenuItems.edit:
+        if (context.mounted) {
+          context
+              .read<EmployeeBloc>()
+              .add(GetEmployee(employeeId: int.parse(userId)));
+        }
         break;
     }
   }

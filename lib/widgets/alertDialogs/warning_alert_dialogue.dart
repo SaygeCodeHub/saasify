@@ -17,12 +17,16 @@ class WarningAlertDialogue extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
         icon: Stack(
+          alignment: Alignment.center,
           children: [
-            IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.close, color: AppColors.warningYellow)),
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.close)),
+            ),
             SizedBox.square(
                 dimension: kSassifyLogoSize,
                 child: Image.asset('assets/exclamation-circle.png')),

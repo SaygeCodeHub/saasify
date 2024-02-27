@@ -25,9 +25,9 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
 
   FutureOr<void> _initialiseApp(
       InitialiseApp event, Emitter<InitialiseAppStates> emit) async {
-    // if (state is InitialiseStates) {
-    emit(InitialisingApp());
-    // }
+    if (state is InitialiseStates) {
+      emit(InitialisingApp());
+    }
     try {
       if (!kIsWeb) {
         bool tokenAvailable = await NotificationUtil().ifTokenExists();

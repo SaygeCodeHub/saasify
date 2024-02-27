@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/screens/hrms/add_employee/widgets/add_employee_button.dart';
+import 'package:saasify/screens/hrms/add_employee/widgets/buttons/add_employee_button.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 import 'package:saasify/widgets/buttons/secondary_button.dart';
 

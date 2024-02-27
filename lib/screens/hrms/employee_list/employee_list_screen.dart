@@ -5,6 +5,7 @@ import 'package:saasify/bloc/employee/employee_event.dart';
 import 'package:saasify/bloc/employee/employee_states.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/data/models/screenArguments/update_employee_screen_arguments.dart';
 import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_mobile.dart';
 import 'package:saasify/screens/hrms/employee_list/employee_list_web.dart';
@@ -59,7 +60,8 @@ class EmployeeListScreen extends StatelessWidget {
                         ProgressBar.dismiss(context);
                         Navigator.pushNamed(
                                 context, AddEmployeeScreen.routeName,
-                                arguments: true)
+                                arguments: UpdateEmployeeScreenArguments(
+                                    isViewOnly: true))
                             .then((value) => context
                                 .read<EmployeeBloc>()
                                 .add(GetAllEmployees()));

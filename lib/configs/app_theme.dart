@@ -65,6 +65,11 @@ extension AppTextTheme on TextTheme {
         fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w300);
   }
 
+  TextStyle get displayLabelTextStyle {
+    return const TextStyle(
+        fontSize: 16, color: AppColors.darkBlue, fontWeight: FontWeight.w800);
+  }
+
   TextStyle get disabledTextStyle {
     return const TextStyle(
         fontSize: 16, color: AppColors.darkGrey, fontWeight: FontWeight.bold);

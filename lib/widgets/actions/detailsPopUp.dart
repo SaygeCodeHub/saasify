@@ -84,12 +84,14 @@ class DetailsField extends StatelessWidget {
   final String title;
   final String data;
   final StatusChip? statusChip;
+  final int maxLines;
 
   const DetailsField({
     super.key,
     required this.data,
     required this.title,
     this.statusChip,
+    this.maxLines = 1,
   });
 
   @override
@@ -110,7 +112,11 @@ class DetailsField extends StatelessWidget {
                         color: AppColors.darkBlue)),
                 statusChip != null
                     ? Center(child: statusChip)
-                    : Text(data, maxLines: 1)
+                    : Expanded(
+                        child: Text(data,
+                            style: Theme.of(context).textTheme.labelTextStyle,
+                            maxLines: maxLines,
+                            overflow: TextOverflow.ellipsis))
               ]),
         ));
   }

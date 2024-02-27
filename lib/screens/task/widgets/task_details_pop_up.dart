@@ -7,7 +7,6 @@ import 'package:saasify/bloc/task/task_state.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/models/task/get_all_tasks_model.dart';
 import 'package:saasify/screens/task/widgets/task_widget_utils.dart';
-import 'package:saasify/utils/formatters.dart';
 import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/widgets/actions/detailsPopUp.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
@@ -59,7 +58,7 @@ class TaskDetailsPopup extends StatelessWidget {
                 context, updateKey, isTaskAssignedToMe, task),
             details: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                DetailsField(title: "Title", data: task.title),
+                Expanded(child: DetailsField(title: "Title", data: task.title)),
                 DetailsField(
                     data: "",
                     title: "Status",
@@ -74,9 +73,11 @@ class TaskDetailsPopup extends StatelessWidget {
                       title: "Assigned To", data: task.assignedTo?.name ?? ""),
               const SizedBox(height: spacingSmall),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                DetailsField(
-                    title: "Due Date",
-                    data: DateFormat('dd/MM/yyyy').format(task.dueDate)),
+                Expanded(
+                  child: DetailsField(
+                      title: "Due Date",
+                      data: DateFormat('dd/MM/yyyy').format(task.dueDate)),
+                ),
                 DetailsField(
                     data: "",
                     title: "Priority",

@@ -60,7 +60,9 @@ class EmployeeSalaryWeb extends StatelessWidget {
                               .toString()),
                       TableButton(
                           title: "Pay",
-                          onPressed: (salaryRolloutData.salaryRollout[index].isRolledOut != true)
+                          onPressed: (salaryRolloutData
+                                      .salaryRollout[index].isRolledOut !=
+                                  true)
                               ? () {}
                               : null)
                     ])));

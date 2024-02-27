@@ -39,7 +39,7 @@ class Data {
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    finalPay: json["final_pay"],
+        finalPay: json["final_pay"],
       );
 
   Map<String, dynamic> toJson() => {

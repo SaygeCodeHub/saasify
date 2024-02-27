@@ -42,7 +42,8 @@ class SalaryRolloutData {
     required this.salaryRollout,
   });
 
-  factory SalaryRolloutData.fromJson(Map<String, dynamic> json) => SalaryRolloutData(
+  factory SalaryRolloutData.fromJson(Map<String, dynamic> json) =>
+      SalaryRolloutData(
         totalSalaryRollout: json["total_salary_rollout"],
         allRolledOut: json["all_rolled_out"],
         salaryRollout: List<SalaryRollout>.from(

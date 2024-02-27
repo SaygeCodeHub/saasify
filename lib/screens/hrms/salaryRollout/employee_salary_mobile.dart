@@ -31,12 +31,12 @@ class EmployeeSalaryMobile extends StatelessWidget {
                         border: Border.all(color: AppColors.lighterBlack),
                         borderRadius: BorderRadius.circular(kCardRadius)),
                     child: ListTile(
-                        onTap: () {
-                        },
+                        onTap: () {},
                         leading: const Icon(Icons.person,
                             color: AppColors.darkBlue, size: kAvatarRadius),
                         trailing: TextButton(
-                            onPressed: (salaryRolloutData.salaryRollout[index].isRolledOut != true)
+                            onPressed: (salaryRolloutData.salaryRollout[index].isRolledOut !=
+                                    true)
                                 ? () {
                                     context.read<SalaryRolloutBloc>().add(
                                         FetchRolloutCalculation(
@@ -83,10 +83,11 @@ class EmployeeSalaryMobile extends StatelessWidget {
                                   }
                                 : null,
                             style: TextButton.styleFrom(
-                                backgroundColor:
-                                (salaryRolloutData.salaryRollout[index].isRolledOut != true)
-                                        ? AppColors.orange
-                                        : Colors.grey.shade300,
+                                backgroundColor: (salaryRolloutData
+                                            .salaryRollout[index].isRolledOut !=
+                                        true)
+                                    ? AppColors.orange
+                                    : Colors.grey.shade300,
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 5),
                                 shape: RoundedRectangleBorder(
@@ -97,8 +98,7 @@ class EmployeeSalaryMobile extends StatelessWidget {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 12))),
                         title: Text(salaryRolloutData.salaryRollout[index].name,
-                            style:
-                                Theme.of(context).textTheme.userNameTextStyle),
+                            style: Theme.of(context).textTheme.userNameTextStyle),
                         subtitle: Row(children: [
                           Text(
                               'Employee ID - ${salaryRolloutData.salaryRollout[index].employeeId}',

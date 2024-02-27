@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_bloc.dart';
@@ -7,7 +9,6 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/screens/announcements/all_announcements_screen.dart';
 import 'package:saasify/screens/announcements/widgets/announcements_widget_utils.dart';
-import 'package:saasify/screens/hrms/widgets/build_date.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
 class HrmsAnnouncementsSection extends StatelessWidget {
@@ -55,7 +56,7 @@ class HrmsAnnouncementsSection extends StatelessWidget {
                   child: data.isEmpty
                       ? buildEmptyAnnouncements(context)
                       : ListView.builder(
-                          itemCount: 3,
+                          itemCount: min(data.length, 3),
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return buildAnnouncementItem(

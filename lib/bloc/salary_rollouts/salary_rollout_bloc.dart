@@ -10,7 +10,7 @@ import '../../di/app_module.dart';
 
 class SalaryRolloutBloc extends Bloc<SalaryRolloutEvents, SalaryRolloutStates> {
   final SalaryRolloutRepository _salaryRolloutRepository =
-  getIt<SalaryRolloutRepository>();
+      getIt<SalaryRolloutRepository>();
   final Cache cache = getIt<Cache>();
   bool payAll = true;
 
@@ -19,15 +19,15 @@ class SalaryRolloutBloc extends Bloc<SalaryRolloutEvents, SalaryRolloutStates> {
     on<FetchRolloutCalculation>(_fetchingSalaryCalculation);
   }
 
-  _getSalaryRollout(FetchSalaryRollout event,
-      Emitter<SalaryRolloutStates> emit) async {
+  _getSalaryRollout(
+      FetchSalaryRollout event, Emitter<SalaryRolloutStates> emit) async {
     emit(FetchingSalaryRollouts());
     try {
       FetchSalaryRolloutModel fetchSalaryRolloutModel =
-      await _salaryRolloutRepository.fetchSalaryRollout();
+          await _salaryRolloutRepository.fetchSalaryRollout();
       if (fetchSalaryRolloutModel.status == 200) {
         payAll =
-        fetchSalaryRolloutModel.data.allRolledOut == true ? false : true;
+            fetchSalaryRolloutModel.data.allRolledOut == true ? false : true;
         emit(SalaryRolloutsFetched(
             fetchSalaryRolloutModel: fetchSalaryRolloutModel));
       } else {
@@ -39,12 +39,12 @@ class SalaryRolloutBloc extends Bloc<SalaryRolloutEvents, SalaryRolloutStates> {
     }
   }
 
-  _fetchingSalaryCalculation(FetchRolloutCalculation event,
-      Emitter<SalaryRolloutStates> emit) async {
+  _fetchingSalaryCalculation(
+      FetchRolloutCalculation event, Emitter<SalaryRolloutStates> emit) async {
     emit(FetchingSalaryCalculation());
     try {
       CalculateDeductionModel calculateDeductionModel =
-      await _salaryRolloutRepository.calculateDeduction(event.employeeId);
+          await _salaryRolloutRepository.calculateDeduction(event.employeeId);
       if (calculateDeductionModel.status == 200) {
         emit(SalaryCalculationFetched(
             calculateDeductionModel: calculateDeductionModel));

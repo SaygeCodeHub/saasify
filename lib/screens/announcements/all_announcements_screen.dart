@@ -208,7 +208,7 @@ class AnnouncementDetailsPopup extends StatelessWidget {
             buildDate(data.dueDate.toString(), context,
                 showDateIcon: true, orangeColor: false),
             const SizedBox(height: spacingLarge),
-            DetailsField(data: data.description, title: "Description"),
+            Expanded(child: DetailsField(data: data.description, title: "Description")),
           ],
           showComments: false,
           commentsRequired: false),

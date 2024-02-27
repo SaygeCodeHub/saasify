@@ -24,4 +24,6 @@ class ApiConstants {
   static const deleteAnnouncements = 'deleteAnnouncements';
   static const getAnnouncements = 'getAnnouncements';
   static const updateAnnouncements = 'updateAnnouncements';
+  static const getSalaries = 'getSalaries';
+  static const calculateDeductions = 'calculateDeductions';
 }

@@ -18,6 +18,7 @@ class DetailsPopUp extends StatelessWidget {
   final void Function(String?)? onCommentsChanged;
   final GlobalKey<FormState> updateKey = GlobalKey<FormState>();
   final double? height;
+  final double? width;
 
   DetailsPopUp({
     super.key,
@@ -30,6 +31,7 @@ class DetailsPopUp extends StatelessWidget {
     required this.commentsRequired,
     this.initialComments,
     this.height,
+    this.width,
   });
 
   @override
@@ -45,7 +47,7 @@ class DetailsPopUp extends StatelessWidget {
         title: ModuleHeading(label: title),
         content: SizedBox(
             height: height ?? MediaQuery.sizeOf(context).height * 0.5,
-            width: MediaQuery.sizeOf(context).width * 0.5,
+            width: width ?? MediaQuery.sizeOf(context).width * 0.5,
             child: Padding(
                 padding: const EdgeInsets.all(spacingMedium),
                 child: Form(

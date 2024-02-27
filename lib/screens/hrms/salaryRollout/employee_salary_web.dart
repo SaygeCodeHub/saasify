@@ -9,7 +9,13 @@ import 'package:saasify/widgets/layoutWidgets/background_card_widget.dart';
 import 'package:saasify/widgets/table/custom_table.dart';
 import 'package:saasify/widgets/table/table_cells.dart';
 
+import '../../../bloc/salary_rollouts/salary_rollout_bloc.dart';
+import '../../../bloc/salary_rollouts/salary_rollout_event.dart';
+import '../../../bloc/salary_rollouts/salary_rollout_state.dart';
+import '../../../configs/app_dimensions.dart';
 import '../../../data/models/salary_rollouts/fetch_salary_rollout_model.dart';
+import '../../../widgets/actions/detailsPopUp.dart';
+import '../../../widgets/buttons/primary_button.dart';
 
 class EmployeeSalaryWeb extends StatelessWidget {
   final SalaryRolloutData salaryRolloutData;
@@ -63,7 +69,61 @@ class EmployeeSalaryWeb extends StatelessWidget {
                           onPressed: (salaryRolloutData
                                       .salaryRollout[index].isRolledOut !=
                                   true)
-                              ? () {}
+                              ? () {
+                                  context.read<SalaryRolloutBloc>().add(
+                                      FetchRolloutCalculation(
+                                          employeeId: salaryRolloutData
+                                              .salaryRollout[index].employeeId
+                                              .toString()));
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return DetailsPopUp(
+                                            height: 150,
+                                            width: 300,
+                                            title: 'Pay Amount',
+                                            actionsBuilder: (commentsKey) {
+                                              return [
+                                                PrimaryButton(
+                                                    buttonWidth:
+                                                        kErrorPopButtonWidth,
+                                                    backgroundColor:
+                                                        AppColors.orange,
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      context
+                                                          .read<
+                                                              SalaryRolloutBloc>()
+                                                          .add(RollOutIndividualSalary(
+                                                              employeeId: salaryRolloutData
+                                                                  .salaryRollout[
+                                                                      index]
+                                                                  .employeeId
+                                                                  .toString()));
+                                                    },
+                                                    buttonTitle: "Continue")
+                                              ];
+                                            },
+                                            details: [
+                                              Text(
+                                                  'Employee: ${salaryRolloutData.salaryRollout[index].name}'),
+                                              BlocBuilder<SalaryRolloutBloc,
+                                                      SalaryRolloutStates>(
+                                                  builder: (context, state) {
+                                                if (state
+                                                    is SalaryCalculationFetched) {
+                                                  return Text(
+                                                      'Final Amount: ${state.calculateDeductionModel.data.finalPay}');
+                                                } else {
+                                                  return const SizedBox
+                                                      .shrink();
+                                                }
+                                              })
+                                            ],
+                                            commentsRequired: false,
+                                            showComments: false);
+                                      });
+                                }
                               : null)
                     ])));
   }

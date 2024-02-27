@@ -35,7 +35,8 @@ class EmployeeSalaryMobile extends StatelessWidget {
                         leading: const Icon(Icons.person,
                             color: AppColors.darkBlue, size: kAvatarRadius),
                         trailing: TextButton(
-                            onPressed: (salaryRolloutData.salaryRollout[index].isRolledOut !=
+                            onPressed: (salaryRolloutData
+                                        .salaryRollout[index].isRolledOut !=
                                     true)
                                 ? () {
                                     context.read<SalaryRolloutBloc>().add(
@@ -56,7 +57,18 @@ class EmployeeSalaryMobile extends StatelessWidget {
                                                         kGeneralActionButtonWidth,
                                                     backgroundColor:
                                                         AppColors.orange,
-                                                    onPressed: () {},
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      context
+                                                          .read<
+                                                              SalaryRolloutBloc>()
+                                                          .add(RollOutIndividualSalary(
+                                                              employeeId: salaryRolloutData
+                                                                  .salaryRollout[
+                                                                      index]
+                                                                  .employeeId
+                                                                  .toString()));
+                                                    },
                                                     buttonTitle: "Continue")
                                               ];
                                             },
@@ -83,11 +95,11 @@ class EmployeeSalaryMobile extends StatelessWidget {
                                   }
                                 : null,
                             style: TextButton.styleFrom(
-                                backgroundColor: (salaryRolloutData
-                                            .salaryRollout[index].isRolledOut !=
-                                        true)
-                                    ? AppColors.orange
-                                    : Colors.grey.shade300,
+                                backgroundColor:
+                                    (salaryRolloutData.salaryRollout[index].isRolledOut !=
+                                            true)
+                                        ? AppColors.orange
+                                        : Colors.grey.shade300,
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 5),
                                 shape: RoundedRectangleBorder(

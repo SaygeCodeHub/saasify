@@ -27,102 +27,114 @@ class ApplyLeaveWebScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BackgroundCardWidget(
         childScreen: Form(
-      key: formKey,
-      child: Column(children: [
-        Padding(
-            padding: const EdgeInsets.all(spacingMedium),
-            child: MultiFieldRow(childrenWidgets: [
-              LeaveStatisticsCard(
-                  applyLeaveData: applyLeaveData,
-                  iconData: Icons.medical_services_outlined,
-                  title: StringConstants.kBalanceMedicalLeaves,
-                  trailingData: applyLeaveData.medicalLeaves.toString()),
-              LeaveStatisticsCard(
-                  applyLeaveData: applyLeaveData,
-                  iconData: Icons.medical_services_outlined,
-                  title: StringConstants.kBalanceCasualLeaves,
-                  trailingData: applyLeaveData.casualLeaves.toString())
-            ])),
-        const Divider(),
-        const SizedBox(height: spacingXMedium),
-        Padding(
-          padding: const EdgeInsets.all(spacingMedium),
-          child: MultiFieldRow(childrenWidgets: [
-            DropdownLabelWidget(
-                label: StringConstants.kLeaveType,
-                initialValue:
-                    context.read<LeavesBloc>().leaveDetailsMap['leave_type'],
-                isRequired: true,
-                hint: StringConstants.kLeaveType,
-                items: List.generate(
-                    LeaveTypeEnum.values.length,
-                    (index) => CustomDropDownItem(
-                        label: LeaveTypeEnum.values.elementAt(index).type,
-                        value: LeaveTypeEnum.values.elementAt(index).typeId)),
-                onChanged: (value) {
-                  context.read<LeavesBloc>().leaveDetailsMap['leave_type'] =
-                      value;
-                }),
-            DatePickerField(
-                label: 'From Date',
-                initialDate: DateFormat('yyyy-mm-dd').tryParse(
-                    context.read<LeavesBloc>().leaveDetailsMap['start_date'] ??
-                        ""),
-                isRequired: true,
-                firstDate: DateTime.now(),
-                onTextFieldChanged: (text) {
-                  context.read<LeavesBloc>().leaveDetailsMap['start_date'] =
-                      text;
-                }),
-            DatePickerField(
-                label: 'To Date',
-                initialDate: DateFormat('yyyy-mm-dd').tryParse(
-                    context.read<LeavesBloc>().leaveDetailsMap['end_date'] ??
-                        ""),
-                isRequired: true,
-                firstDate: DateTime.now(),
-                onTextFieldChanged: (text) {
-                  context.read<LeavesBloc>().leaveDetailsMap['end_date'] = text;
-                }),
-            DropdownLabelWidget(
-                label: StringConstants.kApprovers,
-                hint: StringConstants.kApprovers,
-                isRequired: true,
-                initialValue:
-                    context.read<LeavesBloc>().leaveDetailsMap['approvers'],
-                items: List.generate(
-                    applyLeaveData.approvers.length,
-                    (index) => CustomDropDownItem(
-                        label: applyLeaveData.approvers[index].approverName,
-                        value: applyLeaveData.approvers[index].id)),
-                onChanged: (value) {
-                  context.read<LeavesBloc>().leaveDetailsMap['approvers'] = [
-                    value
-                  ];
-                })
-          ]),
-        ),
-        const SizedBox(height: spacingXMedium),
-        Padding(
-          padding: const EdgeInsets.all(spacingMedium),
-          child: LabelAndFieldWidget(
-              label: StringConstants.kReasonForLeave,
-              initialValue:
-                  context.read<LeavesBloc>().leaveDetailsMap['leave_reason'],
-              isRequired: true,
-              maxLines: 5,
-              onTextFieldChanged: (text) {
-                context.read<LeavesBloc>().leaveDetailsMap['leave_reason'] =
-                    text;
-              }),
-        ),
-        const SizedBox(height: spacingSmall),
-        Padding(
-            padding: const EdgeInsets.all(spacingMedium),
-            child: Align(
-                alignment: Alignment.centerRight,
-                child: ApplyLeaveButton(formKey: formKey)))
-      ]),
-    ));
+            key: formKey,
+            child: Column(children: [
+              Padding(
+                  padding: const EdgeInsets.all(spacingMedium),
+                  child: MultiFieldRow(childrenWidgets: [
+                    LeaveStatisticsCard(
+                        applyLeaveData: applyLeaveData,
+                        iconData: Icons.medical_services_outlined,
+                        title: StringConstants.kBalanceMedicalLeaves,
+                        trailingData: applyLeaveData.medicalLeaves.toString()),
+                    LeaveStatisticsCard(
+                        applyLeaveData: applyLeaveData,
+                        iconData: Icons.medical_services_outlined,
+                        title: StringConstants.kBalanceCasualLeaves,
+                        trailingData: applyLeaveData.casualLeaves.toString())
+                  ])),
+              const Divider(),
+              const SizedBox(height: spacingXMedium),
+              Padding(
+                  padding: const EdgeInsets.all(spacingMedium),
+                  child: MultiFieldRow(childrenWidgets: [
+                    DropdownLabelWidget(
+                        label: StringConstants.kLeaveType,
+                        initialValue: context
+                            .read<LeavesBloc>()
+                            .leaveDetailsMap['leave_type'],
+                        isRequired: true,
+                        hint: StringConstants.kLeaveType,
+                        items: List.generate(
+                            LeaveTypeEnum.values.length,
+                            (index) => CustomDropDownItem(
+                                label:
+                                    LeaveTypeEnum.values.elementAt(index).type,
+                                value: LeaveTypeEnum.values
+                                    .elementAt(index)
+                                    .typeId)),
+                        onChanged: (value) {
+                          context
+                              .read<LeavesBloc>()
+                              .leaveDetailsMap['leave_type'] = value;
+                        }),
+                    DatePickerField(
+                        label: 'From Date',
+                        initialDate: DateFormat('yyyy-mm-dd').tryParse(context
+                                .read<LeavesBloc>()
+                                .leaveDetailsMap['start_date'] ??
+                            ""),
+                        isRequired: true,
+                        firstDate: DateTime.now(),
+                        onTextFieldChanged: (text) {
+                          context
+                              .read<LeavesBloc>()
+                              .leaveDetailsMap['start_date'] = text;
+                        }),
+                    DatePickerField(
+                        label: 'To Date',
+                        initialDate: DateFormat('yyyy-mm-dd').tryParse(context
+                                .read<LeavesBloc>()
+                                .leaveDetailsMap['end_date'] ??
+                            ""),
+                        isRequired: true,
+                        firstDate: DateTime.now(),
+                        onTextFieldChanged: (text) {
+                          context
+                              .read<LeavesBloc>()
+                              .leaveDetailsMap['end_date'] = text;
+                        }),
+                    DropdownLabelWidget(
+                        label: StringConstants.kApprovers,
+                        hint: StringConstants.kApprovers,
+                        isRequired: true,
+                        initialValue: context
+                            .read<LeavesBloc>()
+                            .leaveDetailsMap['approvers'],
+                        items: List.generate(
+                            applyLeaveData.approvers.length,
+                            (index) => CustomDropDownItem(
+                                label: applyLeaveData
+                                    .approvers[index].approverName,
+                                value: applyLeaveData.approvers[index].id)),
+                        onChanged: (value) {
+                          context
+                              .read<LeavesBloc>()
+                              .leaveDetailsMap['approvers'] = [value];
+                        })
+                  ])),
+              const SizedBox(height: spacingXMedium),
+              Padding(
+                  padding: const EdgeInsets.all(spacingMedium),
+                  child: LabelAndFieldWidget(
+                      label: StringConstants.kReasonForLeave,
+                      initialValue: context
+                          .read<LeavesBloc>()
+                          .leaveDetailsMap['leave_reason'],
+                      isRequired: true,
+                      maxLines: 5,
+                      onTextFieldChanged: (text) {
+                        context
+                            .read<LeavesBloc>()
+                            .leaveDetailsMap['leave_reason'] = text;
+                      })),
+              const SizedBox(height: spacingSmall),
+              Padding(
+                  padding: const EdgeInsets.all(spacingMedium),
+                  child: Align(
+                      alignment: Alignment.centerRight,
+                      child:
+                          ApplyLeaveButton(formKey: formKey, isMobile: false)))
+            ])));
   }
 }

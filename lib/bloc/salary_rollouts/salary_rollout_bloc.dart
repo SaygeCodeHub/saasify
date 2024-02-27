@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/salary_rollouts/salary_rollout_event.dart';
 import 'package:saasify/bloc/salary_rollouts/salary_rollout_state.dart';
 import 'package:saasify/data/models/salary_rollouts/fetch_salary_rollout_model.dart';
+import 'package:saasify/data/models/salary_rollouts/roll_out_salaries.dart';
 import 'package:saasify/repositories/salary_rollouts/salary_rollout_repository.dart';
 
 import '../../caches/cache.dart';
@@ -17,9 +20,45 @@ class SalaryRolloutBloc extends Bloc<SalaryRolloutEvents, SalaryRolloutStates> {
   SalaryRolloutBloc() : super(SalaryRolloutInitial()) {
     on<FetchSalaryRollout>(_getSalaryRollout);
     on<FetchRolloutCalculation>(_fetchingSalaryCalculation);
+    on<RollOutAllSalary>(_rolloutAllSalaries);
+    on<RollOutIndividualSalary>(_rolloutIndividualSalary);
   }
 
-  _getSalaryRollout(
+  FutureOr<void> _rolloutAllSalaries(
+      RollOutAllSalary event, Emitter<SalaryRolloutStates> emit) async {
+    emit(RollingOutAllSalaries());
+    try {
+      RolloutSalariesModel rolloutSalariesModel =
+          await _salaryRolloutRepository.allRollouts();
+      if (rolloutSalariesModel.status == 200) {
+        emit(AllSalariesRolledOut(message: rolloutSalariesModel.message));
+      } else {
+        emit(ErrorRollingOutAllSalaries(
+            errorMessage: rolloutSalariesModel.message));
+      }
+    } catch (e) {
+      emit(ErrorRollingOutAllSalaries(errorMessage: e.toString()));
+    }
+  }
+
+  FutureOr<void> _rolloutIndividualSalary(
+      RollOutIndividualSalary event, Emitter<SalaryRolloutStates> emit) async {
+    emit(RollingOutAllSalaries());
+    try {
+      RolloutSalariesModel rolloutSalariesModel =
+          await _salaryRolloutRepository.allRollouts();
+      if (rolloutSalariesModel.status == 200) {
+        emit(AllSalariesRolledOut(message: rolloutSalariesModel.message));
+      } else {
+        emit(ErrorRollingOutAllSalaries(
+            errorMessage: rolloutSalariesModel.message));
+      }
+    } catch (e) {
+      emit(ErrorRollingOutAllSalaries(errorMessage: e.toString()));
+    }
+  }
+
+  FutureOr<void> _getSalaryRollout(
       FetchSalaryRollout event, Emitter<SalaryRolloutStates> emit) async {
     emit(FetchingSalaryRollouts());
     try {
@@ -39,7 +78,7 @@ class SalaryRolloutBloc extends Bloc<SalaryRolloutEvents, SalaryRolloutStates> {
     }
   }
 
-  _fetchingSalaryCalculation(
+  FutureOr<void> _fetchingSalaryCalculation(
       FetchRolloutCalculation event, Emitter<SalaryRolloutStates> emit) async {
     emit(FetchingSalaryCalculation());
     try {

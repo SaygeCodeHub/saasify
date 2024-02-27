@@ -31,28 +31,27 @@ class WebAppBar extends StatelessWidget {
               const Expanded(child: SizedBox()),
               isHome
                   ? PopupMenuButton(
+                      splashRadius: 20,
                       padding: EdgeInsets.zero,
                       itemBuilder: (BuildContext context) {
                         return [
                           PopupMenuItem(
-                            onTap: () {
-                              context.read<TaskBloc>().resetTaskDetails();
-                              Navigator.pushNamed(
-                                  context, TaskScreen.routeName);
-                            },
-                            child: const Text('Add Task'),
-                          ),
+                              onTap: () {
+                                context.read<TaskBloc>().resetTaskDetails();
+                                Navigator.pushNamed(
+                                    context, TaskScreen.routeName);
+                              },
+                              child: const Text('Add Task')),
                           PopupMenuItem(
-                            onTap: () {
-                              context
-                                  .read<AnnouncementBloc>()
-                                  .announcementDetails
-                                  .clear();
-                              Navigator.pushNamed(
-                                  context, AddAnnouncementScreen.routeName);
-                            },
-                            child: const Text('Add Announcement'),
-                          )
+                              onTap: () {
+                                context
+                                    .read<AnnouncementBloc>()
+                                    .announcementDetails
+                                    .clear();
+                                Navigator.pushNamed(
+                                    context, AddAnnouncementScreen.routeName);
+                              },
+                              child: const Text('Add Announcement'))
                         ];
                       },
                       icon: const Icon(Icons.add, color: AppColors.darkBlue))
@@ -62,7 +61,6 @@ class WebAppBar extends StatelessWidget {
                         Navigator.pop(context);
                       },
                       icon: const Icon(Icons.home, color: AppColors.darkBlue)),
-              const SizedBox(width: spacingXMedium),
               const NotificationWidget(),
               const SizedBox(width: spacingXMedium),
               const Padding(

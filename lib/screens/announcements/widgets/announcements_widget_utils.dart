@@ -13,32 +13,22 @@ import 'package:saasify/widgets/buttons/primary_button.dart';
 
 Widget buildEmptyAnnouncements(context) {
   return Center(
-    child: Text('No Announcements',
-        style: Theme.of(context)
-            .textTheme
-            .labelTextStyle
-            .copyWith(fontWeight: FontWeight.w800, color: AppColors.darkGrey)),
-  );
+      child: Text('No Announcements',
+          style: Theme.of(context).textTheme.labelTextStyle.copyWith(
+              fontWeight: FontWeight.w500, color: AppColors.darkGrey)));
 }
 
 Widget buildAnnouncementItem(context, date, description) {
   return Padding(
-    padding: const EdgeInsets.all(spacingSmall),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 78,
-          child: buildDate(date, context),
-        ),
-        const Text(' : '),
-        Expanded(
-          child: Text(description, maxLines: 2),
-        )
-      ],
-    ),
-  );
+      padding: const EdgeInsets.all(spacingSmall),
+      child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(width: 78, child: buildDate(date, context)),
+            const Text(' : '),
+            Expanded(child: Text(description, maxLines: 2))
+          ]));
 }
 
 List<Widget> getAnnouncementsActions(BuildContext context,
@@ -65,6 +55,6 @@ List<Widget> getAnnouncementsActions(BuildContext context,
             Navigator.pop(context);
           });
         },
-        buttonTitle: "Edit"),
+        buttonTitle: "Edit")
   ];
 }

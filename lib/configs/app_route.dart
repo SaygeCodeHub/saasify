@@ -87,7 +87,8 @@ class AppRoutes {
         return _createRoute(AllBranchesScreen(
             companyName: args[0] as String, branches: args[1] as List<Branch>));
       case SettingsScreen.routeName:
-        return _createRoute(const SettingsScreen());
+        return _createRoute(
+            SettingsScreen(isViewOnly: settings.arguments as bool));
       default:
         return _createRoute(const ComingSoonScreen());
     }

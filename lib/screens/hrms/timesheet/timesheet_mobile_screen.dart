@@ -6,6 +6,8 @@ import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/utils/formatters.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 
+import '../../../configs/app_colors.dart';
+import '../../../configs/app_dimensions.dart';
 import '../../../data/models/timesheet/timesheet_attendance_history_model.dart';
 
 class TimesheetMobileScreen extends StatelessWidget {
@@ -26,7 +28,10 @@ class TimesheetMobileScreen extends StatelessWidget {
         },
         itemCount: timesheetData.length,
         itemBuilder: (context, index) {
-          return Card(
+          return Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: AppColors.lighterBlack),
+                  borderRadius: BorderRadius.circular(kCardRadius)),
               child: Padding(
                   padding: const EdgeInsets.all(spacingSmall),
                   child: Column(

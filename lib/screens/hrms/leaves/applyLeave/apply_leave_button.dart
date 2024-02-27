@@ -7,8 +7,10 @@ import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class ApplyLeaveButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
+  final bool isMobile;
 
-  const ApplyLeaveButton({super.key, required this.formKey});
+  const ApplyLeaveButton(
+      {super.key, required this.formKey, required this.isMobile});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class ApplyLeaveButton extends StatelessWidget {
                 leaveDetailsMap: context.read<LeavesBloc>().leaveDetailsMap));
           }
         },
-        buttonWidth: MediaQuery.sizeOf(context).width * 0.15);
+        buttonWidth:
+            !isMobile ? MediaQuery.sizeOf(context).width * 0.15 : null);
   }
 }

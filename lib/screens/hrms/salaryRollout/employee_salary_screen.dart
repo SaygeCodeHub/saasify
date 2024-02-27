@@ -13,6 +13,7 @@ import 'package:saasify/screens/hrms/salaryRollout/employee_salary_mobile.dart';
 import 'package:saasify/screens/hrms/salaryRollout/employee_salary_web.dart';
 import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
+import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
@@ -46,6 +47,48 @@ class EmployeeSalaryListScreen extends StatelessWidget {
                       listener: (context, state) {
                         if (state is ErrorFetchingSalaryRollouts) {
                           context.read<EmployeeBloc>().add(GetAllEmployees());
+                          ProgressBar.dismiss(context);
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return ErrorAlertDialog(
+                                    description: state.errorMessage);
+                              });
+                        }
+                        if (state is RollingOutIndividualSalary) {
+                          ProgressBar.show(context);
+                        }
+                        if (state is IndividualSalaryRolledOut) {
+                          ProgressBar.dismiss(context);
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return SuccessAlertDialog(
+                                    description: state.message);
+                              });
+                        }
+                        if (state is ErrorRollingOutIndividualSalary) {
+                          ProgressBar.dismiss(context);
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return ErrorAlertDialog(
+                                    description: state.errorMessage);
+                              });
+                        }
+                        if (state is RollingOutAllSalaries) {
+                          ProgressBar.show(context);
+                        }
+                        if (state is AllSalariesRolledOut) {
+                          ProgressBar.dismiss(context);
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return SuccessAlertDialog(
+                                    description: state.message);
+                              });
+                        }
+                        if (state is ErrorRollingOutAllSalaries) {
                           ProgressBar.dismiss(context);
                           showDialog(
                               context: context,
@@ -119,7 +162,15 @@ class EmployeeSalaryListScreen extends StatelessWidget {
                                                             kGeneralActionButtonWidth,
                                                         backgroundColor:
                                                             AppColors.orange,
-                                                        onPressed: () {},
+                                                        onPressed: () {
+                                                          Navigator.pop(
+                                                              context);
+                                                          context
+                                                              .read<
+                                                                  SalaryRolloutBloc>()
+                                                              .add(
+                                                                  RollOutAllSalary());
+                                                        },
                                                         buttonTitle: "Continue")
                                                   ];
                                                 },

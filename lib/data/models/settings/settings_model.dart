@@ -37,9 +37,10 @@ class SettingsData {
   final dynamic pincode;
   final dynamic longitude;
   final dynamic latitude;
+  final bool geoFencing;
 
-  SettingsData(
-      {required this.timeIn,
+  SettingsData({required this.geoFencing,
+      required this.timeIn,
       required this.timeOut,
       required this.timezone,
       required this.currency,
@@ -68,7 +69,8 @@ class SettingsData {
       branchAddress: json["branch_address"],
       pincode: json["pincode"],
       longitude: json["longitude"],
-      latitude: json["latitude"]);
+      latitude: json["latitude"],
+      geoFencing: json["geo_fencing"]);
 
   Map<String, dynamic> toJson() => {
         "time_in": timeIn.toIso8601String(),
@@ -84,7 +86,8 @@ class SettingsData {
         "branch_address": branchAddress,
         "pincode": pincode,
         "longitude": longitude,
-        "latitude": latitude
+        "latitude": latitude,
+        "geo_fencing": geoFencing
       };
 }
 

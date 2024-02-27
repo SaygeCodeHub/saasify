@@ -27,24 +27,17 @@ class HrmsAnnouncementsSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const ModuleHeading(label: 'Announcements'),
-              InkWell(
-                  onTap: () {
-                    Navigator.pushNamed(
-                        context, AllAnnouncementsScreen.routeName);
-                  },
-                  child: Text('View All',
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelTextStyle
-                          .copyWith(
-                              fontWeight: FontWeight.w800,
-                              color: AppColors.orange)))
-            ],
-          ),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            const ModuleHeading(label: 'Announcements'),
+            TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                      context, AllAnnouncementsScreen.routeName);
+                },
+                child: Text('View all',
+                    style: Theme.of(context).textTheme.labelTextStyle.copyWith(
+                        fontWeight: FontWeight.w800, color: AppColors.orange)))
+          ]),
           const SizedBox(height: spacingLarger),
           Container(
               height: MediaQuery.sizeOf(context).height * 0.20,

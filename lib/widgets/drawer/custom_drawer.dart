@@ -160,7 +160,8 @@ class CustomDrawer extends StatelessWidget {
                       iconData: Icons.settings_outlined,
                       title: 'Settings',
                       onTap: () {
-                        Navigator.pushNamed(context, SettingsScreen.routeName);
+                        Navigator.pushNamed(context, SettingsScreen.routeName,
+                            arguments: true);
                       }),
                   ModuleListTile(
                       iconData: Icons.logout,

@@ -3,6 +3,7 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/widgets/generalWidgets/status_chip.dart';
 import 'package:saasify/widgets/text/field_label_widget.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
@@ -53,11 +54,20 @@ class DetailsPopUp extends StatelessWidget {
                             (showComments
                                 ? [
                                     const SizedBox(height: spacingSmall),
+                                    Text(
+                                      StringConstants.kComments,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelTextStyle
+                                          .copyWith(
+                                              fontWeight: FontWeight.w600,
+                                              color: AppColors.darkBlue),
+                                    ),
+                                    const SizedBox(height: spacingSmall),
                                     LabelAndFieldWidget(
                                         isRequired: commentsRequired,
                                         enabled: commentsEditable,
                                         initialValue: initialComments,
-                                        label: StringConstants.kComments,
                                         maxLines: 5,
                                         onTextFieldChanged: onCommentsChanged)
                                   ]
@@ -71,22 +81,35 @@ class DetailsPopUp extends StatelessWidget {
 class DetailsField extends StatelessWidget {
   final String title;
   final String data;
+  final StatusChip? statusChip;
 
   const DetailsField({
     super.key,
     required this.data,
     required this.title,
+    this.statusChip,
   });
 
   @override
   Widget build(BuildContext context) {
     return Title(
         color: AppColors.black,
-        child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text("$title : ",
-              style: Theme.of(context).textTheme.labelTextStyle.copyWith(
-                  fontWeight: FontWeight.w600, color: AppColors.darkBlue)),
-          Text(data, maxLines: 1)
-        ]));
+        child: SizedBox(
+          width: statusChip != null ? 140 : null,
+          child: Row(
+              mainAxisAlignment: statusChip != null
+                  ? MainAxisAlignment.spaceBetween
+                  : MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("$title : ",
+                    style: Theme.of(context).textTheme.labelTextStyle.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.darkBlue)),
+                statusChip != null
+                    ? Center(child: statusChip)
+                    : Text(data, maxLines: 1)
+              ]),
+        ));
   }
 }

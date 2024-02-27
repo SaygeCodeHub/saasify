@@ -22,10 +22,9 @@ class AnnouncementBloc extends Bloc<AnnouncementEvents, AnnouncementStates> {
       AddAnnouncement event, Emitter<AnnouncementStates> emit) async {
     emit(AddingAnnouncement());
     try {
-      AnnouncementModel addAnnouncementModel =
-          event.isEdit
-              ? await announcementRepository.updateAnnouncement(announcementDetails)
-              : await announcementRepository.addAnnouncement(announcementDetails);
+      AnnouncementModel addAnnouncementModel = event.isEdit
+          ? await announcementRepository.updateAnnouncement(announcementDetails)
+          : await announcementRepository.addAnnouncement(announcementDetails);
       if (addAnnouncementModel.status == 200) {
         emit(AnnouncementAdded());
       } else {

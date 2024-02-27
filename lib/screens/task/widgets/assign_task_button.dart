@@ -59,7 +59,7 @@ class AssignTaskButton extends StatelessWidget {
                   context.read<TaskBloc>().add(AssignTask(isEdit: isEdit));
                 }
               },
-              buttonTitle: 'Assign',
+              buttonTitle: isEdit ? 'Update' : 'Assign',
             );
           },
         ),

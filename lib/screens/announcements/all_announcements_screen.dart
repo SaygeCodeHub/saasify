@@ -6,6 +6,7 @@ import 'package:saasify/bloc/announcemnet/announcement_state.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/announcement/get_all_announcements_model.dart';
 import 'package:saasify/screens/announcements/add_announcement_screen.dart';
 import 'package:saasify/screens/hrms/widgets/build_date.dart';
@@ -45,11 +46,16 @@ class AllAnnouncementsScreen extends StatelessWidget {
               if (state is GettingAllAnnouncements) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is AllAnnouncementsFetched) {
-                return ResponsiveLayout(
-                    mobileBody:
-                        AllAnnouncementMobile(data: state.announcements),
-                    desktopBody:
-                        AllAnnouncementDesktop(data: state.announcements));
+                return state.announcements.isEmpty
+                    ? Center(
+                        child: Text("No Announcements",
+                            style:
+                                Theme.of(context).textTheme.disabledTextStyle))
+                    : ResponsiveLayout(
+                        mobileBody:
+                            AllAnnouncementMobile(data: state.announcements),
+                        desktopBody:
+                            AllAnnouncementDesktop(data: state.announcements));
               } else if (state is ErrorGettingAllAnnouncements) {
                 return Center(child: Text(state.errorMessage));
               } else {

@@ -61,9 +61,11 @@ class TaskDetailsScreen extends StatelessWidget {
             details: [
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 DetailsField(title: "Title", data: task.title),
-                StatusChip(
-                    text: task.taskStatus,
-                    color: getTaskColorFromStatus(task.taskStatus))
+                DetailsField(
+                    data: "",
+                    title: "Status",
+                    statusChip:
+                        buildTaskStatusChip(task.taskStatus) as StatusChip)
               ]),
               const SizedBox(height: spacingSmall),
               isTaskAssignedToMe
@@ -76,7 +78,12 @@ class TaskDetailsScreen extends StatelessWidget {
                 DetailsField(
                     title: "Due Date",
                     data: DateFormat('dd/MM/yyyy').format(task.dueDate)),
-                buildPriorityStatusChip(task.priority.toString()),
+                DetailsField(
+                    data: "",
+                    title: "Priority",
+                    statusChip:
+                        buildPriorityStatusChip(task.priority.toString())
+                            as StatusChip)
               ]),
               const SizedBox(height: spacingSmall),
               DetailsField(

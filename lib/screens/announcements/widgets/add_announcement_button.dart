@@ -18,7 +18,8 @@ class AddAnnouncementButton extends StatelessWidget {
   const AddAnnouncementButton(
       {super.key,
       required this.formKey,
-      this.buttonWidth = kGeneralActionButtonWidth, required this.isEdit});
+      this.buttonWidth = kGeneralActionButtonWidth,
+      required this.isEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +56,12 @@ class AddAnnouncementButton extends StatelessWidget {
               buttonWidth: buttonWidth,
               onPressed: () {
                 if (formKey.currentState?.validate() ?? false) {
-                  context.read<AnnouncementBloc>().add(AddAnnouncement(isEdit: isEdit));
+                  context
+                      .read<AnnouncementBloc>()
+                      .add(AddAnnouncement(isEdit: isEdit));
                 }
               },
-              buttonTitle:isEdit ? 'Edit Announcement' : 'Add Announcement',
+              buttonTitle: isEdit ? 'Edit Announcement' : 'Add Announcement',
             );
           },
         ),

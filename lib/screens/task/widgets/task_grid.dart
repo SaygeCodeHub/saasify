@@ -8,7 +8,9 @@ import 'package:saasify/screens/hrms/widgets/build_date.dart';
 import 'package:saasify/screens/task/widgets/task_details_pop_up.dart';
 import 'package:saasify/screens/task/widgets/task_details_screen.dart';
 import 'package:saasify/screens/task/widgets/task_widget_utils.dart';
+import 'package:saasify/utils/formatters.dart';
 import 'package:saasify/utils/globals.dart';
+import 'package:saasify/widgets/generalWidgets/status_chip.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
 class TasksGrid extends StatelessWidget {
@@ -33,7 +35,8 @@ class TasksGrid extends StatelessWidget {
           : const SizedBox.shrink(),
       Expanded(
           child: data.isEmpty
-              ? buildEmptyTasks(context, isMobile)
+              ? buildEmptyTasks(context, isMobile,
+                  isAssignedToMe: isTaskAssignedToMe)
               : GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -70,7 +73,9 @@ class TasksGrid extends StatelessWidget {
                         },
                         child: Container(
                             decoration: BoxDecoration(
-                                color: AppColors.lightestYellow,
+                                color: data[index].taskStatus == "CLOSED"
+                                    ? AppColors.errorRed.withOpacity(0.1)
+                                    : AppColors.lightestYellow,
                                 border:
                                     Border.all(color: AppColors.lighterBlack),
                                 borderRadius:
@@ -117,8 +122,8 @@ class TasksGrid extends StatelessWidget {
                                                 orangeColor: false),
                                             const SizedBox(
                                                 height: spacingSmall),
-                                            buildPriorityStatusChip(
-                                                data[index].priority.toString())
+                                            buildTaskStatusChip(
+                                                data[index].taskStatus)
                                           ])
                                     ]))));
                   }))

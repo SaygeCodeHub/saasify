@@ -99,11 +99,10 @@ class MyLeavesScreen extends StatelessWidget {
                       return Expanded(
                         child: state.getAllLeavesModel.data.myLeaves.isEmpty
                             ? Center(
-                                child: Text(StringConstants.kNoLeavesFound,
+                                child: Text(state.getAllLeavesModel.message,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .labelTextStyle
-                                        .copyWith(color: AppColors.grey)))
+                                        .disabledTextStyle))
                             : ResponsiveLayout(
                                 mobileBody: MyLeavesMobileScreen(
                                     myLeaves:

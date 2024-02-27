@@ -103,8 +103,7 @@ class PendingLeaveRequestScreen extends StatelessWidget {
                                     child: Text(StringConstants.kNoLeavesFound,
                                         style: Theme.of(context)
                                             .textTheme
-                                            .labelTextStyle
-                                            .copyWith(color: AppColors.orange)))
+                                            .disabledTextStyle))
                                 : ResponsiveLayout(
                                     mobileBody:
                                         PendingLeaveRequestsMobileScreen(

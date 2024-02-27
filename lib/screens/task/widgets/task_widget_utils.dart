@@ -19,32 +19,47 @@ Widget buildPriorityStatusChip(priority) {
       color: getTaskColorFromPriority(priority));
 }
 
-Widget buildEmptyTasks(context, bool isMobile, {message = 'No tasks found'}) {
-  return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-    Expanded(
-        child: Container(
-            padding: const EdgeInsets.all(spacingLarger),
-            decoration: BoxDecoration(
-                color: AppColors.lightestYellow,
-                border: Border.all(color: AppColors.lighterBlack),
-                borderRadius: BorderRadius.circular(kCardRadius)),
-            child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.assignment,
-                      color: AppColors.darkBlue, size: 40),
-                  const SizedBox(height: spacingStandard),
-                  Text(message,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelTextStyle
-                          .copyWith(color: AppColors.darkBlue))
-                ]))),
-    Spacer(flex: isMobile ? 1 : 4)
-  ]);
+Widget buildTaskStatusChip(status) {
+  return StatusChip(text: status, color: getTaskColorFromStatus(status));
+}
+
+Widget buildEmptyTasks(BuildContext context, bool isMobile,
+    {bool isAssignedToMe = true, align = Alignment.center}) {
+  return Align(
+    alignment: align,
+    child: InkWell(
+      onTap: !isAssignedToMe
+          ? () {
+              context.read<TaskBloc>().resetTaskDetails();
+              Navigator.pushNamed(context, TaskScreen.routeName)
+                  .whenComplete(() {
+                context.read<TaskBloc>().add(FetchAllTasks());
+              });
+            }
+          : null,
+      child: Container(
+          padding: const EdgeInsets.all(spacingLarger),
+          decoration: BoxDecoration(
+              color: AppColors.lightestYellow,
+              border: Border.all(color: AppColors.lighterBlack),
+              borderRadius: BorderRadius.circular(kCardRadius)),
+          child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(isAssignedToMe ? Icons.assignment : Icons.add,
+                    color: AppColors.darkBlue, size: 40),
+                const SizedBox(height: spacingStandard),
+                Text(isAssignedToMe ? "No Tasks Assigned" : "Assign New Task",
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context)
+                        .textTheme
+                        .labelTextStyle
+                        .copyWith(color: AppColors.darkBlue))
+              ])),
+    ),
+  );
 }
 
 List<Widget> getTaskDetailsActions(
@@ -72,14 +87,12 @@ List<Widget> getTaskDetailsActions(
                 buttonTitle: "Edit Task",
                 onPressed: () {
                   context.read<TaskBloc>().setTaskDetails(task);
-                  if (updateKey.currentState!.validate()) {
-                    Navigator.pushNamed(context, TaskScreen.routeName,
-                            arguments: true)
-                        .whenComplete(() {
-                      context.read<TaskBloc>().add(FetchAllTasks());
-                      Navigator.pop(context);
-                    });
-                  }
+                  Navigator.pushNamed(context, TaskScreen.routeName,
+                          arguments: true)
+                      .whenComplete(() {
+                    context.read<TaskBloc>().add(FetchAllTasks());
+                    Navigator.pop(context);
+                  });
                 })
       ];
   }

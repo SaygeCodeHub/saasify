@@ -29,41 +29,39 @@ class WebAppBar extends StatelessWidget {
               const SizedBox(width: spacingXMedium),
               const ChangeBranch(),
               const Expanded(child: SizedBox()),
-              Padding(
-                  padding: const EdgeInsets.only(right: spacingSmall),
-                  child: isHome
-                      ? PopupMenuButton(
-                          itemBuilder: (BuildContext context) {
-                            return [
-                              PopupMenuItem(
-                                onTap: () {
-                                  context.read<TaskBloc>().resetTaskDetails();
-                                  Navigator.pushNamed(
-                                      context, TaskScreen.routeName);
-                                },
-                                child: const Text('Add Task'),
-                              ),
-                              PopupMenuItem(
-                                onTap: () {
-                                  context
-                                      .read<AnnouncementBloc>()
-                                      .announcementDetails
-                                      .clear();
-                                  Navigator.pushNamed(
-                                      context, AddAnnouncementScreen.routeName);
-                                },
-                                child: const Text('Add Announcement'),
-                              )
-                            ];
-                          },
-                          icon:
-                              const Icon(Icons.add, color: AppColors.darkBlue))
-                      : IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(Icons.home,
-                              color: AppColors.darkBlue))),
+              isHome
+                  ? PopupMenuButton(
+                      padding: EdgeInsets.zero,
+                      itemBuilder: (BuildContext context) {
+                        return [
+                          PopupMenuItem(
+                            onTap: () {
+                              context.read<TaskBloc>().resetTaskDetails();
+                              Navigator.pushNamed(
+                                  context, TaskScreen.routeName);
+                            },
+                            child: const Text('Add Task'),
+                          ),
+                          PopupMenuItem(
+                            onTap: () {
+                              context
+                                  .read<AnnouncementBloc>()
+                                  .announcementDetails
+                                  .clear();
+                              Navigator.pushNamed(
+                                  context, AddAnnouncementScreen.routeName);
+                            },
+                            child: const Text('Add Announcement'),
+                          )
+                        ];
+                      },
+                      icon: const Icon(Icons.add, color: AppColors.darkBlue))
+                  : IconButton(
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: const Icon(Icons.home, color: AppColors.darkBlue)),
               const SizedBox(width: spacingXMedium),
               const NotificationWidget(),
               const SizedBox(width: spacingXMedium),

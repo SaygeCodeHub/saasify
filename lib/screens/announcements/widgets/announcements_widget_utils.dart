@@ -10,7 +10,7 @@ Widget buildEmptyAnnouncements(context) {
         style: Theme.of(context)
             .textTheme
             .labelTextStyle
-            .copyWith(fontWeight: FontWeight.w800, color: AppColors.orange)),
+            .copyWith(fontWeight: FontWeight.w800, color: AppColors.darkGrey)),
   );
 }
 

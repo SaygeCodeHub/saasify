@@ -39,13 +39,15 @@ class TaskBloc extends Bloc<TaskEvents, TaskStates> {
       UpdateTaskStatus event, Emitter<TaskStates> emit) async {
     emit(UpdatingTaskStatus());
     try {
-      Map<String, dynamic> taskDetails = {
+      Map<String, dynamic> updateTaskDetails = {
         "task_id": event.task.taskId,
         "title": event.task.title,
         "monitored_by": event.task.assignedBy?.id,
-        "task_status": event.status
+        "task_status": event.status,
+        "comment": taskDetails["comment"]
       };
-      TaskModel taskModel = await taskRepository.updateTaskStatus(taskDetails);
+      TaskModel taskModel =
+          await taskRepository.updateTaskStatus(updateTaskDetails);
       if (taskModel.status == 200) {
         emit(TaskStatusUpdated(taskModel.message));
       } else {

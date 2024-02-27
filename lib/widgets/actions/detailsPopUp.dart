@@ -13,20 +13,22 @@ class DetailsPopUp extends StatelessWidget {
   final bool commentsEditable;
   final bool commentsRequired;
   final String? initialComments;
-  final List<Widget> Function(GlobalKey<FormState>) actionsBuilder;
+  final List<Widget> Function(GlobalKey<FormState>)? actionsBuilder;
   final void Function(String?)? onCommentsChanged;
   final GlobalKey<FormState> updateKey = GlobalKey<FormState>();
+  final double? height;
 
   DetailsPopUp({
     super.key,
     required this.title,
-    required this.actionsBuilder,
+    this.actionsBuilder,
     this.showComments = true,
     this.onCommentsChanged,
     this.commentsEditable = false,
     required this.details,
     required this.commentsRequired,
     this.initialComments,
+    this.height,
   });
 
   @override
@@ -41,7 +43,7 @@ class DetailsPopUp extends StatelessWidget {
                 child: const Icon(Icons.close))),
         title: ModuleHeading(label: title),
         content: SizedBox(
-            height: MediaQuery.sizeOf(context).height * 0.5,
+            height: height ?? MediaQuery.sizeOf(context).height * 0.5,
             width: MediaQuery.sizeOf(context).width * 0.5,
             child: Padding(
                 padding: const EdgeInsets.all(spacingMedium),
@@ -64,7 +66,7 @@ class DetailsPopUp extends StatelessWidget {
                                 : []))))),
         actionsPadding: const EdgeInsets.only(bottom: spacingXXLarge),
         actionsAlignment: MainAxisAlignment.center,
-        actions: actionsBuilder(updateKey));
+        actions: actionsBuilder!(updateKey));
   }
 }
 

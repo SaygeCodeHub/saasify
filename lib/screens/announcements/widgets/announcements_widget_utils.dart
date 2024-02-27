@@ -20,22 +20,15 @@ Widget buildEmptyAnnouncements(context) {
 
 Widget buildAnnouncementItem(context, date, description) {
   return Padding(
-    padding: const EdgeInsets.all(spacingSmall),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: 78,
-          child: buildDate(date, context)
-        ),
-        const Text(' : '),
-        Expanded(
-          child: Text(description, maxLines: 2)
-        )
-      ]
-    )
-  );
+      padding: const EdgeInsets.all(spacingSmall),
+      child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(width: 78, child: buildDate(date, context)),
+            const Text(' : '),
+            Expanded(child: Text(description, maxLines: 2))
+          ]));
 }
 
 List<Widget> getAnnouncementsActions(BuildContext context,

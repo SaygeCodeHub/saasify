@@ -130,21 +130,20 @@ class SettingsMobileScreen extends StatelessWidget {
                         value;
                   }),
               const SizedBox(height: spacingXMedium),
-                  DropdownLabelWidget(
-                      enabled: !isViewOnly,
-                      label: "Geo Fencing",
-                      initialValue: settingsData.geoFencing,
-                      items: GeoFencingEnum.values
-                          .map((e) => CustomDropDownItem(
+              DropdownLabelWidget(
+                  enabled: !isViewOnly,
+                  label: "Geo Fencing",
+                  initialValue: settingsData.geoFencing,
+                  items: GeoFencingEnum.values
+                      .map((e) => CustomDropDownItem(
                           label: e.isGeoFencing.toString(),
                           value: e.isGeoFencing))
-                          .toList(),
-                      onChanged: (value) {
-                        context
-                            .read<SettingsBloc>()
-                            .updateSettingsMap[
-                        "geo_fencing"] = value;
-                      }),
+                      .toList(),
+                  onChanged: (value) {
+                    context
+                        .read<SettingsBloc>()
+                        .updateSettingsMap["geo_fencing"] = value;
+                  }),
               const SizedBox(height: spacingMedium),
               const Divider(),
               const Padding(

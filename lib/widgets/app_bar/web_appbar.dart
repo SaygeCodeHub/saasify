@@ -31,7 +31,7 @@ class WebAppBar extends StatelessWidget {
               const Expanded(child: SizedBox()),
               isHome
                   ? PopupMenuButton(
-                  splashRadius: 20,
+                      splashRadius: 20,
                       padding: EdgeInsets.zero,
                       itemBuilder: (BuildContext context) {
                         return [

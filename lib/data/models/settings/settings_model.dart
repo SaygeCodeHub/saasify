@@ -39,7 +39,8 @@ class SettingsData {
   final dynamic latitude;
   final bool geoFencing;
 
-  SettingsData({required this.geoFencing,
+  SettingsData(
+      {required this.geoFencing,
       required this.timeIn,
       required this.timeOut,
       required this.timezone,

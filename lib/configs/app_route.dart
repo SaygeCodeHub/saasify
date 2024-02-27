@@ -109,3 +109,5 @@ class AppRoutes {
         });
   }
 }
+
+final RouteObserver<ModalRoute> routeObserver = RouteObserver<ModalRoute>();

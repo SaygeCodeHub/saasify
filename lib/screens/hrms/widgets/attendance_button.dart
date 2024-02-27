@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:saasify/bloc/attendance/attendance_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_event.dart';
 import 'package:saasify/bloc/attendance/attendance_state.dart';
+import 'package:saasify/bloc/initialise/initialise_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
@@ -54,11 +55,19 @@ class AttendanceButton extends StatelessWidget {
                     ? AppColors.successGreen
                     : AppColors.errorRed,
                 onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return const AcknowledgementDialogue();
-                      });
+                  context
+                              .read<InitialiseAppBloc>()
+                              .initialiseAppModel
+                              ?.data
+                              ?.announcements
+                              ?.isNotEmpty ??
+                          false
+                      ? showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const AcknowledgementDialogue();
+                          })
+                      : context.read<AttendanceBloc>().add(MarkAttendance());
                 },
                 buttonTitle: !checkInTimeExists()
                     ? StringConstants.kCheckIn
@@ -89,10 +98,6 @@ class _AcknowledgementDialogueState extends State<AcknowledgementDialogue> {
       title: const Text('Important!'),
       content: Row(
         children: [
-          const Expanded(
-              child: Text(
-                  'I acknowledge that I have read all the important announcements')),
-          const SizedBox(height: 10),
           Checkbox(
               value: _isChecked,
               checkColor: AppColors.white,
@@ -102,6 +107,10 @@ class _AcknowledgementDialogueState extends State<AcknowledgementDialogue> {
                   _isChecked = value!;
                 });
               }),
+          const SizedBox(height: 10),
+          const Expanded(
+              child: Text(
+                  'I acknowledge that I have read all the important announcements')),
         ],
       ),
       actionsPadding: const EdgeInsets.only(

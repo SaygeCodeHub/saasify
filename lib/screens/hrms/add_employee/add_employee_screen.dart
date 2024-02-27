@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/employee/employee_bloc.dart';
@@ -40,7 +41,25 @@ class AddEmployeeScreen extends StatelessWidget {
                             child: Row(children: [
                               isMobile
                                   ? const SizedBox.shrink()
-                                  : const BackButton(),
+                                  : BackButton(
+                                      onPressed: () {
+                                        context
+                                                .read<EmployeeBloc>()
+                                                .isEmployeeDetailsChanged()
+                                            ? showDialog(
+                                                context: context,
+                                                builder: (context) {
+                                                  return WarningAlertDialogue(
+                                                      description:
+                                                          "Are you sure you want to leave this page without saving the changes?",
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                        Navigator.pop(context);
+                                                      });
+                                                })
+                                            : Navigator.pop(context);
+                                      },
+                                    ),
                               const SizedBox(width: spacingXMedium),
                               ModuleHeading(
                                   label: isViewOnly

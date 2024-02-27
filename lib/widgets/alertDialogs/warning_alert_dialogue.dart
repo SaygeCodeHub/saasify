@@ -16,9 +16,18 @@ class WarningAlertDialogue extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        icon: SizedBox.square(
-            dimension: kSassifyLogoSize,
-            child: Image.asset('assets/exclamation-circle.png')),
+        icon: Stack(
+          children: [
+            IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.close, color: AppColors.warningYellow)),
+            SizedBox.square(
+                dimension: kSassifyLogoSize,
+                child: Image.asset('assets/exclamation-circle.png')),
+          ],
+        ),
         title: Text('Warning!',
             style: Theme.of(context).textTheme.dialogueHeadingTextStyle),
         content: Text(description,

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/employee/employee_event.dart';
 import 'package:saasify/bloc/employee/employee_states.dart';
@@ -13,6 +14,7 @@ import 'package:saasify/repositories/employee/employee_repository.dart';
 class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
   Map inviteDetails = {};
   Map<String, dynamic> employeeDetails = {};
+  String mapString = "";
   int selectedEmployeeId = -1;
   final EmployeeRepository _employeeRepository = getIt<EmployeeRepository>();
 
@@ -66,27 +68,6 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
     }
   }
 
-  void resetEmployeeDetails() {
-    employeeDetails = {
-      "personal_info": <String, dynamic>{
-        "active_status": 1,
-      },
-      "documents": <String, dynamic>{
-        "aadhar": <String, dynamic>{},
-        "passport": <String, dynamic>{}
-      },
-      "financial": <String, dynamic>{
-        "finances": <String, dynamic>{},
-        "bank_details": <String, dynamic>{}
-      },
-      "official": <String, dynamic>{
-        "designations": [2],
-        "department": [0],
-      }
-    };
-    selectedEmployeeId = -1;
-  }
-
   FutureOr<void> _getEmployee(
       GetEmployee event, Emitter<EmployeeStates> emit) async {
     emit(LoadingEmployee());
@@ -95,6 +76,7 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
           await _employeeRepository.getEmployee(event.employeeId.toString());
       if (getEmployeeModel.status == 200) {
         employeeDetails = getEmployeeModel.data;
+        mapString = employeeDetails.toString();
         selectedEmployeeId = event.employeeId;
         emit(EmployeeLoaded());
       } else {
@@ -138,5 +120,31 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
     } catch (e) {
       emit(DeletingEmployeeFailed(errorMessage: e.toString()));
     }
+  }
+
+  void resetEmployeeDetails() {
+    employeeDetails = {
+      "personal_info": <String, dynamic>{
+        "active_status": 1,
+      },
+      "documents": <String, dynamic>{
+        "aadhar": <String, dynamic>{},
+        "passport": <String, dynamic>{}
+      },
+      "financial": <String, dynamic>{
+        "finances": <String, dynamic>{},
+        "bank_details": <String, dynamic>{}
+      },
+      "official": <String, dynamic>{
+        "designations": [2],
+        "department": [0],
+      }
+    };
+    mapString = employeeDetails.toString();
+    selectedEmployeeId = -1;
+  }
+
+  bool isEmployeeDetailsChanged() {
+    return mapString != employeeDetails.toString();
   }
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/employee/employee_bloc.dart';
@@ -12,6 +13,7 @@ class AddEmployeeButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final double? buttonWidth;
   final bool isSaveAndNext;
+
   const AddEmployeeButton(
       {super.key,
       required this.formKey,
@@ -58,10 +60,12 @@ class AddEmployeeButton extends StatelessWidget {
         }
         return PrimaryButton(
             onPressed: () {
-              if (formKey.currentState?.validate() ?? false) {
-                context
-                    .read<EmployeeBloc>()
-                    .add(UpdateEmployee(isSaveAndNext: isSaveAndNext));
+              if (context.read<EmployeeBloc>().isEmployeeDetailsChanged()) {
+                if (formKey.currentState?.validate() ?? false) {
+                  context
+                      .read<EmployeeBloc>()
+                      .add(UpdateEmployee(isSaveAndNext: isSaveAndNext));
+                }
               }
             },
             buttonWidth: buttonWidth,

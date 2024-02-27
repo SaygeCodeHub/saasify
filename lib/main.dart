@@ -77,6 +77,7 @@ class MyPosApp extends StatelessWidget {
             },
             child: MaterialApp(
                 debugShowCheckedModeBanner: false,
+                navigatorObservers: [routeObserver],
                 scrollBehavior:
                     const MaterialScrollBehavior().copyWith(scrollbars: false),
                 onGenerateRoute: AppRoutes.routes,

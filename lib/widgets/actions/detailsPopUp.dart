@@ -101,25 +101,27 @@ class DetailsField extends StatelessWidget {
     return Title(
         color: AppColors.black,
         child: SizedBox(
-          width: statusChip != null ? 140 : null,
-          child: Row(
-              mainAxisAlignment: statusChip != null
-                  ? MainAxisAlignment.spaceBetween
-                  : MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("$title : ",
-                    style: Theme.of(context).textTheme.labelTextStyle.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.darkBlue)),
-                statusChip != null
-                    ? Center(child: statusChip)
-                    : Expanded(
-                        child: Text(data,
-                            style: Theme.of(context).textTheme.labelTextStyle,
-                            maxLines: maxLines,
-                            overflow: TextOverflow.ellipsis))
-              ]),
-        ));
+            width: statusChip != null ? 140 : null,
+            child: Row(
+                mainAxisAlignment: statusChip != null
+                    ? MainAxisAlignment.spaceBetween
+                    : MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("$title : ",
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelTextStyle
+                          .copyWith(
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.darkBlue)),
+                  statusChip != null
+                      ? Center(child: statusChip)
+                      : Expanded(
+                          child: Text(data,
+                              style: Theme.of(context).textTheme.labelTextStyle,
+                              maxLines: maxLines,
+                              overflow: TextOverflow.ellipsis))
+                ])));
   }
 }

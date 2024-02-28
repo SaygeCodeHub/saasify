@@ -7,7 +7,6 @@ import 'package:saasify/configs/app_route.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/hrms/widgets/hrms_announcements_section.dart';
 import 'package:saasify/screens/hrms/widgets/hrms_attendance_section.dart';
-import 'package:saasify/widgets/buttons/primary_button.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'widgets/hrms_features_section.dart';
 import 'widgets/hrms_tasks_section.dart';

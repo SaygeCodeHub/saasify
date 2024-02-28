@@ -51,6 +51,9 @@ class SettingsWebScreen extends StatelessWidget {
                                   .updateSettingsMap["branch_address"] = value;
                             }),
                         LabelAndFieldWidget(
+                            isRequired: context
+                                .read<SettingsBloc>()
+                                .updateSettingsMap["geo_fencing"],
                             enabled: !isViewOnly,
                             label: StringConstants.kBranchLatitude,
                             initialValue: settingsData.latitude,
@@ -60,6 +63,9 @@ class SettingsWebScreen extends StatelessWidget {
                                   .updateSettingsMap["latitude"] = value;
                             }),
                         LabelAndFieldWidget(
+                            isRequired: context
+                                .read<SettingsBloc>()
+                                .updateSettingsMap["geo_fencing"],
                             enabled: !isViewOnly,
                             label: StringConstants.kBranchLongitude,
                             initialValue: settingsData.longitude,
@@ -146,11 +152,11 @@ class SettingsWebScreen extends StatelessWidget {
                           DropdownLabelWidget(
                               enabled: !isViewOnly,
                               label: "Geo Fencing",
-                              initialValue: settingsData.geoFencing.toString(),
+                              initialValue: settingsData.geoFencing,
                               items: GeoFencingEnum.values
                                   .map((e) => CustomDropDownItem(
                                       label: e.isGeoFencing.toString(),
-                                      value: e.isGeoFencing.toString()))
+                                      value: e.isGeoFencing))
                                   .toList(),
                               onChanged: (value) {
                                 context

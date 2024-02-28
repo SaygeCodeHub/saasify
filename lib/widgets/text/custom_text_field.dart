@@ -65,6 +65,9 @@ class CustomTextField extends StatelessWidget {
       controller.text = initialValue.toString();
     }
 
+    controller.selection = TextSelection.fromPosition(
+        TextPosition(offset: controller.text.length));
+
     return TextFormField(
         key: key,
         enabled: enabled,

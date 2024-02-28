@@ -9,7 +9,6 @@ import 'package:saasify/screens/hrms/widgets/hrms_announcements_section.dart';
 import 'package:saasify/screens/hrms/widgets/hrms_attendance_section.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'widgets/hrms_features_section.dart';
-import 'widgets/hrms_tasks_section.dart';
 
 class HRMSDashboardScreen extends StatefulWidget {
   static const routeName = 'HRMSDashboardScreen';
@@ -68,8 +67,8 @@ class _HRMSDashboardScreenState extends State<HRMSDashboardScreen>
                                           child: HrmsAnnouncementsSection(
                                               isMobile: true))
                                     ]),
-                          const SizedBox(height: spacingHuge),
-                          HrmsTasksSection(isMobile: isMobile),
+                          // const SizedBox(height: spacingHuge),
+                          // HrmsTasksSection(isMobile: isMobile),
                           const SizedBox(height: spacingHuge),
                           HrmsFeaturesSection(isMobile: isMobile),
                           const SizedBox(height: spacingLarge)

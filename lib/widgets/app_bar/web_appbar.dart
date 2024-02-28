@@ -61,7 +61,7 @@ class WebAppBar extends StatelessWidget {
                         Navigator.pop(context);
                       },
                       icon: const Icon(Icons.home, color: AppColors.darkBlue)),
-              const NotificationWidget(),
+              // const NotificationWidget(),
               const SizedBox(width: spacingXMedium),
               const Padding(
                   padding: EdgeInsets.only(right: spacingXXHuge),

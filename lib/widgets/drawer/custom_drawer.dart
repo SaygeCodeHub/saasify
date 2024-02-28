@@ -156,13 +156,13 @@ class CustomDrawer extends StatelessWidget {
                                   .navigateTo();
                             });
                       }),
-                  ModuleListTile(
-                      iconData: Icons.settings_outlined,
-                      title: 'Settings',
-                      onTap: () {
-                        Navigator.pushNamed(context, SettingsScreen.routeName,
-                            arguments: true);
-                      }),
+                  // ModuleListTile(
+                  //     iconData: Icons.settings_outlined,
+                  //     title: 'Settings',
+                  //     onTap: () {
+                  //       Navigator.pushNamed(context, SettingsScreen.routeName,
+                  //           arguments: true);
+                  //     }),
                   ModuleListTile(
                       iconData: Icons.logout,
                       title: 'Logout',

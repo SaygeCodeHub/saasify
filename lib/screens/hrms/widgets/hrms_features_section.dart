@@ -33,7 +33,8 @@ class HrmsFeaturesSection extends StatelessWidget {
                       .read<InitialiseAppBloc>()
                       .hrmsAccessibleFeatures
                       .addAll(element.accessibleFeatures!
-                          .where((element) => element.featureId != 0.0));
+                          .where((element) => element.featureId != 0.0)
+                          .where((element) => element.featureId != 0.2));
                 }
               });
               return GridView.builder(

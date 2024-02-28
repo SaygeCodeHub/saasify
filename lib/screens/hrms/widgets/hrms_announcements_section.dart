@@ -27,8 +27,8 @@ class HrmsAnnouncementsSection extends StatelessWidget {
         children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             const ModuleHeading(label: 'Announcements'),
-            TextButton(
-                onPressed: () {
+            InkWell(
+                onTap: () {
                   Navigator.pushNamed(
                       context, AllAnnouncementsScreen.routeName);
                 },

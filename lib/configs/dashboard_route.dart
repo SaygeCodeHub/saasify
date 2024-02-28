@@ -8,13 +8,16 @@ import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/pending_leave_re
 import 'package:saasify/screens/hrms/salaryRollout/employee_salary_screen.dart';
 import 'package:saasify/screens/inventory/inventory_screen.dart';
 import 'package:saasify/screens/orders/orders_screen.dart';
+import '../screens/hrms/add_employee/invite_employee_mobile.dart';
 import '../screens/hrms/timesheet/timesheet_screen.dart';
 
 class DashboardRouting {
   String featureKey;
   BuildContext context;
+  bool isMobile;
 
-  DashboardRouting({required this.featureKey, required this.context});
+  DashboardRouting(
+      {required this.featureKey, required this.context, this.isMobile = false});
 
   void navigateTo() async {
     switch (featureKey) {
@@ -55,7 +58,10 @@ class DashboardRouting {
         );
         break;
       case 'HR_ADD_NEW_EMPLOYEE':
-        showAddEmployeeDialog(context);
+        isMobile
+            ? Navigator.push(
+                context, buildPageRoute(InviteEmployeeMobileScreen()))
+            : showAddEmployeeDialog(context);
         break;
       case 'HR_APPLY_LEAVES':
         Navigator.push(

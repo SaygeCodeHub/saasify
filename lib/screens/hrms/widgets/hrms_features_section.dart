@@ -66,7 +66,8 @@ class HrmsFeaturesSection extends StatelessWidget {
                                       .hrmsAccessibleFeatures[index]
                                       .featureKey
                                       .toString(),
-                                  context: context)
+                                  context: context,
+                                  isMobile: isMobile)
                               .navigateTo();
                         },
                         child: ValueCard(

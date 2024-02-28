@@ -6,6 +6,7 @@ import 'package:saasify/bloc/employee/employee_states.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
+import 'package:saasify/widgets/alertDialogs/warning_alert_dialogue.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class AddEmployeeButton extends StatelessWidget {
@@ -65,6 +66,13 @@ class AddEmployeeButton extends StatelessWidget {
                       .read<EmployeeBloc>()
                       .add(UpdateEmployee(isSaveAndNext: isSaveAndNext));
                 }
+              } else {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const WarningAlertDialogue(
+                          description: "No changes made to save");
+                    });
               }
             },
             buttonWidth: buttonWidth,

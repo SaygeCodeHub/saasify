@@ -45,6 +45,7 @@ class EmployeeListScreen extends StatelessWidget {
                 Expanded(
                   child: BlocConsumer<EmployeeBloc, EmployeeStates>(
                     listener: (context, state) {
+                      print(state.toString());
                       if (state is LoadingEmployeesFailed) {
                         showDialog(
                             context: context,

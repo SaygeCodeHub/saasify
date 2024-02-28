@@ -77,6 +77,7 @@ class AddEmployeeScreen extends StatelessWidget {
             context: context,
             builder: (context) {
               return WarningAlertDialogue(
+                  showCloseButton: true,
                   description:
                       "Are you sure you want to leave this page without saving the changes?",
                   onPressed: () {

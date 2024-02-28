@@ -55,6 +55,7 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
         if (event.isSaveAndNext) {
           selectedEmployeeId = updateEmployeeModel.data.userId ?? -1;
         }
+        mapString = employeeDetails.toString();
         emit(EmployeeUpdated(
             isSaveAndNext: event.isSaveAndNext,
             message: updateEmployeeModel.message.toString()));

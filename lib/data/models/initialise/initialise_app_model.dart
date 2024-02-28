@@ -45,9 +45,11 @@ class InitialiseAppData {
   List<Announcement>? announcements;
   final bool? geoFencing;
   dynamic gender;
+  final String name;
 
   InitialiseAppData(
-      {this.branches,
+      {required this.name,
+      this.branches,
       this.accessibleModules,
       this.availableModules,
       this.geoFencing,
@@ -80,7 +82,8 @@ class InitialiseAppData {
       announcements:
           json["announcements"] == null ? [] : List<Announcement>.from(json["announcements"]!.map((x) => Announcement.fromJson(x))),
       geoFencing: json["geo_fencing"],
-      gender: json["gender"]);
+      gender: json["gender"],
+      name: json["name"] ?? "");
 
   Map<String, dynamic> toJson() => {
         "branches": branches == null
@@ -102,7 +105,8 @@ class InitialiseAppData {
             ? []
             : List<dynamic>.from(announcements!.map((x) => x.toJson())),
         "geo_fencing": geoFencing,
-        "gender": gender
+        "gender": gender,
+        "name": name
       };
 }
 

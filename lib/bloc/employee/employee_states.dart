@@ -9,6 +9,7 @@ class InvitingEmployee extends EmployeeStates {}
 
 class InvitationSent extends EmployeeStates {
   InviteEmployeeModel inviteEmployeeModel;
+
   InvitationSent({required this.inviteEmployeeModel});
 }
 
@@ -49,12 +50,17 @@ class LoadingEmployeesFailed extends EmployeeStates {
 
 class LoadingEmployee extends EmployeeStates {}
 
-class EmployeeLoaded extends EmployeeStates {}
+class EmployeeLoaded extends EmployeeStates {
+  final bool isProfile;
+
+  EmployeeLoaded({required this.isProfile});
+}
 
 class LoadingEmployeeFailed extends EmployeeStates {
+  final bool isProfile;
   final String errorMessage;
 
-  LoadingEmployeeFailed({required this.errorMessage});
+  LoadingEmployeeFailed({required this.isProfile, required this.errorMessage});
 }
 
 class DeletingEmployee extends EmployeeStates {}

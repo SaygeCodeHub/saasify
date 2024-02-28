@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/employee/employee_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/hrms/add_employee/add_employee_web.dart';
@@ -57,7 +58,7 @@ class AddEmployeeScreen extends StatelessWidget {
                 ]));
   }
 
-  getHeading(context) {
+  getHeading(BuildContext context) {
     return ModuleHeading(
         label: isViewOnly
             ? isProfile
@@ -70,7 +71,7 @@ class AddEmployeeScreen extends StatelessWidget {
                     : 'Update Employee');
   }
 
-  checkIfChangesMade(context) {
+  checkIfChangesMade(BuildContext context) {
     context.read<EmployeeBloc>().isEmployeeDetailsChanged()
         ? showDialog(
             context: context,
@@ -86,7 +87,7 @@ class AddEmployeeScreen extends StatelessWidget {
         : Navigator.pop(context);
   }
 
-  buildActions(context) {
+  buildActions(BuildContext context) {
     return context.read<EmployeeBloc>().selectedEmployeeId == -1
         ? const SizedBox.shrink()
         : Row(mainAxisSize: MainAxisSize.min, children: [
@@ -94,7 +95,7 @@ class AddEmployeeScreen extends StatelessWidget {
                 ? const SizedBox.shrink()
                 : EditEmployeeButton(
                     routeName: routeName, isProfile: isProfile),
-            isProfile ? const DeleteEmployeeButton() : const SizedBox.shrink(),
+            isProfile ? const SizedBox.shrink() : const DeleteEmployeeButton(),
             const SizedBox(width: spacingLarge)
           ]);
   }

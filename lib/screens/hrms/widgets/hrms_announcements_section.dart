@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_bloc.dart';
@@ -49,7 +47,7 @@ class HrmsAnnouncementsSection extends StatelessWidget {
                   child: data.isEmpty
                       ? buildEmptyAnnouncements(context)
                       : ListView.builder(
-                          itemCount: min(data.length, 3),
+                          itemCount: data.length,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
                             return buildAnnouncementItem(

@@ -12,8 +12,9 @@ class GetAllEmployees extends EmployeeEvents {}
 
 class GetEmployee extends EmployeeEvents {
   final int employeeId;
+  final bool isProfile;
 
-  GetEmployee({required this.employeeId});
+  GetEmployee({this.isProfile = false, required this.employeeId});
 }
 
 class DeleteEmployee extends EmployeeEvents {}

@@ -77,13 +77,15 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
         employeeDetails = getEmployeeModel.data;
         mapString = employeeDetails.toString();
         selectedEmployeeId = event.employeeId;
-        emit(EmployeeLoaded());
+        emit(EmployeeLoaded(isProfile: event.isProfile));
       } else {
         emit(LoadingEmployeeFailed(
-            errorMessage: getEmployeeModel.message.toString()));
+            errorMessage: getEmployeeModel.message.toString(),
+            isProfile: event.isProfile));
       }
     } catch (e) {
-      emit(LoadingEmployeeFailed(errorMessage: e.toString()));
+      emit(LoadingEmployeeFailed(
+          errorMessage: e.toString(), isProfile: event.isProfile));
     }
   }
 

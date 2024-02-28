@@ -58,23 +58,31 @@ class EmployeeListScreen extends StatelessWidget {
                       }
                       if (state is EmployeeLoaded) {
                         ProgressBar.dismiss(context);
-                        Navigator.pushNamed(
-                                context, AddEmployeeScreen.routeName,
-                                arguments: UpdateEmployeeScreenArguments(
-                                    isViewOnly: true))
-                            .then((value) => context
-                                .read<EmployeeBloc>()
-                                .add(GetAllEmployees()));
+                        state.isProfile
+                            ? null
+                            : Navigator.pushNamed(
+                                    context, AddEmployeeScreen.routeName,
+                                    arguments: UpdateEmployeeScreenArguments(
+                                        isViewOnly: true))
+                                .then((value) => context
+                                    .read<EmployeeBloc>()
+                                    .add(GetAllEmployees()));
                       }
                       if (state is LoadingEmployeeFailed) {
-                        context.read<EmployeeBloc>().add(GetAllEmployees());
+                        state.isProfile
+                            ? null
+                            : context
+                                .read<EmployeeBloc>()
+                                .add(GetAllEmployees());
                         ProgressBar.dismiss(context);
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return ErrorAlertDialog(
-                                  description: state.errorMessage);
-                            });
+                        state.isProfile
+                            ? null
+                            : showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return ErrorAlertDialog(
+                                      description: state.errorMessage);
+                                });
                       }
                     },
                     buildWhen: (previous, current) {

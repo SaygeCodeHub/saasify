@@ -50,17 +50,12 @@ class LoadingEmployeesFailed extends EmployeeStates {
 
 class LoadingEmployee extends EmployeeStates {}
 
-class EmployeeLoaded extends EmployeeStates {
-  final bool isProfile;
-
-  EmployeeLoaded({required this.isProfile});
-}
+class EmployeeLoaded extends EmployeeStates {}
 
 class LoadingEmployeeFailed extends EmployeeStates {
-  final bool isProfile;
   final String errorMessage;
 
-  LoadingEmployeeFailed({required this.isProfile, required this.errorMessage});
+  LoadingEmployeeFailed({required this.errorMessage});
 }
 
 class DeletingEmployee extends EmployeeStates {}
@@ -71,4 +66,14 @@ class DeletingEmployeeFailed extends EmployeeStates {
   final String errorMessage;
 
   DeletingEmployeeFailed({required this.errorMessage});
+}
+
+class LoadingProfile extends EmployeeStates {}
+
+class ProfileLoaded extends EmployeeStates {}
+
+class LoadingProfileFailed extends EmployeeStates {
+  final String errorMessage;
+
+  LoadingProfileFailed({required this.errorMessage});
 }

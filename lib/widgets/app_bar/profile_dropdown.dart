@@ -9,32 +9,38 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/models/screenArguments/update_employee_screen_arguments.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
+import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/profile/user_profile_widget.dart';
 
 class WebProfileDropdown extends StatelessWidget {
-  const WebProfileDropdown({super.key});
+  final bool isHome;
+
+  const WebProfileDropdown({super.key, this.isHome = false});
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
         child: BlocListener<EmployeeBloc, EmployeeStates>(
       listener: (context, state) {
-        if (state is EmployeeLoaded) {
-          state.isProfile
-              ? Navigator.pushNamed(context, AddEmployeeScreen.routeName,
-                  arguments: UpdateEmployeeScreenArguments(
-                      isViewOnly: true, isProfile: true))
-              : null;
-        }
-        if (state is LoadingEmployeeFailed) {
-          state.isProfile
-              ? showDialog(
-                  context: context,
-                  builder: (context) {
-                    return ErrorAlertDialog(description: state.errorMessage);
-                  })
-              : null;
+        if (isHome) {
+          if (state is LoadingProfile) {
+            ProgressBar.show(context);
+          }
+          if (state is ProfileLoaded) {
+            ProgressBar.dismiss(context);
+            Navigator.pushNamed(context, AddEmployeeScreen.routeName,
+                arguments: UpdateEmployeeScreenArguments(
+                    isViewOnly: true, isProfile: true));
+          }
+          if (state is LoadingProfileFailed) {
+            ProgressBar.dismiss(context);
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return ErrorAlertDialog(description: state.errorMessage);
+                });
+          }
         }
       },
       child: DropdownButton2(
@@ -91,7 +97,7 @@ class MenuItems {
         if (context.mounted) {
           context
               .read<EmployeeBloc>()
-              .add(GetEmployee(employeeId: int.parse(userId), isProfile: true));
+              .add(GetProfile(employeeId: int.parse(userId)));
         }
         break;
     }

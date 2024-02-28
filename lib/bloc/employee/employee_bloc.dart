@@ -25,6 +25,7 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
     on<GetAllEmployees>(_getAllEmployees);
     on<GetEmployee>(_getEmployee);
     on<DeleteEmployee>(_deleteEmployee);
+    on<GetProfile>(_getProfile);
   }
 
   FutureOr<void> _inviteUser(
@@ -78,15 +79,13 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
         employeeDetails = getEmployeeModel.data;
         mapString = employeeDetails.toString();
         selectedEmployeeId = event.employeeId;
-        emit(EmployeeLoaded(isProfile: event.isProfile));
+        emit(EmployeeLoaded());
       } else {
         emit(LoadingEmployeeFailed(
-            errorMessage: getEmployeeModel.message.toString(),
-            isProfile: event.isProfile));
+            errorMessage: getEmployeeModel.message.toString()));
       }
     } catch (e) {
-      emit(LoadingEmployeeFailed(
-          errorMessage: e.toString(), isProfile: event.isProfile));
+      emit(LoadingEmployeeFailed(errorMessage: e.toString()));
     }
   }
 
@@ -121,6 +120,25 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
       }
     } catch (e) {
       emit(DeletingEmployeeFailed(errorMessage: e.toString()));
+    }
+  }
+
+  FutureOr<void> _getProfile(
+      GetProfile event, Emitter<EmployeeStates> emit) async {
+    emit(LoadingProfile());
+    try {
+      GetEmployeeModel getEmployeeModel =
+          await _employeeRepository.getEmployee(event.employeeId.toString());
+      if (getEmployeeModel.status == 200) {
+        employeeDetails = getEmployeeModel.data;
+        mapString = employeeDetails.toString();
+        emit(ProfileLoaded());
+      } else {
+        emit(LoadingEmployeeFailed(
+            errorMessage: getEmployeeModel.message.toString()));
+      }
+    } catch (e) {
+      emit(LoadingEmployeeFailed(errorMessage: e.toString()));
     }
   }
 

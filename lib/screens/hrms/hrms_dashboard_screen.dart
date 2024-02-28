@@ -42,47 +42,45 @@ class _HRMSDashboardScreenState extends State<HRMSDashboardScreen>
             padding: const EdgeInsets.symmetric(horizontal: spacingLarge),
             child: BlocBuilder<InitialiseAppBloc, InitialiseAppStates>(
               builder: (context, state) {
-                if (state is InitialisingApp) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (state is AppInitialised) {
-                  return SingleChildScrollView(
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const SizedBox(height: spacingStandard),
-                          (isMobile)
-                              ? const Column(children: [
-                                  HrmsAttendanceSection(isMobile: false),
-                                  SizedBox(height: spacingHuge),
-                                  HrmsAnnouncementsSection(isMobile: false)
-                                ])
-                              : const Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                      HrmsAttendanceSection(isMobile: true),
-                                      SizedBox(width: spacingStandard),
-                                      Expanded(
-                                          child: HrmsAnnouncementsSection(
-                                              isMobile: true))
-                                    ]),
-                          // const SizedBox(height: spacingHuge),
-                          // HrmsTasksSection(isMobile: isMobile),
-                          const SizedBox(height: spacingHuge),
-                          HrmsFeaturesSection(isMobile: isMobile),
-                          const SizedBox(height: spacingLarge)
-                        ]),
-                  );
+                if (state is InitialisingAppFailed) {
+                  return Center(
+                      child: TextButton(
+                          onPressed: () {
+                            context
+                                .read<InitialiseAppBloc>()
+                                .add(InitialiseApp());
+                          },
+                          child: const Text('Retry')));
                 }
-                return Center(
-                    child: TextButton(
-                        onPressed: () {
-                          context
-                              .read<InitialiseAppBloc>()
-                              .add(InitialiseApp());
-                        },
-                        child: const Text('Retry')));
+                return SingleChildScrollView(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: spacingStandard),
+                        (isMobile)
+                            ? const Column(children: [
+                                HrmsAttendanceSection(isMobile: false),
+                                SizedBox(height: spacingHuge),
+                                HrmsAnnouncementsSection(isMobile: false)
+                              ])
+                            : const Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                    HrmsAttendanceSection(isMobile: true),
+                                    SizedBox(width: spacingStandard),
+                                    Expanded(
+                                        child: HrmsAnnouncementsSection(
+                                            isMobile: true))
+                                  ]),
+                        // const SizedBox(height: spacingHuge),
+                        // HrmsTasksSection(isMobile: isMobile),
+                        const SizedBox(height: spacingHuge),
+                        HrmsFeaturesSection(isMobile: isMobile),
+                        const SizedBox(height: spacingLarge)
+                      ]),
+                );
               },
             )));
   }

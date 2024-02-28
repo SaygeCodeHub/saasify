@@ -45,7 +45,6 @@ class EmployeeListScreen extends StatelessWidget {
                 Expanded(
                   child: BlocConsumer<EmployeeBloc, EmployeeStates>(
                     listener: (context, state) {
-                      print(state.toString());
                       if (state is LoadingEmployeesFailed) {
                         showDialog(
                             context: context,
@@ -59,31 +58,23 @@ class EmployeeListScreen extends StatelessWidget {
                       }
                       if (state is EmployeeLoaded) {
                         ProgressBar.dismiss(context);
-                        state.isProfile
-                            ? null
-                            : Navigator.pushNamed(
-                                    context, AddEmployeeScreen.routeName,
-                                    arguments: UpdateEmployeeScreenArguments(
-                                        isViewOnly: true))
-                                .then((value) => context
-                                    .read<EmployeeBloc>()
-                                    .add(GetAllEmployees()));
+                        Navigator.pushNamed(
+                                context, AddEmployeeScreen.routeName,
+                                arguments: UpdateEmployeeScreenArguments(
+                                    isViewOnly: true))
+                            .then((value) => context
+                                .read<EmployeeBloc>()
+                                .add(GetAllEmployees()));
                       }
                       if (state is LoadingEmployeeFailed) {
-                        state.isProfile
-                            ? null
-                            : context
-                                .read<EmployeeBloc>()
-                                .add(GetAllEmployees());
+                        context.read<EmployeeBloc>().add(GetAllEmployees());
                         ProgressBar.dismiss(context);
-                        state.isProfile
-                            ? null
-                            : showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return ErrorAlertDialog(
-                                      description: state.errorMessage);
-                                });
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return ErrorAlertDialog(
+                                  description: state.errorMessage);
+                            });
                       }
                     },
                     buildWhen: (previous, current) {

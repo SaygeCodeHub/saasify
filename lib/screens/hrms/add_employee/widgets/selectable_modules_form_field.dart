@@ -11,13 +11,12 @@ class SelectableModulesFormField extends StatelessWidget {
   final bool isRequired;
   final bool isViewOnly;
 
-  const SelectableModulesFormField({
-    super.key,
-    required this.selectedFeatures,
-    required this.onSelected,
-    this.isRequired = true,
-    this.isViewOnly = false,
-  });
+  const SelectableModulesFormField(
+      {super.key,
+      required this.selectedFeatures,
+      required this.onSelected,
+      this.isRequired = true,
+      this.isViewOnly = false});
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +33,18 @@ class SelectableModulesFormField extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                    child: SingleChildScrollView(
-                        child: FutureBuilder(
-                            future: getIt<Cache>().getAvailableModules(),
-                            builder: (context, snapshot) {
-                              return SelectableModules(
-                                  modules: snapshot.data ?? [],
-                                  isViewOnly: isViewOnly,
-                                  selectedFeatures: selectedFeatures,
-                                  onSelected: (features) {
-                                    onSelected(features);
-                                    state.didChange(features);
-                                  });
-                            }))),
+                    child: FutureBuilder(
+                        future: getIt<Cache>().getAvailableModules(),
+                        builder: (context, snapshot) {
+                          return SelectableModules(
+                              modules: snapshot.data ?? [],
+                              isViewOnly: isViewOnly,
+                              selectedFeatures: selectedFeatures,
+                              onSelected: (features) {
+                                onSelected(features);
+                                state.didChange(features);
+                              });
+                        })),
                 state.hasError
                     ? Padding(
                         padding: const EdgeInsets.only(

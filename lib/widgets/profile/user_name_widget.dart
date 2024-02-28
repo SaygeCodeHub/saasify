@@ -12,6 +12,8 @@ class UserNameWidget extends StatelessWidget {
         future: getIt<Cache>().getUserName(),
         builder: (context, snapshot) {
           return Text(snapshot.data.toString(),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.userNameTextStyle);
         });
   }

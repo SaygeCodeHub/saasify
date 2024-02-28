@@ -69,7 +69,8 @@ class CustomCheckboxState extends State<CustomCheckbox> {
               child: Icon(
                 Icons.info,
                 color: AppColors.darkBlue,
-              ))
+              )),
+          SizedBox(width: spacingSmall)
         ],
       ),
     );

@@ -6,9 +6,8 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
+import 'package:saasify/utils/globals.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
-
-import '../../utils/globals.dart';
 
 class ErrorAlertDialog extends StatelessWidget {
   final String description;
@@ -21,7 +20,7 @@ class ErrorAlertDialog extends StatelessWidget {
       required this.description,
       this.title = '',
       this.onPressed,
-      this.showLogoutButton = true});
+      this.showLogoutButton = false});
 
   @override
   Widget build(BuildContext context) {

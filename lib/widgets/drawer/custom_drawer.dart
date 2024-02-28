@@ -141,7 +141,7 @@ class CustomDrawer extends StatelessWidget {
                                     }
                                     if (state is ProfileLoaded) {
                                       ProgressBar.dismiss(context);
-                                      Navigator.pushNamed(
+                                      Navigator.pushReplacementNamed(
                                           context, AddEmployeeScreen.routeName,
                                           arguments:
                                               UpdateEmployeeScreenArguments(
@@ -163,11 +163,13 @@ class CustomDrawer extends StatelessWidget {
                                     onTap: () async {
                                       String userId =
                                           await getIt<Cache>().getUserId();
-                                      context.read<EmployeeBloc>().add(
-                                          GetProfile(
-                                              employeeId: int.parse(userId)));
+                                      if (context.mounted) {
+                                        context.read<EmployeeBloc>().add(
+                                            GetProfile(
+                                                employeeId: int.parse(userId)));
+                                      }
                                     },
-                                    child: Row(
+                                    child: const Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [

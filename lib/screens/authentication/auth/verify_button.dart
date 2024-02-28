@@ -73,18 +73,19 @@ class AuthVerifyButton extends StatelessWidget {
           alignment: MainAxisAlignment.spaceEvenly,
           overflowAlignment: OverflowBarAlignment.center,
           children: [
-            InkWell(
-                onTap: () {
-                  context
-                      .read<RegisterBloc>()
-                      .userInputAuthenticationMap
-                      .clear();
-                  Navigator.pushReplacementNamed(
-                      context, RegisterScreen.routeName);
-                },
-                child: const Text('New user? Create an account!',
-                    style: TextStyle(color: AppColors.orange))),
-            // const SizedBox(width: spacingStandard),
+            Padding(
+                padding: const EdgeInsets.symmetric(vertical: spacingStandard),
+                child: InkWell(
+                    onTap: () {
+                      context
+                          .read<RegisterBloc>()
+                          .userInputAuthenticationMap
+                          .clear();
+                      Navigator.pushReplacementNamed(
+                          context, RegisterScreen.routeName);
+                    },
+                    child: const Text('New user? Create an account!',
+                        style: TextStyle(color: AppColors.orange)))),
             InkWell(
                 onTap: () {
                   Navigator.pushReplacementNamed(

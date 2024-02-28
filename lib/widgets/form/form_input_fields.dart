@@ -55,8 +55,8 @@ class ContactTextField extends LabelAndFieldWidget {
     super.onTextFieldChanged,
     super.isRequired,
   }) : super(
-            initialValue: initialValue?.toString() ?? "",
-            keyboardType: TextInputType.phone,
+            initialValue: initialValue?.toString(),
+            // keyboardType: TextInputType.phone,
             inputFormatters: [
               LengthLimitingTextInputFormatter(maxLength),
               FilteringTextInputFormatter.digitsOnly
@@ -175,8 +175,8 @@ class NumberTextField extends LabelAndFieldWidget {
     super.onTextFieldChanged,
     super.isRequired,
   }) : super(
-            initialValue: initialValue?.toString() ?? "",
-            keyboardType: TextInputType.number,
+            initialValue: initialValue?.toString(),
+            // keyboardType: TextInputType.number,
             inputFormatters: [
               LengthLimitingTextInputFormatter(maxLength),
               FilteringTextInputFormatter.digitsOnly

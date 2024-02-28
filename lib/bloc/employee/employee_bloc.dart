@@ -132,6 +132,7 @@ class EmployeeBloc extends Bloc<EmployeeEvents, EmployeeStates> {
       if (getEmployeeModel.status == 200) {
         employeeDetails = getEmployeeModel.data;
         mapString = employeeDetails.toString();
+        selectedEmployeeId = event.employeeId;
         emit(ProfileLoaded());
       } else {
         emit(LoadingEmployeeFailed(

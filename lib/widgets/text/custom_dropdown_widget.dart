@@ -76,7 +76,8 @@ class CustomDropdownButton extends StatelessWidget {
               return DropdownMenuItem(
                 value: item.value,
                 child: Text(item.label,
-                    style: const TextStyle(fontSize: spacingMedium)),
+                    style: const TextStyle(
+                        fontSize: spacingMedium, color: AppColors.black)),
               );
             }).toList(),
             validator: (value) {

@@ -52,6 +52,37 @@ class _HRMSDashboardScreenState extends State<HRMSDashboardScreen>
                           },
                           child: const Text('Retry')));
                 }
+                if (state is AppInitialised) {
+                  return SingleChildScrollView(
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: spacingStandard),
+                          (isMobile)
+                              ? const Column(children: [
+                                  HrmsAttendanceSection(isMobile: false),
+                                  SizedBox(height: spacingHuge),
+                                  HrmsAnnouncementsSection(isMobile: false)
+                                ])
+                              : const Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                      HrmsAttendanceSection(isMobile: true),
+                                      SizedBox(width: spacingStandard),
+                                      Expanded(
+                                          child: HrmsAnnouncementsSection(
+                                              isMobile: true))
+                                    ]),
+                          // const SizedBox(height: spacingHuge),
+                          // HrmsTasksSection(isMobile: isMobile),
+                          const SizedBox(height: spacingHuge),
+                          HrmsFeaturesSection(isMobile: isMobile),
+                          const SizedBox(height: spacingLarge)
+                        ]),
+                  );
+                }
                 return SingleChildScrollView(
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

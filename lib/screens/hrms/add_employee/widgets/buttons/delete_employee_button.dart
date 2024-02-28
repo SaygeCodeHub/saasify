@@ -56,6 +56,6 @@ class DeleteEmployeeButton extends StatelessWidget {
             },
             padding: EdgeInsets.zero,
             icon: const Icon(Icons.delete_outline,
-                color: AppColors.darkBlue, size: 25)));
+                color: AppColors.errorRed, size: 25)));
   }
 }

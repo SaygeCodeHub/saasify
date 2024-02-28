@@ -48,9 +48,9 @@ class AddAnnouncementButton extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is AddingAnnouncement) {
-              return const SizedBox(
-                  width: kGeneralActionButtonWidth,
-                  child: Center(child: CircularProgressIndicator()));
+              return SizedBox(
+                  width: buttonWidth,
+                  child: const Center(child: CircularProgressIndicator()));
             }
             return PrimaryButton(
               buttonWidth: buttonWidth,

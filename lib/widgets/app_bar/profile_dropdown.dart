@@ -80,7 +80,7 @@ class MenuItem {
 class MenuItems {
   static const List<MenuItem> firstItems = [edit];
 
-  static const edit = MenuItem(text: 'Edit Profile', icon: Icons.edit);
+  static const edit = MenuItem(text: 'View Profile', icon: Icons.edit);
 
   static Widget buildItem(MenuItem item) {
     return Row(children: [

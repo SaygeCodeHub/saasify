@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Deploy to production 🚀
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 jobs:
 
   build:
-    name: Build
+    name: 👷 Build
     runs-on: ubuntu-latest
     steps:
       - name: 📚 Git Checkout
@@ -17,14 +17,15 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: "stable"
-      - name: Run Flutter doctor
+      - name: 👨‍⚕️ Flutter doctor
         run: flutter doctor
 
-      - name: Run Flutter dependencies
+      - name: 🖥️ Flutter dependencies
         run: flutter pub get
 
       - name: 🛠️ Build the application
         run: flutter build web
+
       - name: ⬇️ Archive Production Artifact
         uses: actions/upload-artifact@v2
         with:
@@ -32,7 +33,7 @@ jobs:
           path: build/web
 
   deploy:
-    name: Deploy
+    name: 🛫 Deploy
     runs-on: ubuntu-latest
     needs: build
     steps:

@@ -31,6 +31,7 @@ class LeaveDetailsPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<LeavesBloc>().leaveStatusMap.clear();
     return AlertDialog(
         icon: Align(
             alignment: Alignment.topRight,

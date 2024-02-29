@@ -9,35 +9,34 @@ import 'package:saasify/widgets/profile/saasify_logo.dart';
 
 class AuthMobileScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey;
+
   const AuthMobileScreen({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SaasifyLogo(height: 45),
-            const SizedBox(height: spacingBetweenTextFieldAndButton),
-            EmailTextField(
-                isRequired: true,
-                onTextFieldChanged: (value) {
-                  context.read<AuthBloc>().userInputAuthenticationMap['email'] =
-                      value;
-                }),
-            const SizedBox(height: spacingBetweenTextFields),
-            PasswordTextField(onTextFieldChanged: (value) {
-              context.read<AuthBloc>().userInputAuthenticationMap['password'] =
-                  value;
-            }),
-            const ForgotPasswordButton(),
-            const SizedBox(height: spacingBetweenTextFieldAndButton),
-            AuthVerifyButton(formKey: formKey),
-          ],
-        ),
-      ),
-    );
+        child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              const SaasifyLogo(height: 45),
+              const SizedBox(height: spacingBetweenTextFieldAndButton),
+              EmailTextField(
+                  isRequired: true,
+                  onTextFieldChanged: (value) {
+                    context
+                        .read<AuthBloc>()
+                        .userInputAuthenticationMap['email'] = value;
+                  }),
+              const SizedBox(height: spacingBetweenTextFields),
+              PasswordTextField(onTextFieldChanged: (value) {
+                context
+                    .read<AuthBloc>()
+                    .userInputAuthenticationMap['password'] = value;
+              }),
+              const ForgotPasswordButton(),
+              const SizedBox(height: spacingBetweenTextFieldAndButton),
+              AuthVerifyButton(formKey: formKey)
+            ])));
   }
 }

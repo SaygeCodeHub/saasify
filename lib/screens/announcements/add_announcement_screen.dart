@@ -10,8 +10,9 @@ import 'package:saasify/widgets/text/module_heading.dart';
 
 class AddAnnouncementScreen extends StatelessWidget {
   static const routeName = 'AnnouncementScreen';
+  final bool isEdit;
 
-  AddAnnouncementScreen({super.key});
+  AddAnnouncementScreen({super.key, required this.isEdit});
 
   final _formKey = GlobalKey<FormState>();
 
@@ -28,7 +29,8 @@ class AddAnnouncementScreen extends StatelessWidget {
                 child: Row(children: [
                   isMobile ? const SizedBox.shrink() : const BackButton(),
                   const SizedBox(width: spacingXMedium),
-                  const ModuleHeading(label: "Add Announcement"),
+                  ModuleHeading(
+                      label: isEdit ? "Edit Announcement" : "Add Announcement"),
                 ])),
             Expanded(
               child: SingleChildScrollView(
@@ -45,7 +47,8 @@ class AddAnnouncementScreen extends StatelessWidget {
                                 Row(
                                   children: [
                                     const Spacer(),
-                                    AddAnnouncementButton(formKey: _formKey),
+                                    AddAnnouncementButton(
+                                        isEdit: isEdit, formKey: _formKey),
                                   ],
                                 )
                               ],
@@ -60,7 +63,9 @@ class AddAnnouncementScreen extends StatelessWidget {
                     color: AppColors.white,
                     padding: const EdgeInsets.all(spacingStandard),
                     child: AddAnnouncementButton(
-                        formKey: _formKey, buttonWidth: double.maxFinite))
+                        isEdit: isEdit,
+                        formKey: _formKey,
+                        buttonWidth: double.maxFinite))
                 : const SizedBox.shrink()
           ]);
     });

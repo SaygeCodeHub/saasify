@@ -10,8 +10,9 @@ import 'package:saasify/widgets/text/module_heading.dart';
 
 class TaskScreen extends StatelessWidget {
   static const routeName = 'TaskScreen';
+  final bool isEdit;
 
-  TaskScreen({super.key});
+  TaskScreen({super.key, this.isEdit = false});
 
   final _formKey = GlobalKey<FormState>();
 
@@ -28,7 +29,7 @@ class TaskScreen extends StatelessWidget {
                 child: Row(children: [
                   isMobile ? const SizedBox.shrink() : const BackButton(),
                   const SizedBox(width: spacingXMedium),
-                  const ModuleHeading(label: "Assign Task")
+                  ModuleHeading(label: isEdit ? "EditTask" : "Assign Task")
                 ])),
             Expanded(
                 child: SingleChildScrollView(
@@ -44,7 +45,8 @@ class TaskScreen extends StatelessWidget {
                                       const AssignTaskForm(),
                                       Row(children: [
                                         const Spacer(),
-                                        AssignTaskButton(formKey: _formKey)
+                                        AssignTaskButton(
+                                            formKey: _formKey, isEdit: isEdit),
                                       ])
                                     ]))))))),
             isMobile ? const Divider(height: 0) : const SizedBox.shrink(),
@@ -53,7 +55,9 @@ class TaskScreen extends StatelessWidget {
                     color: AppColors.white,
                     padding: const EdgeInsets.all(spacingStandard),
                     child: AssignTaskButton(
-                        formKey: _formKey, buttonWidth: double.maxFinite))
+                        formKey: _formKey,
+                        buttonWidth: double.maxFinite,
+                        isEdit: isEdit))
                 : const SizedBox.shrink()
           ]);
     });

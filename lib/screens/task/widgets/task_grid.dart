@@ -3,17 +3,20 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
-import 'package:saasify/data/models/initialise/initialise_app_model.dart';
+import 'package:saasify/data/models/task/get_all_tasks_model.dart';
 import 'package:saasify/screens/hrms/widgets/build_date.dart';
-import 'package:saasify/screens/hrms/widgets/hrms_tasks_section.dart';
+import 'package:saasify/screens/task/widgets/task_details_pop_up.dart';
+import 'package:saasify/screens/task/widgets/task_details_screen.dart';
+import 'package:saasify/screens/task/widgets/task_widget_utils.dart';
 import 'package:saasify/utils/globals.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
 class TasksGrid extends StatelessWidget {
   final List<TasksAssignedMe> data;
-  final String label;
+  final bool isTaskAssignedToMe;
 
-  const TasksGrid({super.key, required this.data, required this.label});
+  const TasksGrid(
+      {super.key, required this.data, required this.isTaskAssignedToMe});
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +26,15 @@ class TasksGrid extends StatelessWidget {
       isMobile
           ? Padding(
               padding: const EdgeInsets.only(bottom: spacingStandard),
-              child: ModuleHeading(label: label))
+              child: ModuleHeading(
+                  label: isTaskAssignedToMe
+                      ? "Tasks Assigned To Me"
+                      : "Tasks Assigned By Me"))
           : const SizedBox.shrink(),
       Expanded(
           child: data.isEmpty
-              ? buildEmptyTasks(context, isMobile)
+              ? buildEmptyTasks(context, isMobile,
+                  isAssignedToMe: isTaskAssignedToMe)
               : GridView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
@@ -47,10 +54,26 @@ class TasksGrid extends StatelessWidget {
                   itemCount: data.length,
                   itemBuilder: (context, index) {
                     return InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          isMobile
+                              ? Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => TaskDetailsScreen(
+                                          task: data[index],
+                                          isTaskAssignedToMe:
+                                              isTaskAssignedToMe)))
+                              : showDialog(
+                                  context: context,
+                                  builder: (context) => TaskDetailsPopup(
+                                      task: data[index],
+                                      isTaskAssignedToMe: isTaskAssignedToMe));
+                        },
                         child: Container(
                             decoration: BoxDecoration(
-                                color: AppColors.lightestYellow,
+                                color: data[index].taskStatus == "CLOSED"
+                                    ? AppColors.errorRed.withOpacity(0.1)
+                                    : AppColors.lightestYellow,
                                 border:
                                     Border.all(color: AppColors.lighterBlack),
                                 borderRadius:
@@ -97,8 +120,8 @@ class TasksGrid extends StatelessWidget {
                                                 orangeColor: false),
                                             const SizedBox(
                                                 height: spacingSmall),
-                                            buildStatusChip(
-                                                data[index].priority.toString())
+                                            buildTaskStatusChip(
+                                                data[index].taskStatus)
                                           ])
                                     ]))));
                   }))

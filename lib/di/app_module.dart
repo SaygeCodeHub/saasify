@@ -14,6 +14,8 @@ import 'package:saasify/repositories/initialise/initialise_repository.dart';
 import 'package:saasify/repositories/initialise/initialise_repository_impl.dart';
 import 'package:saasify/repositories/register/register_repository.dart';
 import 'package:saasify/repositories/register/register_repository_impl.dart';
+import 'package:saasify/repositories/salary_rollouts/salary_rollout_repository.dart';
+import 'package:saasify/repositories/salary_rollouts/salary_rollout_repository_impl.dart';
 import 'package:saasify/repositories/settings/settings_repository.dart';
 import 'package:saasify/repositories/settings/settings_repository_impl.dart';
 import 'package:saasify/repositories/task/task_repository.dart';
@@ -48,6 +50,8 @@ configurableDependencies() {
   getIt.registerLazySingleton<CompaniesRepository>(
       () => CompaniesRepositoryImpl());
   getIt.registerLazySingleton<LeavesRepository>(() => LeavesRepositoryImpl());
+  getIt.registerLazySingleton<SalaryRolloutRepository>(
+      () => SalaryRolloutRepositoryImpl());
   getIt.registerLazySingleton<SettingsRepository>(
       () => SettingsRepositoryImpl());
   getIt.registerLazySingleton<TimeSheetRepository>(

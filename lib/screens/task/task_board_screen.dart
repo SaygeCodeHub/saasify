@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/initialise/initialise_bloc.dart';
+import 'package:saasify/bloc/task/task_bloc.dart';
+import 'package:saasify/bloc/task/task_event.dart';
+import 'package:saasify/bloc/task/task_state.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/task/widgets/task_grid.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
@@ -14,6 +16,7 @@ class TaskBoardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<TaskBloc>().add(FetchAllTasks());
     return ScreenSkeleton(
         childScreenBuilder: (isMobile) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,30 +38,36 @@ class TaskBoardScreen extends StatelessWidget {
                             ]))
                       ]),
                   Expanded(
-                      child: CustomTabBar(tabData: [
-                    TabData(
-                        label: "Tasks Assigned To Me",
-                        icon: isMobile ? Icons.assignment_ind_outlined : null,
-                        content: TasksGrid(
-                            label: "Tasks Assigned To Me",
-                            data: context
-                                .read<InitialiseAppBloc>()
-                                .initialiseAppModel!
-                                .data!
-                                .tasksAssignedToMe!)),
-                    TabData(
-                        label: "Tasks Assigned By Me",
-                        icon: isMobile
-                            ? Icons.assignment_turned_in_outlined
-                            : null,
-                        content: TasksGrid(
-                            label: "Tasks Assigned By Me",
-                            data: context
-                                .read<InitialiseAppBloc>()
-                                .initialiseAppModel!
-                                .data!
-                                .tasksAssignedByMe!))
-                  ]))
+                      child: BlocBuilder<TaskBloc, TaskStates>(
+                    buildWhen: (previous, current) =>
+                        current is FetchingAllTasks ||
+                        current is AllTasksFetched,
+                    builder: (context, state) {
+                      if (state is FetchingAllTasks) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (state is AllTasksFetched) {
+                        return CustomTabBar(tabData: [
+                          TabData(
+                              label: "Tasks Assigned To Me",
+                              icon: isMobile
+                                  ? Icons.assignment_ind_outlined
+                                  : null,
+                              content: TasksGrid(
+                                  isTaskAssignedToMe: true,
+                                  data: state.tasks.tasksAssignedToMe)),
+                          TabData(
+                              label: "Tasks Assigned By Me",
+                              icon: isMobile
+                                  ? Icons.assignment_turned_in_outlined
+                                  : null,
+                              content: TasksGrid(
+                                  isTaskAssignedToMe: false,
+                                  data: state.tasks.tasksAssignedByMe))
+                        ]);
+                      }
+                      return const SizedBox.shrink();
+                    },
+                  ))
                 ]));
   }
 }

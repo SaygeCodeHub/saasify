@@ -7,6 +7,7 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/enums/employee_type_enum.dart';
+import 'package:saasify/data/models/screenArguments/update_employee_screen_arguments.dart';
 import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
 import 'package:saasify/screens/hrms/add_employee/widgets/selectable_modules_form_field.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
@@ -84,7 +85,8 @@ showAddEmployeeDialog(BuildContext context) {
                 onTap: () {
                   context.read<EmployeeBloc>().resetEmployeeDetails();
                   Navigator.pushReplacementNamed(
-                      context, AddEmployeeScreen.routeName);
+                      context, AddEmployeeScreen.routeName,
+                      arguments: UpdateEmployeeScreenArguments());
                 },
                 child: Text("Add Manually",
                     style: Theme.of(context)

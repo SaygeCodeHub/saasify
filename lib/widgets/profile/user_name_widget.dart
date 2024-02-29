@@ -9,9 +9,11 @@ class UserNameWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: getIt<Cache>().getUserNamed(),
+        future: getIt<Cache>().getUserName(),
         builder: (context, snapshot) {
           return Text(snapshot.data.toString(),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.userNameTextStyle);
         });
   }

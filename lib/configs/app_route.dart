@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
+import 'package:saasify/data/models/screenArguments/update_employee_screen_arguments.dart';
 import 'package:saasify/screens/POS/pos_screen.dart';
 import 'package:saasify/screens/announcements/add_announcement_screen.dart';
+import 'package:saasify/screens/announcements/all_announcements_screen.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/authentication/forgotPassword/forgot_password_screen.dart';
 import 'package:saasify/screens/authentication/register/register_screen.dart';
@@ -50,12 +52,15 @@ class AppRoutes {
       case EmployeeListScreen.routeName:
         return _createRoute(const EmployeeListScreen());
       case AddAnnouncementScreen.routeName:
-        return _createRoute(AddAnnouncementScreen());
+        return _createRoute(AddAnnouncementScreen(
+            isEdit: settings.arguments as bool? ?? false));
       case TaskBoardScreen.routeName:
         return _createRoute(const TaskBoardScreen());
       case AddEmployeeScreen.routeName:
+        UpdateEmployeeScreenArguments args =
+            settings.arguments as UpdateEmployeeScreenArguments;
         return _createRoute(AddEmployeeScreen(
-            isViewOnly: (settings.arguments ?? false) as bool));
+            isViewOnly: args.isViewOnly, isProfile: args.isProfile));
       case ApplyLeaveScreen.routeName:
         return _createRoute(const ApplyLeaveScreen());
       case AllCompaniesScreen.routeName:
@@ -69,8 +74,11 @@ class AppRoutes {
         return _createRoute(const OrdersScreen());
       case InventoryScreen.routeName:
         return _createRoute(const InventoryScreen());
+      case AllAnnouncementsScreen.routeName:
+        return _createRoute(const AllAnnouncementsScreen());
       case TaskScreen.routeName:
-        return _createRoute(TaskScreen());
+        return _createRoute(
+            TaskScreen(isEdit: settings.arguments as bool? ?? false));
       case LeaveDetailsNavigationScreen.routeName:
         List<dynamic> args = settings.arguments as List<dynamic>;
         return _createRoute(LeaveDetailsNavigationScreen(
@@ -82,7 +90,8 @@ class AppRoutes {
         return _createRoute(AllBranchesScreen(
             companyName: args[0] as String, branches: args[1] as List<Branch>));
       case SettingsScreen.routeName:
-        return _createRoute(const SettingsScreen());
+        return _createRoute(
+            SettingsScreen(isViewOnly: settings.arguments as bool));
       default:
         return _createRoute(const ComingSoonScreen());
     }
@@ -104,3 +113,5 @@ class AppRoutes {
         });
   }
 }
+
+final RouteObserver<ModalRoute> routeObserver = RouteObserver<ModalRoute>();

@@ -38,10 +38,10 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
       if (initialiseAppModel!.status == 200) {
         bool geoFencing = initialiseAppModel!.data!.geoFencing ?? false;
         branches = initialiseAppModel!.data!.branches;
-        getIt<Cache>()
+        cache
             .setAccessibleModules(initialiseAppModel!.data!.accessibleModules!);
-        getIt<Cache>()
-            .setAvailableModules(initialiseAppModel!.data!.availableModules!);
+        cache.setAvailableModules(initialiseAppModel!.data!.availableModules!);
+        cache.setUserName(initialiseAppModel!.data!.name);
 
         emit(AppInitialised(
             isGeoFencing: geoFencing, initialiseAppModel: initialiseAppModel!));

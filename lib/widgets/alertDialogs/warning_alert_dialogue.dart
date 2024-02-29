@@ -9,16 +9,35 @@ import 'package:saasify/widgets/buttons/primary_button.dart';
 class WarningAlertDialogue extends StatelessWidget {
   final String description;
   final Function? onPressed;
+  final bool showCloseButton;
 
   const WarningAlertDialogue(
-      {super.key, required this.description, this.onPressed});
+      {super.key,
+      required this.description,
+      this.onPressed,
+      this.showCloseButton = false});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        icon: SizedBox.square(
-            dimension: kSassifyLogoSize,
-            child: Image.asset('assets/exclamation-circle.png')),
+        icon: Stack(
+          alignment: Alignment.center,
+          children: [
+            showCloseButton
+                ? Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.close)),
+                  )
+                : const SizedBox.shrink(),
+            SizedBox.square(
+                dimension: kSassifyLogoSize,
+                child: Image.asset('assets/exclamation-circle.png')),
+          ],
+        ),
         title: Text('Warning!',
             style: Theme.of(context).textTheme.dialogueHeadingTextStyle),
         content: Text(description,

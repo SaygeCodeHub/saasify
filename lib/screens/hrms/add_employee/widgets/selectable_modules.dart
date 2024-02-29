@@ -45,6 +45,7 @@ class _SelectableModulesState extends State<SelectableModules> {
     return ListView.builder(
       itemCount: widget.modules.length,
       shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return ModuleItem(
           module: widget.modules[index],
@@ -215,6 +216,7 @@ class FeatureChip extends StatelessWidget {
 
 class ViewOnlyModuleItem extends StatelessWidget {
   final Map<String, dynamic> module;
+
   const ViewOnlyModuleItem({super.key, required this.module});
 
   @override

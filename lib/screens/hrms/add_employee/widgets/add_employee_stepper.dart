@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/screens/hrms/add_employee/widgets/add_employee_button.dart';
+import 'package:saasify/screens/hrms/add_employee/widgets/buttons/add_employee_button.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 import 'package:saasify/widgets/buttons/secondary_button.dart';
 
@@ -92,25 +92,88 @@ class _AddEmployeeStepperState extends State<AddEmployeeStepper> {
                   ? Row(
                       children: [
                         Expanded(
-                            child: currentStep == 0
-                                ? const SizedBox(
-                                    width: kGeneralActionButtonWidth)
-                                : SecondaryButton(
-                                    buttonWidth: kGeneralActionButtonWidth,
-                                    onPressed: () {
+                            child: SecondaryButton(
+                                buttonWidth: kGeneralActionButtonWidth,
+                                onPressed: currentStep > 0
+                                    ? () {
+                                        setState(() {
+                                          if (currentStep > 0) {
+                                            currentStep--;
+                                          }
+                                        });
+                                      }
+                                    : null,
+                                buttonTitle: 'Back')),
+                        const SizedBox(width: spacingStandard),
+                        Expanded(
+                            child: SecondaryButton(
+                                buttonWidth: kGeneralActionButtonWidth,
+                                onPressed: currentStep < 3
+                                    ? () {
+                                        if (widget.formKeys[currentStep]
+                                                .currentState
+                                                ?.validate() ??
+                                            false) {
+                                          setState(() {
+                                            if (currentStep < 3) {
+                                              currentStep++;
+                                            }
+                                          });
+                                        }
+                                        // Ajay: Validations commented for now
+                                        // if (!widget.isViewOnly) {
+                                        //   if (widget.formKeys[currentStep].currentState
+                                        //           ?.validate() ??
+                                        //       false) {
+                                        //     setState(() {
+                                        //       if (currentStep < 3) {
+                                        //         currentStep++;
+                                        //       }
+                                        //     });
+                                        //   }
+                                        // } else {
+                                        //   setState(() {
+                                        //     if (currentStep < 3) {
+                                        //       currentStep++;
+                                        //     }
+                                        //   });
+                                        // }
+                                      }
+                                    : null,
+                                buttonTitle: 'Next'))
+                      ],
+                    )
+                  : Row(
+                      mainAxisAlignment: widget.isMobile
+                          ? MainAxisAlignment.center
+                          : MainAxisAlignment.end,
+                      children: [
+                          SecondaryButton(
+                              buttonWidth: kGeneralActionButtonWidth,
+                              onPressed: currentStep > 0
+                                  ? () {
                                       setState(() {
                                         if (currentStep > 0) {
                                           currentStep--;
                                         }
                                       });
-                                    },
-                                    buttonTitle: 'Back')),
-                        const SizedBox(width: spacingStandard),
-                        Expanded(
-                            child: currentStep < 3
-                                ? SecondaryButton(
-                                    buttonWidth: kGeneralActionButtonWidth,
-                                    onPressed: () {
+                                    }
+                                  : null,
+                              buttonTitle: 'Back'),
+                          widget.isViewOnly
+                              ? const SizedBox.shrink()
+                              : const SizedBox(width: spacingStandard),
+                          widget.isViewOnly
+                              ? const SizedBox.shrink()
+                              : AddEmployeeButton(
+                                  buttonWidth: kGeneralActionButtonWidth,
+                                  isSaveAndNext: currentStep < 3,
+                                  formKey: widget.formKeys.first),
+                          const SizedBox(width: spacingStandard),
+                          PrimaryButton(
+                              buttonWidth: kGeneralActionButtonWidth,
+                              onPressed: currentStep < 3
+                                  ? () {
                                       if (widget.formKeys[currentStep]
                                               .currentState
                                               ?.validate() ??
@@ -139,75 +202,9 @@ class _AddEmployeeStepperState extends State<AddEmployeeStepper> {
                                       //     }
                                       //   });
                                       // }
-                                    },
-                                    buttonTitle: 'Next')
-                                : const SizedBox.shrink())
-                      ],
-                    )
-                  : Row(
-                      mainAxisAlignment: widget.isMobile
-                          ? MainAxisAlignment.center
-                          : MainAxisAlignment.end,
-                      children: [
-                          currentStep == 0
-                              ? const SizedBox(width: kGeneralActionButtonWidth)
-                              : SecondaryButton(
-                                  buttonWidth: kGeneralActionButtonWidth,
-                                  onPressed: () {
-                                    setState(() {
-                                      if (currentStep > 0) {
-                                        currentStep--;
-                                      }
-                                    });
-                                  },
-                                  buttonTitle: 'Back'),
-                          widget.isViewOnly
-                              ? const SizedBox.shrink()
-                              : const SizedBox(width: spacingStandard),
-                          widget.isViewOnly
-                              ? const SizedBox.shrink()
-                              : AddEmployeeButton(
-                                  buttonWidth: kGeneralActionButtonWidth,
-                                  isSaveAndNext: currentStep < 3,
-                                  formKey: widget.formKeys.first),
-                          currentStep < 3
-                              ? const SizedBox(width: spacingStandard)
-                              : const SizedBox.shrink(),
-                          currentStep < 3
-                              ? PrimaryButton(
-                                  buttonWidth: kGeneralActionButtonWidth,
-                                  onPressed: () {
-                                    if (widget
-                                            .formKeys[currentStep].currentState
-                                            ?.validate() ??
-                                        false) {
-                                      setState(() {
-                                        if (currentStep < 3) {
-                                          currentStep++;
-                                        }
-                                      });
                                     }
-                                    // Ajay: Validations commented for now
-                                    // if (!widget.isViewOnly) {
-                                    //   if (widget.formKeys[currentStep].currentState
-                                    //           ?.validate() ??
-                                    //       false) {
-                                    //     setState(() {
-                                    //       if (currentStep < 3) {
-                                    //         currentStep++;
-                                    //       }
-                                    //     });
-                                    //   }
-                                    // } else {
-                                    //   setState(() {
-                                    //     if (currentStep < 3) {
-                                    //       currentStep++;
-                                    //     }
-                                    //   });
-                                    // }
-                                  },
-                                  buttonTitle: 'Next')
-                              : const SizedBox.shrink()
+                                  : null,
+                              buttonTitle: 'Next')
                         ]),
               widget.isMobile
                   ? widget.isViewOnly
@@ -220,7 +217,7 @@ class _AddEmployeeStepperState extends State<AddEmployeeStepper> {
                       : AddEmployeeButton(
                           isSaveAndNext: currentStep < 3,
                           formKey: widget.formKeys.first)
-                  : const SizedBox(height: spacingStandard)
+                  : const SizedBox(height: spacingStandard),
             ],
           ))
     ]);

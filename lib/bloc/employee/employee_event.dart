@@ -17,3 +17,9 @@ class GetEmployee extends EmployeeEvents {
 }
 
 class DeleteEmployee extends EmployeeEvents {}
+
+class GetProfile extends EmployeeEvents {
+  final int employeeId;
+
+  GetProfile({required this.employeeId});
+}

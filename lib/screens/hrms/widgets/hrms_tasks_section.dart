@@ -8,10 +8,11 @@ import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/screens/hrms/widgets/build_date.dart';
+import 'package:saasify/screens/task/widgets/task_details_screen.dart';
+import 'package:saasify/screens/task/widgets/task_widget_utils.dart';
 import 'package:saasify/screens/task/task_board_screen.dart';
-import 'package:saasify/utils/formatters.dart';
+import 'package:saasify/screens/task/widgets/task_details_pop_up.dart';
 import 'package:saasify/utils/globals.dart';
-import 'package:saasify/widgets/generalWidgets/status_chip.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
 class HrmsTasksSection extends StatelessWidget {
@@ -37,7 +38,7 @@ class HrmsTasksSection extends StatelessWidget {
               .data!
               .tasksAssignedToMe!
               .isEmpty
-          ? buildEmptyTasks(context, isMobile)
+          ? buildEmptyTasks(context, isMobile, align: Alignment.centerLeft)
           : GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -69,10 +70,23 @@ class HrmsTasksSection extends StatelessWidget {
                     .data!
                     .tasksAssignedToMe!;
                 return InkWell(
-                    onTap: () {},
+                    onTap: () {
+                      isMobile
+                          ? Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      TaskDetailsScreen(task: data[index])))
+                          : showDialog(
+                              context: context,
+                              builder: (context) =>
+                                  TaskDetailsPopup(task: data[index]));
+                    },
                     child: Container(
                         decoration: BoxDecoration(
-                            color: AppColors.lightestYellow,
+                            color: data[index].taskStatus == "CLOSED"
+                                ? AppColors.errorRed.withOpacity(0.1)
+                                : AppColors.lightestYellow,
                             border: Border.all(color: AppColors.lighterBlack),
                             borderRadius: BorderRadius.circular(kCardRadius)),
                         child: Padding(
@@ -113,8 +127,8 @@ class HrmsTasksSection extends StatelessWidget {
                                             showDateIcon: true,
                                             orangeColor: false),
                                         const SizedBox(height: spacingSmall),
-                                        buildStatusChip(
-                                            data[index].priority.toString())
+                                        buildTaskStatusChip(
+                                            data[index].taskStatus),
                                       ])
                                 ]))));
               })
@@ -130,38 +144,4 @@ class HrmsTasksSection extends StatelessWidget {
             style: Theme.of(context).textTheme.labelTextStyle.copyWith(
                 fontWeight: FontWeight.w800, color: AppColors.orange)));
   }
-}
-
-Widget buildStatusChip(priority) {
-  return StatusChip(
-      text: getPriorityFromInt(priority).toString(),
-      color: getColorFromStatus(priority.toString()));
-}
-
-Widget buildEmptyTasks(context, bool isMobile, {message = 'No tasks found'}) {
-  return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-    Expanded(
-        child: Container(
-            padding: const EdgeInsets.all(spacingLarger),
-            decoration: BoxDecoration(
-                color: AppColors.lightestYellow,
-                border: Border.all(color: AppColors.lighterBlack),
-                borderRadius: BorderRadius.circular(kCardRadius)),
-            child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.assignment,
-                      color: AppColors.darkBlue, size: 40),
-                  const SizedBox(height: spacingStandard),
-                  Text(message,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelTextStyle
-                          .copyWith(color: AppColors.darkBlue))
-                ]))),
-    Spacer(flex: isMobile ? 1 : 4)
-  ]);
 }

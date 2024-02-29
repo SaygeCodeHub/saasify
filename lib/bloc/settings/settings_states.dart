@@ -1,3 +1,5 @@
+import 'package:geolocator/geolocator.dart';
+
 import '../../data/models/settings/settings_model.dart';
 import '../../data/models/settings/update_settings_model.dart';
 
@@ -31,4 +33,18 @@ class UpdateSettingsFailed extends SettingsState {
   final String error;
 
   UpdateSettingsFailed({required this.error});
+}
+
+class FetchingGeoLocation extends SettingsState {}
+
+class GeoLocationFetched extends SettingsState {
+  final Position position;
+
+  GeoLocationFetched({required this.position});
+}
+
+class FetchingGeoLocationFailed extends SettingsState {
+  final String error;
+
+  FetchingGeoLocationFailed({required this.error});
 }

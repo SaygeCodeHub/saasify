@@ -22,6 +22,7 @@ class RootScreen extends StatelessWidget {
             context: context,
             builder: (BuildContext context) {
               return ErrorAlertDialog(
+                  showLogoutButton: true,
                   description: state.errorMessage.toString());
             },
           );

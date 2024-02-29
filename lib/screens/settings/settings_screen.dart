@@ -11,6 +11,7 @@ import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 
+import '../../configs/app_colors.dart';
 import '../../configs/app_spacing.dart';
 import '../../utils/progress_bar.dart';
 import '../../widgets/text/module_heading.dart';
@@ -18,8 +19,9 @@ import '../hrms/hrms_dashboard_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
   static const routeName = 'SettingsScreen';
+  final bool isViewOnly;
 
-  const SettingsScreen({super.key});
+  const SettingsScreen({super.key, required this.isViewOnly});
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +41,23 @@ class SettingsScreen extends StatelessWidget {
                                 ? const SizedBox.shrink()
                                 : const BackButton(),
                             const SizedBox(width: spacingXMedium),
-                            const ModuleHeading(
-                                label: StringConstants.kSettings)
+                            ModuleHeading(
+                                label: isViewOnly
+                                    ? StringConstants.kSettings
+                                    : "Update Settings"),
+                            const Expanded(child: SizedBox()),
+                            Visibility(
+                                visible: isViewOnly,
+                                child: IconButton(
+                                    onPressed: () {
+                                      Navigator.pushReplacementNamed(
+                                          context, routeName,
+                                          arguments: false);
+                                    },
+                                    padding: EdgeInsets.zero,
+                                    icon: Icon(Icons.edit_outlined,
+                                        color: AppColors.darkBlue,
+                                        size: !isMobile ? 25 : 20)))
                           ])),
                       Expanded(
                           child: BlocConsumer<SettingsBloc, SettingsState>(
@@ -97,9 +114,11 @@ class SettingsScreen extends StatelessWidget {
                         } else if (state is SettingsFetched) {
                           return ResponsiveLayout(
                               mobileBody: SettingsMobileScreen(
-                                  settingsData: state.settingsModel.data),
+                                  settingsData: state.settingsModel.data,
+                                  isViewOnly: isViewOnly),
                               desktopBody: SettingsWebScreen(
-                                  settingsData: state.settingsModel.data));
+                                  settingsData: state.settingsModel.data,
+                                  isViewOnly: isViewOnly));
                         } else {
                           return const SizedBox.shrink();
                         }

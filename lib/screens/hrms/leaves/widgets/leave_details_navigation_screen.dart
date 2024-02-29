@@ -26,6 +26,7 @@ class LeaveDetailsNavigationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<LeavesBloc>().leaveStatusMap.clear();
     return Scaffold(
         appBar: AppBar(
             title: ModuleHeading(

@@ -31,7 +31,8 @@ class SecondaryButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(kCircularRadius)),
             backgroundColor: AppColors.white,
             side: (side == null)
-                ? const BorderSide(color: AppColors.orange)
+                ? BorderSide(
+                    color: onPressed == null ? Colors.grey : AppColors.orange)
                 : side,
             minimumSize: Size(buttonWidth ?? double.maxFinite, 50)),
         child: Row(
@@ -41,10 +42,9 @@ class SecondaryButton extends StatelessWidget {
               (icon == null) ? const SizedBox.shrink() : Icon(icon),
               Text(buttonTitle,
                   textAlign: TextAlign.center,
-                  style: Theme.of(context)
-                      .textTheme
-                      .buttonTextStyle
-                      .copyWith(color: AppColors.orange)),
+                  style: Theme.of(context).textTheme.buttonTextStyle.copyWith(
+                      color:
+                          onPressed == null ? Colors.grey : AppColors.orange)),
             ]));
   }
 }

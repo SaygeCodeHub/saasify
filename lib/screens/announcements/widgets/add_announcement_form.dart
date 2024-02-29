@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:saasify/bloc/announcemnet/announcement_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/widgets/form/form_input_fields.dart';
@@ -17,9 +18,10 @@ class AddAnnouncementForm extends StatelessWidget {
         DatePickerField(
             label: 'Due Date',
             isRequired: true,
-            initialDate: context
-                .read<AnnouncementBloc>()
-                .announcementDetails['due_date'],
+            initialDate: DateFormat('yyyy-MM-dd').tryParse(context
+                    .read<AnnouncementBloc>()
+                    .announcementDetails['due_date'] ??
+                ''),
             onTextFieldChanged: (date) {
               context.read<AnnouncementBloc>().announcementDetails['due_date'] =
                   date;

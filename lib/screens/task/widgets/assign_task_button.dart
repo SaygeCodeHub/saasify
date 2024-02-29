@@ -12,12 +12,14 @@ import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class AssignTaskButton extends StatelessWidget {
   final double buttonWidth;
+  final bool isEdit;
   final GlobalKey<FormState> formKey;
 
   const AssignTaskButton(
       {super.key,
       required this.formKey,
-      this.buttonWidth = kGeneralActionButtonWidth});
+      this.buttonWidth = kGeneralActionButtonWidth,
+      required this.isEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +56,10 @@ class AssignTaskButton extends StatelessWidget {
               buttonWidth: buttonWidth,
               onPressed: () {
                 if (formKey.currentState?.validate() ?? false) {
-                  context.read<TaskBloc>().add(AssignTask());
+                  context.read<TaskBloc>().add(AssignTask(isEdit: isEdit));
                 }
               },
-              buttonTitle: 'Assign',
+              buttonTitle: isEdit ? 'Update' : 'Assign',
             );
           },
         ),

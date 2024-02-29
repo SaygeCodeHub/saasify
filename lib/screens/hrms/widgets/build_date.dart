@@ -4,18 +4,14 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 
 Widget buildDate(date, context,
-    {bool? showDateIcon = false, bool? orangeColor = true}) {
+    {bool showDateIcon = false, bool orangeColor = true}) {
   DateTime dateTime = DateTime.parse(date);
   String formattedDate = '${dateTime.day}/${dateTime.month}/${dateTime.year}';
-  return Row(children: [
-    (showDateIcon!) ? const Icon(Icons.date_range) : const SizedBox.shrink(),
+  return Row(mainAxisSize: MainAxisSize.min, children: [
+    (showDateIcon) ? const Icon(Icons.date_range) : const SizedBox.shrink(),
     const SizedBox(width: spacingXXSmall),
     Text(formattedDate,
-        style: (orangeColor!)
-            ? Theme.of(context)
-                .textTheme
-                .cardMobileHeadingTextStyle
-                .copyWith(color: AppColors.orange)
-            : Theme.of(context).textTheme.cardMobileHeadingLarge)
+        style: Theme.of(context).textTheme.cardMobileHeadingLarge.copyWith(
+            color: (orangeColor) ? AppColors.orange : AppColors.darkBlue))
   ]);
 }

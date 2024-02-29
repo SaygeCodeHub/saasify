@@ -18,4 +18,14 @@ class ApiConstants {
   static const assignTask = 'assignTask';
   static const addAnnouncements = 'addAnnouncements';
   static const withdrawLeave = 'withdrawLeave';
+  static const editTask = 'editTask';
+  static const updateTaskStatus = 'updateTaskStatus';
+  static const getTasks = 'getTasks';
+  static const deleteAnnouncements = 'deleteAnnouncements';
+  static const getAnnouncements = 'getAnnouncements';
+  static const updateAnnouncements = 'updateAnnouncements';
+  static const getSalaries = 'getSalaries';
+  static const calculateDeductions = 'calculateDeductions';
+  static const rolloutIndividualSalaries = 'rolloutIndividualSalaries';
+  static const rolloutAllSalaries = 'rolloutAllSalaries';
 }

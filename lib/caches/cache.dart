@@ -47,7 +47,7 @@ class Cache {
     await sharedPreferences.setString(CacheKeys.userName, userName);
   }
 
-  Future<String> getUserNamed() async {
+  Future<String> getUserName() async {
     return sharedPreferences.getString(CacheKeys.userName) ?? '';
   }
 

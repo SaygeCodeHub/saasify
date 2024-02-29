@@ -6,9 +6,8 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
+import 'package:saasify/utils/globals.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
-
-import '../../utils/globals.dart';
 
 class ErrorAlertDialog extends StatelessWidget {
   final String description;
@@ -21,15 +20,34 @@ class ErrorAlertDialog extends StatelessWidget {
       required this.description,
       this.title = '',
       this.onPressed,
-      this.showLogoutButton = true});
+      this.showLogoutButton = false});
 
   @override
   Widget build(BuildContext context) {
     bool isMobile = MediaQuery.of(context).size.width < mobileBreakPoint;
     return AlertDialog(
-        icon: SizedBox.square(
-            dimension: kSassifyLogoSize,
-            child: Image.asset('assets/xmark-circle.png')),
+        icon: Stack(
+          alignment: Alignment.center,
+          children: [
+            showLogoutButton
+                ? Align(
+                    alignment: Alignment.topRight,
+                    child: IconButton(
+                        padding: EdgeInsets.zero,
+                        onPressed: () {
+                          getIt<Cache>().clearSharedPreferences();
+                          Navigator.pushNamedAndRemoveUntil(context,
+                              AuthenticationScreen.routeName, (route) => false);
+                        },
+                        icon: const Icon(Icons.logout,
+                            color: AppColors.errorRed)),
+                  )
+                : const SizedBox.shrink(),
+            SizedBox.square(
+                dimension: kSassifyLogoSize,
+                child: Image.asset('assets/xmark-circle.png')),
+          ],
+        ),
         title: Text('Error!',
             style: Theme.of(context).textTheme.dialogueHeadingTextStyle),
         actionsPadding: const EdgeInsets.only(
@@ -50,24 +68,7 @@ class ErrorAlertDialog extends StatelessWidget {
                   Navigator.pop(context);
                 }
               },
-              buttonTitle: 'Dismiss'),
-          showLogoutButton
-              ? PrimaryButton(
-                  buttonWidth: isMobile
-                      ? kErrorPopButtonWidth
-                      : kGeneralActionButtonWidth,
-                  backgroundColor: AppColors.errorRed,
-                  onPressed: () {
-                    if (onPressed != null) {
-                      onPressed!();
-                    } else {
-                      getIt<Cache>().clearSharedPreferences();
-                      Navigator.pushNamedAndRemoveUntil(context,
-                          AuthenticationScreen.routeName, (route) => false);
-                    }
-                  },
-                  buttonTitle: 'Log Out')
-              : const SizedBox.shrink()
+              buttonTitle: 'Dismiss')
         ]);
   }
 }

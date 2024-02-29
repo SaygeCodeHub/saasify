@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/announcemnet/announcement_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/screens/announcements/add_announcement_screen.dart';
 import 'package:saasify/widgets/app_bar/profile_dropdown.dart';
 import 'package:saasify/widgets/userInput/change_branch.dart';
 
@@ -27,30 +24,10 @@ class WebAppBar extends StatelessWidget {
               const ChangeBranch(),
               const Expanded(child: SizedBox()),
               isHome
-                  ? PopupMenuButton(
+                  ? IconButton(
                       splashRadius: 20,
                       padding: EdgeInsets.zero,
-                      itemBuilder: (BuildContext context) {
-                        return [
-                          // PopupMenuItem(
-                          //     onTap: () {
-                          //       context.read<TaskBloc>().resetTaskDetails();
-                          //       Navigator.pushNamed(
-                          //           context, TaskScreen.routeName);
-                          //     },
-                          //     child: const Text('Add Task')),
-                          PopupMenuItem(
-                              onTap: () {
-                                context
-                                    .read<AnnouncementBloc>()
-                                    .announcementDetails
-                                    .clear();
-                                Navigator.pushNamed(
-                                    context, AddAnnouncementScreen.routeName);
-                              },
-                              child: const Text('Add Announcement'))
-                        ];
-                      },
+                      onPressed: () {},
                       icon: const Icon(Icons.add, color: AppColors.darkBlue))
                   : IconButton(
                       padding: EdgeInsets.zero,

@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
-import 'package:saasify/data/models/screenArguments/update_employee_screen_arguments.dart';
-import 'package:saasify/screens/POS/pos_screen.dart';
-import 'package:saasify/screens/announcements/add_announcement_screen.dart';
-import 'package:saasify/screens/announcements/all_announcements_screen.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/authentication/forgotPassword/forgot_password_screen.dart';
 import 'package:saasify/screens/authentication/register/register_screen.dart';
@@ -11,23 +7,10 @@ import 'package:saasify/screens/authentication/updatePassword/update_password_sc
 import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.dart';
 import 'package:saasify/screens/companies/widgets/branches/all_branches_screen.dart';
 import 'package:saasify/screens/companies/widgets/companies/all_companies_screen.dart';
+import 'package:saasify/screens/form/form_screen.dart';
 import 'package:saasify/screens/generalScreens/coming_soon_screen.dart';
-import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
-import 'package:saasify/screens/hrms/employee_list/employee_list_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
-import 'package:saasify/screens/hrms/leaves/applyLeave/apply_leave_screen.dart';
-import 'package:saasify/screens/hrms/leaves/getMyLeaves/my_leaves_screen.dart';
-import 'package:saasify/screens/hrms/leaves/pendingLeaveRequest/pending_leave_request_screen.dart';
-import 'package:saasify/screens/hrms/leaves/widgets/leave_details_navigation_screen.dart';
-import 'package:saasify/screens/inventory/inventory_screen.dart';
-import 'package:saasify/screens/orders/orders_screen.dart';
 import 'package:saasify/screens/root_screen.dart';
-import 'package:saasify/screens/settings/settings_screen.dart';
-import 'package:saasify/screens/task/task_board_screen.dart';
-import 'package:saasify/screens/task/task_screen.dart';
-
-import '../data/models/leaves/get_all_leaves_model.dart';
-import '../screens/hrms/timesheet/timesheet_screen.dart';
 
 class AppRoutes {
   static Route routes(RouteSettings settings) {
@@ -40,8 +23,6 @@ class AppRoutes {
         return _createRoute(RegisterScreen());
       case ForgotPasswordScreen.routeName:
         return _createRoute(ForgotPasswordScreen());
-      case POSScreen.routeName:
-        return _createRoute(const POSScreen());
       case UpdatePasswordScreen.routeName:
         return _createRoute(UpdatePasswordScreen(
             isVerifyToken: (settings.arguments ?? false) as bool));
@@ -49,49 +30,15 @@ class AppRoutes {
         return _createRoute(AddCompanyScreen());
       case HRMSDashboardScreen.routeName:
         return _createRoute(const HRMSDashboardScreen());
-      case EmployeeListScreen.routeName:
-        return _createRoute(const EmployeeListScreen());
-      case AddAnnouncementScreen.routeName:
-        return _createRoute(AddAnnouncementScreen(
-            isEdit: settings.arguments as bool? ?? false));
-      case TaskBoardScreen.routeName:
-        return _createRoute(const TaskBoardScreen());
-      case AddEmployeeScreen.routeName:
-        UpdateEmployeeScreenArguments args =
-            settings.arguments as UpdateEmployeeScreenArguments;
-        return _createRoute(AddEmployeeScreen(
-            isViewOnly: args.isViewOnly, isProfile: args.isProfile));
-      case ApplyLeaveScreen.routeName:
-        return _createRoute(const ApplyLeaveScreen());
+      case FormScreen.routeName:
+        return _createRoute(const FormScreen());
       case AllCompaniesScreen.routeName:
         return _createRoute(AllCompaniesScreen(
             authenticateUserData: settings.arguments as AuthenticateUserData));
-      case MyLeavesScreen.routeName:
-        return _createRoute(const MyLeavesScreen());
-      case PendingLeaveRequestScreen.routeName:
-        return _createRoute(const PendingLeaveRequestScreen());
-      case OrdersScreen.routeName:
-        return _createRoute(const OrdersScreen());
-      case InventoryScreen.routeName:
-        return _createRoute(const InventoryScreen());
-      case AllAnnouncementsScreen.routeName:
-        return _createRoute(const AllAnnouncementsScreen());
-      case TaskScreen.routeName:
-        return _createRoute(
-            TaskScreen(isEdit: settings.arguments as bool? ?? false));
-      case LeaveDetailsNavigationScreen.routeName:
-        List<dynamic> args = settings.arguments as List<dynamic>;
-        return _createRoute(LeaveDetailsNavigationScreen(
-            isPending: args[0] as bool, leaves: args[1] as MyLeaves));
-      case TimesheetScreen.routeName:
-        return _createRoute(const TimesheetScreen());
       case AllBranchesScreen.routeName:
         List<dynamic> args = settings.arguments as List<dynamic>;
         return _createRoute(AllBranchesScreen(
             companyName: args[0] as String, branches: args[1] as List<Branch>));
-      case SettingsScreen.routeName:
-        return _createRoute(
-            SettingsScreen(isViewOnly: settings.arguments as bool));
       default:
         return _createRoute(const ComingSoonScreen());
     }

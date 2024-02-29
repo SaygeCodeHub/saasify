@@ -5,8 +5,7 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
-import 'package:saasify/screens/announcements/all_announcements_screen.dart';
-import 'package:saasify/screens/announcements/widgets/announcements_widget_utils.dart';
+import 'package:saasify/screens/hrms/widgets/announcements_widget_utils.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
 class HrmsAnnouncementsSection extends StatelessWidget {
@@ -30,7 +29,7 @@ class HrmsAnnouncementsSection extends StatelessWidget {
             InkWell(
                 onTap: () {
                   Navigator.pushNamed(
-                      context, AllAnnouncementsScreen.routeName);
+                      context, "");
                 },
                 child: Text('View all',
                     style: Theme.of(context).textTheme.labelTextStyle.copyWith(

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/announcemnet/announcement_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/screens/announcements/add_announcement_screen.dart';
 import 'package:saasify/widgets/icons/notification_widget.dart';
 
 class MobileAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -21,21 +18,8 @@ class MobileAppBar extends StatelessWidget implements PreferredSizeWidget {
               ? PopupMenuButton(
                   itemBuilder: (BuildContext context) {
                     return [
-                      // PopupMenuItem(
-                      //   onTap: () {
-                      //     context.read<TaskBloc>().resetTaskDetails();
-                      //     Navigator.pushNamed(context, TaskScreen.routeName);
-                      //   },
-                      //   child: const Text('Add Task'),
-                      // ),
                       PopupMenuItem(
                         onTap: () {
-                          context
-                              .read<AnnouncementBloc>()
-                              .announcementDetails
-                              .clear();
-                          Navigator.pushNamed(
-                              context, AddAnnouncementScreen.routeName);
                         },
                         child: const Text('Add Announcement'),
                       )

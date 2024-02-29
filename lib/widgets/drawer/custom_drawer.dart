@@ -90,19 +90,11 @@
 //
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/employee/employee_bloc.dart';
-import 'package:saasify/bloc/employee/employee_event.dart';
-import 'package:saasify/bloc/employee/employee_states.dart';
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/dashboard_route.dart';
-import 'package:saasify/data/models/screenArguments/update_employee_screen_arguments.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
-import 'package:saasify/screens/hrms/add_employee/add_employee_screen.dart';
-import 'package:saasify/utils/progress_bar.dart';
-import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/drawer/module_list_tile.dart';
 import '../../utils/globals.dart';
 import '../profile/saasify_logo.dart';
@@ -134,51 +126,18 @@ class CustomDrawer extends StatelessWidget {
                                 padding:
                                     const EdgeInsets.only(left: spacingXSmall),
                                 child:
-                                    BlocListener<EmployeeBloc, EmployeeStates>(
-                                  listener: (context, state) {
-                                    if (state is LoadingProfile) {
-                                      ProgressBar.show(context);
-                                    }
-                                    if (state is ProfileLoaded) {
-                                      ProgressBar.dismiss(context);
-                                      Navigator.pushReplacementNamed(
-                                          context, AddEmployeeScreen.routeName,
-                                          arguments:
-                                              UpdateEmployeeScreenArguments(
-                                                  isViewOnly: true,
-                                                  isProfile: true));
-                                    }
-                                    if (state is LoadingProfileFailed) {
-                                      ProgressBar.dismiss(context);
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return ErrorAlertDialog(
-                                                description:
-                                                    state.errorMessage);
-                                          });
-                                    }
-                                  },
-                                  child: InkWell(
-                                    onTap: () async {
-                                      String userId =
-                                          await getIt<Cache>().getUserId();
-                                      if (context.mounted) {
-                                        context.read<EmployeeBloc>().add(
-                                            GetProfile(
-                                                employeeId: int.parse(userId)));
-                                      }
-                                    },
-                                    child: const Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          UserProfileWidget(),
-                                          SizedBox(width: spacingXMedium),
-                                          UserNameWidget()
-                                        ]),
-                                  ),
-                                )))
+                                    InkWell(
+                                      onTap: () {
+                                      },
+                                      child: const Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            UserProfileWidget(),
+                                            SizedBox(width: spacingXMedium),
+                                            UserNameWidget()
+                                          ]),
+                                    )))
                         : SizedBox(
                             height: MediaQuery.sizeOf(context).height * 0.057,
                             child: Padding(

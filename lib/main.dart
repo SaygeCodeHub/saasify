@@ -1,21 +1,14 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/POS/pos_bloc.dart';
-import 'package:saasify/bloc/announcemnet/announcement_bloc.dart';
 import 'package:saasify/bloc/attendance/attendance_bloc.dart';
 import 'package:saasify/bloc/auth/auth_events.dart';
 import 'package:saasify/bloc/auth/auth_states.dart';
 import 'package:saasify/bloc/companies/companies_bloc.dart';
-import 'package:saasify/bloc/employee/employee_bloc.dart';
+import 'package:saasify/bloc/form/form_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_bloc.dart';
-import 'package:saasify/bloc/leaves/leaves_bloc.dart';
 import 'package:saasify/bloc/register/register_bloc.dart';
 import 'package:saasify/bloc/resetPassword/reset_password_bloc.dart';
-import 'package:saasify/bloc/salary_rollouts/salary_rollout_bloc.dart';
-import 'package:saasify/bloc/settings/settings_bloc.dart';
-import 'package:saasify/bloc/task/task_bloc.dart';
-import 'package:saasify/bloc/timesheet/timesheet_bloc.dart';
 import 'package:saasify/configs/app_route.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.dart';
@@ -59,17 +52,10 @@ class MyPosApp extends StatelessWidget {
               create: (context) => AuthBloc()..add(CheckActiveSession())),
           BlocProvider(lazy: false, create: (context) => AttendanceBloc()),
           BlocProvider(create: (context) => RegisterBloc()),
-          BlocProvider(create: (context) => EmployeeBloc()),
           BlocProvider(create: (context) => CompaniesBloc()),
-          BlocProvider(create: (context) => LeavesBloc()),
           BlocProvider(create: (context) => ResetPasswordBloc()),
-          BlocProvider(create: (context) => TimeSheetBloc()),
-          BlocProvider(create: (context) => SettingsBloc()),
           BlocProvider(create: (context) => InitialiseAppBloc()),
-          BlocProvider(create: (context) => POSBloc()),
-          BlocProvider(create: (context) => TaskBloc()),
-          BlocProvider(create: (context) => AnnouncementBloc()),
-          BlocProvider(create: (context) => SalaryRolloutBloc())
+          BlocProvider(create: (context) => FormBloc()),
         ],
         child: GestureDetector(
             onTap: () {

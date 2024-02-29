@@ -32,8 +32,13 @@ jobs:
       - name: Build for web
         run: flutter build web
 
-      - name: Login to Firebase (using the branch you want)
-        run: firebase login:ci
+      - name: Login to Firebase (using service account)
+        env:
+          FIREBASE_SERVICE_ACCOUNT_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+        run: |
+          echo "$FIREBASE_SERVICE_ACCOUNT_KEY" > firebase-admin-sdk.json
+          firebase login:ci --token "$FIREBASE_SERVICE_ACCOUNT_KEY"
+      
 
       - name: Deploy to Firebase Hosting (accessing token from secret)
         run: firebase deploy --only hosting --token "${{ secrets.PROD_FIREBASE_TOKEN }}"

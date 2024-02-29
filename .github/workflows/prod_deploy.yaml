@@ -33,7 +33,7 @@ jobs:
         run: flutter build web
 
       - name: Login to Firebase (using the branch you want)
-        run: firebase login:ci --no-localhost
+        run: firebase login:ci
 
       - name: Deploy to Firebase Hosting (accessing token from secret)
         run: firebase deploy --only hosting --token "${{ secrets.PROD_FIREBASE_TOKEN }}"

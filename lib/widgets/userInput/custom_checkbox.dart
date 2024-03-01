@@ -70,7 +70,7 @@ class CustomCheckboxState extends State<CustomCheckbox> {
                 Icons.info,
                 color: AppColors.darkBlue,
               )),
-          SizedBox(width: spacingSmall)
+          const SizedBox(width: spacingSmall)
         ],
       ),
     );

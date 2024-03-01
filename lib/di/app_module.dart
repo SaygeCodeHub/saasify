@@ -34,6 +34,5 @@ configurableDependencies() {
       () => CompaniesRepositoryImpl());
   getIt.registerLazySingleton<InitialiseRepository>(
       () => InitialiseRepositoryImpl());
-  getIt.registerLazySingleton<FormRepository>(
-      () => FormRepositoryImpl());
+  getIt.registerLazySingleton<FormRepository>(() => FormRepositoryImpl());
 }

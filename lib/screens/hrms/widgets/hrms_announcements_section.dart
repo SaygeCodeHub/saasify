@@ -28,8 +28,7 @@ class HrmsAnnouncementsSection extends StatelessWidget {
             const ModuleHeading(label: 'Announcements'),
             InkWell(
                 onTap: () {
-                  Navigator.pushNamed(
-                      context, "");
+                  Navigator.pushNamed(context, "");
                 },
                 child: Text('View all',
                     style: Theme.of(context).textTheme.labelTextStyle.copyWith(

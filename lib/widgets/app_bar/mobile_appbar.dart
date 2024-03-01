@@ -19,8 +19,7 @@ class MobileAppBar extends StatelessWidget implements PreferredSizeWidget {
                   itemBuilder: (BuildContext context) {
                     return [
                       PopupMenuItem(
-                        onTap: () {
-                        },
+                        onTap: () {},
                         child: const Text('Add Announcement'),
                       )
                     ];

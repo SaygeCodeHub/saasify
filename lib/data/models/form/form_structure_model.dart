@@ -98,15 +98,35 @@ class Button {
 
 class Section {
   final dynamic sectionName;
-  final List<Field>? fields;
+  final List<FieldRow>? rows;
 
   Section({
     this.sectionName,
-    this.fields,
+    this.rows,
   });
 
   factory Section.fromJson(Map<String, dynamic> json) => Section(
         sectionName: json["section_name"],
+        rows: (json["row"] as List<dynamic>?)
+                ?.map((x) => FieldRow.fromJson(x))
+                .toList() ??
+            [],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "section_name": sectionName,
+        "row": rows?.map((x) => x.toJson()).toList(),
+      };
+}
+
+class FieldRow {
+  final List<Field>? fields;
+
+  FieldRow({
+    this.fields,
+  });
+
+  factory FieldRow.fromJson(Map<String, dynamic> json) => FieldRow(
         fields: (json["fields"] as List<dynamic>?)
                 ?.map((x) => Field.fromJson(x))
                 .toList() ??
@@ -114,45 +134,27 @@ class Section {
       );
 
   Map<String, dynamic> toJson() => {
-        "section_name": sectionName,
         "fields": fields?.map((x) => x.toJson()).toList(),
       };
 }
 
 class Field {
-  final List<RowField>? rowFields;
-
-  Field({
-    this.rowFields,
-  });
-
-  factory Field.fromJson(Map<String, dynamic> json) => Field(
-        rowFields: (json["row_fields"] as List<dynamic>?)
-                ?.map((x) => RowField.fromJson(x))
-                .toList() ??
-            [],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "row_fields": rowFields?.map((x) => x.toJson()).toList(),
-      };
-}
-
-class RowField {
   final String? columnName;
   final String? label;
   final String? fieldType;
+  final int? flex;
   final dynamic placeholder;
   final bool? required;
   final dynamic errorText;
   final UserSelection? userSelection;
-  final TextField? textField;
-  final DropdownField? dropdownField;
+  final TextFieldData? textField;
+  final DropdownFieldData? dropdownField;
   final dynamic radioField;
   final dynamic checkboxField;
-  final DatePickerField? datePickerField;
+  final DatePickerFieldData? datePickerField;
 
-  RowField({
+  Field({
+    this.flex,
     this.columnName,
     this.label,
     this.fieldType,
@@ -167,27 +169,28 @@ class RowField {
     this.datePickerField,
   });
 
-  factory RowField.fromJson(Map<String, dynamic> json) => RowField(
+  factory Field.fromJson(Map<String, dynamic> json) => Field(
         columnName: json["column_name"],
         label: json["label"],
         fieldType: json["field_type"],
         placeholder: json["placeholder"],
         required: json["required"],
         errorText: json["error_text"],
+        flex: json["flex"],
         userSelection: json["user_selection"] == null
             ? null
             : UserSelection.fromJson(json["user_selection"]),
         textField: json["text_field"] == null
             ? null
-            : TextField.fromJson(json["text_field"]),
+            : TextFieldData.fromJson(json["text_field"]),
         dropdownField: json["dropdown_field"] == null
             ? null
-            : DropdownField.fromJson(json["dropdown_field"]),
+            : DropdownFieldData.fromJson(json["dropdown_field"]),
         radioField: json["radio_field"],
         checkboxField: json["checkbox_field"],
         datePickerField: json["date_picker_field"] == null
             ? null
-            : DatePickerField.fromJson(json["date_picker_field"]),
+            : DatePickerFieldData.fromJson(json["date_picker_field"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -195,6 +198,7 @@ class RowField {
         "label": label,
         "field_type": fieldType,
         "placeholder": placeholder,
+        "flex": flex,
         "required": required,
         "error_text": errorText,
         "user_selection": userSelection?.toJson(),
@@ -206,19 +210,19 @@ class RowField {
       };
 }
 
-class DatePickerField {
+class DatePickerFieldData {
   final String? placeholder;
   final dynamic minDate;
   final dynamic maxDate;
 
-  DatePickerField({
+  DatePickerFieldData({
     this.placeholder,
     this.minDate,
     this.maxDate,
   });
 
-  factory DatePickerField.fromJson(Map<String, dynamic> json) =>
-      DatePickerField(
+  factory DatePickerFieldData.fromJson(Map<String, dynamic> json) =>
+      DatePickerFieldData(
         placeholder: json["placeholder"],
         minDate: json["min_date"],
         maxDate: json["max_date"],
@@ -231,18 +235,19 @@ class DatePickerField {
       };
 }
 
-class DropdownField {
-  final List<Option>? options;
-  final int? defaultValue;
+class DropdownFieldData {
+  final List<OptionData>? options;
+  final dynamic defaultValue;
 
-  DropdownField({
+  DropdownFieldData({
     this.options,
     this.defaultValue,
   });
 
-  factory DropdownField.fromJson(Map<String, dynamic> json) => DropdownField(
+  factory DropdownFieldData.fromJson(Map<String, dynamic> json) =>
+      DropdownFieldData(
         options: (json["options"] as List<dynamic>?)
-                ?.map((x) => Option.fromJson(x))
+                ?.map((x) => OptionData.fromJson(x))
                 .toList() ??
             [],
         defaultValue: json["default_value"],
@@ -254,18 +259,18 @@ class DropdownField {
       };
 }
 
-class Option {
+class OptionData {
   final String? label;
-  final int? value;
+  final dynamic value;
   final int? optionId;
 
-  Option({
+  OptionData({
     this.label,
     this.value,
     this.optionId,
   });
 
-  factory Option.fromJson(Map<String, dynamic> json) => Option(
+  factory OptionData.fromJson(Map<String, dynamic> json) => OptionData(
         label: json["label"],
         value: json["value"],
         optionId: json["option_id"],
@@ -278,7 +283,7 @@ class Option {
       };
 }
 
-class TextField {
+class TextFieldData {
   final int? maxLines;
   final dynamic maxLength;
   final bool? obscureText;
@@ -286,7 +291,7 @@ class TextField {
   final String? inputType;
   final String? validator;
 
-  TextField({
+  TextFieldData({
     this.maxLines,
     this.maxLength,
     this.obscureText,
@@ -295,7 +300,7 @@ class TextField {
     this.validator,
   });
 
-  factory TextField.fromJson(Map<String, dynamic> json) => TextField(
+  factory TextFieldData.fromJson(Map<String, dynamic> json) => TextFieldData(
         maxLines: json["max_lines"],
         maxLength: json["max_length"],
         obscureText: json["obscure_text"],

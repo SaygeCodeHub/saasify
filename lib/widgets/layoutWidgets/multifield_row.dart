@@ -19,12 +19,14 @@ class MultiFieldRow extends StatelessWidget {
           (index) => !isMobile
               ? Expanded(
                   child: Padding(
-                  padding: index == 0
-                      ? const EdgeInsets.only(right: spacingSmall)
-                      : index == childrenWidgets.length - 1
-                          ? const EdgeInsets.only(left: spacingSmall)
-                          : const EdgeInsets.symmetric(
-                              horizontal: spacingSmall),
+                  padding: childrenWidgets.length == 1
+                      ? EdgeInsets.zero
+                      : index == 0
+                          ? const EdgeInsets.only(right: spacingSmall)
+                          : index == childrenWidgets.length - 1
+                              ? const EdgeInsets.only(left: spacingSmall)
+                              : const EdgeInsets.symmetric(
+                                  horizontal: spacingSmall),
                   child: childrenWidgets[index],
                 ))
               : Padding(

@@ -26,7 +26,8 @@ class WebProfileDropdown extends StatelessWidget {
             dropdownStyleData: DropdownStyleData(
                 width: 160,
                 padding: const EdgeInsets.symmetric(vertical: 6),
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(4)),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(4)),
                 offset: const Offset(40, -4)),
             menuItemStyleData: MenuItemStyleData(customHeights: [
               ...List<double>.filled(MenuItems.firstItems.length, 48)
@@ -60,7 +61,6 @@ class MenuItems {
   static void onChanged(BuildContext context, MenuItem item) {
     switch (item) {
       case MenuItems.edit:
-
         break;
     }
   }

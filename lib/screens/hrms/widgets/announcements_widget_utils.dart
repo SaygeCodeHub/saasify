@@ -33,14 +33,12 @@ List<Widget> getAnnouncementsActions(BuildContext context,
     PrimaryButton(
         buttonWidth: kGeneralActionButtonWidth,
         backgroundColor: AppColors.errorRed,
-        onPressed: () {
-        },
+        onPressed: () {},
         buttonTitle: "Delete"),
     PrimaryButton(
         buttonWidth: kGeneralActionButtonWidth,
         backgroundColor: AppColors.darkBlue,
-        onPressed: () {
-        },
+        onPressed: () {},
         buttonTitle: "Edit")
   ];
 }

@@ -65,6 +65,11 @@ extension AppTextTheme on TextTheme {
         fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w300);
   }
 
+  TextStyle get fieldLabelTextStyle {
+    return const TextStyle(
+        fontSize: 12, color: AppColors.cementGrey, fontWeight: FontWeight.w300);
+  }
+
   TextStyle get displayLabelTextStyle {
     return const TextStyle(
         fontSize: 16, color: AppColors.darkBlue, fontWeight: FontWeight.w800);
@@ -82,7 +87,12 @@ extension AppTextTheme on TextTheme {
 
   TextStyle get moduleHeadingTextStyle {
     return const TextStyle(
-        fontSize: 18, color: AppColors.darkBlue, fontWeight: FontWeight.w600);
+        fontSize: 18, color: AppColors.black, fontWeight: FontWeight.w700);
+  }
+
+  TextStyle get formSectionHeadingTextStyle {
+    return const TextStyle(
+        fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w700);
   }
 
   TextStyle get churnPathTextStyle {

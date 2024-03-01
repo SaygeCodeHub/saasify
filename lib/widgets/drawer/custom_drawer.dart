@@ -111,7 +111,7 @@ class CustomDrawer extends StatelessWidget {
       child: SizedBox(
           width: isMobile
               ? MediaQuery.sizeOf(context).width * 0.55
-              : MediaQuery.sizeOf(context).width * 0.15,
+              : MediaQuery.sizeOf(context).width * 0.13,
           height: MediaQuery.sizeOf(context).height,
           child: FutureBuilder(
               future: getIt<Cache>().getAccessibleModules(),
@@ -125,19 +125,17 @@ class CustomDrawer extends StatelessWidget {
                             child: Padding(
                                 padding:
                                     const EdgeInsets.only(left: spacingXSmall),
-                                child:
-                                    InkWell(
-                                      onTap: () {
-                                      },
-                                      child: const Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            UserProfileWidget(),
-                                            SizedBox(width: spacingXMedium),
-                                            UserNameWidget()
-                                          ]),
-                                    )))
+                                child: InkWell(
+                                  onTap: () {},
+                                  child: const Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        UserProfileWidget(),
+                                        SizedBox(width: spacingXMedium),
+                                        UserNameWidget()
+                                      ]),
+                                )))
                         : SizedBox(
                             height: MediaQuery.sizeOf(context).height * 0.057,
                             child: Padding(

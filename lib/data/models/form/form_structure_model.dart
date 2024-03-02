@@ -320,9 +320,9 @@ class TextFieldData {
 }
 
 class UserSelection {
-  final String? textValue;
-  final dynamic userSelectedOptionId;
-  final dynamic userSelectedDate;
+  String? textValue;
+  dynamic userSelectedOptionId;
+  dynamic userSelectedDate;
 
   UserSelection({
     this.textValue,

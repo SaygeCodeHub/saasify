@@ -4,7 +4,6 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
-import 'package:saasify/widgets/text/custom_text_field.dart';
 
 class TextFieldWidget extends StatelessWidget {
   final String? label;
@@ -20,14 +19,10 @@ class TextFieldWidget extends StatelessWidget {
   final Widget? suffix;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
-  final bool? autofocus;
   final dynamic initialValue;
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
-  final EdgeInsetsGeometry? contentPadding;
   final int? maxLines;
-  final double? textFieldSize;
-  final CustomTextField? textField;
 
   const TextFieldWidget(
       {super.key,
@@ -41,17 +36,13 @@ class TextFieldWidget extends StatelessWidget {
       this.suffix,
       this.prefixIcon,
       this.suffixIcon,
-      this.autofocus,
       this.initialValue,
       this.keyboardType,
-      this.contentPadding,
       this.maxLines = 1,
-      this.textFieldSize,
       this.validator,
       this.isRequired = false,
       this.onTap,
-      this.inputFormatters,
-      this.textField});
+      this.inputFormatters});
 
   @override
   Widget build(BuildContext context) {
@@ -109,21 +100,7 @@ class TextFieldWidget extends StatelessWidget {
           decoration: InputDecoration(
               hintText: hintText,
               prefixIcon: prefixIcon,
-              constraints:
-                  BoxConstraints(maxWidth: textFieldSize ?? double.maxFinite),
               suffixIcon: suffixIcon,
-              focusedBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black12)),
-              enabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black12)),
-              errorBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.errorRed)),
-              focusedErrorBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: AppColors.errorRed)),
-              border: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black12)),
-              disabledBorder: const OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black12)),
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 15, horizontal: 15)))
     ]);

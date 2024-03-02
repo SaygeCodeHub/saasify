@@ -22,12 +22,12 @@ class FormScreen extends StatelessWidget {
     return ScreenSkeleton(childScreenBuilder: (isMobile) {
       return BlocBuilder<FormBloc, FormStates>(builder: (context, state) {
         if (state is FormStructureFetching) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
         if (state is FormBuildFailure) {
-          return Center(
+          return const Center(
             child: Text('Failed to fetch form'),
           );
         }
@@ -85,8 +85,7 @@ class FormScreen extends StatelessWidget {
                                                     return RowField(
                                                       flex: fieldData.flex ?? 1,
                                                       widget: FormWidgetUtil()
-                                                          .getWidget(
-                                                              fieldData, {}),
+                                                          .getWidget(fieldData),
                                                     );
                                                   })),
                                                   const SizedBox(

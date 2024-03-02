@@ -12,7 +12,7 @@ class WebAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        color: AppColors.grey,
+        color: AppColors.white,
         width: MediaQuery.sizeOf(context).width,
         height: MediaQuery.sizeOf(context).height * 0.065,
         child: Row(
@@ -23,18 +23,11 @@ class WebAppBar extends StatelessWidget {
               const SizedBox(width: spacingXMedium),
               const ChangeBranch(),
               const Expanded(child: SizedBox()),
-              isHome
-                  ? IconButton(
-                      splashRadius: 20,
-                      padding: EdgeInsets.zero,
-                      onPressed: () {},
-                      icon: const Icon(Icons.add, color: AppColors.darkBlue))
-                  : IconButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(Icons.home, color: AppColors.darkBlue)),
+              IconButton(
+                  splashRadius: 20,
+                  padding: EdgeInsets.zero,
+                  onPressed: () {},
+                  icon: const Icon(Icons.settings)),
               // const NotificationWidget(),
               const SizedBox(width: spacingXMedium),
               Padding(

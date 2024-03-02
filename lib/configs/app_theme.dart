@@ -12,7 +12,7 @@ ThemeData appTheme = ThemeData(
     highlightColor: AppColors.transparent,
     focusColor: AppColors.transparent,
     appBarTheme: appBarTheme,
-    scaffoldBackgroundColor: AppColors.white,
+    scaffoldBackgroundColor: AppColors.backgroundColor,
     inputDecorationTheme: inputDecorationTheme,
     iconTheme: iconThemeData,
     drawerTheme: drawerThemeData);
@@ -67,7 +67,7 @@ extension AppTextTheme on TextTheme {
 
   TextStyle get fieldLabelTextStyle {
     return const TextStyle(
-        fontSize: 12, color: AppColors.cementGrey, fontWeight: FontWeight.w300);
+        fontSize: 14, color: AppColors.cementGrey, fontWeight: FontWeight.w500);
   }
 
   TextStyle get displayLabelTextStyle {
@@ -87,12 +87,12 @@ extension AppTextTheme on TextTheme {
 
   TextStyle get moduleHeadingTextStyle {
     return const TextStyle(
-        fontSize: 18, color: AppColors.black, fontWeight: FontWeight.w700);
+        fontSize: 24, color: AppColors.darkBlue, fontWeight: FontWeight.w800);
   }
 
   TextStyle get formSectionHeadingTextStyle {
-    return const TextStyle(
-        fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w700);
+    return  const TextStyle(
+        fontSize: 16, color: AppColors.darkBlue, fontWeight: FontWeight.w700);
   }
 
   TextStyle get churnPathTextStyle {

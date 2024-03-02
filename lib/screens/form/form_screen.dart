@@ -4,11 +4,11 @@ import 'package:saasify/bloc/form/form_bloc.dart';
 import 'package:saasify/bloc/form/form_events.dart';
 import 'package:saasify/bloc/form/form_states.dart';
 import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/form/form_structure_model.dart';
 import 'package:saasify/utils/form/form_widget_util.dart';
 import 'package:saasify/widgets/formWidgets/field_row.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
+import 'package:saasify/widgets/section_heading.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
 class FormScreen extends StatelessWidget {
@@ -38,6 +38,7 @@ class FormScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ModuleHeading(
+                        isFormScreen: true,
                         label:
                             state.formStructureModel.data?.formName ?? "Form"),
                     const SizedBox(height: spacingStandard),
@@ -61,11 +62,11 @@ class FormScreen extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: [
                                             SectionHeading(
-                                              label: sectionData.sectionName ??
-                                                  "Section",
-                                            ),
+                                                label:
+                                                    sectionData.sectionName ??
+                                                        "Section"),
                                             const SizedBox(
-                                                height: spacingMedium),
+                                                height: spacingXXLarge),
                                             ...List.generate(
                                                 sectionData.rows!.length,
                                                 (rowIndex) {
@@ -105,17 +106,5 @@ class FormScreen extends StatelessWidget {
         return const SizedBox.shrink();
       });
     });
-  }
-}
-
-class SectionHeading extends StatelessWidget {
-  final String? label;
-
-  const SectionHeading({super.key, this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(label!,
-        style: Theme.of(context).textTheme.formSectionHeadingTextStyle);
   }
 }

@@ -91,7 +91,7 @@ extension AppTextTheme on TextTheme {
   }
 
   TextStyle get formSectionHeadingTextStyle {
-    return  const TextStyle(
+    return const TextStyle(
         fontSize: 16, color: AppColors.darkBlue, fontWeight: FontWeight.w700);
   }
 

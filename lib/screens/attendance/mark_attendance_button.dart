@@ -43,53 +43,34 @@ class MarkAttendanceButton extends StatelessWidget {
                 width: 25, height: 25, child: CircularProgressIndicator()));
       } else {
         return (checkInTimeExists() && checkOutTimeExists())
-            ? SizedBox(
-                height: 100,
-                width: 100,
-                child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(80)),
-                    color: AppColors.successGreen,
-                    elevation: 0,
-                    child: const Center(
-                        child: Icon(Icons.done, color: AppColors.white))))
-            : SizedBox(
-                height: 100,
-                width: 100,
-                child: InkWell(
-                  onTap: () {
-                    context
-                                .read<InitialiseAppBloc>()
-                                .initialiseAppModel
-                                ?.data
-                                ?.announcements
-                                ?.isNotEmpty ??
-                            false
-                        ? showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const AcknowledgementDialogue();
-                            })
-                        : context.read<AttendanceBloc>().add(MarkAttendance());
-                  },
-                  child: Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(80)),
-                    color: (!checkInTimeExists())
-                        ? AppColors.successGreen
-                        : AppColors.errorRed,
-                    elevation: 5,
-                    child: Center(
-                        child: Text(
-                            !checkInTimeExists()
-                                ? StringConstants.kCheckIn
-                                : StringConstants.kCheckOut,
-                            style: Theme.of(context)
-                                .textTheme
-                                .cardMobileValueTextStyle
-                                .copyWith(color: AppColors.white))),
-                  ),
-                ));
+            ? const SizedBox.shrink()
+            : PrimaryButton(
+                onPressed: () {
+                  context
+                              .read<InitialiseAppBloc>()
+                              .initialiseAppModel
+                              ?.data
+                              ?.announcements
+                              ?.isNotEmpty ??
+                          false
+                      ? showDialog(
+                          context: context,
+                          builder: (context) {
+                            return const AcknowledgementDialogue();
+                          })
+                      : context.read<AttendanceBloc>().add(MarkAttendance());
+                },
+                buttonWidth: MediaQuery.sizeOf(context).width * 0.14,
+                backgroundColor: (!checkInTimeExists())
+                    ? AppColors.successGreen
+                    : AppColors.errorRed,
+                buttonTitle: !checkInTimeExists()
+                    ? StringConstants.kCheckIn
+                    : StringConstants.kCheckOut,
+                textStyle: Theme.of(context)
+                    .textTheme
+                    .cardMobileValueTextStyle
+                    .copyWith(color: AppColors.white));
       }
     });
   }

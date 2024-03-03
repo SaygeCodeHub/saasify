@@ -60,7 +60,7 @@ class _HRMSDashboardScreenState extends State<HRMSDashboardScreen>
                           const SizedBox(height: spacingStandard),
                           (isMobile)
                               ? const Column(children: [
-                            AttendanceCard(isMobile: false),
+                                  AttendanceCard(isMobile: false),
                                   SizedBox(height: spacingHuge),
                                   HrmsAnnouncementsSection(isMobile: false)
                                 ])
@@ -85,7 +85,7 @@ class _HRMSDashboardScreenState extends State<HRMSDashboardScreen>
                         const SizedBox(height: spacingStandard),
                         (isMobile)
                             ? const Column(children: [
-                          AttendanceCard(isMobile: false),
+                                AttendanceCard(isMobile: false),
                                 SizedBox(height: spacingHuge),
                                 HrmsAnnouncementsSection(isMobile: false)
                               ])
@@ -93,7 +93,7 @@ class _HRMSDashboardScreenState extends State<HRMSDashboardScreen>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  AttendanceCard(isMobile: true),
+                                    AttendanceCard(isMobile: true),
                                     SizedBox(width: spacingStandard),
                                     Expanded(
                                         child: HrmsAnnouncementsSection(

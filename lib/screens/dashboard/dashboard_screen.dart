@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_events.dart';
@@ -51,55 +53,20 @@ class _DashboardScreenState extends State<DashboardScreen> with RouteAware {
                           child: const Text('Retry')));
                 }
                 if (state is AppInitialised) {
-                  return SingleChildScrollView(
+                  return const SingleChildScrollView(
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const SizedBox(height: spacingStandard),
-                          (isMobile)
-                              ? const Column(children: [
-                                  AttendanceCard(isMobile: false),
-                                  SizedBox(height: spacingHuge),
-                                  HrmsAnnouncementsSection(isMobile: false)
-                                ])
-                              : const Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                      AttendanceCard(isMobile: true),
-                                      SizedBox(width: spacingStandard),
-                                      Expanded(
-                                          child: HrmsAnnouncementsSection(
-                                              isMobile: true))
-                                    ]),
+                          Row(mainAxisSize: MainAxisSize.min, children: [
+                            Expanded(child: AttendanceCard(isMobile: true))
+                          ]),
+                          SizedBox(height: spacingStandard),
+                          HrmsAnnouncementsSection(isMobile: true)
                         ]),
                   );
                 }
-                return SingleChildScrollView(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: spacingStandard),
-                        (isMobile)
-                            ? const Column(children: [
-                                AttendanceCard(isMobile: false),
-                                SizedBox(height: spacingHuge),
-                                HrmsAnnouncementsSection(isMobile: false)
-                              ])
-                            : const Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                    AttendanceCard(isMobile: true),
-                                    SizedBox(width: spacingStandard),
-                                    Expanded(
-                                        child: HrmsAnnouncementsSection(
-                                            isMobile: true))
-                                  ])
-                      ]),
-                );
+                return const SizedBox();
               },
             )));
   }

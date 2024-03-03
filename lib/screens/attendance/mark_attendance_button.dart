@@ -43,12 +43,16 @@ class MarkAttendanceButton extends StatelessWidget {
                 width: 25, height: 25, child: CircularProgressIndicator()));
       } else {
         return (checkInTimeExists() && checkOutTimeExists())
-            ? PrimaryButton(
-                buttonWidth: 40,
-                buttonHeight: 40,
-                backgroundColor: AppColors.successGreen,
-                onPressed: () {},
-                buttonTitle: 'Done for the day!')
+            ? SizedBox(
+                height: 100,
+                width: 100,
+                child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(80)),
+                    color: AppColors.successGreen,
+                    elevation: 0,
+                    child: const Center(
+                        child: Icon(Icons.done, color: AppColors.white))))
             : SizedBox(
                 height: 100,
                 width: 100,

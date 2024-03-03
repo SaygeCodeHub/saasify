@@ -55,12 +55,21 @@ class AttendanceCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Today, ${formatDate(DateTime.now())}',
-                                maxLines: 1,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subDetailTextStyle
-                                    .copyWith(fontWeight: FontWeight.w700)),
+
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const Icon(Icons.calendar_today_outlined,size :18),
+                                const SizedBox(width: spacingSmall),
+                                Text(formatDate(DateTime.now()),
+                                    maxLines: 1,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subDetailTextStyle
+                                        .copyWith(fontWeight: FontWeight.w700))
+                              ],
+                            ),
                             const SizedBox(height: spacingStandard),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -70,7 +79,8 @@ class AttendanceCard extends StatelessWidget {
                                     maxLines: 1,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .subDetailTextStyle.copyWith(fontWeight: FontWeight.w700)),
+                                        .subDetailTextStyle
+                                        .copyWith(fontWeight: FontWeight.w700)),
                                 ValueListenableBuilder<String?>(
                                     builder: (context, value, child) {
                                       return Text(value ?? "",
@@ -93,7 +103,8 @@ class AttendanceCard extends StatelessWidget {
                                     maxLines: 1,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .subDetailTextStyle.copyWith(fontWeight: FontWeight.w700)),
+                                        .subDetailTextStyle
+                                        .copyWith(fontWeight: FontWeight.w700)),
                                 ValueListenableBuilder<String?>(
                                     builder: (context, value, child) {
                                       return Text(value ?? "",
@@ -116,7 +127,8 @@ class AttendanceCard extends StatelessWidget {
                                     maxLines: 1,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .subDetailTextStyle),
+                                        .subDetailTextStyle
+                                        .copyWith(fontWeight: FontWeight.w700)),
                                 ValueListenableBuilder<String?>(
                                     builder: (context, value, child) {
                                       return Text(value ?? "",

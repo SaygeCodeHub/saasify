@@ -18,7 +18,7 @@ class IconText extends StatelessWidget {
         const SizedBox(width: spacingXSmall),
         Expanded(
           child: Text(text,
-              style: Theme.of(context).textTheme.employeeCardTextStyle),
+              style: Theme.of(context).textTheme.subDetailTextStyle),
         ),
       ],
     );

@@ -7,6 +7,7 @@ import 'package:saasify/screens/authentication/updatePassword/update_password_sc
 import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.dart';
 import 'package:saasify/screens/companies/widgets/branches/all_branches_screen.dart';
 import 'package:saasify/screens/companies/widgets/companies/all_companies_screen.dart';
+import 'package:saasify/screens/dashboard/dashboard_screen.dart';
 import 'package:saasify/screens/form/form_screen.dart';
 import 'package:saasify/screens/generalScreens/coming_soon_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
@@ -35,6 +36,8 @@ class AppRoutes {
       case AllCompaniesScreen.routeName:
         return _createRoute(AllCompaniesScreen(
             authenticateUserData: settings.arguments as AuthenticateUserData));
+      case DashboardScreen.routeName:
+        return _createRoute(const DashboardScreen());
       case AllBranchesScreen.routeName:
         List<dynamic> args = settings.arguments as List<dynamic>;
         return _createRoute(AllBranchesScreen(

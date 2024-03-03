@@ -154,7 +154,7 @@ extension AppTextTheme on TextTheme {
         fontSize: 12, color: AppColors.black, fontWeight: FontWeight.w700);
   }
 
-  TextStyle get employeeCardTextStyle {
+  TextStyle get subDetailTextStyle {
     return const TextStyle(
         fontSize: 14, color: AppColors.black, fontWeight: FontWeight.w500);
   }

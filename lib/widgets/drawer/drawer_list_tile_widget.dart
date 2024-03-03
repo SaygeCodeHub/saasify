@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/configs/dashboard_route.dart';
 
 class DrawerListTileWidget extends StatefulWidget {
   final Map<String, dynamic> module;
@@ -21,13 +22,11 @@ class ModuleTileState extends State<DrawerListTileWidget> {
     return Column(
       children: [
         ListTile(
-          minLeadingWidth : spacingStandard,
-          leading: SvgPicture.asset(
-            widget.module['icon'],
-            width: spacingStandard,
-            height: spacingStandard
-          ),
-          title: Text(widget.module['title'],style:Theme.of(context).textTheme.drawerModuleTextStyle),
+          minLeadingWidth: spacingStandard,
+          leading: SvgPicture.asset(widget.module['icon'],
+              width: spacingStandard, height: spacingStandard),
+          title: Text(widget.module['title'],
+              style: Theme.of(context).textTheme.drawerModuleTextStyle),
           onTap: () {
             setState(() {
               isExpanded = !isExpanded;
@@ -61,7 +60,14 @@ class FeatureTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: spacingHuge),
-      child: ListTile(title: Text(feature['title'])),
+      child: ListTile(
+          title: Text(feature['title']),
+          onTap: () {
+            DashboardRouting(
+              featureKey: feature['feature_key'],
+              context: context,
+            ).navigateTo();
+          }),
     );
   }
 }

@@ -9,17 +9,16 @@ import 'package:saasify/screens/attendance/attendance_card.dart';
 import 'package:saasify/screens/hrms/widgets/hrms_announcements_section.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 
-class HRMSDashboardScreen extends StatefulWidget {
-  static const routeName = 'HRMSDashboardScreen';
+class DashboardScreen extends StatefulWidget {
+  static const routeName = 'DashboardScreen';
 
-  const HRMSDashboardScreen({super.key});
+  const DashboardScreen({super.key});
 
   @override
-  State<HRMSDashboardScreen> createState() => _HRMSDashboardScreenState();
+  State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _HRMSDashboardScreenState extends State<HRMSDashboardScreen>
-    with RouteAware {
+class _DashboardScreenState extends State<DashboardScreen> with RouteAware {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -60,7 +59,7 @@ class _HRMSDashboardScreenState extends State<HRMSDashboardScreen>
                           const SizedBox(height: spacingStandard),
                           (isMobile)
                               ? const Column(children: [
-                            AttendanceCard(isMobile: false),
+                                  AttendanceCard(isMobile: false),
                                   SizedBox(height: spacingHuge),
                                   HrmsAnnouncementsSection(isMobile: false)
                                 ])
@@ -85,7 +84,7 @@ class _HRMSDashboardScreenState extends State<HRMSDashboardScreen>
                         const SizedBox(height: spacingStandard),
                         (isMobile)
                             ? const Column(children: [
-                          AttendanceCard(isMobile: false),
+                                AttendanceCard(isMobile: false),
                                 SizedBox(height: spacingHuge),
                                 HrmsAnnouncementsSection(isMobile: false)
                               ])
@@ -93,7 +92,7 @@ class _HRMSDashboardScreenState extends State<HRMSDashboardScreen>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  AttendanceCard(isMobile: true),
+                                    AttendanceCard(isMobile: true),
                                     SizedBox(width: spacingStandard),
                                     Expanded(
                                         child: HrmsAnnouncementsSection(

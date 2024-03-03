@@ -5,10 +5,9 @@ import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 class DashboardRouting {
   String featureKey;
   BuildContext context;
-  bool isMobile;
 
   DashboardRouting(
-      {required this.featureKey, required this.context, this.isMobile = false});
+      {required this.featureKey, required this.context});
 
   void navigateTo() async {
     switch (featureKey) {

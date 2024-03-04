@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_events.dart';
@@ -62,7 +60,7 @@ class _DashboardScreenState extends State<DashboardScreen> with RouteAware {
                             Expanded(child: AttendanceCard(isMobile: true))
                           ]),
                           SizedBox(height: spacingStandard),
-                          HrmsAnnouncementsSection(isMobile: true)
+                          HrmsAnnouncementsSection(isMobile: true),
                         ]),
                   );
                 }

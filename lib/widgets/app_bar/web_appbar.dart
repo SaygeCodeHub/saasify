@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/screens/shift_management/shift_managment_screen.dart';
 import 'package:saasify/utils/date_time_formatters.dart';
 import 'package:saasify/widgets/app_bar/profile_dropdown.dart';
 import 'package:saasify/widgets/userInput/change_branch.dart';
@@ -32,7 +33,12 @@ class WebAppBar extends StatelessWidget {
               IconButton(
                   splashRadius: 20,
                   padding: EdgeInsets.zero,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      ShiftManagementScreen.routeName,
+                    );
+                  },
                   icon: const Icon(Icons.settings)),
               const SizedBox(width: spacingXMedium),
               Padding(

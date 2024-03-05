@@ -35,6 +35,7 @@ class _DashboardScreenState extends State<DashboardScreen> with RouteAware {
   @override
   Widget build(BuildContext context) {
     return ScreenSkeleton(
+        showDrawer: true,
         isHome: true,
         childScreenBuilder: (isMobile) => Padding(
             padding: const EdgeInsets.symmetric(horizontal: spacingLarge),

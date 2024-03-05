@@ -41,6 +41,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/svg/
 
   fonts:
     - family: PT_Sans

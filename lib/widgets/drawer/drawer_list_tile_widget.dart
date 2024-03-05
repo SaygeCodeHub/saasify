@@ -23,8 +23,12 @@ class ModuleTileState extends State<DrawerListTileWidget> {
       children: [
         ListTile(
           minLeadingWidth: spacingStandard,
-          leading: SvgPicture.asset(widget.module['icon'],
-              width: spacingStandard, height: spacingStandard),
+          leading: SvgPicture.asset(
+              (widget.module['icon'] != "")
+                  ? widget.module['icon']
+                  : ('assets/svg/pos.svg'),
+              width: spacingStandard,
+              height: spacingStandard),
           title: Text(widget.module['title'],
               style: Theme.of(context).textTheme.drawerModuleTextStyle),
           onTap: () {

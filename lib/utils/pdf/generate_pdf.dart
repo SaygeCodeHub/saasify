@@ -9,7 +9,7 @@ import 'package:pdf/widgets.dart' as pw;
 
 Future<void> generatePDF(BuildContext context) async {
   final pw.Document doc = pw.Document();
-  final image = (Image.asset("assets/restaurant_logo.jpg"));
+  // final image = (Image.asset("assets/restaurant_logo.jpg"));
   doc.addPage(
     pw.Page(
       pageFormat: PdfPageFormat.a5,
@@ -22,10 +22,10 @@ Future<void> generatePDF(BuildContext context) async {
                   mainAxisAlignment: pw.MainAxisAlignment.center,
                   crossAxisAlignment: pw.CrossAxisAlignment.center,
                   children: [
-                    pw.Image(pw.MemoryImage(image as Uint8List),
-                        width: 150, height: 150, fit: pw.BoxFit.cover),
+                    // pw.Image(pw.MemoryImage(image as Uint8List),
+                    //     width: 150, height: 150, fit: pw.BoxFit.cover),
                     pw.Text('GST-'),
-                    pw.Text('Contact-'),
+                    pw.Text('Restaurant Contact-'),
                   ]),
               pw.Divider(indent: 1, endIndent: 1, thickness: 0.75),
               pw.Row(children: [pw.Text('Name-'), pw.Text('(M-)')]),

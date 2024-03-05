@@ -81,14 +81,6 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                 }
               }),
               decoration: InputDecoration(
-                  focusedBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.lighterBlack)),
-                  focusedErrorBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.errorRed)),
-                  errorBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.errorRed)),
-                  enabledBorder: const OutlineInputBorder(
-                      borderSide: BorderSide(color: AppColors.lighterBlack)),
                   contentPadding:
                       const EdgeInsets.symmetric(vertical: spacingMedium),
                   border: OutlineInputBorder(

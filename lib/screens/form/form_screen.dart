@@ -86,8 +86,7 @@ class FormScreen extends StatelessWidget {
                                                     return RowField(
                                                       flex: fieldData.flex ?? 1,
                                                       widget: FormWidgetUtil()
-                                                          .getWidget(
-                                                              fieldData, {}),
+                                                          .getWidget(fieldData),
                                                     );
                                                   })),
                                                   const SizedBox(

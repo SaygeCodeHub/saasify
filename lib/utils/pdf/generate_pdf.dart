@@ -7,9 +7,31 @@ import 'package:flutter/widgets.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+class MenuItem {
+  final String name;
+  final int quantity;
+  final double price;
+
+  MenuItem({
+    required this.name,
+    required this.quantity,
+    required this.price,
+  });
+
+  double get amount => quantity * price;
+}
+
 Future<void> generatePDF(BuildContext context) async {
+  final List<MenuItem> items = [
+    MenuItem(name: 'Pizza', quantity: 3, price: 350.00),
+    MenuItem(name: 'Pasta', quantity: 2, price: 320.00),
+    // Add more items here if needed
+  ];
+  final double totalAmount =
+      items.fold(0, (previousValue, element) => previousValue + element.amount);
   final pw.Document doc = pw.Document();
-  // final image = (Image.asset("assets/restaurant_logo.jpg"));
+  // final ByteData data = await rootBundle.load('assets/restaurant_logo.jpg');
+  // final Uint8List bytes = data.buffer.asUint8List();
   doc.addPage(
     pw.Page(
       pageFormat: PdfPageFormat.a5,
@@ -22,7 +44,7 @@ Future<void> generatePDF(BuildContext context) async {
                   mainAxisAlignment: pw.MainAxisAlignment.center,
                   crossAxisAlignment: pw.CrossAxisAlignment.center,
                   children: [
-                    // pw.Image(pw.MemoryImage(image as Uint8List),
+                    // pw.Image(pw.MemoryImage(bytes),
                     //     width: 150, height: 150, fit: pw.BoxFit.cover),
                     pw.Text('GST-'),
                     pw.Text('Restaurant Contact-'),
@@ -66,52 +88,73 @@ Future<void> generatePDF(BuildContext context) async {
                     ])
                   ]),
               pw.Divider(indent: 1, endIndent: 1, thickness: 0.75),
-              pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                  children: [
-                    pw.Column(children: [pw.Text('Pizza')]),
-                    pw.Column(children: [
-                      pw.Row(
-                          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                          children: [
-                            pw.Text('1'),
-                            pw.SizedBox(width: 25),
-                            pw.Text('350.00'),
-                            pw.SizedBox(width: 25),
-                            pw.Text('350.00')
-                          ])
-                    ])
-                  ]),
-              pw.SizedBox(height: 10),
+              for (var item in items)
+                pw.Padding(
+                  padding: const pw.EdgeInsets.only(bottom: 5),
+                  child: pw.Row(
+                    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                    children: [
+                      pw.Column(children: [pw.Text(item.name)]),
+                      pw.Column(
+                        children: [
+                          pw.Row(
+                            mainAxisAlignment:
+                                pw.MainAxisAlignment.spaceBetween,
+                            children: [
+                              pw.Text(item.quantity.toString()),
+                              pw.SizedBox(width: 25),
+                              pw.Text(item.price.toStringAsFixed(2)),
+                              pw.SizedBox(width: 25),
+                              pw.Text((item.quantity * item.price)
+                                  .toStringAsFixed(2)),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               pw.Divider(indent: 1, endIndent: 1, thickness: 0.75),
-              pw.Row(mainAxisAlignment: pw.MainAxisAlignment.end, children: [
-                pw.Column(
+              pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.end,
+                children: [
+                  pw.Column(
+                      mainAxisAlignment: pw.MainAxisAlignment.end,
+                      crossAxisAlignment: pw.CrossAxisAlignment.end,
+                      children: [
+                        pw.Row(children: [
+                          pw.Text('Total Qty:'),
+                          pw.Text(
+                            items
+                                .fold(0,
+                                    (prev, element) => prev + element.quantity)
+                                .toString(),
+                          ),
+                        ]),
+                        pw.Text('CGST'),
+                        pw.Text('SGST')
+                      ]),
+                  pw.SizedBox(width: 30),
+                  pw.Column(
+                      mainAxisAlignment: pw.MainAxisAlignment.end,
+                      crossAxisAlignment: pw.CrossAxisAlignment.end,
+                      children: [
+                        pw.Text('Subtotal'),
+                        pw.Text('2.5%'),
+                        pw.Text('2.5%')
+                      ]),
+                  pw.SizedBox(width: 30),
+                  pw.Column(
                     mainAxisAlignment: pw.MainAxisAlignment.end,
                     crossAxisAlignment: pw.CrossAxisAlignment.end,
                     children: [
-                      pw.Text('Total Qty:'),
-                      pw.Text('CGST'),
-                      pw.Text('SGST')
-                    ]),
-                pw.SizedBox(width: 30),
-                pw.Column(
-                    mainAxisAlignment: pw.MainAxisAlignment.end,
-                    crossAxisAlignment: pw.CrossAxisAlignment.end,
-                    children: [
-                      pw.Text('Subtotal'),
-                      pw.Text('2.5%'),
-                      pw.Text('2.5%')
-                    ]),
-                pw.SizedBox(width: 30),
-                pw.Column(
-                    mainAxisAlignment: pw.MainAxisAlignment.end,
-                    crossAxisAlignment: pw.CrossAxisAlignment.end,
-                    children: [
-                      pw.Text('350.00'),
+                      pw.Text(totalAmount.toStringAsFixed(2)), // Total amount
                       pw.Text('8.75'),
-                      pw.Text('8.75')
-                    ]),
-              ]),
+                      pw.Text('8.75'),
+                    ],
+                  ),
+                ],
+              ),
               pw.Divider(indent: 1, endIndent: 1, thickness: 0.75),
               pw.Row(mainAxisAlignment: pw.MainAxisAlignment.end, children: [
                 pw.Column(
@@ -146,8 +189,8 @@ Future<void> generatePDF(BuildContext context) async {
       },
     ),
   );
-  final Uint8List bytes = await doc.save();
-  final blob = html.Blob([bytes]);
+  final Uint8List pdfBytes = await doc.save();
+  final blob = html.Blob([pdfBytes]);
   final url = html.Url.createObjectUrlFromBlob(blob);
   final anchor = html.AnchorElement(href: url)
     ..setAttribute("download", "bill.pdf")

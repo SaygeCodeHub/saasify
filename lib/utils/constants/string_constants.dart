@@ -120,4 +120,18 @@ class StringConstants {
   static const kTotalCasualLeaves = 'Total Casual Leaves';
   static const kOvertimeRate = 'Overtime Rate';
   static const kOverTimeRatePer = 'Overtime Rate per';
+
+  //Settings
+  static const kNotifications = 'Notifications';
+  static const kEmailNotifications = 'Email Notifications';
+  static const kSendMeEmailNotifications = 'Send me email notifications:';
+  static const kEmailNotificationDescription = 'When you\'re busy or not online, Substance can send you email notifications for any new direct messages mentions of your name.';
+  static const kEmailNewsAndUpdates = 'Email news and updates';
+  static const kEmailNewsAndUpdatesDescription = 'From time to time we\'d like to send you emails with interesting news about Cuboid and your workspace. You can choose which of these updates you\'d like to receive:';
+  static const kSignInNotifications = 'Sign-In Notifications';
+  static const kSignInNotificationsDescription = 'These emails help keep your substance account secure. If you haven\'t already, you should also enable two-factor authentication.';
+  static const kNotificationsDescription = 'If you opt out of the above, note that we\'ll still send you important administrative emails, such as password resets.';
+  static const kUseThisEmail = 'We will use this email address: hello@designspace.io (change address).';
+  static const kDiscard = 'Discard';
+  static const kSaveChanges = 'Save Changes';
 }

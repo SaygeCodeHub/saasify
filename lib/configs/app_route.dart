@@ -13,6 +13,8 @@ import 'package:saasify/screens/generalScreens/coming_soon_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/screens/root_screen.dart';
 
+import '../screens/settings/settings_screen.dart';
+
 class AppRoutes {
   static Route routes(RouteSettings settings) {
     switch (settings.name) {
@@ -42,6 +44,8 @@ class AppRoutes {
         List<dynamic> args = settings.arguments as List<dynamic>;
         return _createRoute(AllBranchesScreen(
             companyName: args[0] as String, branches: args[1] as List<Branch>));
+      case SettingsScreen.routeName:
+        return _createRoute( const SettingsScreen());
       default:
         return _createRoute(const ComingSoonScreen());
     }

@@ -3,7 +3,7 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/utils/date_time_formatters.dart';
-import 'package:saasify/utils/pdf/generate_pdf.dart';
+import 'package:saasify/utils/pdf/cafe_bill_pdf.dart';
 import 'package:saasify/widgets/app_bar/profile_dropdown.dart';
 import 'package:saasify/widgets/userInput/change_branch.dart';
 

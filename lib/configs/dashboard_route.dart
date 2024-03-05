@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/screens/dashboard/dashboard_screen.dart';
 import 'package:saasify/screens/form/form_screen.dart';
-import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 
 class DashboardRouting {
   String featureKey;
   BuildContext context;
-  bool isMobile;
 
-  DashboardRouting(
-      {required this.featureKey, required this.context, this.isMobile = false});
+  DashboardRouting({required this.featureKey, required this.context});
 
   void navigateTo() async {
     switch (featureKey) {
       case 'HR':
         Navigator.pushReplacement(
           context,
-          buildPageRoute(const HRMSDashboardScreen()),
+          buildPageRoute(const DashboardScreen()),
         );
         break;
       case 'ORDERS':

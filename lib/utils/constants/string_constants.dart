@@ -95,8 +95,10 @@ class StringConstants {
   static const kMyLeaves = 'My Leaves';
   static const kPendingLeaveRequests = 'Pending Leave Requests';
   static const kDate = 'Date';
-  static const kCheckIn = 'Check In';
-  static const kCheckOut = 'Check Out';
+  static const kCheckIn = 'Check In  ';
+  static const kCheckOut = 'Check Out  ';
+  static const kAvgHrs = 'Average hours :';
+
   static const kRegularise = 'Regularise';
   static const kTimesheet = 'Timesheet';
   static const kNoLeavesFound = 'No Leaves Found';

@@ -17,8 +17,8 @@ class IconText extends StatelessWidget {
         Icon(icon, color: AppColors.darkBlue, size: 16),
         const SizedBox(width: spacingXSmall),
         Expanded(
-          child: Text(text,
-              style: Theme.of(context).textTheme.employeeCardTextStyle),
+          child:
+              Text(text, style: Theme.of(context).textTheme.subDetailTextStyle),
         ),
       ],
     );

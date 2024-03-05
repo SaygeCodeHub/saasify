@@ -157,31 +157,36 @@ class ModulesModel {
 }
 
 class FeatureDetailModel {
+  final String? buildScreenEndpoint;
   final String? featureKey;
   final double? featureId;
   final bool? isStatistics;
   final String? title;
   final String? icon;
   final String? value;
+  final bool? isView;
 
   FeatureDetailModel({
+    this.buildScreenEndpoint,
     this.featureKey,
     this.featureId,
     this.isStatistics,
     this.title,
     this.icon,
     this.value,
+    this.isView,
   });
 
   factory FeatureDetailModel.fromJson(Map<String, dynamic> json) =>
       FeatureDetailModel(
-        featureKey: json["feature_key"],
-        featureId: json["feature_id"],
-        isStatistics: json["is_statistics"],
-        title: json["title"],
-        icon: json["icon"],
-        value: json["value"],
-      );
+          featureKey: json["feature_key"],
+          featureId: json["feature_id"],
+          isStatistics: json["is_statistics"],
+          title: json["title"],
+          icon: json["icon"],
+          value: json["value"],
+          isView: json["is_view"],
+          buildScreenEndpoint: json["build_screen_endpoint"]);
 
   Map<String, dynamic> toJson() => {
         "feature_key": featureKey,
@@ -190,6 +195,8 @@ class FeatureDetailModel {
         "title": title,
         "icon": icon,
         "value": value,
+        "build_screen_endpoint": buildScreenEndpoint,
+        "is_view": isView
       };
 }
 

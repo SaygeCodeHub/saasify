@@ -16,9 +16,12 @@ class InitialiseRepositoryImpl implements InitialiseRepository {
     var userId = await cache.getUserId();
     var fcmToken = await cache.getFCMToken(CacheKeys.fcmToken);
     try {
+      const baseUrl = 'https://saasify-two.vercel.app/v3.0/';
+
       final response = await ClientServices().post(
-          "${ApiConstants.baseUrl}$companyId/$branchId/$userId/${ApiConstants.initializeApi}",
+          "$baseUrl$companyId/$branchId/$userId/${ApiConstants.initializeApi}",
           {"device_token": (fcmToken != null) ? fcmToken : 'xyz'});
+
       return InitialiseAppModel.fromJson(response);
     } catch (error) {
       rethrow;

@@ -8,12 +8,13 @@ import 'package:saasify/bloc/initialise/initialise_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 
-class AttendanceButton extends StatelessWidget {
-  const AttendanceButton({super.key});
+class MarkAttendanceButton extends StatelessWidget {
+  const MarkAttendanceButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,18 +43,8 @@ class AttendanceButton extends StatelessWidget {
                 width: 25, height: 25, child: CircularProgressIndicator()));
       } else {
         return (checkInTimeExists() && checkOutTimeExists())
-            ? PrimaryButton(
-                buttonWidth: 40,
-                buttonHeight: 40,
-                backgroundColor: AppColors.successGreen,
-                onPressed: () {},
-                buttonTitle: 'Done for the day!')
+            ? const SizedBox.shrink()
             : PrimaryButton(
-                buttonWidth: 40,
-                buttonHeight: 40,
-                backgroundColor: (!checkInTimeExists())
-                    ? AppColors.successGreen
-                    : AppColors.errorRed,
                 onPressed: () {
                   context
                               .read<InitialiseAppBloc>()
@@ -69,9 +60,17 @@ class AttendanceButton extends StatelessWidget {
                           })
                       : context.read<AttendanceBloc>().add(MarkAttendance());
                 },
+                buttonWidth: MediaQuery.sizeOf(context).width * 0.14,
+                backgroundColor: (!checkInTimeExists())
+                    ? AppColors.successGreen
+                    : AppColors.errorRed,
                 buttonTitle: !checkInTimeExists()
                     ? StringConstants.kCheckIn
-                    : StringConstants.kCheckOut);
+                    : StringConstants.kCheckOut,
+                textStyle: Theme.of(context)
+                    .textTheme
+                    .cardMobileValueTextStyle
+                    .copyWith(color: AppColors.white));
       }
     });
   }

@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:saasify/utils/globals.dart';
 import '../app_bar/mobile_appbar.dart';
 import '../app_bar/web_appbar.dart';
-import '../drawer/custom_drawer.dart';
+import '../drawer/drawer_widget.dart';
 
 class ScreenSkeleton extends StatelessWidget {
   final bool isHome;
+  final bool showDrawer;
   final Widget Function(bool isMobile) childScreenBuilder;
   static const routeName = 'RootScreen';
 
   const ScreenSkeleton(
-      {super.key, required this.childScreenBuilder, this.isHome = false});
+      {super.key,
+      required this.childScreenBuilder,
+      this.isHome = false,
+      this.showDrawer = false});
 
   @override
   Widget build(BuildContext context) {
@@ -19,15 +23,18 @@ class ScreenSkeleton extends StatelessWidget {
       appBar: isMobile ? MobileAppBar(isHome: isHome) : null,
       drawer: isMobile
           ? isHome
-              ? const CustomDrawer()
+              ? const DrawerWidget()
               : null
           : null,
       body: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          isMobile ? const SizedBox() : const CustomDrawer(),
-          isMobile ? const SizedBox() : const VerticalDivider(),
+          (!showDrawer)
+              ? const SizedBox.shrink()
+              : isMobile
+                  ? const SizedBox()
+                  : const DrawerWidget(),
           Expanded(
             child: !isMobile
                 ? Column(

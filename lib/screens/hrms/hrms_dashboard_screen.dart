@@ -5,10 +5,9 @@ import 'package:saasify/bloc/initialise/initialise_events.dart';
 import 'package:saasify/bloc/initialise/initialise_states.dart';
 import 'package:saasify/configs/app_route.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/screens/attendance/attendance_card.dart';
 import 'package:saasify/screens/hrms/widgets/hrms_announcements_section.dart';
-import 'package:saasify/screens/hrms/widgets/hrms_attendance_section.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
-import 'widgets/hrms_features_section.dart';
 
 class HRMSDashboardScreen extends StatefulWidget {
   static const routeName = 'HRMSDashboardScreen';
@@ -61,7 +60,7 @@ class _HRMSDashboardScreenState extends State<HRMSDashboardScreen>
                           const SizedBox(height: spacingStandard),
                           (isMobile)
                               ? const Column(children: [
-                                  HrmsAttendanceSection(isMobile: false),
+                                  AttendanceCard(isMobile: false),
                                   SizedBox(height: spacingHuge),
                                   HrmsAnnouncementsSection(isMobile: false)
                                 ])
@@ -69,17 +68,12 @@ class _HRMSDashboardScreenState extends State<HRMSDashboardScreen>
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                      HrmsAttendanceSection(isMobile: true),
+                                      AttendanceCard(isMobile: true),
                                       SizedBox(width: spacingStandard),
                                       Expanded(
                                           child: HrmsAnnouncementsSection(
                                               isMobile: true))
                                     ]),
-                          // const SizedBox(height: spacingHuge),
-                          // HrmsTasksSection(isMobile: isMobile),
-                          const SizedBox(height: spacingHuge),
-                          HrmsFeaturesSection(isMobile: isMobile),
-                          const SizedBox(height: spacingLarge)
                         ]),
                   );
                 }
@@ -91,7 +85,7 @@ class _HRMSDashboardScreenState extends State<HRMSDashboardScreen>
                         const SizedBox(height: spacingStandard),
                         (isMobile)
                             ? const Column(children: [
-                                HrmsAttendanceSection(isMobile: false),
+                                AttendanceCard(isMobile: false),
                                 SizedBox(height: spacingHuge),
                                 HrmsAnnouncementsSection(isMobile: false)
                               ])
@@ -99,17 +93,12 @@ class _HRMSDashboardScreenState extends State<HRMSDashboardScreen>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                    HrmsAttendanceSection(isMobile: true),
+                                    AttendanceCard(isMobile: true),
                                     SizedBox(width: spacingStandard),
                                     Expanded(
                                         child: HrmsAnnouncementsSection(
                                             isMobile: true))
-                                  ]),
-                        // const SizedBox(height: spacingHuge),
-                        // HrmsTasksSection(isMobile: isMobile),
-                        const SizedBox(height: spacingHuge),
-                        HrmsFeaturesSection(isMobile: isMobile),
-                        const SizedBox(height: spacingLarge)
+                                  ])
                       ]),
                 );
               },

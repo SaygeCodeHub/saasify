@@ -3,6 +3,8 @@ import 'package:saasify/repositories/attendance/attendance_repository.dart';
 import 'package:saasify/repositories/attendance/attendance_repository_impl.dart';
 import 'package:saasify/repositories/authentication/authentication_repository.dart';
 import 'package:saasify/repositories/authentication/authentication_repository_impl.dart';
+import 'package:saasify/repositories/buttonAction/button_action_repository.dart';
+import 'package:saasify/repositories/buttonAction/button_action_repository_impl.dart';
 import 'package:saasify/repositories/companies/companies_repository.dart';
 import 'package:saasify/repositories/form/form_repository.dart';
 import 'package:saasify/repositories/form/form_repository_impl.dart';
@@ -35,4 +37,6 @@ configurableDependencies() {
   getIt.registerLazySingleton<InitialiseRepository>(
       () => InitialiseRepositoryImpl());
   getIt.registerLazySingleton<FormRepository>(() => FormRepositoryImpl());
+  getIt.registerLazySingleton<ButtonActionRepository>(
+      () => ButtonActionRepositoryImpl());
 }

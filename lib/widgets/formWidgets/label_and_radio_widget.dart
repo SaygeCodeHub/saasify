@@ -4,13 +4,13 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/form/form_structure_model.dart';
 
-class LabelRadioWidget extends StatefulWidget {
+class LabelAndRadioWidget extends StatefulWidget {
   final List<OptionData> options;
   final String? label;
   final String? initialValue;
   final void Function(String?)? onChanged;
 
-  const LabelRadioWidget(
+  const LabelAndRadioWidget(
       {super.key,
       required this.options,
       this.initialValue,
@@ -18,10 +18,10 @@ class LabelRadioWidget extends StatefulWidget {
       this.label});
 
   @override
-  State<LabelRadioWidget> createState() => _LabelRadioWidgetState();
+  State<LabelAndRadioWidget> createState() => _LabelAndRadioWidgetState();
 }
 
-class _LabelRadioWidgetState extends State<LabelRadioWidget> {
+class _LabelAndRadioWidgetState extends State<LabelAndRadioWidget> {
   String groupValue = "";
 
   @override

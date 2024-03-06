@@ -52,7 +52,8 @@ class Announcement {
         dueDate: DateTime.parse(json["due_date"]),
         description: json["description"],
         isActive: json["is_active"],
-        publishedTime: DateTime.parse(json["published_time"]),
+        publishedTime: DateTime.parse(
+            json["published_time"] ?? DateTime.now().toIso8601String()),
       );
 
   Map<String, dynamic> toJson() => {

@@ -4,8 +4,9 @@ import 'package:saasify/bloc/register/register_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/authentication/register/register_button.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/widgets/form/form_input_fields.dart';
+import 'package:saasify/widgets/formWidgets/label_and_textfield_widget.dart';
 import 'package:saasify/widgets/profile/saasify_logo.dart';
-import 'package:saasify/widgets/text/field_label_widget.dart';
 
 class RegisterMobileScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -22,7 +23,7 @@ class RegisterMobileScreen extends StatelessWidget {
           const SizedBox(height: spacingExcel),
           const SaasifyLogo(),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
-          LabelAndFieldWidget(
+          LabelAndTextFieldWidget(
             prefixIcon: const Icon(Icons.person_2_outlined),
             label: StringConstants.kFirstName,
             isRequired: true,
@@ -33,7 +34,7 @@ class RegisterMobileScreen extends StatelessWidget {
             },
           ),
           const SizedBox(height: spacingBetweenTextFields),
-          LabelAndFieldWidget(
+          LabelAndTextFieldWidget(
             prefixIcon: const Icon(Icons.person_2_outlined),
             isRequired: true,
             label: StringConstants.kLastName,
@@ -44,26 +45,21 @@ class RegisterMobileScreen extends StatelessWidget {
             },
           ),
           const SizedBox(height: spacingBetweenTextFields),
-          LabelAndFieldWidget(
-              prefixIcon: const Icon(Icons.email_outlined),
+          EmailTextField(
               isRequired: true,
-              label: StringConstants.kEmailAddress,
               onTextFieldChanged: (value) {
                 context
                     .read<RegisterBloc>()
                     .userInputAuthenticationMap['user_email'] = value;
               }),
           const SizedBox(height: spacingBetweenTextFields),
-          LabelAndFieldWidget(
-              prefixIcon: const Icon(Icons.password_outlined),
+          PasswordTextField(
               isRequired: true,
-              label: StringConstants.kPassword,
               onTextFieldChanged: (value) {
                 context
                     .read<RegisterBloc>()
                     .userInputAuthenticationMap['password'] = value;
-              },
-              obscureText: true),
+              }),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
           RegisterButton(formKey: formKey)
         ],

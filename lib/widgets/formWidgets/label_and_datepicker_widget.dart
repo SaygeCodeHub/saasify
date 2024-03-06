@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:saasify/widgets/formWidgets/label_text_field_widget.dart';
+import 'package:saasify/widgets/formWidgets/label_and_textfield_widget.dart';
 
-class LabelDatePickerWidget extends StatelessWidget {
+class LabelAndDatePickerWidget extends StatelessWidget {
   final String? label;
   final void Function(String) onTextFieldChanged;
   final DateTime? initialDate;
@@ -13,7 +13,7 @@ class LabelDatePickerWidget extends StatelessWidget {
   final DateTime? firstDate;
   final DateTime? lastDate;
 
-  LabelDatePickerWidget(
+  LabelAndDatePickerWidget(
       {super.key,
       this.enabled,
       this.label,
@@ -30,7 +30,7 @@ class LabelDatePickerWidget extends StatelessWidget {
       _dateController.value =
           TextEditingValue(text: DateFormat('dd-MM-yyyy').format(initialDate!));
     }
-    return LabelTextFieldWidget(
+    return LabelAndTextFieldWidget(
       label: label,
       textFieldController: _dateController,
       readOnly: true,

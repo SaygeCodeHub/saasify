@@ -26,31 +26,30 @@ class InitialiseAppBloc extends Bloc<InitialiseEvents, InitialiseAppStates> {
   FutureOr<void> _initialiseApp(
       InitialiseApp event, Emitter<InitialiseAppStates> emit) async {
     emit(InitialisingApp());
-    try {
-      if (!kIsWeb) {
-        bool tokenAvailable = await NotificationUtil().ifTokenExists();
-        if (!tokenAvailable) {
-          String newToken = await NotificationUtil().getToken();
-          cache.setFCMToken(newToken);
-        }
+    // try {
+    if (!kIsWeb) {
+      bool tokenAvailable = await NotificationUtil().ifTokenExists();
+      if (!tokenAvailable) {
+        String newToken = await NotificationUtil().getToken();
+        cache.setFCMToken(newToken);
       }
-      initialiseAppModel = await _initialiseRepository.initialiseApp();
-      if (initialiseAppModel!.status == 200) {
-        bool geoFencing = initialiseAppModel!.data!.geoFencing ?? false;
-        branches = initialiseAppModel!.data!.branches;
-        cache
-            .setAccessibleModules(initialiseAppModel!.data!.accessibleModules!);
-        cache.setAvailableModules(initialiseAppModel!.data!.availableModules!);
-        cache.setUserName(initialiseAppModel!.data!.name);
-
-        emit(AppInitialised(
-            isGeoFencing: geoFencing, initialiseAppModel: initialiseAppModel!));
-      } else {
-        emit(InitialisingAppFailed(
-            errorMessage: initialiseAppModel!.message.toString()));
-      }
-    } catch (e) {
-      emit(InitialisingAppFailed(errorMessage: e.toString()));
     }
+    initialiseAppModel = await _initialiseRepository.initialiseApp();
+    if (initialiseAppModel!.status == 200) {
+      bool geoFencing = initialiseAppModel!.data!.geoFencing ?? false;
+      branches = initialiseAppModel!.data!.branches;
+      cache.setAccessibleModules(initialiseAppModel!.data!.accessibleModules!);
+      cache.setAvailableModules(initialiseAppModel!.data!.availableModules!);
+      cache.setUserName(initialiseAppModel!.data!.name);
+
+      emit(AppInitialised(
+          isGeoFencing: geoFencing, initialiseAppModel: initialiseAppModel!));
+    } else {
+      emit(InitialisingAppFailed(
+          errorMessage: initialiseAppModel!.message.toString()));
+    }
+    // } catch (e) {
+    //   emit(InitialisingAppFailed(errorMessage: e.toString()));
+    // }
   }
 }

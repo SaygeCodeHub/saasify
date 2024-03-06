@@ -70,11 +70,13 @@ class Data {
 
 class Button {
   final String? buttonName;
+  final String? buttonAction;
   final String? buttonType;
   final String? endPoint;
   final String? apiMethodType;
 
   Button({
+    this.buttonAction,
     this.buttonName,
     this.buttonType,
     this.endPoint,
@@ -82,6 +84,7 @@ class Button {
   });
 
   factory Button.fromJson(Map<String, dynamic> json) => Button(
+        buttonAction: json["button_action"],
         buttonName: json["button_name"],
         buttonType: json["button_type"],
         endPoint: json["end_point"],
@@ -89,6 +92,7 @@ class Button {
       );
 
   Map<String, dynamic> toJson() => {
+        "button_action": buttonAction,
         "button_name": buttonName,
         "button_type": buttonType,
         "end_point": endPoint,
@@ -107,7 +111,7 @@ class Section {
 
   factory Section.fromJson(Map<String, dynamic> json) => Section(
         sectionName: json["section_name"],
-        rows: (json["row"] as List<dynamic>?)
+        rows: (json["fields"] as List<dynamic>?)
                 ?.map((x) => FieldRow.fromJson(x))
                 .toList() ??
             [],
@@ -115,7 +119,7 @@ class Section {
 
   Map<String, dynamic> toJson() => {
         "section_name": sectionName,
-        "row": rows?.map((x) => x.toJson()).toList(),
+        "fields": rows?.map((x) => x.toJson()).toList(),
       };
 }
 
@@ -127,14 +131,14 @@ class FieldRow {
   });
 
   factory FieldRow.fromJson(Map<String, dynamic> json) => FieldRow(
-        fields: (json["fields"] as List<dynamic>?)
+        fields: (json["row_fields"] as List<dynamic>?)
                 ?.map((x) => Field.fromJson(x))
                 .toList() ??
             [],
       );
 
   Map<String, dynamic> toJson() => {
-        "fields": fields?.map((x) => x.toJson()).toList(),
+        "row_fields": fields?.map((x) => x.toJson()).toList(),
       };
 }
 
@@ -150,7 +154,7 @@ class Field {
   final TextFieldData? textField;
   final DropdownFieldData? dropdownField;
   final RadioFieldData? radioField;
-  final dynamic checkboxField;
+  final CheckboxData? checkboxField;
   final DatePickerFieldData? datePickerField;
 
   Field({
@@ -189,7 +193,9 @@ class Field {
         radioField: json["radio_field"] == null
             ? null
             : RadioFieldData.fromJson(json["radio_field"]),
-        checkboxField: json["checkbox_field"],
+        checkboxField: json["checkbox_field"] == null
+            ? null
+            : CheckboxData.fromJson(json["checkbox_field"]),
         datePickerField: json["date_picker_field"] == null
             ? null
             : DatePickerFieldData.fromJson(json["date_picker_field"]),
@@ -226,8 +232,8 @@ class DatePickerFieldData {
   factory DatePickerFieldData.fromJson(Map<String, dynamic> json) =>
       DatePickerFieldData(
         placeholder: json["placeholder"],
-        minDate: json["min_date"],
-        maxDate: json["max_date"],
+        // minDate: json["min_date"],
+        // maxDate: json["max_date"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -284,6 +290,29 @@ class RadioFieldData {
       };
 }
 
+class CheckboxData {
+  final List<OptionData>? options;
+  final dynamic defaultValue;
+
+  CheckboxData({
+    this.options,
+    this.defaultValue,
+  });
+
+  factory CheckboxData.fromJson(Map<String, dynamic> json) => CheckboxData(
+        options: (json["options"] as List<dynamic>?)
+                ?.map((x) => OptionData.fromJson(x))
+                .toList() ??
+            [],
+        defaultValue: json["default_value"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "options": options?.map((x) => x.toJson()).toList(),
+        "default_value": defaultValue,
+      };
+}
+
 class OptionData {
   final String? label;
   final dynamic value;
@@ -316,23 +345,21 @@ class TextFieldData {
   final String? inputType;
   final String? validator;
 
-  TextFieldData({
-    this.maxLines,
-    this.maxLength,
-    this.obscureText,
-    this.readOnly,
-    this.inputType,
-    this.validator,
-  });
+  TextFieldData(
+      {this.maxLines,
+      this.maxLength,
+      this.obscureText,
+      this.readOnly,
+      this.inputType,
+      this.validator});
 
   factory TextFieldData.fromJson(Map<String, dynamic> json) => TextFieldData(
-        maxLines: json["max_lines"],
-        maxLength: json["max_length"],
-        obscureText: json["obscure_text"],
-        readOnly: json["readOnly"],
-        inputType: json["input_type"],
-        validator: json["validator"],
-      );
+      maxLines: json["max_lines"],
+      maxLength: json["max_length"],
+      obscureText: json["obscure_text"],
+      readOnly: json["readOnly"],
+      inputType: json["input_type"],
+      validator: json["validator"]);
 
   Map<String, dynamic> toJson() => {
         "max_lines": maxLines,
@@ -340,7 +367,7 @@ class TextFieldData {
         "obscure_text": obscureText,
         "readOnly": readOnly,
         "input_type": inputType,
-        "validator": validator,
+        "validator": validator
       };
 }
 
@@ -349,45 +376,40 @@ class UserSelection {
   dynamic userSelectedOptionId;
   dynamic userSelectedDate;
 
-  UserSelection({
-    this.textValue,
-    this.userSelectedOptionId,
-    this.userSelectedDate,
-  });
+  UserSelection(
+      {this.textValue, this.userSelectedOptionId, this.userSelectedDate});
 
   factory UserSelection.fromJson(Map<String, dynamic> json) => UserSelection(
-        textValue: json["text_value"],
-        userSelectedOptionId: json["user_selected_option_id"],
-        userSelectedDate: json["user_selected_date"],
-      );
+      textValue: json["text_value"],
+      userSelectedOptionId: json["user_selected_option_id"],
+      userSelectedDate: json["user_selected_date"]);
 
   Map<String, dynamic> toJson() => {
         "text_value": textValue,
         "user_selected_option_id": userSelectedOptionId,
-        "user_selected_date": userSelectedDate,
+        "user_selected_date": userSelectedDate
       };
 }
 
 class UtilityButton {
   final String? buttonIcon;
+  final String? buttonAction;
   final String? endPoint;
   final String? apiMethodType;
 
-  UtilityButton({
-    this.buttonIcon,
-    this.endPoint,
-    this.apiMethodType,
-  });
+  UtilityButton(
+      {this.buttonAction, this.buttonIcon, this.endPoint, this.apiMethodType});
 
   factory UtilityButton.fromJson(Map<String, dynamic> json) => UtilityButton(
-        buttonIcon: json["button_icon"],
-        endPoint: json["end_point"],
-        apiMethodType: json["api_method_type"],
-      );
+      buttonAction: json["button_action"],
+      buttonIcon: json["button_icon"],
+      endPoint: json["end_point"],
+      apiMethodType: json["api_method_type"]);
 
   Map<String, dynamic> toJson() => {
         "button_icon": buttonIcon,
         "end_point": endPoint,
         "api_method_type": apiMethodType,
+        "button_action": buttonAction
       };
 }

@@ -71,6 +71,7 @@ class FeatureTile extends StatelessWidget {
           DashboardRouting(
             featureKey: feature['feature_key'],
             context: context,
+            endpoint: feature['build_screen_endpoint'],
           ).navigateTo();
         });
   }

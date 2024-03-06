@@ -5,7 +5,7 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 
-class LabelTextFieldWidget extends StatelessWidget {
+class LabelAndTextFieldWidget extends StatelessWidget {
   final String? label;
   final String? hintText;
   final void Function()? onTap;
@@ -24,7 +24,7 @@ class LabelTextFieldWidget extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLines;
 
-  const LabelTextFieldWidget(
+  const LabelAndTextFieldWidget(
       {super.key,
       this.label,
       this.hintText,

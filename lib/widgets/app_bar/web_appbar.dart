@@ -3,7 +3,9 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/utils/date_time_formatters.dart';
-import 'package:saasify/utils/pdf/cafe_bill_pdf.dart';
+import 'package:saasify/utils/pdf/pdfFormats/cafe_bill_pdf.dart';
+import 'package:saasify/utils/pdf/pdfFormats/retail_bill_gst_percent_pdf.dart';
+import 'package:saasify/utils/pdf/pdfFormats/retail_bill_pdf.dart';
 import 'package:saasify/widgets/app_bar/profile_dropdown.dart';
 import 'package:saasify/widgets/userInput/change_branch.dart';
 
@@ -34,9 +36,25 @@ class WebAppBar extends StatelessWidget {
                   splashRadius: 20,
                   padding: EdgeInsets.zero,
                   onPressed: () {
-                    generatePDF(context);
+                    generateCafePDF(context);
                   },
                   icon: const Icon(Icons.picture_as_pdf)),
+              const SizedBox(width: spacingXMedium),
+              IconButton(
+                  splashRadius: 20,
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    generateRetailPDF(context);
+                  },
+                  icon: const Icon(Icons.picture_as_pdf_outlined)),
+              const SizedBox(width: spacingXMedium),
+              IconButton(
+                  splashRadius: 20,
+                  padding: EdgeInsets.zero,
+                  onPressed: () {
+                    generateRetailGSTPercentPDF(context);
+                  },
+                  icon: const Icon(Icons.picture_as_pdf_sharp)),
               const SizedBox(width: spacingXMedium),
               IconButton(
                   splashRadius: 20,

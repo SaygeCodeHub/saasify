@@ -1,5 +1,5 @@
 import 'package:pdf/widgets.dart' as pw;
-import 'cafe_bill_pdf.dart';
+import 'package:saasify/utils/pdf/utils/bill_utils.dart';
 
 class FooterWidget extends pw.StatelessWidget {
   final RestaurantInfo restaurantInfo;

@@ -43,3 +43,6 @@ const double kCompaniesGridContainerHeight = 50;
 
 const double kDateTimePickerContainerHeight = 220;
 const double kDateTimePickerHeight = 170;
+
+const double kBillImageWidth = 100;
+const double kBillImageHeight = 75;

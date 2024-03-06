@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_colors.dart';
 
-import 'app_dimensions.dart';
-
 ThemeData appTheme = ThemeData(
     useMaterial3: false,
     colorScheme: colorScheme,
@@ -33,30 +31,23 @@ DrawerThemeData drawerThemeData =
     const DrawerThemeData(backgroundColor: AppColors.white, elevation: 0.0);
 
 IconThemeData iconThemeData = const IconThemeData(color: AppColors.darkBlue);
-InputDecorationTheme inputDecorationTheme = InputDecorationTheme(
-    enabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(kCircularRadius),
-      borderSide: const BorderSide(color: AppColors.grey),
-    ),
-    disabledBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(kCircularRadius),
-      borderSide: const BorderSide(color: AppColors.white),
-    ),
+InputDecorationTheme inputDecorationTheme = const InputDecorationTheme(
     filled: true,
     isDense: true,
-    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+    contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 18),
     fillColor: AppColors.lightGrey,
-    focusedErrorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(kCircularRadius),
-        borderSide: const BorderSide(color: AppColors.grey)),
-    border: const OutlineInputBorder(),
-    errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(kCircularRadius),
-        borderSide: const BorderSide(color: AppColors.grey)),
-    focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(kCircularRadius),
-        borderSide: const BorderSide(color: AppColors.grey)),
-    hintStyle: const TextStyle(
+    focusedBorder:
+        OutlineInputBorder(borderSide: BorderSide(color: Colors.black12)),
+    enabledBorder:
+        OutlineInputBorder(borderSide: BorderSide(color: Colors.black12)),
+    errorBorder:
+        OutlineInputBorder(borderSide: BorderSide(color: AppColors.errorRed)),
+    focusedErrorBorder:
+        OutlineInputBorder(borderSide: BorderSide(color: AppColors.errorRed)),
+    border: OutlineInputBorder(borderSide: BorderSide(color: Colors.black12)),
+    disabledBorder:
+        OutlineInputBorder(borderSide: BorderSide(color: Colors.black12)),
+    hintStyle: TextStyle(
         fontSize: 13, color: AppColors.grey, fontWeight: FontWeight.w500));
 
 extension AppTextTheme on TextTheme {

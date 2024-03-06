@@ -6,11 +6,15 @@ import '../drawer/drawer_widget.dart';
 
 class ScreenSkeleton extends StatelessWidget {
   final bool isHome;
+  final bool showDrawer;
   final Widget Function(bool isMobile) childScreenBuilder;
   static const routeName = 'RootScreen';
 
   const ScreenSkeleton(
-      {super.key, required this.childScreenBuilder, this.isHome = false});
+      {super.key,
+      required this.childScreenBuilder,
+      this.isHome = false,
+      this.showDrawer = false});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,11 @@ class ScreenSkeleton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          isMobile ? const SizedBox() : const DrawerWidget(),
+          (!showDrawer)
+              ? const SizedBox.shrink()
+              : isMobile
+                  ? const SizedBox()
+                  : const DrawerWidget(),
           Expanded(
             child: !isMobile
                 ? Column(

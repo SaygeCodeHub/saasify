@@ -149,7 +149,7 @@ class Field {
   final UserSelection? userSelection;
   final TextFieldData? textField;
   final DropdownFieldData? dropdownField;
-  final dynamic radioField;
+  final RadioFieldData? radioField;
   final dynamic checkboxField;
   final DatePickerFieldData? datePickerField;
 
@@ -186,7 +186,9 @@ class Field {
         dropdownField: json["dropdown_field"] == null
             ? null
             : DropdownFieldData.fromJson(json["dropdown_field"]),
-        radioField: json["radio_field"],
+        radioField: json["radio_field"] == null
+            ? null
+            : RadioFieldData.fromJson(json["radio_field"]),
         checkboxField: json["checkbox_field"],
         datePickerField: json["date_picker_field"] == null
             ? null
@@ -204,7 +206,7 @@ class Field {
         "user_selection": userSelection?.toJson(),
         "text_field": textField?.toJson(),
         "dropdown_field": dropdownField?.toJson(),
-        "radio_field": radioField,
+        "radio_field": radioField?.toJson(),
         "checkbox_field": checkboxField,
         "date_picker_field": datePickerField?.toJson(),
       };
@@ -246,6 +248,29 @@ class DropdownFieldData {
 
   factory DropdownFieldData.fromJson(Map<String, dynamic> json) =>
       DropdownFieldData(
+        options: (json["options"] as List<dynamic>?)
+                ?.map((x) => OptionData.fromJson(x))
+                .toList() ??
+            [],
+        defaultValue: json["default_value"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "options": options?.map((x) => x.toJson()).toList(),
+        "default_value": defaultValue,
+      };
+}
+
+class RadioFieldData {
+  final List<OptionData>? options;
+  final dynamic defaultValue;
+
+  RadioFieldData({
+    this.options,
+    this.defaultValue,
+  });
+
+  factory RadioFieldData.fromJson(Map<String, dynamic> json) => RadioFieldData(
         options: (json["options"] as List<dynamic>?)
                 ?.map((x) => OptionData.fromJson(x))
                 .toList() ??
@@ -320,9 +345,9 @@ class TextFieldData {
 }
 
 class UserSelection {
-  final String? textValue;
-  final dynamic userSelectedOptionId;
-  final dynamic userSelectedDate;
+  String? textValue;
+  dynamic userSelectedOptionId;
+  dynamic userSelectedDate;
 
   UserSelection({
     this.textValue,

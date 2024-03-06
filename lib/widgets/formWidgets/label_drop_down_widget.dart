@@ -5,7 +5,7 @@ import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 
-class DropdownWidget extends StatefulWidget {
+class LabelDropdownWidget extends StatefulWidget {
   final String? label;
   final double? textFieldSize;
   final String hint;
@@ -16,7 +16,7 @@ class DropdownWidget extends StatefulWidget {
   final String? errorText;
   final ValueChanged<dynamic> onChanged;
 
-  const DropdownWidget({
+  const LabelDropdownWidget({
     super.key,
     this.label,
     this.textFieldSize,
@@ -30,10 +30,10 @@ class DropdownWidget extends StatefulWidget {
   });
 
   @override
-  State<DropdownWidget> createState() => _DropdownWidgetState();
+  State<LabelDropdownWidget> createState() => _LabelDropdownWidgetState();
 }
 
-class _DropdownWidgetState extends State<DropdownWidget> {
+class _LabelDropdownWidgetState extends State<LabelDropdownWidget> {
   dynamic selectedValue;
 
   @override
@@ -47,7 +47,7 @@ class _DropdownWidgetState extends State<DropdownWidget> {
   }
 
   @override
-  void didUpdateWidget(covariant DropdownWidget oldWidget) {
+  void didUpdateWidget(covariant LabelDropdownWidget oldWidget) {
     selectedValue = widget.initialValue == ""
         ? null
         : widget.items.map((e) => e.value).contains(widget.initialValue)
@@ -80,11 +80,9 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                   );
                 }
               }),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   contentPadding:
-                      const EdgeInsets.symmetric(vertical: spacingMedium),
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(kCardRadius))),
+                      EdgeInsets.symmetric(vertical: spacingMedium)),
               items: widget.items.map((item) {
                 return DropdownMenuItem(
                   value: item.value,

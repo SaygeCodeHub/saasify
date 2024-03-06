@@ -41,14 +41,17 @@ class ModuleTileState extends State<DrawerListTileWidget> {
               : const Icon(Icons.arrow_drop_down),
         ),
         if (isExpanded)
-          ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: widget.module['accessible_features'].length,
-            itemBuilder: (context, index) {
-              final feature = widget.module['accessible_features'][index];
-              return FeatureTile(feature: feature);
-            },
+          Padding(
+            padding: const EdgeInsets.only(left: spacingHuge),
+            child: ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: widget.module['accessible_features'].length,
+              itemBuilder: (context, index) {
+                final feature = widget.module['accessible_features'][index];
+                return FeatureTile(feature: feature);
+              },
+            ),
           ),
       ],
     );
@@ -62,16 +65,13 @@ class FeatureTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: spacingHuge),
-      child: ListTile(
-          title: Text(feature['title']),
-          onTap: () {
-            DashboardRouting(
-              featureKey: feature['feature_key'],
-              context: context,
-            ).navigateTo();
-          }),
-    );
+    return ListTile(
+        title: Text(feature['title']),
+        onTap: () {
+          DashboardRouting(
+            featureKey: feature['feature_key'],
+            context: context,
+          ).navigateTo();
+        });
   }
 }

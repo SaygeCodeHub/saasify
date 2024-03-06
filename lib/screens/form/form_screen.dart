@@ -3,12 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/form/form_bloc.dart';
 import 'package:saasify/bloc/form/form_events.dart';
 import 'package:saasify/bloc/form/form_states.dart';
+import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/models/form/form_structure_model.dart';
-import 'package:saasify/utils/form/form_widget_util.dart';
-import 'package:saasify/widgets/formWidgets/field_row.dart';
+import 'package:saasify/utils/button_utils.dart';
+import 'package:saasify/widgets/buttons/primary_button.dart';
+import 'package:saasify/widgets/formWidgets/form_section.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
-import 'package:saasify/widgets/section_heading.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
 class FormScreen extends StatelessWidget {
@@ -33,73 +34,95 @@ class FormScreen extends StatelessWidget {
         }
         if (state is FormAssembled) {
           return Padding(
-              padding: const EdgeInsets.all(spacingStandard),
+              padding: const EdgeInsets.only(
+                  left: spacingStandard,
+                  right: spacingStandard,
+                  top: spacingStandard),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ModuleHeading(
-                        isFormScreen: true,
-                        label:
-                            state.formStructureModel.data?.formName ?? "Form"),
+                    Row(
+                      children: [
+                        isMobile
+                            ? const SizedBox.shrink()
+                            : IconButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                icon: const Icon(Icons.arrow_back_ios)),
+                        ModuleHeading(
+                            label: state.formStructureModel.data?.formName ??
+                                "Form"),
+                        const Spacer(),
+                        ...List.generate(
+                            state.formStructureModel.data?.utilityButtons
+                                    ?.length ??
+                                0,
+                            (index) => IconButton(
+                                onPressed: () {},
+                                icon: Icon(ButtonUtils.getButtonIconFromType(
+                                    state
+                                            .formStructureModel
+                                            .data
+                                            ?.utilityButtons?[index]
+                                            .buttonIcon ??
+                                        ""))))
+                      ],
+                    ),
                     const SizedBox(height: spacingStandard),
                     Expanded(
-                      child: Card(
-                          child: Padding(
-                              padding: const EdgeInsets.all(spacingStandard),
-                              child: SingleChildScrollView(
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: List.generate(
-                                        state.formStructureModel.data!.sections!
-                                            .length, (sectionIndex) {
-                                      Section sectionData = state
-                                          .formStructureModel
-                                          .data!
-                                          .sections![sectionIndex];
-                                      return Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            SectionHeading(
-                                                label:
-                                                    sectionData.sectionName ??
-                                                        "Section"),
-                                            const SizedBox(
-                                                height: spacingXXLarge),
-                                            ...List.generate(
-                                                sectionData.rows!.length,
-                                                (rowIndex) {
-                                              FieldRow rowData =
-                                                  sectionData.rows![rowIndex];
-                                              return Column(
-                                                children: [
-                                                  FieldContainer(
-                                                      childrenWidgets:
-                                                          List.generate(
-                                                              rowData.fields
-                                                                      ?.length ??
-                                                                  0,
-                                                              (fieldIndex) {
-                                                    Field fieldData = rowData
-                                                        .fields![fieldIndex];
-                                                    return RowField(
-                                                      flex: fieldData.flex ?? 1,
-                                                      widget: FormWidgetUtil()
-                                                          .getWidget(fieldData),
-                                                    );
-                                                  })),
-                                                  const SizedBox(
-                                                      height: spacingStandard)
-                                                ],
-                                              );
-                                            }),
-                                            const SizedBox(
-                                                height: spacingStandard),
-                                          ]);
-                                    })),
-                              ))),
-                    )
+                      child: SingleChildScrollView(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: List.generate(
+                                state.formStructureModel.data!.sections!.length,
+                                (sectionIndex) {
+                              Section sectionData = state.formStructureModel
+                                  .data!.sections![sectionIndex];
+                              return FormSection(sectionData: sectionData);
+                            })),
+                      ),
+                    ),
+                    const Divider(height: 0),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: spacingStandard,
+                            vertical: spacingSmall),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: List.generate(
+                                state.formStructureModel.data?.buttons
+                                        ?.length ??
+                                    0,
+                                (index) => isMobile
+                                    ? Expanded(
+                                        child: PrimaryButton(
+                                        onPressed: () {
+                                          context
+                                              .read<FormBloc>()
+                                              .add(SubmitForm());
+                                        },
+                                        buttonTitle: state
+                                                .formStructureModel
+                                                .data
+                                                ?.buttons?[index]
+                                                .buttonName ??
+                                            "Submit",
+                                      ))
+                                    : PrimaryButton(
+                                        buttonWidth: kGeneralActionButtonWidth,
+                                        onPressed: () {
+                                          context
+                                              .read<FormBloc>()
+                                              .add(SubmitForm());
+                                        },
+                                        buttonTitle: state
+                                                .formStructureModel
+                                                .data
+                                                ?.buttons?[index]
+                                                .buttonName ??
+                                            "Submit",
+                                      ))))
                   ]));
         }
         return const SizedBox.shrink();

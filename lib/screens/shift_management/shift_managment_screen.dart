@@ -8,7 +8,7 @@ class ShiftManagementScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  ScreenSkeleton(childScreenBuilder: (isMobile) {
+    return ScreenSkeleton(childScreenBuilder: (isMobile) {
       return const SingleChildScrollView();
     });
   }

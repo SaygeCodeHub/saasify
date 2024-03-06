@@ -6,6 +6,7 @@ class LabelAndDatePickerWidget extends StatelessWidget {
   final String? label;
   final void Function(String) onTextFieldChanged;
   final DateTime? initialDate;
+  final String? errorText;
   final String? Function(String?)? validator;
   final bool isRequired;
   final bool? enabled;
@@ -16,6 +17,7 @@ class LabelAndDatePickerWidget extends StatelessWidget {
   LabelAndDatePickerWidget(
       {super.key,
       this.enabled,
+      this.errorText,
       this.label,
       required this.onTextFieldChanged,
       this.initialDate,
@@ -32,6 +34,7 @@ class LabelAndDatePickerWidget extends StatelessWidget {
     }
     return LabelAndTextFieldWidget(
       label: label,
+      errorText: errorText,
       textFieldController: _dateController,
       readOnly: true,
       enabled: enabled,

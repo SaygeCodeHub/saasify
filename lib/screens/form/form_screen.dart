@@ -12,7 +12,6 @@ import 'package:saasify/utils/button_utils.dart';
 import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
-import 'package:saasify/widgets/buttons/primary_button.dart';
 import 'package:saasify/widgets/formWidgets/form_section.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
@@ -22,7 +21,9 @@ class FormScreen extends StatelessWidget {
 
   final String endpoint;
 
-  const FormScreen({super.key, required this.endpoint});
+  FormScreen({super.key, required this.endpoint});
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -40,129 +41,161 @@ class FormScreen extends StatelessWidget {
           );
         }
         if (state is FormAssembled) {
-          return Padding(
-              padding: const EdgeInsets.only(
-                  left: spacingStandard,
-                  right: spacingStandard,
-                  top: spacingStandard),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+          return Form(
+              key: _formKey,
+              child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: spacingStandard,
+                      right: spacingStandard,
+                      top: spacingStandard),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        isMobile
-                            ? const SizedBox.shrink()
-                            : IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(Icons.arrow_back_ios)),
-                        ModuleHeading(
-                            label: state.formStructureModel.data?.formName ??
-                                "Form"),
-                        const Spacer(),
-                        ...List.generate(
-                            state.formStructureModel.data?.utilityButtons
-                                    ?.length ??
-                                0,
-                            (index) => IconButton(
-                                onPressed: () {},
-                                icon: Icon(ButtonUtils.getButtonIconFromType(
-                                    state
-                                            .formStructureModel
-                                            .data
-                                            ?.utilityButtons?[index]
-                                            .buttonIcon ??
-                                        ""))))
-                      ],
-                    ),
-                    const SizedBox(height: spacingStandard),
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: List.generate(
-                                state.formStructureModel.data!.sections!.length,
-                                (sectionIndex) {
-                              Section sectionData = state.formStructureModel
-                                  .data!.sections![sectionIndex];
-                              return FormSection(sectionData: sectionData);
-                            })),
-                      ),
-                    ),
-                    const Divider(height: 0),
-                    BlocListener<ButtonActionBloc, ButtonActionStates>(
-                      listener: (context, state) {
-                        if (state is ButtonActionLoading) {
-                          ProgressBar.show(context);
-                        }
-                        if (state is ButtonActionSuccess) {
-                          ProgressBar.dismiss(context);
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return const SuccessAlertDialog(
-                                    description: "Button action successful");
-                              });
-                        }
-                        if (state is ButtonActionFailure) {
-                          ProgressBar.dismiss(context);
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return ErrorAlertDialog(
-                                    description: state.error);
-                              });
-                        }
-                      },
-                      child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: spacingStandard,
-                              vertical: spacingSmall),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: List.generate(
-                                  state.formStructureModel.data?.buttons
-                                          ?.length ??
-                                      0, (index) {
-                                final button = state
-                                    .formStructureModel.data?.buttons?[index];
-                                return isMobile
-                                    ? Expanded(
-                                        child: PrimaryButton(
-                                        onPressed: () {
-                                          final data =
-                                              state.formStructureModel.toJson();
-                                          ButtonUtils.buttonAction(context,
-                                              button ?? Button(), data);
-                                        },
-                                        buttonTitle: state
-                                                .formStructureModel
-                                                .data
-                                                ?.buttons?[index]
-                                                .buttonName ??
-                                            "Submit",
-                                      ))
-                                    : PrimaryButton(
-                                        buttonWidth: kGeneralActionButtonWidth,
-                                        onPressed: () {
-                                          final data = state
-                                                  .formStructureModel.data
-                                                  ?.toJson() ??
-                                              {};
-                                          ButtonUtils.buttonAction(context,
-                                              button ?? Button(), data);
-                                        },
-                                        buttonTitle: state
-                                                .formStructureModel
-                                                .data
-                                                ?.buttons?[index]
-                                                .buttonName ??
-                                            "Submit",
-                                      );
-                              }))),
-                    )
-                  ]));
+                        Row(
+                          children: [
+                            isMobile
+                                ? const SizedBox.shrink()
+                                : IconButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    icon: const Icon(Icons.arrow_back_ios)),
+                            ModuleHeading(
+                                label:
+                                    state.formStructureModel.data?.formName ??
+                                        "Form"),
+                            const Spacer(),
+                            ...List.generate(
+                                state.formStructureModel.data?.utilityButtons
+                                        ?.length ??
+                                    0, (index) {
+                              UtilityButton button = state.formStructureModel
+                                  .data!.utilityButtons![index];
+                              return IconButton(
+                                  onPressed: () {
+                                    ButtonUtils.buttonAction(context,
+                                        state.formStructureModel.data!.toJson(),
+                                        buttonAction: button.buttonAction,
+                                        endPoint: button.endPoint,
+                                        apiMethodType: button.apiMethodType);
+                                  },
+                                  icon: Icon(ButtonUtils.getButtonIconFromType(
+                                      state
+                                              .formStructureModel
+                                              .data
+                                              ?.utilityButtons?[index]
+                                              .buttonIcon ??
+                                          "")));
+                            })
+                          ],
+                        ),
+                        const SizedBox(height: spacingStandard),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: List.generate(
+                                    state.formStructureModel.data!.sections!
+                                        .length, (sectionIndex) {
+                                  Section sectionData = state.formStructureModel
+                                      .data!.sections![sectionIndex];
+                                  return FormSection(sectionData: sectionData);
+                                })),
+                          ),
+                        ),
+                        const Divider(height: 0),
+                        Builder(builder: (context) {
+                          List<Button> buttons =
+                              state.formStructureModel.data?.buttons ?? [];
+                          return BlocListener<ButtonActionBloc,
+                                  ButtonActionStates>(
+                              listener: (context, state) {
+                                if (state is ButtonActionLoading) {
+                                  ProgressBar.show(context);
+                                }
+                                if (state is ButtonActionSuccess) {
+                                  ProgressBar.dismiss(context);
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return SuccessAlertDialog(
+                                            description:
+                                                "Button action successful",
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                              Navigator.pop(context);
+                                            });
+                                      });
+                                }
+                                if (state is ButtonActionFailure) {
+                                  ProgressBar.dismiss(context);
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return ErrorAlertDialog(
+                                            description: state.error);
+                                      });
+                                }
+                              },
+                              child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: spacingStandard,
+                                      vertical: spacingSmall),
+                                  child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: List.generate(buttons.length,
+                                          (index) {
+                                        final button = buttons[index];
+                                        return isMobile
+                                            ? Expanded(
+                                                child: ButtonUtils.getButtonFromType(
+                                                    context,
+                                                    buttonType:
+                                                        button.buttonType ?? "primary",
+                                                    onPressed: () {
+                                                Map<String, dynamic> data =
+                                                    state.formStructureModel
+                                                            .data
+                                                            ?.toJson() ??
+                                                        {};
+                                                if (_formKey.currentState!
+                                                    .validate()) {
+                                                  ButtonUtils.buttonAction(
+                                                      context, data,
+                                                      buttonAction:
+                                                          button.buttonAction,
+                                                      endPoint: button.endPoint,
+                                                      apiMethodType:
+                                                          button.apiMethodType);
+                                                }
+                                              },
+                                                    buttonTitle: buttons[index]
+                                                            .buttonName ??
+                                                        "Submit"))
+                                            : ButtonUtils.getButtonFromType(context,
+                                                width:
+                                                    kGeneralActionButtonWidth,
+                                                buttonType: button.buttonType ??
+                                                    "primary", onPressed: () {
+                                                Map<String, dynamic> data =
+                                                    state.formStructureModel
+                                                            .data
+                                                            ?.toJson() ??
+                                                        {};
+                                                if (_formKey.currentState!
+                                                    .validate()) {
+                                                  ButtonUtils.buttonAction(
+                                                      context, data,
+                                                      buttonAction:
+                                                          button.buttonAction,
+                                                      endPoint: button.endPoint,
+                                                      apiMethodType:
+                                                          button.apiMethodType);
+                                                }
+                                              }, buttonTitle: buttons[index].buttonName ?? "Submit");
+                                      }))));
+                        })
+                      ])));
         }
         return const SizedBox.shrink();
       });

@@ -12,8 +12,10 @@ class FormWidgetUtil {
       case 'textField':
         return LabelAndTextFieldWidget(
             label: fieldData.label,
+            errorText: fieldData.errorText,
             initialValue: fieldData.userSelection?.textValue,
             maxLines: fieldData.textField?.maxLines,
+            isRequired: fieldData.required ?? false,
             hintText: fieldData.placeholder,
             onTextFieldChanged: (value) {
               fieldData.userSelection?.textValue = value;
@@ -21,6 +23,8 @@ class FormWidgetUtil {
       case 'datePicker':
         return LabelAndDatePickerWidget(
             label: fieldData.label,
+            errorText: fieldData.errorText,
+            isRequired: fieldData.required ?? false,
             initialDate: DateTime.tryParse(
                 fieldData.userSelection?.userSelectedDate ?? ""),
             firstDate: fieldData.datePickerField?.minDate,
@@ -31,6 +35,8 @@ class FormWidgetUtil {
       case 'dropdown':
         return LabelAndDropdownWidget(
             label: fieldData.label,
+            errorText: fieldData.errorText,
+            isRequired: fieldData.required ?? false,
             initialValue: fieldData.userSelection?.textValue,
             items: fieldData.dropdownField!.options!
                 .map((e) =>
@@ -42,6 +48,8 @@ class FormWidgetUtil {
       case 'radio':
         return LabelAndRadioWidget(
             label: fieldData.label,
+            isRequired: fieldData.required ?? false,
+            errorText: fieldData.errorText,
             options: fieldData.radioField!.options!,
             initialValue: fieldData.userSelection?.textValue,
             onChanged: (value) {
@@ -50,6 +58,8 @@ class FormWidgetUtil {
       case 'timePicker':
         return LabelAndDatePickerWidget(
             label: fieldData.label,
+            isRequired: fieldData.required ?? false,
+            errorText: fieldData.errorText,
             initialDate:
                 DateTime(fieldData.userSelection?.userSelectedDate ?? ""),
             firstDate: fieldData.datePickerField?.minDate,
@@ -61,6 +71,8 @@ class FormWidgetUtil {
         return LabelAndCheckBoxWidget(
             options: fieldData.checkboxField!.options!,
             label: fieldData.label,
+            errorText: fieldData.errorText,
+            isRequired: fieldData.required ?? false,
             initialValue: fieldData.userSelection?.userSelectedOptionId ?? [],
             onChanged: (values) {
               fieldData.userSelection?.userSelectedOptionId = values;

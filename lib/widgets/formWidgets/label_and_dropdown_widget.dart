@@ -93,7 +93,7 @@ class _LabelAndDropdownWidgetState extends State<LabelAndDropdownWidget> {
               }).toList(),
               validator: (value) {
                 if (value == null && widget.isRequired) {
-                  return 'Please select a value';
+                  return widget.errorText ?? 'Please select a value';
                 }
                 return null;
               },

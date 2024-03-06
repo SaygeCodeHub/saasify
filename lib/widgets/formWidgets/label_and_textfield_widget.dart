@@ -8,6 +8,7 @@ import 'package:saasify/utils/constants/string_constants.dart';
 class LabelAndTextFieldWidget extends StatelessWidget {
   final String? label;
   final String? hintText;
+  final String? errorText;
   final void Function()? onTap;
   final bool isRequired;
   final void Function(String?)? onTextFieldChanged;
@@ -28,6 +29,7 @@ class LabelAndTextFieldWidget extends StatelessWidget {
       {super.key,
       this.label,
       this.hintText,
+      this.errorText,
       this.onTextFieldChanged,
       this.readOnly = false,
       this.enabled,
@@ -76,7 +78,7 @@ class LabelAndTextFieldWidget extends StatelessWidget {
           cursorWidth: 0.6,
           validator: (value) {
             if ((value == null || value.isEmpty) && isRequired) {
-              return StringConstants.kFieldCannotBeEmpty;
+              return errorText ?? StringConstants.kFieldCannotBeEmpty;
             }
             if (validator != null) {
               if (!(value == null || value.isEmpty)) {

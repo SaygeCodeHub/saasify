@@ -14,7 +14,7 @@ class ScreenSkeleton extends StatelessWidget {
       {super.key,
       required this.childScreenBuilder,
       this.isHome = false,
-      this.showDrawer = true});
+      this.showDrawer = false});
 
   @override
   Widget build(BuildContext context) {

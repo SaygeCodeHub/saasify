@@ -18,8 +18,10 @@ class EmployeeShiftTile extends StatelessWidget {
           child: ExpansionTile(
             expandedCrossAxisAlignment: CrossAxisAlignment.start,
             expandedAlignment: Alignment.centerLeft,
-            leading: SvgPicture.asset("assets/svg/user_profile.svg",
-                colorFilter: const ColorFilter.mode(AppColors.darkBlue, BlendMode.srcIn),
+            leading: SvgPicture.asset(
+              "assets/svg/user_profile.svg",
+              colorFilter:
+                  const ColorFilter.mode(AppColors.darkBlue, BlendMode.srcIn),
             ),
             title: const Text("Aditya Rana"),
             children: [

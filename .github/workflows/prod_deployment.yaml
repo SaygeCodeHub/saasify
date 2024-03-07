@@ -3,6 +3,8 @@ name: Deploy to production 🚀
 on:
   push:
     branches: [ "master", "dev", "uat" ]
+  pull_request:
+    branches: [ "master", "dev", "uat" ]
 
 jobs:
 

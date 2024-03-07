@@ -32,18 +32,18 @@ class FormWidgetUtil {
             onTextFieldChanged: (value) {
               fieldData.userSelection?.userSelectedDate = value;
             });
-      case 'dropdown':
+      case 'dropDown':
         return LabelAndDropdownWidget(
             label: fieldData.label,
             errorText: fieldData.errorText,
             isRequired: fieldData.required ?? false,
-            initialValue: fieldData.userSelection?.textValue,
+            initialValue: fieldData.userSelection?.userSelectedOptionId,
             items: fieldData.dropdownField!.options!
                 .map((e) =>
                     CustomDropDownItem(label: e.label ?? "", value: e.value))
                 .toList(),
             onChanged: (value) {
-              fieldData.userSelection?.textValue = value;
+              fieldData.userSelection?.userSelectedOptionId = value;
             });
       case 'radio':
         return LabelAndRadioWidget(

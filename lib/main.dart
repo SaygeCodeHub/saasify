@@ -10,6 +10,7 @@ import 'package:saasify/bloc/form/form_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_bloc.dart';
 import 'package:saasify/bloc/register/register_bloc.dart';
 import 'package:saasify/bloc/resetPassword/reset_password_bloc.dart';
+import 'package:saasify/bloc/task/task_bloc.dart';
 import 'package:saasify/configs/app_route.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.dart';
@@ -58,6 +59,7 @@ class MyPosApp extends StatelessWidget {
           BlocProvider(create: (context) => InitialiseAppBloc()),
           BlocProvider(create: (context) => FormBloc()),
           BlocProvider(create: (context) => ButtonActionBloc()),
+          BlocProvider(create: (context) => TaskBloc()),
         ],
         child: GestureDetector(
             onTap: () {

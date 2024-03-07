@@ -1,6 +1,6 @@
 class ColumnData {
   String header;
-  dynamic width;
+  double? width;
 
   ColumnData({
     required this.header,

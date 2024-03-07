@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/buttonAction/action_response_model.dart';
 import 'package:saasify/di/app_module.dart';
@@ -22,9 +20,6 @@ class ButtonActionRepositoryImpl implements ButtonActionRepository {
 
     String url =
         "${ApiConstants.baseUrl3_0}$companyId/$branchId/$userId$endpoint";
-
-    print(url);
-    print(jsonEncode(data));
 
     switch (apiMethod) {
       case "get":

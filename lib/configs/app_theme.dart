@@ -50,6 +50,8 @@ InputDecorationTheme inputDecorationTheme = const InputDecorationTheme(
     hintStyle: TextStyle(
         fontSize: 13, color: AppColors.grey, fontWeight: FontWeight.w500));
 
+// New Text Theme
+
 extension AppTextTheme on TextTheme {
   TextStyle get labelTextStyle {
     return const TextStyle(

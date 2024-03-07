@@ -60,8 +60,8 @@ class _DashboardScreenState extends State<DashboardScreen> with RouteAware {
                           Row(mainAxisSize: MainAxisSize.min, children: [
                             Expanded(child: AttendanceCard(isMobile: isMobile)),
                           ]),
-                          SizedBox(height: spacingStandard),
-                          HrmsAnnouncementsSection(isMobile: true),
+                          const SizedBox(height: spacingStandard),
+                          const HrmsAnnouncementsSection(isMobile: true),
                         ]),
                   );
                 }

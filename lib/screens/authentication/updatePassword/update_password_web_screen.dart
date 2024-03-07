@@ -5,8 +5,8 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/authentication/updatePassword/update_password_button.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/form/form_input_fields.dart';
+import 'package:saasify/widgets/formWidgets/label_and_textfield_widget.dart';
 import 'package:saasify/widgets/profile/saasify_logo.dart';
-import 'package:saasify/widgets/text/field_label_widget.dart';
 
 class UpdatePasswordWebScreen extends StatelessWidget {
   final bool isVerifyToken;
@@ -43,7 +43,7 @@ class UpdatePasswordWebScreen extends StatelessWidget {
             !isVerifyToken
                 ? const SizedBox.shrink()
                 : const SizedBox(height: spacingBetweenTextFields),
-            LabelAndFieldWidget(
+            LabelAndTextFieldWidget(
                 label: StringConstants.kOTP,
                 prefixIcon: const Icon(Icons.password_outlined),
                 isRequired: true,
@@ -53,18 +53,15 @@ class UpdatePasswordWebScreen extends StatelessWidget {
                       .userInputAuthenticationMap['token'] = value;
                 }),
             const SizedBox(height: spacingBetweenTextFields),
-            LabelAndFieldWidget(
-                obscureText: true,
-                label: StringConstants.kPassword,
+            PasswordTextField(
                 isRequired: true,
-                prefixIcon: const Icon(Icons.password_outlined),
                 onTextFieldChanged: (value) {
                   context
                       .read<ResetPasswordBloc>()
                       .userInputAuthenticationMap['password'] = value;
                 }),
             const SizedBox(height: spacingBetweenTextFields),
-            LabelAndFieldWidget(
+            LabelAndTextFieldWidget(
                 obscureText: true,
                 label: StringConstants.kConfirmPassword,
                 isRequired: true,

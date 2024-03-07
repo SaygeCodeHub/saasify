@@ -5,9 +5,10 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 
-class LabelTextFieldWidget extends StatelessWidget {
+class LabelAndTextFieldWidget extends StatelessWidget {
   final String? label;
   final String? hintText;
+  final String? errorText;
   final void Function()? onTap;
   final bool isRequired;
   final void Function(String?)? onTextFieldChanged;
@@ -24,10 +25,11 @@ class LabelTextFieldWidget extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLines;
 
-  const LabelTextFieldWidget(
+  const LabelAndTextFieldWidget(
       {super.key,
       this.label,
       this.hintText,
+      this.errorText,
       this.onTextFieldChanged,
       this.readOnly = false,
       this.enabled,
@@ -76,7 +78,7 @@ class LabelTextFieldWidget extends StatelessWidget {
           cursorWidth: 0.6,
           validator: (value) {
             if ((value == null || value.isEmpty) && isRequired) {
-              return StringConstants.kFieldCannotBeEmpty;
+              return errorText ?? StringConstants.kFieldCannotBeEmpty;
             }
             if (validator != null) {
               if (!(value == null || value.isEmpty)) {

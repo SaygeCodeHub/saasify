@@ -52,13 +52,13 @@ class _DashboardScreenState extends State<DashboardScreen> with RouteAware {
                           child: const Text('Retry')));
                 }
                 if (state is AppInitialised) {
-                  return const SingleChildScrollView(
+                  return SingleChildScrollView(
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Row(mainAxisSize: MainAxisSize.min, children: [
-                            Expanded(child: AttendanceCard(isMobile: true))
+                            Expanded(child: AttendanceCard(isMobile: isMobile)),
                           ]),
                           SizedBox(height: spacingStandard),
                           HrmsAnnouncementsSection(isMobile: true),

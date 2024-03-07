@@ -4,8 +4,8 @@ import 'package:saasify/bloc/companies/companies_bloc.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/companies/widgets/addCompany/add_company_button.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/widgets/formWidgets/label_and_textfield_widget.dart';
 import 'package:saasify/widgets/profile/saasify_logo.dart';
-import 'package:saasify/widgets/text/field_label_widget.dart';
 
 class AddCompanyMobileScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -22,7 +22,7 @@ class AddCompanyMobileScreen extends StatelessWidget {
           SizedBox(height: MediaQuery.sizeOf(context).height * 0.12),
           const SaasifyLogo(),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
-          LabelAndFieldWidget(
+          LabelAndTextFieldWidget(
               label: StringConstants.kCompanyName,
               isRequired: true,
               prefixIcon: const Icon(Icons.store),

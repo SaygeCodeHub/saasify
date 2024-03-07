@@ -1,5 +1,6 @@
 class ApiConstants {
   static const baseUrl = 'https://saasify-two.vercel.app/v2.0/';
+  static const baseUrl3_0 = 'https://saasify-two.vercel.app/v3.0/';
 
   static const authenticateUser = 'authenticateUser';
   static const registerUser = 'registerUser';

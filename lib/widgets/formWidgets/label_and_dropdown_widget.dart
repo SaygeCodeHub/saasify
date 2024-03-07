@@ -5,7 +5,7 @@ import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 
-class LabelDropdownWidget extends StatefulWidget {
+class LabelAndDropdownWidget extends StatefulWidget {
   final String? label;
   final double? textFieldSize;
   final String hint;
@@ -16,7 +16,7 @@ class LabelDropdownWidget extends StatefulWidget {
   final String? errorText;
   final ValueChanged<dynamic> onChanged;
 
-  const LabelDropdownWidget({
+  const LabelAndDropdownWidget({
     super.key,
     this.label,
     this.textFieldSize,
@@ -30,10 +30,10 @@ class LabelDropdownWidget extends StatefulWidget {
   });
 
   @override
-  State<LabelDropdownWidget> createState() => _LabelDropdownWidgetState();
+  State<LabelAndDropdownWidget> createState() => _LabelAndDropdownWidgetState();
 }
 
-class _LabelDropdownWidgetState extends State<LabelDropdownWidget> {
+class _LabelAndDropdownWidgetState extends State<LabelAndDropdownWidget> {
   dynamic selectedValue;
 
   @override
@@ -47,7 +47,7 @@ class _LabelDropdownWidgetState extends State<LabelDropdownWidget> {
   }
 
   @override
-  void didUpdateWidget(covariant LabelDropdownWidget oldWidget) {
+  void didUpdateWidget(covariant LabelAndDropdownWidget oldWidget) {
     selectedValue = widget.initialValue == ""
         ? null
         : widget.items.map((e) => e.value).contains(widget.initialValue)
@@ -93,7 +93,7 @@ class _LabelDropdownWidgetState extends State<LabelDropdownWidget> {
               }).toList(),
               validator: (value) {
                 if (value == null && widget.isRequired) {
-                  return 'Please select a value';
+                  return widget.errorText ?? 'Please select a value';
                 }
                 return null;
               },

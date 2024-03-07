@@ -17,7 +17,7 @@ class FormBloc extends Bloc<FormEvents, FormStates> {
     emit(FormStructureFetching());
     try {
       FormStructureModel formStructureModel =
-          await formRepository.fetchFormStructure();
+          await formRepository.fetchFormStructure(event.endpoint);
       if (formStructureModel.status == 200) {
         emit(FormAssembled(formStructureModel: formStructureModel));
       } else {

@@ -33,7 +33,7 @@ class AppRoutes {
       case HRMSDashboardScreen.routeName:
         return _createRoute(const HRMSDashboardScreen());
       case FormScreen.routeName:
-        return _createRoute(const FormScreen());
+        return _createRoute(FormScreen(endpoint: settings.arguments as String));
       case AllCompaniesScreen.routeName:
         return _createRoute(AllCompaniesScreen(
             authenticateUserData: settings.arguments as AuthenticateUserData));

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
-import 'package:saasify/widgets/text/field_label_widget.dart';
+import 'package:saasify/widgets/formWidgets/label_and_textfield_widget.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
 class DetailsScreen extends StatelessWidget {
@@ -57,7 +57,7 @@ class DetailsScreen extends StatelessWidget {
                 (showComments
                     ? [
                         const SizedBox(height: spacingSmall),
-                        LabelAndFieldWidget(
+                        LabelAndTextFieldWidget(
                           isRequired: commentsRequired,
                           enabled: commentsEditable,
                           initialValue: initialComments,

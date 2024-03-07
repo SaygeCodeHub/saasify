@@ -5,8 +5,9 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/authentication/register/register_button.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
+import 'package:saasify/widgets/form/form_input_fields.dart';
+import 'package:saasify/widgets/formWidgets/label_and_textfield_widget.dart';
 import 'package:saasify/widgets/profile/saasify_logo.dart';
-import 'package:saasify/widgets/text/field_label_widget.dart';
 
 class RegisterWebScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -49,7 +50,7 @@ class RegisterWebScreen extends StatelessWidget {
                               Row(
                                 children: [
                                   Expanded(
-                                    child: LabelAndFieldWidget(
+                                    child: LabelAndTextFieldWidget(
                                       prefixIcon:
                                           const Icon(Icons.person_2_outlined),
                                       isRequired: true,
@@ -64,7 +65,7 @@ class RegisterWebScreen extends StatelessWidget {
                                   ),
                                   const SizedBox(width: spacingSmall),
                                   Expanded(
-                                    child: LabelAndFieldWidget(
+                                    child: LabelAndTextFieldWidget(
                                       prefixIcon:
                                           const Icon(Icons.person_2_outlined),
                                       label: StringConstants.kLastName,
@@ -80,9 +81,7 @@ class RegisterWebScreen extends StatelessWidget {
                                 ],
                               ),
                               const SizedBox(height: spacingBetweenTextFields),
-                              LabelAndFieldWidget(
-                                  prefixIcon: const Icon(Icons.email_outlined),
-                                  label: StringConstants.kEmailAddress,
+                              EmailTextField(
                                   isRequired: true,
                                   onTextFieldChanged: (value) {
                                     context
@@ -91,18 +90,14 @@ class RegisterWebScreen extends StatelessWidget {
                                         'user_email'] = value;
                                   }),
                               const SizedBox(height: spacingBetweenTextFields),
-                              LabelAndFieldWidget(
-                                  prefixIcon:
-                                      const Icon(Icons.password_outlined),
-                                  label: StringConstants.kPassword,
+                              PasswordTextField(
                                   isRequired: true,
                                   onTextFieldChanged: (value) {
                                     context
                                             .read<RegisterBloc>()
                                             .userInputAuthenticationMap[
                                         'password'] = value;
-                                  },
-                                  obscureText: true),
+                                  }),
                               const SizedBox(
                                   height: spacingBetweenTextFieldAndButton),
                               RegisterButton(formKey: formKey)

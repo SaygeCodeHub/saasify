@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/screens/dashboard/dashboard_screen.dart';
 import 'package:saasify/screens/form/form_screen.dart';
+import 'package:saasify/screens/viewData/view_data_screen.dart';
 
 class DashboardRouting {
   String featureKey;
   BuildContext context;
   String? endpoint;
+  String actionType;
 
   DashboardRouting(
-      {required this.featureKey, this.endpoint, required this.context});
+      {required this.featureKey,
+      this.endpoint,
+      this.actionType = "viewScreen",
+      required this.context});
 
   void navigateTo() async {
     switch (featureKey) {
@@ -35,7 +40,7 @@ class DashboardRouting {
             arguments: endpoint ?? '');
         break;
       case 'HR_VIEW_ALL_EMPLOYEES':
-        Navigator.pushNamed(context, FormScreen.routeName,
+        Navigator.pushNamed(context, ViewDataScreen.routeName,
             arguments: endpoint ?? '');
         break;
       case 'HR_SALARY_ROLLOUT':

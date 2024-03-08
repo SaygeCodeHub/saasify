@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/buttonAction/button_action_bloc.dart';
 import 'package:saasify/bloc/buttonAction/button_action_event.dart';
+import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 import 'package:saasify/widgets/buttons/secondary_button.dart';
 
 class ButtonUtils {
-  static IconData getButtonIconFromType(String type) {
+  static Icon getButtonIconFromType(String type) {
     switch (type) {
       case 'close':
-        return Icons.close;
+        return Icon(Icons.close);
+      case 'edit':
+        return Icon(Icons.edit_outlined);
+      case 'delete':
+        return Icon(Icons.delete_outline, color: AppColors.errorRed);
       default:
-        return Icons.add;
+        return Icon(Icons.add_outlined);
     }
   }
 

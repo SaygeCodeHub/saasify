@@ -34,16 +34,29 @@ class _CustomDataTableState extends State<CustomDataTable> {
       child: DataTable2(
           smRatio: 0.5,
           columnSpacing: 10,
-          horizontalMargin: 0,
+          horizontalMargin: 30,
           dividerThickness: 0.7,
-          dataRowHeight: 55,
+          dataRowHeight: 50,
           headingRowHeight: 50,
+          checkboxHorizontalMargin: 30,
           showCheckboxColumn: widget.checkboxVisible,
+          headingCheckboxTheme: CheckboxThemeData(
+            fillColor: MaterialStateColor.resolveWith((states) =>
+                states.contains(MaterialState.selected)
+                    ? AppColors.darkBlue
+                    : AppColors.white),
+          ),
+          datarowCheckboxTheme: CheckboxThemeData(
+            fillColor: MaterialStateColor.resolveWith((states) =>
+                states.contains(MaterialState.selected)
+                    ? AppColors.darkBlue
+                    : AppColors.white),
+          ),
           onSelectAll: (isAllChecked) {
             if (isAllChecked!) {
               setState(() {
-                selectedIds =
-                    List.generate(widget.dataIds.length, (index) => index);
+                selectedIds = [];
+                selectedIds.addAll(widget.dataIds);
               });
             } else {
               setState(() {

@@ -79,13 +79,12 @@ class FormScreen extends StatelessWidget {
                                         endPoint: button.endPoint,
                                         apiMethodType: button.apiMethodType);
                                   },
-                                  icon: Icon(ButtonUtils.getButtonIconFromType(
-                                      state
-                                              .formStructureModel
-                                              .data
-                                              ?.utilityButtons?[index]
-                                              .buttonIcon ??
-                                          "")));
+                                  icon: ButtonUtils.getButtonIconFromType(state
+                                          .formStructureModel
+                                          .data
+                                          ?.utilityButtons?[index]
+                                          .buttonIcon ??
+                                      ""));
                             })
                           ],
                         ),

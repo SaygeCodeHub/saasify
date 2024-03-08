@@ -31,14 +31,12 @@ class ViewDataModel {
 
 class ViewData {
   final String tableName;
-  final TileData tileData;
-  final List<ColumnDetailsData> columns;
+  final TileData? tileData;
+  final List<ColumnDetailsData>? columns;
   final List<Map<String, dynamic>> data;
   final List<UtilityButton> utilityButtons;
-  final List<Status> statusTypes;
 
   ViewData({
-    required this.statusTypes,
     required this.tableName,
     required this.tileData,
     required this.columns,
@@ -48,11 +46,13 @@ class ViewData {
 
   factory ViewData.fromJson(Map<String, dynamic> json) => ViewData(
         tableName: json["table_name"],
-        tileData: TileData.fromJson(json["tile_data"]),
-        statusTypes: List<Status>.from(
-            json["status_types"].map((x) => Status.fromJson(x))),
-        columns: List<ColumnDetailsData>.from(
-            json["columns"].map((x) => ColumnDetailsData.fromJson(x))),
+        tileData: json["tile_data"] == null
+            ? null
+            : TileData.fromJson(json["tile_data"]),
+        columns: json["columns"] == null
+            ? null
+            : List<ColumnDetailsData>.from(
+                json["columns"].map((x) => ColumnDetailsData.fromJson(x))),
         data: List<Map<String, dynamic>>.from(json["data"]),
         utilityButtons: List<UtilityButton>.from(
             json["utility_buttons"].map((x) => UtilityButton.fromJson(x))),
@@ -60,9 +60,10 @@ class ViewData {
 
   Map<String, dynamic> toJson() => {
         "table_name": tableName,
-        "tile_data": tileData.toJson(),
-        "status_types": List<dynamic>.from(statusTypes.map((x) => x.toJson())),
-        "columns": List<dynamic>.from(columns.map((x) => x.toJson())),
+        "tile_data": tileData?.toJson(),
+        "columns": columns == null
+            ? null
+            : List<dynamic>.from(columns!.map((x) => x.toJson())),
         "data": List<dynamic>.from(data),
         "utility_buttons":
             List<dynamic>.from(utilityButtons.map((x) => x.toJson())),
@@ -112,37 +113,17 @@ class TileData {
   });
 
   factory TileData.fromJson(Map<String, dynamic> json) => TileData(
-        title: json["title"],
-        subtitle: json["subtitle"],
-        avatar: json["avatar"],
-        status: json["status"],
+        title: json["title_key"],
+        subtitle: json["subtitle_key"],
+        avatar: json["avatar_key"],
+        status: json["status_key"],
       );
 
   Map<String, dynamic> toJson() => {
-        "title": title,
-        "subtitle": subtitle,
-        "avatar": avatar,
-        "status": status,
-      };
-}
-
-class Status {
-  final String status;
-  final String color;
-
-  Status({
-    required this.status,
-    required this.color,
-  });
-
-  factory Status.fromJson(Map<String, dynamic> json) => Status(
-        status: json["status"],
-        color: json["color"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "status": status,
-        "color": color,
+        "title_key": title,
+        "subtitle_key": subtitle,
+        "avatar_key": avatar,
+        "status_key": status,
       };
 }
 

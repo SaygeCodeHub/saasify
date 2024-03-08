@@ -7,6 +7,7 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/models/viewData/view_data_model.dart';
 import 'package:saasify/screens/viewData/view_data_mobile.dart';
 import 'package:saasify/screens/viewData/view_data_web.dart';
+import 'package:saasify/utils/button_utils.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
@@ -20,6 +21,7 @@ class ViewDataScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<int> selectedIds = [];
     return ScreenSkeleton(childScreenBuilder: (isMobile) {
       context
           .read<ViewDataBloc>()
@@ -41,13 +43,53 @@ class ViewDataScreen extends StatelessWidget {
             if (state is DataFetched) {
               return Column(
                 children: [
-                  ModuleHeading(
-                    label: state.viewData.tableName,
+                  Row(
+                    children: [
+                      isMobile
+                          ? const SizedBox.shrink()
+                          : IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(Icons.arrow_back_ios)),
+                      ModuleHeading(label: state.viewData.tableName),
+                      const Spacer(),
+                      ...List.generate(state.viewData.utilityButtons.length,
+                          (index) {
+                        UtilityButton button =
+                            state.viewData.utilityButtons[index];
+                        return IconButton(
+                            onPressed: () {
+                              ButtonUtils.buttonAction(
+                                  context, {"selectedIds": selectedIds},
+                                  buttonAction: button.buttonAction,
+                                  endPoint: button.endPoint,
+                                  apiMethodType: button.apiMethodType);
+                            },
+                            icon: ButtonUtils.getButtonIconFromType(state
+                                .viewData.utilityButtons[index].buttonIcon));
+                      })
+                    ],
                   ),
+                  const SizedBox(height: spacingStandard),
                   Expanded(
                       child: ResponsiveLayout(
-                          mobileBody: ViewDataMobile(viewData: state.viewData),
-                          desktopBody: ViewDataWeb(viewData: state.viewData)))
+                          mobileBody: ViewDataMobile(
+                              viewData: state.viewData,
+                              onRefresh: () {
+                                context.read<ViewDataBloc>().add(FetchData(
+                                    endpoint: endpoint, isMobile: isMobile));
+                              }),
+                          provideMobilePadding: false,
+                          desktopBody: ViewDataWeb(
+                              viewData: state.viewData,
+                              onRefresh: () {
+                                context.read<ViewDataBloc>().add(FetchData(
+                                    endpoint: endpoint, isMobile: isMobile));
+                              },
+                              onSelectChanged: (selectedIds) {
+                                selectedIds = selectedIds;
+                              })))
                 ],
               );
             }
@@ -59,7 +101,6 @@ class ViewDataScreen extends StatelessWidget {
   }
 }
 
-getColorFromStatus(List<Status> statusTypes, String status) {
-  return statusTypes.firstWhere((element) => element.status == status,
-      orElse: () => Status(status: status, color: "F7F9FB"));
+Color getColorFromStatus(String? statusColor) {
+  return Color(int.tryParse("0xFF$statusColor") ?? 0xFFF7F9FB);
 }

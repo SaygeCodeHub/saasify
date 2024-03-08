@@ -13,6 +13,7 @@ import 'package:saasify/screens/generalScreens/coming_soon_screen.dart';
 import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/screens/root_screen.dart';
 import 'package:saasify/screens/shift_management/shift_managment_screen.dart';
+import 'package:saasify/screens/viewData/view_data_screen.dart';
 
 class AppRoutes {
   static Route routes(RouteSettings settings) {
@@ -34,6 +35,9 @@ class AppRoutes {
         return _createRoute(const HRMSDashboardScreen());
       case FormScreen.routeName:
         return _createRoute(FormScreen(endpoint: settings.arguments as String));
+      case ViewDataScreen.routeName:
+        return _createRoute(
+            ViewDataScreen(endpoint: settings.arguments as String));
       case AllCompaniesScreen.routeName:
         return _createRoute(AllCompaniesScreen(
             authenticateUserData: settings.arguments as AuthenticateUserData));

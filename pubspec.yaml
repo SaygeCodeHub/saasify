@@ -32,6 +32,8 @@ dependencies:
   pdf: ^3.10.8
   decimal: ^2.3.3
   mobile_scanner: ^2.1.0
+  barcode: ^2.2.6
+
 
 dev_dependencies:
   flutter_test:

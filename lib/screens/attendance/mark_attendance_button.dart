@@ -43,8 +43,10 @@ class MarkAttendanceButton extends StatelessWidget {
                 width: 25, height: 25, child: CircularProgressIndicator()));
       } else {
         return (checkInTimeExists() && checkOutTimeExists())
-            ? const SizedBox.shrink()
-            : PrimaryButton(
+            ? Text("Day Completed",
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.cardMobileHeadingTextStyle)
+            : TextButton(
                 onPressed: () {
                   context
                               .read<InitialiseAppBloc>()
@@ -60,17 +62,18 @@ class MarkAttendanceButton extends StatelessWidget {
                           })
                       : context.read<AttendanceBloc>().add(MarkAttendance());
                 },
-                buttonWidth: MediaQuery.sizeOf(context).width * 0.14,
-                backgroundColor: (!checkInTimeExists())
-                    ? AppColors.successGreen
-                    : AppColors.errorRed,
-                buttonTitle: !checkInTimeExists()
-                    ? StringConstants.kCheckIn
-                    : StringConstants.kCheckOut,
-                textStyle: Theme.of(context)
-                    .textTheme
-                    .cardMobileValueTextStyle
-                    .copyWith(color: AppColors.white));
+                style: TextButton.styleFrom(
+                  backgroundColor: (!checkInTimeExists())
+                      ? AppColors.successGreen
+                      : AppColors.errorRed,
+                ),
+                child: Text(
+                    !checkInTimeExists()
+                        ? StringConstants.kCheckIn
+                        : StringConstants.kCheckOut,
+                    textAlign: TextAlign.center,
+                    style:
+                        Theme.of(context).textTheme.dialogueButtonTextStyle));
       }
     });
   }

@@ -41,26 +41,34 @@ class AttendanceCard extends StatelessWidget {
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SvgPicture.asset("svg/male_user_option_one.svg"),
+                      SvgPicture.asset("svg/male_user_option_one.svg",
+                          width: 60, height: 60),
                       const SizedBox(width: spacingStandard),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const TodaysDate(),
-                          const SizedBox(height: spacingStandard),
-                          _buildTextRow(context, StringConstants.kCheckIn,
-                              context.read<AttendanceBloc>().checkInTime),
-                          const SizedBox(height: spacingXXSmall),
-                          _buildTextRow(context, StringConstants.kCheckOut,
-                              context.read<AttendanceBloc>().checkOutTime),
-                          const SizedBox(height: spacingXXSmall),
-                          _buildTextRow(context, StringConstants.kAvgHrs,
-                              context.read<AttendanceBloc>().checkOutTime),
-                        ],
-                      ),
+                      const TodaysDate(),
                     ],
                   ),
-                  const MarkAttendanceButton(),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: isMobile! ? 150 : 200,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: spacingStandard),
+                            _buildTextRow(context, StringConstants.kCheckIn,
+                                context.read<AttendanceBloc>().checkInTime),
+                            const SizedBox(height: spacingXXSmall),
+                            _buildTextRow(context, StringConstants.kCheckOut,
+                                context.read<AttendanceBloc>().checkOutTime),
+                            const SizedBox(height: spacingXXSmall),
+                            _buildTextRow(context, StringConstants.kAvgHrs,
+                                context.read<AttendanceBloc>().averageHours),
+                          ],
+                        ),
+                      ),
+                      const MarkAttendanceButton(),
+                    ],
+                  ),
                   const SizedBox(width: spacingXXLarge),
                 ],
               ),
@@ -76,7 +84,7 @@ Widget _buildTextRow(BuildContext context, String label,
     ValueListenable<String?> valueListenable) {
   return Row(
     children: [
-      Text(label,
+      Text("$label : ",
           maxLines: 1,
           style: Theme.of(context)
               .textTheme

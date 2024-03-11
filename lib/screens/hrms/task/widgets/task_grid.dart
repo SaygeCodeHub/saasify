@@ -6,19 +6,24 @@ import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/task/get_all_tasks_model.dart';
+import 'package:saasify/screens/hrms/task/task_board_screen.dart';
 import 'package:saasify/screens/hrms/task/widgets/task_details_pop_up.dart';
 import 'package:saasify/screens/hrms/task/widgets/task_details_screen.dart';
 import 'package:saasify/screens/hrms/task/widgets/task_widget_utils.dart';
 import 'package:saasify/screens/hrms/widgets/build_date.dart';
 import 'package:saasify/utils/globals.dart';
-import 'package:saasify/widgets/section_heading.dart';
+import 'package:saasify/widgets/text/module_heading.dart';
 
 class TasksGrid extends StatelessWidget {
   final List<TasksAssignedMe> data;
+  final bool isHome;
   final bool isTaskAssignedToMe;
 
   const TasksGrid(
-      {super.key, required this.data, required this.isTaskAssignedToMe});
+      {super.key,
+      required this.data,
+      required this.isTaskAssignedToMe,
+      this.isHome = false});
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +32,28 @@ class TasksGrid extends StatelessWidget {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
           padding: const EdgeInsets.only(bottom: spacingStandard),
-          child: SectionHeading(
-              label: isTaskAssignedToMe
-                  ? "Tasks Assigned To Me"
-                  : "Tasks Assigned By Me")),
+          child: Row(
+            children: [
+              ModuleHeading(
+                  label: isTaskAssignedToMe
+                      ? "Tasks Assigned To Me"
+                      : "Tasks Assigned By Me"),
+              const Spacer(),
+              isHome
+                  ? InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, TaskBoardScreen.routeName);
+                      },
+                      child: Text('View all',
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelTextStyle
+                              .copyWith(
+                                  fontWeight: FontWeight.w800,
+                                  color: AppColors.orange)))
+                  : const SizedBox.shrink()
+            ],
+          )),
       // : const SizedBox.shrink(),
       data.isEmpty
           ? buildEmptyTasks(context, isMobile,
@@ -40,10 +63,10 @@ class TasksGrid extends StatelessWidget {
               shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: isMobile
-                      ? 1
+                      ? 2
                       : isTab
-                          ? 1
-                          : 2,
+                          ? 4
+                          : 5,
                   mainAxisSpacing: 8.0,
                   crossAxisSpacing: 8.0,
                   childAspectRatio: isMobile
@@ -51,13 +74,15 @@ class TasksGrid extends StatelessWidget {
                       : isTab
                           ? 1.685
                           : 1.7),
-              itemCount: min(
-                  isMobile
-                      ? 1
-                      : isTab
-                          ? 1
-                          : 2,
-                  data.length),
+              itemCount: isHome
+                  ? min(
+                      isMobile
+                          ? 2
+                          : isTab
+                              ? 4
+                              : 5,
+                      data.length)
+                  : data.length,
               itemBuilder: (context, index) {
                 return InkWell(
                     onTap: () {

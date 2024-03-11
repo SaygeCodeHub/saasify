@@ -13,7 +13,6 @@ ThemeData appTheme = ThemeData(
     scaffoldBackgroundColor: AppColors.backgroundColor,
     inputDecorationTheme: inputDecorationTheme,
     iconTheme: iconThemeData,
-    checkboxTheme: checkBoxTheme,
     drawerTheme: drawerThemeData);
 
 AppBarTheme appBarTheme = const AppBarTheme(
@@ -28,11 +27,6 @@ ColorScheme colorScheme = const ColorScheme.light(
   background: AppColors.white,
   primary: AppColors.orange,
 );
-
-CheckboxThemeData checkBoxTheme = CheckboxThemeData(
-    fillColor: MaterialStateProperty.all(AppColors.orange),
-    checkColor: MaterialStateProperty.all(AppColors.white),
-    overlayColor: MaterialStateProperty.all(AppColors.orange));
 
 DrawerThemeData drawerThemeData =
     const DrawerThemeData(backgroundColor: AppColors.white, elevation: 0.0);

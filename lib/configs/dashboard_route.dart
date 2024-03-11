@@ -70,6 +70,23 @@ class DashboardRouting {
     }
   }
 
+  void action() async {
+    switch (actionType) {
+      case "formScreen":
+        Navigator.pushNamed(context, FormScreen.routeName,
+            arguments: endpoint ?? '');
+        break;
+      case "viewData":
+        Navigator.pushNamed(context, ViewDataScreen.routeName,
+            arguments: endpoint ?? '');
+        break;
+      default:
+        Navigator.pushNamed(context, FormScreen.routeName,
+            arguments: endpoint ?? '');
+        break;
+    }
+  }
+
   PageRouteBuilder buildPageRoute(Widget page) {
     return PageRouteBuilder(
       transitionDuration: Duration.zero,

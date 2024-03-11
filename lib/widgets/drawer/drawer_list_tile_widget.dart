@@ -71,8 +71,9 @@ class FeatureTile extends StatelessWidget {
           DashboardRouting(
             featureKey: feature['feature_key'],
             context: context,
+            actionType: feature['is_view'] ? "viewData" : "formScreen",
             endpoint: feature['build_screen_endpoint'],
-          ).navigateTo();
+          ).action();
         });
   }
 }

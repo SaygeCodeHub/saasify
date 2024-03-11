@@ -3,7 +3,6 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
-import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class SuccessAlertDialog extends StatelessWidget {
   final String description;
@@ -15,23 +14,47 @@ class SuccessAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        icon: SizedBox.square(
-            dimension: kSassifyLogoSize,
-            child: Image.asset('assets/check-circle.png')),
+        icon: Stack(
+          alignment: Alignment.center,
+          children: [
+            Align(
+                alignment: Alignment.topRight,
+                child: InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Icon(Icons.close,
+                        size: 15, color: AppColors.black))),
+            const Icon(Icons.check_circle_outline,
+                size: 25, color: AppColors.black)
+          ],
+        ),
         title: Text('Success!',
             style: Theme.of(context).textTheme.dialogueHeadingTextStyle),
-        content: SizedBox(
-          width: kDialogueTextBoxWidth,
+        content: ConstrainedBox(
+          constraints: const BoxConstraints(
+              maxWidth: kDialogueTextBoxWidth,
+              minWidth: kDialogueTextBoxWidth - 50),
           child: Text(description,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.dialogueContentTextStyle),
         ),
+        iconPadding: const EdgeInsets.only(
+            bottom: spacingStandard,
+            left: spacingLarge,
+            right: spacingLarge,
+            top: spacingLarge),
+        titlePadding: const EdgeInsets.only(top: spacingSmall),
+        contentPadding: const EdgeInsets.symmetric(
+            vertical: spacingSmall, horizontal: spacingLarge),
         actionsAlignment: MainAxisAlignment.center,
-        actionsPadding: const EdgeInsets.only(bottom: spacingStandard),
+        actionsPadding: const EdgeInsets.only(
+            top: spacingStandard,
+            left: spacingLarge,
+            right: spacingLarge,
+            bottom: spacingLarge),
         actions: [
-          PrimaryButton(
-              buttonWidth: kGeneralActionButtonWidth,
-              backgroundColor: AppColors.successGreen,
+          TextButton(
               onPressed: () {
                 if (onPressed != null) {
                   onPressed!();
@@ -39,7 +62,12 @@ class SuccessAlertDialog extends StatelessWidget {
                   Navigator.pop(context);
                 }
               },
-              buttonTitle: 'Continue')
+              style: TextButton.styleFrom(
+                  backgroundColor: AppColors.orange,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: spacingStandard, vertical: spacingSmall)),
+              child: Text('Continue',
+                  style: Theme.of(context).textTheme.dialogueButtonTextStyle))
         ]);
   }
 }

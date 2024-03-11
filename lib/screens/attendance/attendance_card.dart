@@ -27,13 +27,12 @@ class AttendanceCard extends StatelessWidget {
         const SizedBox(height: spacingStandard),
         const ModuleHeading(label: 'Mark Attendance'),
         const SizedBox(height: spacingMedium), // Adjust as needed
-        ConstrainedBox(
-          constraints:
-              BoxConstraints(maxWidth: MediaQuery.of(context).size.width),
-          child: Card(
-            elevation: 2,
-            child: Padding(
-              padding: const EdgeInsets.all(spacingMedium),
+        Card(
+          elevation: 2,
+          child: Padding(
+            padding: const EdgeInsets.all(spacingMedium),
+            child: SizedBox(
+              height: 180,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -57,7 +56,6 @@ class AttendanceCard extends StatelessWidget {
                           const SizedBox(height: spacingXXSmall),
                           _buildTextRow(context, StringConstants.kAvgHrs,
                               context.read<AttendanceBloc>().checkOutTime),
-                          const SizedBox(height: spacingXXLarge)
                         ],
                       ),
                     ],

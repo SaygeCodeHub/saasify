@@ -4,7 +4,9 @@ import 'package:saasify/bloc/viewData/view_data_bloc.dart';
 import 'package:saasify/bloc/viewData/view_data_event.dart';
 import 'package:saasify/bloc/viewData/view_data_state.dart';
 import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/data/models/screenArguments/no_data_screen_arguments.dart';
 import 'package:saasify/data/models/viewData/view_data_model.dart';
+import 'package:saasify/screens/generalScreens/no_data_found_screen.dart';
 import 'package:saasify/screens/viewData/view_data_mobile.dart';
 import 'package:saasify/screens/viewData/view_data_web.dart';
 import 'package:saasify/utils/button_utils.dart';
@@ -28,7 +30,15 @@ class ViewDataScreen extends StatelessWidget {
           .add(FetchData(endpoint: endpoint, isMobile: isMobile));
       return Padding(
         padding: const EdgeInsets.all(spacingStandard),
-        child: BlocBuilder<ViewDataBloc, ViewDataStates>(
+        child: BlocConsumer<ViewDataBloc, ViewDataStates>(
+          listener: (context, state) {
+            if (state is ErrorFetchingData) {
+              Navigator.pushReplacementNamed(
+                  context, NoDataFoundScreen.routeName,
+                  arguments: NoDataScreenArguments(
+                      heading: "Error Fetching Data", message: state.error));
+            }
+          },
           builder: (context, state) {
             if (state is FetchingData) {
               return const Center(

@@ -53,15 +53,15 @@ class _DashboardScreenState extends State<DashboardScreen> with RouteAware {
                 }
                 if (state is AppInitialised) {
                   return SingleChildScrollView(
-                    child: Column(
+                    child: Flex(
+                        direction: isMobile ? Axis.vertical : Axis.horizontal,
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Row(mainAxisSize: MainAxisSize.min, children: [
-                            Expanded(child: AttendanceCard(isMobile: isMobile)),
-                          ]),
-                          SizedBox(height: spacingStandard),
-                          HrmsAnnouncementsSection(isMobile: true),
+                          AttendanceCard(isMobile: isMobile),
+                          const SizedBox.square(dimension: spacingStandard),
+                          Expanded(
+                              child:
+                                  HrmsAnnouncementsSection(isMobile: isMobile)),
                         ]),
                   );
                 }

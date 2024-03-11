@@ -75,9 +75,14 @@ extension AppTextTheme on TextTheme {
         fontSize: 16, color: AppColors.darkBlue, fontWeight: FontWeight.w800);
   }
 
-  TextStyle get disabledTextStyle {
+  TextStyle get noDataFoundHeading {
     return const TextStyle(
-        fontSize: 16, color: AppColors.darkGrey, fontWeight: FontWeight.bold);
+        fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w700);
+  }
+
+  TextStyle get noDataFoundMessage {
+    return const TextStyle(
+        fontSize: 12, color: AppColors.darkGrey, fontWeight: FontWeight.w700);
   }
 
   TextStyle get smallWarningTextStyle {
@@ -87,7 +92,7 @@ extension AppTextTheme on TextTheme {
 
   TextStyle get moduleHeadingTextStyle {
     return const TextStyle(
-        fontSize: 24, color: AppColors.darkBlue, fontWeight: FontWeight.w800);
+        fontSize: 20, color: AppColors.darkBlue, fontWeight: FontWeight.w800);
   }
 
   TextStyle get formSectionHeadingTextStyle {
@@ -164,9 +169,14 @@ extension AppTextTheme on TextTheme {
         fontSize: 18, color: AppColors.white, fontWeight: FontWeight.w500);
   }
 
+  TextStyle get dialogueButtonTextStyle {
+    return const TextStyle(
+        fontSize: 14, color: AppColors.white, fontWeight: FontWeight.w500);
+  }
+
   TextStyle get dialogueHeadingTextStyle {
     return const TextStyle(
-        fontSize: 20, color: AppColors.black, fontWeight: FontWeight.w500);
+        fontSize: 18, color: AppColors.black, fontWeight: FontWeight.w700);
   }
 
   TextStyle get dialogueContentTextStyle {

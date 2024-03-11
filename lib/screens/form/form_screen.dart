@@ -8,6 +8,8 @@ import 'package:saasify/bloc/form/form_states.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/data/models/form/form_structure_model.dart';
+import 'package:saasify/data/models/screenArguments/no_data_screen_arguments.dart';
+import 'package:saasify/screens/generalScreens/no_data_found_screen.dart';
 import 'package:saasify/utils/button_utils.dart';
 import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
@@ -29,7 +31,13 @@ class FormScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<FormBloc>().add(BuildForm(endpoint: endpoint));
     return ScreenSkeleton(childScreenBuilder: (isMobile) {
-      return BlocBuilder<FormBloc, FormStates>(builder: (context, state) {
+      return BlocConsumer<FormBloc, FormStates>(listener: (context, state) {
+        if (state is FormBuildFailure) {
+          Navigator.pushReplacementNamed(context, NoDataFoundScreen.routeName,
+              arguments: NoDataScreenArguments(
+                  heading: "Form Error", message: state.error));
+        }
+      }, builder: (context, state) {
         if (state is FormStructureFetching) {
           return const Center(
             child: CircularProgressIndicator(),

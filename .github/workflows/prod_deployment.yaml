@@ -3,6 +3,8 @@ name: Deploy to production 🚀
 on:
   push:
     branches: [ "master", "dev", "uat" ]
+  pull_request:
+    branches: [ "master", "dev", "uat" ]
 
 jobs:
 
@@ -21,6 +23,9 @@ jobs:
 
       - name: 🖥️ Flutter dependencies
         run: flutter pub get
+
+      - name: 🖥️ Upgrade dependencies
+        run: flutter pub upgrade
 
       - name: 👮 Verify formatting
         run: dart format --output=none --set-exit-if-changed .

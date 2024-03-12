@@ -3,8 +3,6 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
-import 'package:saasify/utils/constants/string_constants.dart';
-import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class WarningAlertDialogue extends StatelessWidget {
   final String description;
@@ -20,36 +18,45 @@ class WarningAlertDialogue extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-        icon: Stack(
-          alignment: Alignment.center,
-          children: [
-            showCloseButton
-                ? Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(Icons.close)),
-                  )
-                : const SizedBox.shrink(),
-            SizedBox.square(
-                dimension: kSassifyLogoSize,
-                child: Image.asset('assets/exclamation-circle.png')),
-          ],
-        ),
         title: Text('Warning!',
             style: Theme.of(context).textTheme.dialogueHeadingTextStyle),
-        content: Text(description,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.dialogueContentTextStyle),
-        actionsAlignment: MainAxisAlignment.center,
+        content: ConstrainedBox(
+          constraints: const BoxConstraints(
+              maxWidth: kDialogueTextBoxWidth,
+              minWidth: kDialogueTextBoxWidth - 50),
+          child: Text(description,
+              style: Theme.of(context).textTheme.dialogueContentTextStyle),
+        ),
+        iconPadding: const EdgeInsets.only(
+            bottom: spacingStandard,
+            left: spacingLarge,
+            right: spacingLarge,
+            top: spacingLarge),
+        titlePadding: const EdgeInsets.only(
+            top: spacingLarge, left: spacingLarge, right: spacingLarge),
+        contentPadding: const EdgeInsets.symmetric(
+            vertical: spacingSmall, horizontal: spacingLarge),
+        actionsAlignment: MainAxisAlignment.end,
         actionsPadding: const EdgeInsets.only(
-            bottom: spacingSmall, left: spacingSmall, right: spacingSmall),
+            top: spacingStandard,
+            left: spacingLarge,
+            right: spacingLarge,
+            bottom: spacingLarge),
         actions: [
-          PrimaryButton(
-              buttonWidth: kGeneralActionButtonWidth,
-              backgroundColor: AppColors.warningYellow,
+          TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              style: TextButton.styleFrom(
+                  backgroundColor: AppColors.white,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: spacingStandard, vertical: spacingSmall)),
+              child: Text('Cancel',
+                  style: Theme.of(context)
+                      .textTheme
+                      .dialogueButtonTextStyle
+                      .copyWith(color: AppColors.orange))),
+          TextButton(
               onPressed: () {
                 if (onPressed != null) {
                   onPressed!();
@@ -57,7 +64,12 @@ class WarningAlertDialogue extends StatelessWidget {
                   Navigator.pop(context);
                 }
               },
-              buttonTitle: StringConstants.kOk)
+              style: TextButton.styleFrom(
+                  backgroundColor: AppColors.orange,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: spacingStandard, vertical: spacingSmall)),
+              child: Text('Continue',
+                  style: Theme.of(context).textTheme.dialogueButtonTextStyle))
         ]);
   }
 }

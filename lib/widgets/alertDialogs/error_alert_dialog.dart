@@ -6,8 +6,6 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/di/app_module.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
-import 'package:saasify/utils/globals.dart';
-import 'package:saasify/widgets/buttons/primary_button.dart';
 
 class ErrorAlertDialog extends StatelessWidget {
   final String description;
@@ -24,43 +22,56 @@ class ErrorAlertDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isMobile = MediaQuery.of(context).size.width < mobileBreakPoint;
     return AlertDialog(
         icon: Stack(
           alignment: Alignment.center,
           children: [
-            showLogoutButton
-                ? Align(
-                    alignment: Alignment.topRight,
-                    child: IconButton(
-                        padding: EdgeInsets.zero,
-                        onPressed: () {
+            Align(
+                alignment: Alignment.topRight,
+                child: showLogoutButton
+                    ? InkWell(
+                        onTap: () {
                           getIt<Cache>().clearSharedPreferences();
                           Navigator.pushNamedAndRemoveUntil(context,
                               AuthenticationScreen.routeName, (route) => false);
                         },
-                        icon: const Icon(Icons.logout,
-                            color: AppColors.errorRed)),
-                  )
-                : const SizedBox.shrink(),
-            SizedBox.square(
-                dimension: kSassifyLogoSize,
-                child: Image.asset('assets/xmark-circle.png')),
+                        child: const Icon(Icons.logout_outlined,
+                            size: 15, color: AppColors.errorRed))
+                    : InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Icon(Icons.close,
+                            size: 15, color: AppColors.black))),
+            const Icon(Icons.error_outline, size: 25, color: AppColors.black)
           ],
         ),
         title: Text('Error!',
             style: Theme.of(context).textTheme.dialogueHeadingTextStyle),
-        actionsPadding: const EdgeInsets.only(
-            bottom: spacingSmall, left: spacingSmall, right: spacingSmall),
-        content: Text(description,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.dialogueContentTextStyle),
+        content: ConstrainedBox(
+          constraints: const BoxConstraints(
+              maxWidth: kDialogueTextBoxWidth,
+              minWidth: kDialogueTextBoxWidth - 50),
+          child: Text(description,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.dialogueContentTextStyle),
+        ),
+        iconPadding: const EdgeInsets.only(
+            bottom: spacingStandard,
+            left: spacingLarge,
+            right: spacingLarge,
+            top: spacingLarge),
+        titlePadding: const EdgeInsets.only(top: spacingSmall),
+        contentPadding: const EdgeInsets.symmetric(
+            vertical: spacingSmall, horizontal: spacingLarge),
         actionsAlignment: MainAxisAlignment.center,
+        actionsPadding: const EdgeInsets.only(
+            top: spacingStandard,
+            left: spacingLarge,
+            right: spacingLarge,
+            bottom: spacingLarge),
         actions: [
-          PrimaryButton(
-              buttonWidth:
-                  isMobile ? kErrorPopButtonWidth : kGeneralActionButtonWidth,
-              backgroundColor: AppColors.errorRed,
+          TextButton(
               onPressed: () {
                 if (onPressed != null) {
                   onPressed!();
@@ -68,7 +79,12 @@ class ErrorAlertDialog extends StatelessWidget {
                   Navigator.pop(context);
                 }
               },
-              buttonTitle: 'Dismiss')
+              style: TextButton.styleFrom(
+                  backgroundColor: AppColors.orange,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: spacingStandard, vertical: spacingSmall)),
+              child: Text('Continue',
+                  style: Theme.of(context).textTheme.dialogueButtonTextStyle))
         ]);
   }
 }

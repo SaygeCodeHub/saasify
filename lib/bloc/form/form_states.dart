@@ -12,4 +12,8 @@ class FormAssembled extends FormStates {
   FormAssembled({required this.formStructureModel});
 }
 
-class FormBuildFailure extends FormStates {}
+class FormBuildFailure extends FormStates {
+  final String error;
+
+  FormBuildFailure({required this.error});
+}

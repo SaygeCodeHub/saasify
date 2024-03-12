@@ -21,10 +21,11 @@ class FormBloc extends Bloc<FormEvents, FormStates> {
       if (formStructureModel.status == 200) {
         emit(FormAssembled(formStructureModel: formStructureModel));
       } else {
-        emit(FormBuildFailure());
+        emit(FormBuildFailure(
+            error: formStructureModel.message ?? "Form Data Fetching Failed"));
       }
     } catch (e) {
-      emit(FormBuildFailure());
+      emit(FormBuildFailure(error: e.toString()));
     }
   }
 }

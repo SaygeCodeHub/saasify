@@ -69,9 +69,7 @@ List<Widget> getTaskDetailsActions(
     case 'CLOSED':
       return [];
     case 'DONE':
-      return [
-        UpdateTaskStatusButton(task: task, status: 'CLOSED', formKey: updateKey)
-      ];
+      return [];
     default:
       return [
         UpdateTaskStatusButton(

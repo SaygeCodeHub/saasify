@@ -21,6 +21,7 @@ AppBarTheme appBarTheme = const AppBarTheme(
     centerTitle: false,
     iconTheme: IconThemeData(color: AppColors.darkBlue),
     actionsIconTheme: IconThemeData(color: AppColors.orange));
+
 ColorScheme colorScheme = const ColorScheme.light(
   surface: AppColors.white,
   background: AppColors.white,
@@ -50,6 +51,8 @@ InputDecorationTheme inputDecorationTheme = const InputDecorationTheme(
     hintStyle: TextStyle(
         fontSize: 13, color: AppColors.grey, fontWeight: FontWeight.w500));
 
+// New Text Theme
+
 extension AppTextTheme on TextTheme {
   TextStyle get labelTextStyle {
     return const TextStyle(
@@ -66,9 +69,14 @@ extension AppTextTheme on TextTheme {
         fontSize: 16, color: AppColors.darkBlue, fontWeight: FontWeight.w800);
   }
 
-  TextStyle get disabledTextStyle {
+  TextStyle get noDataFoundHeading {
     return const TextStyle(
-        fontSize: 16, color: AppColors.darkGrey, fontWeight: FontWeight.bold);
+        fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w700);
+  }
+
+  TextStyle get noDataFoundMessage {
+    return const TextStyle(
+        fontSize: 12, color: AppColors.darkGrey, fontWeight: FontWeight.w700);
   }
 
   TextStyle get smallWarningTextStyle {
@@ -78,7 +86,7 @@ extension AppTextTheme on TextTheme {
 
   TextStyle get moduleHeadingTextStyle {
     return const TextStyle(
-        fontSize: 24, color: AppColors.darkBlue, fontWeight: FontWeight.w800);
+        fontSize: 20, color: AppColors.darkBlue, fontWeight: FontWeight.w800);
   }
 
   TextStyle get formSectionHeadingTextStyle {
@@ -155,9 +163,14 @@ extension AppTextTheme on TextTheme {
         fontSize: 18, color: AppColors.white, fontWeight: FontWeight.w500);
   }
 
+  TextStyle get dialogueButtonTextStyle {
+    return const TextStyle(
+        fontSize: 14, color: AppColors.white, fontWeight: FontWeight.w500);
+  }
+
   TextStyle get dialogueHeadingTextStyle {
     return const TextStyle(
-        fontSize: 20, color: AppColors.black, fontWeight: FontWeight.w500);
+        fontSize: 18, color: AppColors.black, fontWeight: FontWeight.w700);
   }
 
   TextStyle get dialogueContentTextStyle {

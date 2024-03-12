@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/initialise/initialise_bloc.dart';
 import 'package:saasify/configs/app_colors.dart';
-import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/screens/hrms/widgets/announcements_widget_utils.dart';
@@ -24,6 +23,7 @@ class HrmsAnnouncementsSection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          const SizedBox(height: spacingStandard),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             const ModuleHeading(label: 'Announcements'),
             InkWell(
@@ -34,25 +34,27 @@ class HrmsAnnouncementsSection extends StatelessWidget {
                     style: Theme.of(context).textTheme.labelTextStyle.copyWith(
                         fontWeight: FontWeight.w800, color: AppColors.orange)))
           ]),
-          const SizedBox(height: spacingLarger),
-          Container(
-              height: MediaQuery.sizeOf(context).height * 0.20,
-              decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.lighterBlack),
-                  borderRadius: BorderRadius.circular(kCardRadius)),
-              child: Padding(
-                  padding: const EdgeInsets.all(spacingSmall),
-                  child: data.isEmpty
-                      ? buildEmptyAnnouncements(context)
-                      : ListView.builder(
-                          itemCount: data.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return buildAnnouncementItem(
-                                context,
-                                data[index].dueDate.toString(),
-                                data[index].description);
-                          })))
+          const SizedBox(height: spacingMedium),
+          Card(
+            elevation: 2,
+            child: Padding(
+              padding: const EdgeInsets.all(spacingMedium),
+              child: SizedBox(
+                height: 180,
+                child: data.isEmpty
+                    ? buildEmptyAnnouncements(context)
+                    : ListView.builder(
+                        itemCount: data.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return buildAnnouncementItem(
+                              context,
+                              data[index].dueDate.toString(),
+                              data[index].description);
+                        }),
+              ),
+            ),
+          )
         ]);
   }
 }

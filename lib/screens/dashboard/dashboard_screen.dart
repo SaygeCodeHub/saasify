@@ -6,6 +6,7 @@ import 'package:saasify/bloc/initialise/initialise_states.dart';
 import 'package:saasify/configs/app_route.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/attendance/attendance_card.dart';
+import 'package:saasify/screens/hrms/task/widgets/task_grid.dart';
 import 'package:saasify/screens/hrms/widgets/hrms_announcements_section.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 
@@ -54,15 +55,29 @@ class _DashboardScreenState extends State<DashboardScreen> with RouteAware {
                 if (state is AppInitialised) {
                   return SingleChildScrollView(
                     child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Row(mainAxisSize: MainAxisSize.min, children: [
-                            Expanded(child: AttendanceCard(isMobile: isMobile)),
-                          ]),
-                          const SizedBox(height: spacingStandard),
-                          const HrmsAnnouncementsSection(isMobile: true),
-                        ]),
+                      children: [
+                        Flex(
+                            direction:
+                                isMobile ? Axis.vertical : Axis.horizontal,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AttendanceCard(isMobile: isMobile),
+                              const SizedBox.square(dimension: spacingStandard),
+                              isMobile
+                                  ? HrmsAnnouncementsSection(isMobile: isMobile)
+                                  : Expanded(
+                                      child: HrmsAnnouncementsSection(
+                                          isMobile: isMobile)),
+                            ]),
+                        const SizedBox(height: spacingStandard),
+                        TasksGrid(
+                            data: state
+                                .initialiseAppModel.data!.tasksAssignedToMe!,
+                            isTaskAssignedToMe: true,
+                            isHome: true),
+                        const SizedBox(height: spacingStandard),
+                      ],
+                    ),
                   );
                 }
                 return const SizedBox();

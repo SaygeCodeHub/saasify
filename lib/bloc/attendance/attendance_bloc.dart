@@ -24,6 +24,7 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
 
   ValueNotifier<String?> checkInTime = ValueNotifier<String?>(null);
   ValueNotifier<String?> checkOutTime = ValueNotifier<String?>(null);
+  ValueNotifier<String?> averageHours = ValueNotifier<String?>(null);
   ValueNotifier<bool> checkedIn = ValueNotifier<bool>(false);
 
   AttendanceBloc() : super(AttendanceInitial()) {
@@ -40,6 +41,13 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
       if (attendanceModel.status == 200) {
         checkInTime.value = formatDate(attendanceModel.data.checkIn);
         checkOutTime.value = formatDate(attendanceModel.data.checkOut);
+        if (checkInTime.value != null && checkOutTime.value != null) {
+          DateTime checkIn = attendanceModel.data.checkIn!;
+          DateTime checkOut = attendanceModel.data.checkOut!;
+          Duration difference = checkOut.difference(checkIn);
+          averageHours.value =
+              '${difference.inHours}h ${difference.inMinutes % 60}m';
+        }
         if (isCheckedIn()) {
           checkedIn.value = true;
         } else {
@@ -106,6 +114,13 @@ class AttendanceBloc extends Bloc<AttendanceEvents, AttendanceStates> {
         if (attendanceModel.status == 200) {
           checkInTime.value = formatDate(attendanceModel.data.checkIn);
           checkOutTime.value = formatDate(attendanceModel.data.checkOut);
+          if (checkInTime.value != null && checkOutTime.value != null) {
+            DateTime checkIn = attendanceModel.data.checkIn!;
+            DateTime checkOut = attendanceModel.data.checkOut!;
+            Duration difference = checkOut.difference(checkIn);
+            averageHours.value =
+                '${difference.inHours}h ${difference.inMinutes % 60}m';
+          }
           if (isCheckedIn()) {
             checkedIn.value = true;
           } else {

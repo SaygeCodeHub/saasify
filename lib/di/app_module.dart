@@ -14,6 +14,8 @@ import 'package:saasify/repositories/register/register_repository.dart';
 import 'package:saasify/repositories/register/register_repository_impl.dart';
 import 'package:saasify/repositories/task/task_repository.dart';
 import 'package:saasify/repositories/task/task_repository_impl.dart';
+import 'package:saasify/repositories/viewData/view_data_repository.dart';
+import 'package:saasify/repositories/viewData/view_data_repository_impl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../caches/cache.dart';
 import '../repositories/companies/companies_repository_impl.dart';
@@ -40,6 +42,8 @@ configurableDependencies() {
       () => InitialiseRepositoryImpl());
   getIt.registerLazySingleton<FormRepository>(() => FormRepositoryImpl());
   getIt.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl());
+  getIt.registerLazySingleton<ViewDataRepository>(
+      () => ViewDataRepositoryImpl());
   getIt.registerLazySingleton<ButtonActionRepository>(
       () => ButtonActionRepositoryImpl());
 }

@@ -240,15 +240,13 @@ class CheckboxData {
 class OptionData {
   final String? label;
   final dynamic value;
-  final int? optionId;
 
-  OptionData({this.label, this.value, this.optionId});
+  OptionData({this.label, this.value});
 
-  factory OptionData.fromJson(Map<String, dynamic> json) => OptionData(
-      label: json["label"], value: json["value"], optionId: json["option_id"]);
+  factory OptionData.fromJson(Map<String, dynamic> json) =>
+      OptionData(label: json["label"], value: json["value"]);
 
-  Map<String, dynamic> toJson() =>
-      {"label": label, "value": value, "option_id": optionId};
+  Map<String, dynamic> toJson() => {"label": label, "value": value};
 }
 
 class TextFieldData {

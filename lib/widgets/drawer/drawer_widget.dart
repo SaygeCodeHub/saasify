@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/caches/cache.dart';
+import 'package:saasify/configs/app_colors.dart';
+import 'package:saasify/configs/app_spacing.dart';
+import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/initialise/initialise_app_model.dart';
 import 'package:saasify/di/app_module.dart';
+import 'package:saasify/screens/POS/pos_screen.dart';
 import 'package:saasify/widgets/drawer/drawer_list_tile_widget.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -33,6 +37,15 @@ class DrawerWidget extends StatelessWidget {
                   return DrawerListTileWidget(module: module);
                 },
               ),
+              ListTile(
+                  minLeadingWidth: spacingStandard,
+                  leading: Icon(Icons.point_of_sale_outlined,
+                      color: AppColors.orange, size: spacingStandard),
+                  onTap: () {
+                    Navigator.pushNamed(context, POSScreen.routeName);
+                  },
+                  title: Text("POS",
+                      style: Theme.of(context).textTheme.drawerModuleTextStyle))
             ]);
           } else {
             return const SizedBox.shrink();

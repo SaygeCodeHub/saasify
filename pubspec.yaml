@@ -28,7 +28,11 @@ dependencies:
   shared_preferences: ^2.2.2
   firebase_messaging: ^14.7.15
   font_awesome_flutter: ^10.7.0
-
+  flutter_staggered_grid_view: ^0.7.0
+  pdf: ^3.10.8
+  decimal: ^2.3.3
+  mobile_scanner: ^2.1.0
+  barcode: ^2.2.6
 
 
 dev_dependencies:
@@ -42,7 +46,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
-    - assets/svg/
 
   fonts:
     - family: PT_Sans

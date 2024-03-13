@@ -17,6 +17,7 @@ import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/screens/hrms/task/task_board_screen.dart';
 import 'package:saasify/screens/root_screen.dart';
 import 'package:saasify/screens/shift_management/shift_managment_screen.dart';
+import 'package:saasify/utils/qrcode/scanned_data.dart';
 import 'package:saasify/screens/viewData/view_data_screen.dart';
 
 class AppRoutes {
@@ -58,6 +59,9 @@ class AppRoutes {
             companyName: args[0] as String, branches: args[1] as List<Branch>));
       case ShiftManagementScreen.routeName:
         return _createRoute(const ShiftManagementScreen());
+      case ScannedData.routeName:
+        return _createRoute(
+            ScannedData(qrcodeValue: settings.arguments.toString()));
       case POSScreen.routeName:
         return _createRoute(const POSScreen());
 

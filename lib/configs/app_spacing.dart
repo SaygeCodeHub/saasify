@@ -9,6 +9,7 @@ const double spacingLarge = 20.00;
 const double spacingLarger = 22.00;
 const double spacingXLarge = 24.00;
 const double spacingXXLarge = 28.00;
+const double spacingXXXLarge = 30.00;
 const double spacingHuge = 32.00;
 const double spacingXHuge = 36.00;
 const double spacingXXHuge = 40.00;

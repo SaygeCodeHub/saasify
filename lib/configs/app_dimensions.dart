@@ -30,6 +30,7 @@ const double kAvatarRadius = 30;
 const double kPaymentCircleSize = 8;
 const double kCloseIconSize = 20;
 const double kErrorPopButtonWidth = 130;
+const double kCircleAvatarRadius = 32;
 
 const double kBackIconSize = 20;
 

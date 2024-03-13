@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:saasify/caches/cache.dart';
 import 'package:saasify/data/models/initialise/initialise_app_model.dart';
 import 'package:saasify/di/app_module.dart';
+import 'package:saasify/screens/details/details_screen.dart';
 import 'package:saasify/widgets/drawer/drawer_list_tile_widget.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -33,6 +34,7 @@ class DrawerWidget extends StatelessWidget {
                   return DrawerListTileWidget(module: module);
                 },
               ),
+              TextButton(onPressed: ()=> Navigator.pushNamed(context, DetailsScreen.routeName), child: Text('Details'))
             ]);
           } else {
             return const SizedBox.shrink();

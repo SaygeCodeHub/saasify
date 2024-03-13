@@ -49,7 +49,7 @@ class TaskDetailsScreen extends StatelessWidget {
                     ErrorAlertDialog(description: state.error));
           }
         },
-        child: DetailsScreen(
+        child: MobileDetailsScreen(
             title: "Task Details",
             onCommentsChanged: (comments) {
               context.read<TaskBloc>().taskDetails["comment"] = comments;

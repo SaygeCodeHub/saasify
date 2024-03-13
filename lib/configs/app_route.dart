@@ -9,6 +9,7 @@ import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.
 import 'package:saasify/screens/companies/widgets/branches/all_branches_screen.dart';
 import 'package:saasify/screens/companies/widgets/companies/all_companies_screen.dart';
 import 'package:saasify/screens/dashboard/dashboard_screen.dart';
+import 'package:saasify/screens/details/details_screen.dart';
 import 'package:saasify/screens/form/form_screen.dart';
 import 'package:saasify/screens/generalScreens/coming_soon_screen.dart';
 import 'package:saasify/screens/generalScreens/no_data_found_screen.dart';
@@ -57,7 +58,8 @@ class AppRoutes {
             companyName: args[0] as String, branches: args[1] as List<Branch>));
       case ShiftManagementScreen.routeName:
         return _createRoute(const ShiftManagementScreen());
-
+      case DetailsScreen.routeName:
+        return _createRoute(const DetailsScreen(endpoint: ''));
       default:
         return _createRoute(const ComingSoonScreen());
     }

@@ -5,11 +5,16 @@ import 'package:saasify/bloc/POS/pos_event.dart';
 import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/data/models/POS/cart_product_model.dart';
+import 'package:saasify/utils/pdf/pdfFormats/cafe_bill_pdf.dart';
+import 'package:saasify/utils/pdf/utils/bill_utils.dart';
 import 'package:saasify/widgets/buttons/primary_button.dart';
 import 'package:saasify/widgets/formWidgets/label_and_textfield_widget.dart';
 
 class PaymentsDialogue extends StatefulWidget {
-  const PaymentsDialogue({super.key});
+  final List<CartItemModel> cartItems;
+
+  const PaymentsDialogue({super.key, required this.cartItems});
 
   @override
   State<PaymentsDialogue> createState() => _PaymentsDialogueState();
@@ -46,30 +51,42 @@ class _PaymentsDialogueState extends State<PaymentsDialogue> {
         content: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 300, maxHeight: 300),
             child: selectedPaymentMethod == "Cash"
-                ? Column(children: [
-                    LabelAndTextFieldWidget(
-                        label: 'Total Amount Received',
-                        initialValue: totalAmountReceived,
-                        onTextFieldChanged: (value) {
-                          setState(() {
-                            totalAmountReceived = value!;
-                          });
-                        }),
-                    const SizedBox(height: spacingStandard),
-                    Text("Change: ${getChange()}",
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelTextStyle
-                            .copyWith(color: AppColors.darkBlue, fontSize: 16)),
-                    const SizedBox(height: spacingStandard),
-                    PrimaryButton(
-                        onPressed: () {
-                          context.read<POSBloc>().add(
-                              Checkout(paymentMethod: selectedPaymentMethod));
-                          Navigator.pop(context);
-                        },
-                        buttonTitle: 'Checkout')
-                  ])
+                ? Center(
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
+                      LabelAndTextFieldWidget(
+                          label: 'Total Amount Received',
+                          initialValue: totalAmountReceived,
+                          onTextFieldChanged: (value) {
+                            setState(() {
+                              totalAmountReceived = value!;
+                            });
+                          }),
+                      const SizedBox(height: spacingStandard),
+                      Text("Change: ${getChange()}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .labelTextStyle
+                              .copyWith(
+                                  color: AppColors.darkBlue, fontSize: 16)),
+                      const SizedBox(height: spacingStandard),
+                      PrimaryButton(
+                          onPressed: () {
+                            context.read<POSBloc>().add(
+                                Checkout(paymentMethod: selectedPaymentMethod));
+                            generateCafePDF(context,
+                                items: widget.cartItems
+                                    .map((e) => MenuItem(
+                                        itemName: e.name,
+                                        quantity: e.quantity,
+                                        price: e.cost.toDouble(),
+                                        gstRate: 0))
+                                    .toList(),
+                                billModel: context.read<POSBloc>().billModel);
+                            Navigator.pop(context);
+                          },
+                          buttonTitle: 'Checkout')
+                    ]),
+                  )
                 : GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -87,6 +104,15 @@ class _PaymentsDialogueState extends State<PaymentsDialogue> {
                             } else {
                               context.read<POSBloc>().add(Checkout(
                                   paymentMethod: paymentMethods[index]));
+                              generateCafePDF(context,
+                                  items: widget.cartItems
+                                      .map((e) => MenuItem(
+                                          itemName: e.name,
+                                          quantity: e.quantity,
+                                          price: e.cost.toDouble(),
+                                          gstRate: 0))
+                                      .toList(),
+                                  billModel: context.read<POSBloc>().billModel);
                               Navigator.pop(context);
                             }
                           },

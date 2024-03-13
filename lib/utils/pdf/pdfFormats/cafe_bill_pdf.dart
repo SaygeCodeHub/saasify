@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:saasify/data/models/POS/bill_model.dart';
 import 'package:saasify/utils/pdf/utils/bill_utils.dart';
 import 'package:saasify/utils/pdf/widgets/bill_info_widget.dart';
 import 'package:saasify/utils/pdf/widgets/customer_info_widget.dart';
@@ -13,25 +14,13 @@ import 'package:saasify/utils/pdf/widgets/footer_widget.dart';
 import 'package:saasify/utils/pdf/widgets/cafe_bill_item_list_widget.dart';
 import 'package:saasify/utils/pdf/widgets/tax_summary_widget.dart';
 
-Future<void> generateCafePDF(BuildContext context) async {
-  final List<MenuItem> items = [
-    MenuItem(
-        itemName: 'Pizza', quantity: 1, price: 459.00, gstRate: standardGst),
-    MenuItem(
-        itemName: 'Pasta', quantity: 1, price: 359.00, gstRate: standardGst),
-    MenuItem(
-        itemName: 'Garlic Bread',
-        quantity: 1,
-        price: 55.00,
-        gstRate: standardGst),
-    MenuItem(
-        itemName: 'Clifton Water',
-        quantity: 1,
-        price: 40.00,
-        gstRate: essentialsGst)
-  ];
-
-  final gSTRates = GSTRates(cgstRate: 2.5, sgstRate: 2.5);
+Future<void> generateCafePDF(
+  BuildContext context, {
+  required List<MenuItem> items,
+  required BillModel billModel,
+}) async {
+  final gSTRates =
+      GSTRates(cgstRate: billModel.tax / 2, sgstRate: billModel.tax / 2);
 
   final restaurantInfo = RestaurantInfo(
       gstNo: 'G779AZ69777301',
@@ -39,7 +28,8 @@ Future<void> generateCafePDF(BuildContext context) async {
       fssaiLicNo: '76868751381581');
 
   final customerInfo = CustomerInfo(
-      customerName: 'Joey Tribbiani', customerContactNo: 8976656524);
+      customerName: 'Joey Tribbiani',
+      customerContactNo: billModel.customerPhone);
 
   final billInfo = BillInfo(
       cashierName: 'Gunther', tokenNo: '45, 57', dineIn: 05, billNo: 1766);
@@ -50,13 +40,14 @@ Future<void> generateCafePDF(BuildContext context) async {
       items.fold(0, (previousValue, element) => previousValue + element.amount);
   final double cgstValue = calculateTaxValue(subTotal, gSTRates.cgstRate);
   final double sgstValue = calculateTaxValue(subTotal, gSTRates.sgstRate);
-  final double grandTotal = subTotal + cgstValue + sgstValue;
+  final double discount = subTotal * billModel.discount / 100;
+  final double grandTotal = subTotal + cgstValue + sgstValue - discount;
   final double roundedGrandTotal = roundOff(grandTotal);
   final double roundOffDifference = grandTotal < roundedGrandTotal
       ? roundOff(grandTotal) - grandTotal
       : grandTotal - roundOff(grandTotal);
   final pw.Document doc = pw.Document();
-  final ByteData data = await rootBundle.load('assets/restaurant_logo.jpg');
+  final ByteData data = await rootBundle.load('assets/saasify.png');
   final Uint8List bytes = data.buffer.asUint8List();
   doc.addPage(pw.Page(
       pageFormat: PdfPageFormat.a5,
@@ -74,8 +65,8 @@ Future<void> generateCafePDF(BuildContext context) async {
               pw.Divider(indent: 1, endIndent: 1, thickness: 0.75),
               CafeBillItemListWidget(items),
               pw.Divider(indent: 1, endIndent: 1, thickness: 0.75),
-              TaxSummaryWidget(
-                  totalQty, subTotal, cgstValue, sgstValue, gSTRates),
+              TaxSummaryWidget(totalQty, subTotal, cgstValue, sgstValue,
+                  gSTRates, discount, billModel.discount),
               pw.Divider(indent: 1, endIndent: 1, thickness: 0.75),
               GrandTotalWidget(
                   grandTotal, roundedGrandTotal, roundOffDifference),
@@ -87,8 +78,5 @@ Future<void> generateCafePDF(BuildContext context) async {
   final Uint8List pdfBytes = await doc.save();
   final blob = html.Blob([pdfBytes]);
   final url = html.Url.createObjectUrlFromBlob(blob);
-  final anchor = html.AnchorElement(href: url)
-    ..setAttribute("download", "bill.pdf")
-    ..click();
   html.Url.revokeObjectUrl(url);
 }

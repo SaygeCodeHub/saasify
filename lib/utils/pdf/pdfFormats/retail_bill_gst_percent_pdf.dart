@@ -36,7 +36,7 @@ Future<void> generateRetailGSTPercentPDF(BuildContext context) async {
       restaurantContactNo: 9786247171,
       fssaiLicNo: '76868751381581');
   final customerInfo = CustomerInfo(
-      customerName: 'Joey Tribbiani', customerContactNo: 8976656524);
+      customerName: 'Joey Tribbiani', customerContactNo: "8976656524");
   final billInfo = BillInfo(
       cashierName: 'Gunther', tokenNo: '45, 57', dineIn: 05, billNo: 1766);
   final double totalQty =
@@ -70,7 +70,7 @@ Future<void> generateRetailGSTPercentPDF(BuildContext context) async {
               RetailBillGSTPercentItemListWidget(items),
               pw.Divider(indent: 1, endIndent: 1, thickness: 0.75),
               TaxSummaryWidget(
-                  totalQty, subTotal, cgstValue, sgstValue, gSTRates),
+                  totalQty, subTotal, cgstValue, sgstValue, gSTRates, 0, 0),
               pw.Divider(indent: 1, endIndent: 1, thickness: 0.75),
               GrandTotalWidget(
                   grandTotal, roundedGrandTotal, roundOffDifference),
@@ -82,8 +82,5 @@ Future<void> generateRetailGSTPercentPDF(BuildContext context) async {
   final Uint8List pdfBytes = await doc.save();
   final blob = html.Blob([pdfBytes]);
   final url = html.Url.createObjectUrlFromBlob(blob);
-  final anchor = html.AnchorElement(href: url)
-    ..setAttribute("download", "bill.pdf")
-    ..click();
   html.Url.revokeObjectUrl(url);
 }

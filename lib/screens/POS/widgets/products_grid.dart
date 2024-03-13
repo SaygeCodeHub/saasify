@@ -54,11 +54,13 @@ class ProductsGrid extends StatelessWidget {
                                   productsWithCategories:
                                       productsWithCategories);
                             });
+                      } else {
+                        context.read<POSBloc>().add(AddCartItem(
+                            productsWithCategories: productsWithCategories,
+                            variant: products[index].variants.first,
+                            id: products[index].variants.first.variantId,
+                            productName: products[index].productName));
                       }
-                      context.read<POSBloc>().add(AddCartItem(
-                          productsWithCategories: productsWithCategories,
-                          id: products[index].variants.first.variantId,
-                          productName: products[index].productName));
                     },
                     child: Card(
                         child: Padding(

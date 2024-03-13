@@ -15,7 +15,7 @@ class HeaderWidget extends pw.StatelessWidget {
       pw.Image(pw.MemoryImage(logoBytes),
           width: kBillImageWidth,
           height: kBillImageHeight,
-          fit: pw.BoxFit.cover),
+          fit: pw.BoxFit.fitWidth),
       pw.Row(
           mainAxisAlignment: pw.MainAxisAlignment.center,
           children: [pw.Text('GST - ${restaurantInfo.gstNo}')]),

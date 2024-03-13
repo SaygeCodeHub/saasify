@@ -51,7 +51,7 @@ class Cart extends StatelessWidget {
         padding: EdgeInsets.symmetric(
             horizontal: isMobile ? mobileBodyPadding : spacingStandard,
             vertical: spacingStandard),
-        child: CartActions(formKey: _formKey),
+        child: CartActions(formKey: _formKey, cartItems: cartItems),
       )
     ]);
   }

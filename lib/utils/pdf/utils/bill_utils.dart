@@ -46,7 +46,7 @@ class RestaurantInfo {
 
 class CustomerInfo {
   final String customerName;
-  final int customerContactNo;
+  final String customerContactNo;
 
   CustomerInfo({required this.customerName, required this.customerContactNo});
 }

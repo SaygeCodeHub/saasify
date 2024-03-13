@@ -78,5 +78,8 @@ Future<void> generateCafePDF(
   final Uint8List pdfBytes = await doc.save();
   final blob = html.Blob([pdfBytes]);
   final url = html.Url.createObjectUrlFromBlob(blob);
+  html.AnchorElement(href: url)
+    ..setAttribute("download", "bill.pdf")
+    ..click();
   html.Url.revokeObjectUrl(url);
 }

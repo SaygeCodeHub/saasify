@@ -23,7 +23,8 @@ class ModuleTileState extends State<DrawerListTileWidget> {
       children: [
         ListTile(
           minLeadingWidth: spacingStandard,
-          leading: const Icon(Icons.desktop_mac_outlined,color: AppColors.black),
+          leading:
+              const Icon(Icons.desktop_mac_outlined, color: AppColors.black),
           title: Text(widget.module['title'],
               style: Theme.of(context).textTheme.drawerModuleTextStyle),
           onTap: () {

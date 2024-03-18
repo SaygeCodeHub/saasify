@@ -76,18 +76,17 @@ class DetailsScreen extends StatelessWidget {
                       const SizedBox(height: spacingStandard),
                       Expanded(
                         child: SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(),
-                          child: StaggeredGrid.count(
-                            crossAxisCount: (isMobile) ? 1 : 2,
-                            mainAxisSpacing: 4,
-                            crossAxisSpacing: 4,
-                            children: List.generate(
-                                state.fetchDetailsModel.data!.sections.length,
-                                (index) => StaggeredGridCardItem(
-                                    sections: state.fetchDetailsModel.data!
-                                        .sections[index])),
-                          ),
-                        ),
+                            physics: const BouncingScrollPhysics(),
+                            child: StaggeredGrid.count(
+                              crossAxisCount: (isMobile) ? 1 : 2,
+                              mainAxisSpacing: 4,
+                              crossAxisSpacing: 4,
+                              children: List.generate(
+                                  state.fetchDetailsModel.data!.sections.length,
+                                  (index) => StaggeredGridCardItem(
+                                      sections: state.fetchDetailsModel.data!
+                                          .sections[index])),
+                            )),
                       )
                     ],
                   ));

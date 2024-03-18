@@ -4,12 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/details/details_event.dart';
 import 'package:saasify/bloc/details/details_state.dart';
 import 'package:saasify/data/models/details/fetch_details_model.dart';
-import 'package:saasify/di/app_module.dart';
-import 'package:saasify/repositories/details/details_repository.dart';
 
 class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
-  final DetailsRepository _detailsRepository = getIt<DetailsRepository>();
-
   DetailsBloc() : super(DetailsInitial()) {
     on<FetchDetails>(_fetchDetails);
   }

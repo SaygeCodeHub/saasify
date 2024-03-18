@@ -20,7 +20,7 @@ class StaggeredGridCardItem extends StatelessWidget {
           children: [
             Visibility(
                 visible: sections.avatar.isEmpty,
-                child: const CircleAvatarWidget()),
+                child: CircleAvatarWidget(sections: sections)),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: List.generate(sections.details.length, (rowIndex) {

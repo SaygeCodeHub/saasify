@@ -201,4 +201,8 @@ extension AppTextTheme on TextTheme {
   TextStyle get detailsLabelValueTextStyle {
     return const TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
   }
+
+  TextStyle get drawerFeatureTextStyle {
+    return const TextStyle(fontSize: 13, fontWeight: FontWeight.w500);
+  }
 }

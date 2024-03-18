@@ -46,8 +46,7 @@ configurableDependencies() {
   getIt.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl());
   getIt.registerLazySingleton<ViewDataRepository>(
       () => ViewDataRepositoryImpl());
-  getIt.registerLazySingleton<DetailsRepository>(
-          () => DetailsRepositoryImpl());
+  getIt.registerLazySingleton<DetailsRepository>(() => DetailsRepositoryImpl());
   getIt.registerLazySingleton<ButtonActionRepository>(
       () => ButtonActionRepositoryImpl());
 }

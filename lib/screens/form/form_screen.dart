@@ -35,7 +35,7 @@ class FormScreen extends StatelessWidget {
         if (state is FormBuildFailure) {
           Navigator.pushReplacementNamed(context, NoDataFoundScreen.routeName,
               arguments: NoDataScreenArguments(
-                  heading: "Form Error", message: state.error));
+                  heading: state.error, message: state.error));
         }
       }, builder: (context, state) {
         if (state is FormStructureFetching) {
@@ -44,9 +44,7 @@ class FormScreen extends StatelessWidget {
           );
         }
         if (state is FormBuildFailure) {
-          return const Center(
-            child: Text('Failed to fetch form'),
-          );
+          return Center(child: Text(state.error));
         }
         if (state is FormAssembled) {
           return Form(
@@ -71,7 +69,7 @@ class FormScreen extends StatelessWidget {
                             ModuleHeading(
                                 label:
                                     state.formStructureModel.data?.formName ??
-                                        "Form"),
+                                        ""),
                             const Spacer(),
                             ...List.generate(
                                 state.formStructureModel.data?.utilityButtons
@@ -125,13 +123,14 @@ class FormScreen extends StatelessWidget {
                                   showDialog(
                                       context: context,
                                       builder: (context) {
-                                        return SuccessAlertDialog(
-                                            description:
-                                                "Button action successful",
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                              Navigator.pop(context);
-                                            });
+                                        return Center(
+                                          child: SuccessAlertDialog(
+                                              description: state.message,
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
+                                              }),
+                                        );
                                       });
                                 }
                                 if (state is ButtonActionFailure) {
@@ -139,8 +138,10 @@ class FormScreen extends StatelessWidget {
                                   showDialog(
                                       context: context,
                                       builder: (context) {
-                                        return ErrorAlertDialog(
-                                            description: state.error);
+                                        return Center(
+                                          child: ErrorAlertDialog(
+                                              description: state.error),
+                                        );
                                       });
                                 }
                               },

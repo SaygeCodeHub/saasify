@@ -4,6 +4,7 @@ import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/viewData/view_data_model.dart';
+import 'package:saasify/screens/details/details_screen.dart';
 import 'package:saasify/screens/viewData/view_data_screen.dart';
 import 'package:saasify/widgets/generalWidgets/status_chip.dart';
 
@@ -33,6 +34,10 @@ class ViewDataMobile extends StatelessWidget {
             itemBuilder: (context, index) {
               return Card(
                 child: ListTile(
+                    onTap: () {
+                      Navigator.pushNamed(context, DetailsScreen.routeName,
+                          arguments: viewData.utilityButtons![index].endPoint);
+                    },
                     contentPadding: const EdgeInsets.all(spacingMedium),
                     leading: const Icon(Icons.person,
                         color: AppColors.darkBlue, size: kAvatarRadius),

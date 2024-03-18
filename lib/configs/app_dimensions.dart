@@ -31,6 +31,9 @@ const double kPaymentCircleSize = 8;
 const double kCloseIconSize = 20;
 const double kErrorPopButtonWidth = 130;
 const double kCircleAvatarRadius = 32;
+const double kAlertDialogIconSize = 38;
+const double kAlertDialogErrorIconSize = 23;
+const double kAlertDialogCloseIconSize = 20;
 
 const double kBackIconSize = 20;
 

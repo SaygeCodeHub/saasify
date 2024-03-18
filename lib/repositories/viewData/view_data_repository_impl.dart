@@ -18,7 +18,6 @@ class ViewDataRepositoryImpl implements ViewDataRepository {
       final response = await ClientServices().post(
           "${ApiConstants.baseUrl3_0}$companyId/$branchId/$userId$endpoint",
           data);
-
       return ViewDataModel.fromJson(response);
     } catch (e) {
       rethrow;

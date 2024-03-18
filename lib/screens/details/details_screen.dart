@@ -53,7 +53,8 @@ class DetailsScreen extends StatelessWidget {
                                     Navigator.pop(context);
                                   },
                                   icon: const Icon(Icons.arrow_back_ios)),
-                          const ModuleHeading(label: 'Details'),
+                          ModuleHeading(
+                              label: state.fetchDetailsModel.data!.heading),
                           const Spacer(),
                           ...List.generate(
                               state.fetchDetailsModel.data!.utilityButtons

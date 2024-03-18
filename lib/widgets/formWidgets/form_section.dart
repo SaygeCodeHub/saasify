@@ -20,9 +20,7 @@ class FormSection extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(spacingStandard),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          SectionHeading(
-            label: sectionData.sectionName ?? "Section",
-          ),
+          SectionHeading(label: sectionData.sectionName ?? ""),
           const SizedBox(height: spacingMedium),
           ...List.generate(sectionData.rows!.length, (rowIndex) {
             FieldRow rowData = sectionData.rows![rowIndex];

@@ -3,9 +3,12 @@ import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/data/models/details/fetch_details_model.dart';
 
 class CircleAvatarWidget extends StatelessWidget {
-  const CircleAvatarWidget({super.key});
+  final Section sections;
+
+  const CircleAvatarWidget({super.key, required this.sections});
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +26,10 @@ class CircleAvatarWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Rucha Wajpe',
+                Text(sections.title,
                     style: Theme.of(context).textTheme.titleTextStyle),
                 const SizedBox(height: spacingSmallest),
-                Text('Flutter Developer',
+                Text(sections.subtitle,
                     style: Theme.of(context).textTheme.subtitleTextStyle)
               ],
             )

@@ -22,42 +22,62 @@ class DetailsBloc extends Bloc<DetailsEvent, DetailsState> {
           status: 200,
           message: '',
           data: Data(heading: 'Details', utilityButtons: [], sections: [
-            Section(avatar: '', title: 'title 1', subtitle: '', details: [
-              Detail(label: 'label 1 :', value: 'value 1'),
-              Detail(label: 'label 1 :', value: 'value 1'),
-              Detail(label: 'label 1 :', value: 'value 1'),
-              Detail(label: 'label 1 :', value: 'value 1'),
-              Detail(label: 'label 1 :', value: 'value 1')
-            ]),
-            Section(avatar: '', title: 'title 2', subtitle: '', details: [
-              Detail(label: 'label 2 :', value: 'value 2'),
-              Detail(label: 'label 2 :', value: 'value 2'),
-              Detail(label: 'label 2 :', value: 'value 2')
-            ]),
-            Section(avatar: '', title: 'title 3', subtitle: '', details: [
-              Detail(label: 'label 3 :', value: 'value 3'),
-              Detail(label: 'label 3 :', value: 'value 3'),
-              Detail(label: 'label 3 :', value: 'value 3'),
-              Detail(label: 'label 3 :', value: 'value 3'),
-              Detail(label: 'label 3 :', value: 'value 3'),
-              Detail(label: 'label 3 :', value: 'value 3'),
-              Detail(label: 'label 3 :', value: 'value 3'),
-              Detail(label: 'label 3 :', value: 'value 3')
-            ]),
-            Section(avatar: '', title: 'title 4', subtitle: '', details: [
-              Detail(label: 'label 4 :', value: 'value 4'),
-              Detail(label: 'label 4 :', value: 'value 4')
-            ]),
-            Section(avatar: '', title: 'title 5', subtitle: '', details: [
-              Detail(label: 'label 5 :', value: 'value 5'),
-              Detail(label: 'label 5 :', value: 'value 5'),
-              Detail(label: 'label 5 :', value: 'value 5'),
-              Detail(label: 'label 5 :', value: 'value 5'),
-              Detail(label: 'label 5 :', value: 'value 5'),
-              Detail(label: 'label 5 :', value: 'value 5'),
-              Detail(label: 'label 5 :', value: 'value 5'),
-              Detail(label: 'label 5 :', value: 'value 5')
-            ]),
+            Section(
+                avatar: '',
+                title: 'title 1',
+                subtitle: 'subtitle 1',
+                details: [
+                  Detail(label: 'label 1 :', value: 'value 1'),
+                  Detail(label: 'label 1 :', value: 'value 1'),
+                  Detail(label: 'label 1 :', value: 'value 1'),
+                  Detail(label: 'label 1 :', value: 'value 1'),
+                  Detail(label: 'label 1 :', value: 'value 1')
+                ]),
+            Section(
+                avatar: '',
+                title: 'title 2',
+                subtitle: 'subtitle 2',
+                details: [
+                  Detail(label: 'label 2 :', value: 'value 2'),
+                  Detail(label: 'label 2 :', value: 'value 2'),
+                  Detail(label: 'label 2 :', value: 'value 2')
+                ]),
+            Section(
+                avatar: '',
+                title: 'title 3',
+                subtitle: 'subtitle 3',
+                details: [
+                  Detail(label: 'label 3 :', value: 'value 3'),
+                  Detail(label: 'label 3 :', value: 'value 3'),
+                  Detail(label: 'label 3 :', value: 'value 3'),
+                  Detail(label: 'label 3 :', value: 'value 3'),
+                  Detail(label: 'label 3 :', value: 'value 3'),
+                  Detail(label: 'label 3 :', value: 'value 3'),
+                  Detail(label: 'label 3 :', value: 'value 3'),
+                  Detail(label: 'label 3 :', value: 'value 3')
+                ]),
+            Section(
+                avatar: '',
+                title: 'title 4',
+                subtitle: 'subtitle 4',
+                details: [
+                  Detail(label: 'label 4 :', value: 'value 4'),
+                  Detail(label: 'label 4 :', value: 'value 4')
+                ]),
+            Section(
+                avatar: '',
+                title: 'title 5',
+                subtitle: 'subtitle 5',
+                details: [
+                  Detail(label: 'label 5 :', value: 'value 5'),
+                  Detail(label: 'label 5 :', value: 'value 5'),
+                  Detail(label: 'label 5 :', value: 'value 5'),
+                  Detail(label: 'label 5 :', value: 'value 5'),
+                  Detail(label: 'label 5 :', value: 'value 5'),
+                  Detail(label: 'label 5 :', value: 'value 5'),
+                  Detail(label: 'label 5 :', value: 'value 5'),
+                  Detail(label: 'label 5 :', value: 'value 5')
+                ]),
             Section(
                 avatar: '',
                 title: 'title 6',

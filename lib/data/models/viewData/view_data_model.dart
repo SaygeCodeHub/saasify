@@ -34,7 +34,7 @@ class ViewData {
   final TileData? tileData;
   final List<ColumnDetailsData>? columns;
   final List<Map<String, dynamic>> data;
-  final List<UtilityButton> utilityButtons;
+  final List<UtilityButton>? utilityButtons;
 
   ViewData({
     required this.tableName,
@@ -53,9 +53,11 @@ class ViewData {
             ? null
             : List<ColumnDetailsData>.from(
                 json["columns"].map((x) => ColumnDetailsData.fromJson(x))),
-        data: List<Map<String, dynamic>>.from(json["data"]),
-        utilityButtons: List<UtilityButton>.from(
-            json["utility_buttons"].map((x) => UtilityButton.fromJson(x))),
+        data: List<Map<String, dynamic>>.from(json["view_data"]),
+        utilityButtons: (json["utility_buttons"] == null)
+            ? []
+            : List<UtilityButton>.from(
+                json["utility_buttons"].map((x) => UtilityButton.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -64,9 +66,9 @@ class ViewData {
         "columns": columns == null
             ? null
             : List<dynamic>.from(columns!.map((x) => x.toJson())),
-        "data": List<dynamic>.from(data),
+        "view_data": List<dynamic>.from(data),
         "utility_buttons":
-            List<dynamic>.from(utilityButtons.map((x) => x.toJson())),
+            List<dynamic>.from(utilityButtons!.map((x) => x.toJson())),
       };
 }
 

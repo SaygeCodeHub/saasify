@@ -13,7 +13,6 @@ import 'package:saasify/screens/details/details_screen.dart';
 import 'package:saasify/screens/form/form_screen.dart';
 import 'package:saasify/screens/generalScreens/coming_soon_screen.dart';
 import 'package:saasify/screens/generalScreens/no_data_found_screen.dart';
-import 'package:saasify/screens/hrms/hrms_dashboard_screen.dart';
 import 'package:saasify/screens/hrms/task/task_board_screen.dart';
 import 'package:saasify/screens/root_screen.dart';
 import 'package:saasify/screens/shift_management/shift_managment_screen.dart';
@@ -37,8 +36,6 @@ class AppRoutes {
             isVerifyToken: (settings.arguments ?? false) as bool));
       case AddCompanyScreen.routeName:
         return _createRoute(AddCompanyScreen());
-      case HRMSDashboardScreen.routeName:
-        return _createRoute(const HRMSDashboardScreen());
       case NoDataFoundScreen.routeName:
         return _createRoute(NoDataFoundScreen(
             args: settings.arguments as NoDataScreenArguments));

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/utils/button_utils.dart';
 
 class WarningAlertDialogue extends StatelessWidget {
   final String description;
@@ -42,34 +42,15 @@ class WarningAlertDialogue extends StatelessWidget {
             left: spacingLarge,
             right: spacingLarge,
             bottom: spacingLarge),
-        actions: [
-          TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              style: TextButton.styleFrom(
-                  backgroundColor: AppColors.white,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: spacingStandard, vertical: spacingSmall)),
-              child: Text('Cancel',
-                  style: Theme.of(context)
-                      .textTheme
-                      .dialogueButtonTextStyle
-                      .copyWith(color: AppColors.orange))),
-          TextButton(
-              onPressed: () {
-                if (onPressed != null) {
-                  onPressed!();
-                } else {
-                  Navigator.pop(context);
-                }
-              },
-              style: TextButton.styleFrom(
-                  backgroundColor: AppColors.orange,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: spacingStandard, vertical: spacingSmall)),
-              child: Text('Continue',
-                  style: Theme.of(context).textTheme.dialogueButtonTextStyle))
-        ]);
+        actions: List.generate(
+            1,
+            (index) => ButtonUtils.getButtonFromType(context,
+                    buttonType: 'primary', onPressed: () {
+                  if (onPressed != null) {
+                    onPressed!();
+                  } else {
+                    Navigator.pop(context);
+                  }
+                }, buttonTitle: 'Continue', width: 50)));
   }
 }

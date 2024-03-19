@@ -24,7 +24,7 @@ class ButtonActionBloc extends Bloc<ButtonActionEvents, ButtonActionStates> {
               data: event.data,
               apiMethod: event.apiMethod);
       if (actionResponseModel.status == 200) {
-        emit(ButtonActionSuccess());
+        emit(ButtonActionSuccess(message: actionResponseModel.message));
       } else {
         emit(ButtonActionFailure(error: actionResponseModel.message));
       }

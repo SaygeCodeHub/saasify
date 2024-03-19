@@ -4,7 +4,7 @@ import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/widgets/formWidgets/label_and_textfield_widget.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
-class DetailsScreen extends StatelessWidget {
+class MobileDetailsScreen extends StatelessWidget {
   final String title;
   final List<Widget> details;
   final bool showComments;
@@ -15,7 +15,7 @@ class DetailsScreen extends StatelessWidget {
   final void Function(String?)? onCommentsChanged;
   final GlobalKey<FormState> updateKey = GlobalKey<FormState>();
 
-  DetailsScreen({
+  MobileDetailsScreen({
     super.key,
     required this.title,
     required this.actionsBuilder,

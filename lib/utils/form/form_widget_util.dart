@@ -25,10 +25,15 @@ class FormWidgetUtil {
             label: fieldData.label,
             errorText: fieldData.errorText,
             isRequired: fieldData.required ?? false,
-            initialDate: DateTime.tryParse(
-                fieldData.userSelection?.userSelectedDate ?? ""),
-            firstDate: fieldData.datePickerField?.minDate,
-            lastDate: fieldData.datePickerField?.maxDate,
+            initialDate: (fieldData.userSelection?.userSelectedDate != null)
+                ? fieldData.userSelection?.userSelectedDate
+                : null,
+            firstDate: (fieldData.datePickerField?.minDate != null)
+                ? DateTime.tryParse(fieldData.datePickerField?.minDate)
+                : null,
+            lastDate: (fieldData.datePickerField?.maxDate != null)
+                ? DateTime.tryParse(fieldData.datePickerField?.maxDate)
+                : null,
             onTextFieldChanged: (value) {
               fieldData.userSelection?.userSelectedDate = value;
             });
@@ -37,13 +42,17 @@ class FormWidgetUtil {
             label: fieldData.label,
             errorText: fieldData.errorText,
             isRequired: fieldData.required ?? false,
-            initialValue: fieldData.userSelection?.userSelectedOptionId,
-            items: fieldData.dropdownField!.options!
-                .map((e) =>
-                    CustomDropDownItem(label: e.label ?? "", value: e.value))
-                .toList(),
+            initialValue: (fieldData.userSelection != null)
+                ? fieldData.userSelection?.userSelectedValue
+                : null,
+            items: (fieldData.dropdownField != null)
+                ? fieldData.dropdownField!.options!
+                    .map((e) => CustomDropDownItem(
+                        label: e.label ?? "", value: e.value))
+                    .toList()
+                : [],
             onChanged: (value) {
-              fieldData.userSelection?.userSelectedOptionId = value;
+              fieldData.userSelection?.userSelectedValue = value;
             });
       case 'radio':
         return LabelAndRadioWidget(
@@ -73,9 +82,9 @@ class FormWidgetUtil {
             label: fieldData.label,
             errorText: fieldData.errorText,
             isRequired: fieldData.required ?? false,
-            initialValue: fieldData.userSelection?.userSelectedOptionId ?? [],
+            initialValue: fieldData.userSelection?.userSelectedValue ?? [],
             onChanged: (values) {
-              fieldData.userSelection?.userSelectedOptionId = values;
+              fieldData.userSelection?.userSelectedValue = values;
             });
       default:
         return const Text('Unknown Widget');

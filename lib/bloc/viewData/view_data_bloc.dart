@@ -14,17 +14,17 @@ class ViewDataBloc extends Bloc<ViewDataEvents, ViewDataStates> {
 
   void _fetchData(FetchData event, Emitter<ViewDataStates> emit) async {
     emit(FetchingData());
-    try {
-      ViewDataModel viewDataModel = await viewDataRepository
-          .fetchData(event.endpoint, {"isMobile": event.isMobile});
+    // try {
+    ViewDataModel viewDataModel = await viewDataRepository
+        .fetchData(event.endpoint, {"isMobile": event.isMobile});
 
-      if (viewDataModel.status == 200) {
-        emit(DataFetched(viewDataModel.data));
-      } else {
-        emit(ErrorFetchingData(viewDataModel.message));
-      }
-    } catch (e) {
-      emit(ErrorFetchingData(e.toString()));
+    if (viewDataModel.status == 200) {
+      emit(DataFetched(viewDataModel.data));
+    } else {
+      emit(ErrorFetchingData(viewDataModel.message));
     }
+    // } catch (e) {
+    //   emit(ErrorFetchingData(e.toString()));
+    // }
   }
 }

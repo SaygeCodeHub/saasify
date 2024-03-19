@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/data/models/table_models/column_data_model.dart';
 import 'package:saasify/data/models/viewData/view_data_model.dart';
+import 'package:saasify/screens/details/details_screen.dart';
 import 'package:saasify/screens/viewData/view_data_screen.dart';
 import 'package:saasify/widgets/table/custom_table.dart';
 import 'package:saasify/widgets/table/table_cells.dart';
@@ -37,16 +38,22 @@ class ViewDataWeb extends StatelessWidget {
                     width: viewData.columns?[index].columnWidth)),
             dataIds: viewData.data.map((e) => e["id"] as int).toList(),
             onSelectChanged: onSelectChanged,
+            rowOnTap: (_) {
+              Navigator.pushNamed(context, DetailsScreen.routeName,
+                  arguments: '');
+            },
             generateData: (rowIndex) {
-              return List.generate(
-                  viewData.columns?.length ?? 0,
-                  (dataIndex) => _getCellForColumnType(
-                      viewData.columns?[dataIndex].dataType,
-                      viewData.data[rowIndex]
-                              [viewData.columns?[dataIndex].dataKey ?? ""] ??
-                          "",
-                      getColorFromStatus(
-                          viewData.data[rowIndex]["status_color"])));
+              return List.generate(viewData.columns?.length ?? 0, (dataIndex) {
+                return _getCellForColumnType(
+                    viewData.columns?[dataIndex].dataType,
+                    viewData.data[rowIndex][viewData.columns?[dataIndex].dataKey
+                                    .toString() ??
+                                ""]
+                            ?.toString() ??
+                        "",
+                    getColorFromStatus(
+                        viewData.data[rowIndex]["status_color"]));
+              });
             });
   }
 
@@ -58,9 +65,12 @@ class ViewDataWeb extends StatelessWidget {
       case "avatar":
         return const TableAvatar();
       case "status":
-        return TableStatusChips(status: data ?? "", color: statusColor);
+        return TableStatusChips(
+            status:
+                data?.toString().replaceAll('[', '').replaceAll(']', '') ?? '',
+            color: statusColor);
       default:
-        return TableText(text: "Invalid Data Column Type");
+        return TableText(text: "");
     }
   }
 }

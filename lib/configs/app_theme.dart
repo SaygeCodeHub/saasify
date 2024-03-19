@@ -193,4 +193,27 @@ extension AppTextTheme on TextTheme {
     return const TextStyle(
         fontSize: 32, color: AppColors.orange, fontWeight: FontWeight.w500);
   }
+
+  TextStyle get titleTextStyle {
+    return const TextStyle(fontSize: 15, fontWeight: FontWeight.w600);
+  }
+
+  TextStyle get subtitleTextStyle {
+    return const TextStyle(fontSize: 13, fontWeight: FontWeight.w500);
+  }
+
+  TextStyle get detailsLabelTextStyle {
+    return TextStyle(
+        fontSize: 14,
+        color: AppColors.darkGrey.withOpacity(0.6),
+        fontWeight: FontWeight.w600);
+  }
+
+  TextStyle get detailsLabelValueTextStyle {
+    return const TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
+  }
+
+  TextStyle get drawerFeatureTextStyle {
+    return const TextStyle(fontSize: 13, fontWeight: FontWeight.w500);
+  }
 }

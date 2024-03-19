@@ -62,14 +62,14 @@ class Section {
 
   factory Section.fromJson(Map<String, dynamic> json) => Section(
       sectionName: json["section_name"],
-      rows: (json["fields"] as List<dynamic>?)
+      rows: (json["row"] as List<dynamic>?)
               ?.map((x) => FieldRow.fromJson(x))
               .toList() ??
           []);
 
   Map<String, dynamic> toJson() => {
         "section_name": sectionName,
-        "fields": rows?.map((x) => x.toJson()).toList()
+        "row": rows?.map((x) => x.toJson()).toList()
       };
 }
 
@@ -79,13 +79,13 @@ class FieldRow {
   FieldRow({this.fields});
 
   factory FieldRow.fromJson(Map<String, dynamic> json) => FieldRow(
-      fields: (json["row_fields"] as List<dynamic>?)
+      fields: (json["fields"] as List<dynamic>?)
               ?.map((x) => Field.fromJson(x))
               .toList() ??
           []);
 
   Map<String, dynamic> toJson() =>
-      {"row_fields": fields?.map((x) => x.toJson()).toList()};
+      {"fields": fields?.map((x) => x.toJson()).toList()};
 }
 
 class Field {
@@ -191,7 +191,7 @@ class DropdownFieldData {
                   ?.map((x) => OptionData.fromJson(x))
                   .toList() ??
               [],
-          defaultValue: json["default_value"]);
+          defaultValue: json["default_value"] ?? '');
 
   Map<String, dynamic> toJson() => {
         "options": options?.map((x) => x.toJson()).toList(),
@@ -269,7 +269,7 @@ class TextFieldData {
       maxLines: json["max_lines"],
       maxLength: json["max_length"],
       obscureText: json["obscure_text"],
-      readOnly: json["readOnly"],
+      readOnly: json["read_only"],
       inputType: json["input_type"],
       validator: json["validator"]);
 
@@ -285,20 +285,20 @@ class TextFieldData {
 
 class UserSelection {
   String? textValue;
-  dynamic userSelectedOptionId;
+  dynamic userSelectedValue;
   dynamic userSelectedDate;
 
   UserSelection(
-      {this.textValue, this.userSelectedOptionId, this.userSelectedDate});
+      {this.textValue, this.userSelectedValue, this.userSelectedDate});
 
   factory UserSelection.fromJson(Map<String, dynamic> json) => UserSelection(
-      textValue: json["text_value"],
-      userSelectedOptionId: json["user_selected_option_id"],
+      textValue: json["text_value"] ?? '',
+      userSelectedValue: json["user_selected_value"],
       userSelectedDate: json["user_selected_date"]);
 
   Map<String, dynamic> toJson() => {
         "text_value": textValue,
-        "user_selected_option_id": userSelectedOptionId,
+        "user_selected_value": userSelectedValue,
         "user_selected_date": userSelectedDate
       };
 }

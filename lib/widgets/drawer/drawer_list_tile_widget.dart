@@ -62,7 +62,10 @@ class FeatureTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-        title: Text(feature['title']),
+        title: Text(
+          feature['title'],
+          style: Theme.of(context).textTheme.drawerFeatureTextStyle,
+        ),
         onTap: () {
           DashboardRouting(
             featureKey: feature['feature_key'],

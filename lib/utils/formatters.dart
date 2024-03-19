@@ -9,10 +9,10 @@ String formatDate(String inputDate) {
   return formattedDate;
 }
 
-RichText formatAmount(double amount, BuildContext context) {
+RichText formatAmount(double amount, BuildContext context, {int? count}) {
   return RichText(
       text: TextSpan(
-          text: '₹ ',
+          text: (count != null) ? 'x$count    ₹ ' : '₹ ',
           style: Theme.of(context).textTheme.descriptionTextStyle,
           children: <TextSpan>[
         TextSpan(

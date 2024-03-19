@@ -32,7 +32,7 @@ class TaxSummaryWidget extends pw.StatelessWidget {
           crossAxisAlignment: pw.CrossAxisAlignment.end,
           children: [
             pw.Text('Subtotal'),
-            pw.Text('${discountPercent}%'),
+            pw.Text('$discountPercent%'),
             pw.Text('${gSTRates.cgstRate}%'),
             pw.Text('${gSTRates.sgstRate}%')
           ]),

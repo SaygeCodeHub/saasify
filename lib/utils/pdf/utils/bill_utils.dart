@@ -9,16 +9,18 @@ const double whiteLuxuryDemeritGst = 28;
 class MenuItem {
   final String itemName;
   final int quantity;
-  final double price;
+  final int price;
   final double gstRate;
+  final int? totalCost;
 
   MenuItem(
-      {required this.itemName,
+      {this.totalCost = 0,
+      required this.itemName,
       required this.quantity,
       required this.price,
       required this.gstRate});
 
-  double get amount => quantity * price;
+  int get amount => quantity * price;
 
   double get gst => (quantity * price * gstRate) / 100;
 }
@@ -37,9 +39,11 @@ class RestaurantInfo {
   final String gstNo;
   final int restaurantContactNo;
   final String fssaiLicNo;
+  final String restaurantName;
 
   RestaurantInfo(
-      {required this.gstNo,
+      {required this.restaurantName,
+      required this.gstNo,
       required this.restaurantContactNo,
       required this.fssaiLicNo});
 }

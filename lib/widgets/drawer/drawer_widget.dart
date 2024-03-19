@@ -39,7 +39,7 @@ class DrawerWidget extends StatelessWidget {
               ),
               ListTile(
                   minLeadingWidth: spacingStandard,
-                  leading: Icon(Icons.point_of_sale_outlined,
+                  leading: const Icon(Icons.point_of_sale_outlined,
                       color: AppColors.orange, size: spacingStandard),
                   onTap: () {
                     Navigator.pushNamed(context, POSScreen.routeName);

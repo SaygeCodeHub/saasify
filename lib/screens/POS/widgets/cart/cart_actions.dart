@@ -27,13 +27,14 @@ class CartActions extends StatelessWidget {
               onPressed: () {
                 if (formKey.currentState!.validate()) {
                   generateCafePDF(context,
-                      items: cartItems
-                          .map((e) => MenuItem(
-                              itemName: e.name,
-                              quantity: e.quantity,
-                              price: e.cost.toDouble(),
-                              gstRate: 0))
-                          .toList(),
+                      items: cartItems.map((e) {
+                        return MenuItem(
+                            itemName: e.name,
+                            quantity: e.count,
+                            price: context.read<POSBloc>().variantCost,
+                            gstRate: 0,
+                            totalCost: e.cost);
+                      }).toList(),
                       billModel: context.read<POSBloc>().billModel);
                 }
               },

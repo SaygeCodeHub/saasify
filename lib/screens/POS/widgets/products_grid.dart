@@ -136,13 +136,13 @@ class ProductsGrid extends StatelessWidget {
                                                 .cost
                                                 .toDouble(),
                                             context),
-                                        Text(
-                                            "${products[index].variants.first.quantity} ${products[index].variants.first.unit}",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .productCostTextStyle,
-                                            textScaler: TextScaler.linear(
-                                                isMobile ? 0.8 : 1))
+                                        // Text(
+                                        //     "${products[index].variants.first.quantity} ${products[index].variants.first.unit}",
+                                        //     style: Theme.of(context)
+                                        //         .textTheme
+                                        //         .productCostTextStyle,
+                                        //     textScaler: TextScaler.linear(
+                                        //         isMobile ? 0.8 : 1))
                                       ])
                                 ])))))));
   }

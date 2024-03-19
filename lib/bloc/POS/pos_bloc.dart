@@ -14,6 +14,7 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
   final POSRepository posRepository = getIt<POSRepository>();
 
   Map<int, CartItemModel> cartProducts = {};
+  int variantCost = 0;
   BillModel billModel = BillModel(
     customerName: '',
     customerPhone: '',
@@ -73,7 +74,7 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
       CalculateBill event, Emitter<POSStates> emit) async {
     billModel.itemTotal = 0;
     cartProducts.forEach((key, value) {
-      billModel.itemTotal += value.cost * value.count;
+      billModel.itemTotal += value.cost;
     });
     billModel.totalAmount = billModel.itemTotal +
         (billModel.itemTotal * billModel.tax / 100) -
@@ -88,7 +89,9 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
       RemoveCartItem event, Emitter<POSStates> emit) async {
     if (cartProducts[event.variantId] != null) {
       if (cartProducts[event.variantId]!.count > 1) {
-        cartProducts[event.variantId]!.count--;
+        (cartProducts[event.variantId]!.count--);
+        (cartProducts[event.variantId]?.cost =
+            variantCost * cartProducts[event.variantId]!.count);
       } else {
         cartProducts.remove(event.variantId);
       }
@@ -99,7 +102,9 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
   FutureOr<void> _addCartItem(
       AddCartItem event, Emitter<POSStates> emit) async {
     if (cartProducts[event.id] != null) {
-      cartProducts[event.id]!.count++;
+      (cartProducts[event.id]!.count++);
+      cartProducts[event.id]!.cost =
+          (variantCost * cartProducts[event.id]!.count);
     } else {
       cartProducts[event.variant!.variantId] = CartItemModel(
           id: event.variant!.variantId,

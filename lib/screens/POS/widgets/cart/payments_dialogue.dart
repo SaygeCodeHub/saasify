@@ -95,7 +95,7 @@ class _PaymentsDialogueState extends State<PaymentsDialogue> {
                                   .map((e) => MenuItem(
                                       itemName: e.name,
                                       quantity: e.quantity,
-                                      price: e.cost.toDouble(),
+                                      price: e.cost,
                                       gstRate: 0))
                                   .toList(),
                               billModel: context.read<POSBloc>().billModel);
@@ -124,9 +124,12 @@ class _PaymentsDialogueState extends State<PaymentsDialogue> {
                                   items: widget.cartItems
                                       .map((e) => MenuItem(
                                           itemName: e.name,
-                                          quantity: e.quantity,
-                                          price: e.cost.toDouble(),
-                                          gstRate: 0))
+                                          quantity: e.count,
+                                          price: context
+                                              .read<POSBloc>()
+                                              .variantCost,
+                                          gstRate: 0,
+                                          totalCost: e.cost))
                                       .toList(),
                                   billModel: context.read<POSBloc>().billModel);
                               Navigator.pop(context);

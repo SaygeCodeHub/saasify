@@ -3,7 +3,7 @@ class CartItemModel {
   final String name;
   final String image;
   final String unit;
-  final int cost;
+  int cost;
   int count;
   final int quantity;
 

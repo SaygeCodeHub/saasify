@@ -4,7 +4,7 @@ class NumPad extends StatelessWidget {
   final void Function(String) onKeyPressed;
   final String value;
 
-  NumPad({super.key, required this.onKeyPressed, required this.value});
+  const NumPad({super.key, required this.onKeyPressed, required this.value});
 
   @override
   Widget build(BuildContext context) {

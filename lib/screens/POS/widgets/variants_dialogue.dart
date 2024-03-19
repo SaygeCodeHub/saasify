@@ -43,6 +43,8 @@ class VariantsDialogue extends StatelessWidget {
                 itemBuilder: (context, variantIndex) {
                   return InkWell(
                     onTap: () {
+                      context.read<POSBloc>().variantCost =
+                          products[index].variants[variantIndex].cost;
                       context.read<POSBloc>().add(AddCartItem(
                           productsWithCategories: productsWithCategories,
                           productName: products[index].productName,

@@ -78,7 +78,8 @@ class CartItemList extends StatelessWidget {
                                           .textTheme
                                           .productNameTextStyle),
                                   formatAmount(
-                                      cartItem.cost.toDouble(), context),
+                                      cartItem.cost.toDouble(), context,
+                                      count: cartItem.count),
                                 ]),
                             const SizedBox(height: spacingSmall),
                             Row(children: [
@@ -123,10 +124,10 @@ class CartItemList extends StatelessWidget {
                                         icon: const Icon(Icons.add, size: 20)),
                                   ]))),
                               const Spacer(),
-                              Text(cartItem.quantity.toString() + cartItem.unit,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .descriptionTextStyle)
+                              // Text(cartItem.quantity.toString() + cartItem.unit,
+                              //     style: Theme.of(context)
+                              //         .textTheme
+                              //         .descriptionTextStyle)
                             ])
                           ]),
                         ),

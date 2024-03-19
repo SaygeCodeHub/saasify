@@ -80,66 +80,108 @@ class CartItemList extends StatelessWidget {
                                     style: Theme.of(context)
                                         .textTheme
                                         .variantNameTextStyle),
-                                const SizedBox(height: spacingXXSmall),
+                                const SizedBox(height: spacingXSmall),
                                 Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Container(
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: AppColors.darkGrey)),
-                                          child: IntrinsicHeight(
-                                              child: Row(children: [
-                                            IconButton(
-                                                constraints:
-                                                    const BoxConstraints(),
-                                                padding: EdgeInsets.zero,
-                                                onPressed: () {
-                                                  context.read<POSBloc>().add(
-                                                      RemoveCartItem(
-                                                          variantId:
-                                                              cartItem.id,
-                                                          productsWithCategories:
-                                                              productsWithCategories));
-                                                },
-                                                icon: const Icon(Icons.remove,
-                                                    size: 20)),
-                                            const VerticalDivider(
-                                                color: AppColors.darkGrey,
-                                                width: 0),
-                                            SizedBox(
-                                                width: 30,
-                                                child: Center(
-                                                    child: Text(cartItem.count
-                                                        .toString()))),
-                                            const VerticalDivider(
-                                                color: AppColors.darkGrey,
-                                                width: 0),
-                                            IconButton(
-                                                constraints:
-                                                    const BoxConstraints(),
-                                                padding: EdgeInsets.zero,
-                                                onPressed: () {
-                                                  context.read<POSBloc>().add(
-                                                      AddCartItem(
-                                                          productName:
-                                                              cartItem.name,
-                                                          id: cartItem.id,
-                                                          productsWithCategories:
-                                                              productsWithCategories));
-                                                },
-                                                icon: const Icon(Icons.add,
-                                                    size: 20)),
-                                          ]))),
+                                      Stack(
+                                        children: [
+                                          Container(
+                                            width: 80,
+                                            height: 27,
+                                            decoration: BoxDecoration(
+                                                color: AppColors.lighterGrey,
+                                                border: Border.all(
+                                                    color: AppColors.grey),
+                                                borderRadius:
+                                                    BorderRadius.circular(15)),
+                                            child: Center(
+                                                child: Text(
+                                                    cartItem.count.toString())),
+                                          ),
+                                          Positioned(
+                                            left: -0.3,
+                                            child: InkWell(
+                                              onTap: () {
+                                                context.read<POSBloc>().add(
+                                                    RemoveCartItem(
+                                                        variantId: cartItem.id,
+                                                        productsWithCategories:
+                                                            productsWithCategories));
+                                              },
+                                              child: Container(
+                                                height: 27,
+                                                width: 27,
+                                                decoration: BoxDecoration(
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: AppColors
+                                                            .lighterGrey
+                                                            .withOpacity(0.2),
+                                                        offset: const Offset(
+                                                            4.0, 4.0),
+                                                        blurRadius: 2.0,
+                                                        spreadRadius: 1.0,
+                                                      )
+                                                    ],
+                                                    color: AppColors.white,
+                                                    border: Border.all(
+                                                        color:
+                                                            AppColors.darkGrey),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25)),
+                                                child: const Icon(Icons.remove,
+                                                    size: 15),
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            left: 52,
+                                            child: InkWell(
+                                              onTap: () {
+                                                context.read<POSBloc>().add(
+                                                    AddCartItem(
+                                                        productName:
+                                                            cartItem.name,
+                                                        id: cartItem.id,
+                                                        productsWithCategories:
+                                                            productsWithCategories));
+                                              },
+                                              child: Container(
+                                                height: 27,
+                                                width: 27,
+                                                decoration: BoxDecoration(
+                                                    boxShadow: [
+                                                      BoxShadow(
+                                                        color: AppColors
+                                                            .lighterGrey
+                                                            .withOpacity(0.2),
+                                                        offset: const Offset(
+                                                            4.0, 4.0),
+                                                        blurRadius: 5.0,
+                                                        spreadRadius: 1.0,
+                                                      )
+                                                    ],
+                                                    color: AppColors.white,
+                                                    border: Border.all(
+                                                        color:
+                                                            AppColors.darkGrey),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25)),
+                                                child: const Icon(Icons.add,
+                                                    size: 15,
+                                                    color: AppColors.orange),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                       formatAmount(
                                           cartItem.cost.toDouble(), context,
-                                          count: cartItem.count),
-
-                                      // Text(cartItem.quantity.toString() + cartItem.unit,
-                                      //     style: Theme.of(context)
-                                      //         .textTheme
-                                      //         .descriptionTextStyle)
+                                          count: cartItem.count)
                                     ])
                               ]),
                         ),

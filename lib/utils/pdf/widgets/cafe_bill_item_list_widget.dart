@@ -45,8 +45,8 @@ class CafeBillItemListWidget extends pw.StatelessWidget {
             children: [for (var item in items) pw.Text(item.itemName)]),
         pw.Row(children: [
           pw.Column(
-              mainAxisAlignment: pw.MainAxisAlignment.end,
-              crossAxisAlignment: pw.CrossAxisAlignment.end,
+              mainAxisAlignment: pw.MainAxisAlignment.start,
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
                 for (var item in items)
                   pw.Center(child: pw.Text(item.quantity.toString()))

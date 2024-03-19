@@ -31,7 +31,7 @@ class CartActions extends StatelessWidget {
                         return MenuItem(
                             itemName: e.name,
                             quantity: e.count,
-                            price: context.read<POSBloc>().variantCost,
+                            price: e.variantCost,
                             gstRate: 0,
                             totalCost: e.cost);
                       }).toList(),

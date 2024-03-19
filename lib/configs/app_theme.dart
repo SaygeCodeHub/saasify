@@ -81,7 +81,7 @@ extension AppTextTheme on TextTheme {
 
   TextStyle get descriptionTextStyle {
     return const TextStyle(
-        fontSize: 12, color: AppColors.darkGrey, fontWeight: FontWeight.w500);
+        fontSize: 12, color: AppColors.darkGrey, fontWeight: FontWeight.w600);
   }
 
   TextStyle get productCostTextStyle {

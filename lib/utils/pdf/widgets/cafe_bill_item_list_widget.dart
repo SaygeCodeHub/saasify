@@ -64,7 +64,7 @@ class CafeBillItemListWidget extends pw.StatelessWidget {
               crossAxisAlignment: pw.CrossAxisAlignment.end,
               children: [
                 for (var item in items)
-                  pw.Text((item.quantity * item.price).toStringAsFixed(2))
+                  pw.Text(item.totalCost!.toStringAsFixed(2))
               ])
         ])
       ])

@@ -89,15 +89,14 @@ class _PaymentsDialogueState extends State<PaymentsDialogue> {
                           context.read<POSBloc>().add(
                               Checkout(paymentMethod: selectedPaymentMethod));
                           generateCafePDF(context,
-                              items: widget.cartItems
-                                  .map((e) => MenuItem(
-                                      itemName: e.name,
-                                      quantity: e.count,
-                                      price:
-                                          context.read<POSBloc>().variantCost,
-                                      gstRate: 0,
-                                      totalCost: e.cost))
-                                  .toList(),
+                              items: widget.cartItems.map((e) {
+                                return MenuItem(
+                                    itemName: e.name,
+                                    quantity: e.count,
+                                    price: e.variantCost,
+                                    gstRate: 0,
+                                    totalCost: e.cost);
+                              }).toList(),
                               billModel: context.read<POSBloc>().billModel);
                           Navigator.pop(context);
                         },
@@ -125,9 +124,7 @@ class _PaymentsDialogueState extends State<PaymentsDialogue> {
                                       .map((e) => MenuItem(
                                           itemName: e.name,
                                           quantity: e.count,
-                                          price: context
-                                              .read<POSBloc>()
-                                              .variantCost,
+                                          price: e.variantCost,
                                           gstRate: 0,
                                           totalCost: e.cost))
                                       .toList(),

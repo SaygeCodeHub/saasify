@@ -1,3 +1,4 @@
+import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/POS/pos_bloc.dart';
@@ -20,135 +21,157 @@ class CartBillSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: spacingStandard),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text("Bill Details",
-            style: Theme.of(context).textTheme.generalSectionHeadingTextStyle),
-        const SizedBox(height: spacingSmall),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text('Net Amount: ',
-              style: Theme.of(context).textTheme.descriptionTextStyle),
-          formatAmount(context.read<POSBloc>().billModel.itemTotal, context),
-        ]),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('Discount: ',
-                  style: Theme.of(context).textTheme.descriptionTextStyle),
-              IconButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            content: SizedBox(
-                              width: 200,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Text('Enter Discount Percent: '),
-                                  const SizedBox(height: spacingSmall),
-                                  LabelAndTextFieldWidget(
-                                    onTextFieldChanged: (value) {
-                                      context
-                                          .read<POSBloc>()
-                                          .billModel
-                                          .discount = (double.parse(value!));
-                                    },
-                                  ),
-                                  const SizedBox(height: spacingSmall),
-                                  PrimaryButton(
-                                      onPressed: () {
-                                        context.read<POSBloc>().add(
-                                            CalculateBill(
-                                                productsWithCategories:
-                                                    productsWithCategories));
-                                        Navigator.pop(context);
+    return Card(
+      elevation: 0,
+      color: AppColors.grey,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+            horizontal: spacingStandard, vertical: spacingStandard),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text("Bill Details",
+              style:
+                  Theme.of(context).textTheme.generalSectionHeadingTextStyle),
+          const SizedBox(height: spacingSmall),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text('Net Amount: ',
+                style: Theme.of(context).textTheme.descriptionTextStyle),
+            formatAmount(context.read<POSBloc>().billModel.itemTotal, context),
+          ]),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Discount: ',
+                    style: Theme.of(context).textTheme.descriptionTextStyle),
+                IconButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              content: SizedBox(
+                                width: 200,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Text('Enter Discount Percent: '),
+                                    const SizedBox(height: spacingSmall),
+                                    LabelAndTextFieldWidget(
+                                      onTextFieldChanged: (value) {
+                                        context
+                                            .read<POSBloc>()
+                                            .billModel
+                                            .discount = (double.parse(value!));
                                       },
-                                      buttonTitle: 'Save')
-                                ],
+                                    ),
+                                    const SizedBox(height: spacingSmall),
+                                    PrimaryButton(
+                                        onPressed: () {
+                                          context.read<POSBloc>().add(
+                                              CalculateBill(
+                                                  productsWithCategories:
+                                                      productsWithCategories));
+                                          Navigator.pop(context);
+                                        },
+                                        buttonTitle: 'Save')
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        });
-                  },
-                  padding: EdgeInsets.zero,
-                  icon:
-                      const Icon(Icons.edit, size: 15, color: AppColors.orange))
-            ],
+                            );
+                          });
+                    },
+                    padding: EdgeInsets.zero,
+                    icon: const Icon(Icons.edit,
+                        size: 15, color: AppColors.orange))
+              ],
+            ),
+            formatAmount(
+                context.read<POSBloc>().billModel.discount /
+                    100 *
+                    context.read<POSBloc>().billModel.itemTotal,
+                context),
+          ]),
+          const SizedBox(
+            width: double.maxFinite,
+            child: DottedLine(
+                direction: Axis.horizontal,
+                lineThickness: 1.0,
+                dashColor: AppColors.darkGrey),
           ),
-          formatAmount(
-              context.read<POSBloc>().billModel.discount /
-                  100 *
-                  context.read<POSBloc>().billModel.itemTotal,
-              context),
-        ]),
-        const Divider(),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text('Sub Total: ',
-              style: Theme.of(context).textTheme.descriptionTextStyle),
-          formatAmount(context.read<POSBloc>().billModel.subTotal, context),
-        ]),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Row(
-            children: [
-              Text('Taxes: ',
-                  style: Theme.of(context).textTheme.descriptionTextStyle),
-              IconButton(
-                  onPressed: () {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            content: SizedBox(
-                              width: 200,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const Text('Enter Tax Percent: '),
-                                  const SizedBox(height: spacingSmall),
-                                  LabelAndTextFieldWidget(
-                                    onTextFieldChanged: (value) {
-                                      context.read<POSBloc>().billModel.tax =
-                                          (double.parse(value!));
-                                    },
-                                  ),
-                                  const SizedBox(height: spacingSmall),
-                                  PrimaryButton(
-                                      onPressed: () {
-                                        context.read<POSBloc>().add(
-                                            CalculateBill(
-                                                productsWithCategories:
-                                                    productsWithCategories));
-                                        Navigator.pop(context);
+          const SizedBox(height: spacingXSmall),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text('Sub Total: ',
+                style: Theme.of(context).textTheme.descriptionTextStyle),
+            formatAmount(context.read<POSBloc>().billModel.subTotal, context),
+          ]),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Row(
+              children: [
+                Text('Taxes: ',
+                    style: Theme.of(context).textTheme.descriptionTextStyle),
+                IconButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              content: SizedBox(
+                                width: 200,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const Text('Enter Tax Percent: '),
+                                    const SizedBox(height: spacingSmall),
+                                    LabelAndTextFieldWidget(
+                                      onTextFieldChanged: (value) {
+                                        context.read<POSBloc>().billModel.tax =
+                                            (double.parse(value!));
                                       },
-                                      buttonTitle: 'Save')
-                                ],
+                                    ),
+                                    const SizedBox(height: spacingSmall),
+                                    PrimaryButton(
+                                        onPressed: () {
+                                          context.read<POSBloc>().add(
+                                              CalculateBill(
+                                                  productsWithCategories:
+                                                      productsWithCategories));
+                                          Navigator.pop(context);
+                                        },
+                                        buttonTitle: 'Save')
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        });
-                  },
-                  padding: EdgeInsets.zero,
-                  icon:
-                      const Icon(Icons.edit, size: 15, color: AppColors.orange))
-            ],
+                            );
+                          });
+                    },
+                    padding: EdgeInsets.zero,
+                    icon: const Icon(Icons.edit,
+                        size: 15, color: AppColors.orange))
+              ],
+            ),
+            formatAmount(
+                context.read<POSBloc>().billModel.tax /
+                    100 *
+                    context.read<POSBloc>().billModel.subTotal,
+                context),
+          ]),
+          const SizedBox(
+            width: double.maxFinite,
+            child: DottedLine(
+                direction: Axis.horizontal,
+                lineThickness: 1.0,
+                dashColor: AppColors.darkGrey),
           ),
-          formatAmount(
-              context.read<POSBloc>().billModel.tax /
-                  100 *
-                  context.read<POSBloc>().billModel.subTotal,
-              context),
+          const SizedBox(height: spacingXSmall),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text('Grand Total: ',
+                style: Theme.of(context).textTheme.descriptionTextStyle),
+            formatAmount(
+                context.read<POSBloc>().billModel.totalAmount, context),
+          ])
         ]),
-        const Divider(),
-        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text('Grand Total: ',
-              style: Theme.of(context).textTheme.descriptionTextStyle),
-          formatAmount(context.read<POSBloc>().billModel.totalAmount, context),
-        ])
-      ]),
+      ),
     );
   }
 }

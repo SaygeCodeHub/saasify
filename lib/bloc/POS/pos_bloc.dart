@@ -117,7 +117,8 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
           name: event.productName,
           cost: event.variant!.cost,
           image: event.variant!.image,
-          count: 1);
+          count: 1,
+          variantCost: variantCost);
     }
     add(CalculateBill(productsWithCategories: event.productsWithCategories));
   }

@@ -6,16 +6,17 @@ class CartItemModel {
   int cost;
   int count;
   final int quantity;
+  int variantCost;
 
-  CartItemModel({
-    required this.id,
-    required this.unit,
-    required this.name,
-    required this.image,
-    required this.cost,
-    required this.count,
-    required this.quantity,
-  });
+  CartItemModel(
+      {required this.id,
+      required this.unit,
+      required this.name,
+      required this.image,
+      required this.cost,
+      required this.count,
+      required this.quantity,
+      this.variantCost = 0});
 
   factory CartItemModel.fromJson(Map<String, dynamic> json) {
     return CartItemModel(

@@ -24,6 +24,7 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
     itemTotal: 0,
     orderDate: DateTime.now().toIso8601String(),
     orderNumber: '${DateTime.now().millisecondsSinceEpoch}}',
+    subTotal: 0,
   );
   int selectedCategory = 0;
   bool showProducts = false;
@@ -41,6 +42,8 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
 
   FutureOr<void> _clearCart(ClearCart event, Emitter<POSStates> emit) async {
     cartProducts.clear();
+    billModel.tax = 0;
+    billModel.discount = 0;
     emit(ProductByCategoryLoaded(
         productsWithCategories: event.productsWithCategories,
         selectedCategory: selectedCategory,
@@ -76,9 +79,10 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
     cartProducts.forEach((key, value) {
       billModel.itemTotal += value.cost;
     });
-    billModel.totalAmount = billModel.itemTotal +
-        (billModel.itemTotal * billModel.tax / 100) -
-        (billModel.itemTotal * billModel.discount / 100);
+    billModel.subTotal =
+        billModel.itemTotal - (billModel.itemTotal * billModel.discount / 100);
+    billModel.totalAmount =
+        billModel.subTotal + (billModel.subTotal * billModel.tax / 100);
     emit(ProductByCategoryLoaded(
         productsWithCategories: event.productsWithCategories,
         selectedCategory: selectedCategory,
@@ -150,6 +154,7 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
           itemTotal: 0,
           orderDate: DateTime.now().toIso8601String(),
           orderNumber: '${DateTime.now().millisecondsSinceEpoch}}',
+          subTotal: 0,
         );
         selectedCategory = 0;
         add(FetchProductsWithCategories());

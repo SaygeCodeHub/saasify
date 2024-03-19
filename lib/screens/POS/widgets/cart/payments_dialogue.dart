@@ -68,24 +68,22 @@ class _PaymentsDialogueState extends State<PaymentsDialogue> {
                         }),
                     isMobile
                         ? const SizedBox(height: spacingStandard)
-                        : const SizedBox.shrink(),
-                    isMobile
-                        ? Expanded(
-                            child: NumPad(
-                                onKeyPressed: (value) {
-                                  setState(() {
-                                    totalAmountReceived = value;
-                                  });
-                                },
-                                value: totalAmountReceived))
-                        : const SizedBox.shrink(),
-                    const SizedBox(height: spacingStandard),
-                    Text("Change: ${getChange()}",
+                        : const SizedBox(height: spacingStandard),
+                    Text(
+                        "Amount to return: ${(totalAmountReceived.isEmpty) ? '0.00' : getChange()}",
                         style: Theme.of(context)
                             .textTheme
                             .labelTextStyle
                             .copyWith(color: AppColors.darkBlue, fontSize: 16)),
                     const SizedBox(height: spacingStandard),
+                    NumPad(
+                        onKeyPressed: (value) {
+                          setState(() {
+                            totalAmountReceived = value;
+                          });
+                        },
+                        value: totalAmountReceived),
+                    const Spacer(),
                     PrimaryButton(
                         onPressed: () {
                           context.read<POSBloc>().add(
@@ -94,14 +92,16 @@ class _PaymentsDialogueState extends State<PaymentsDialogue> {
                               items: widget.cartItems
                                   .map((e) => MenuItem(
                                       itemName: e.name,
-                                      quantity: e.quantity,
-                                      price: e.cost,
-                                      gstRate: 0))
+                                      quantity: e.count,
+                                      price:
+                                          context.read<POSBloc>().variantCost,
+                                      gstRate: 0,
+                                      totalCost: e.cost))
                                   .toList(),
                               billModel: context.read<POSBloc>().billModel);
                           Navigator.pop(context);
                         },
-                        buttonTitle: 'Checkout')
+                        buttonTitle: 'Settle bill')
                   ])
                 : GridView.builder(
                     gridDelegate:
@@ -150,6 +150,7 @@ class _PaymentsDialogueState extends State<PaymentsDialogue> {
     double totalAmount = context.read<POSBloc>().billModel.totalAmount;
     double totalAmountReceived =
         double.tryParse(this.totalAmountReceived) ?? 0.0;
+    setState(() {});
     return (totalAmountReceived - totalAmount).sign == -1
         ? "0.00"
         : (totalAmountReceived - totalAmount).toStringAsFixed(2);

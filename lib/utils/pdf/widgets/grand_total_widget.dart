@@ -29,7 +29,7 @@ class GrandTotalWidget extends pw.StatelessWidget {
             pw.Text(
                 '${grandTotal < roundedGrandTotal ? '+' : '-'}${roundOffDifference.toStringAsFixed(2)}',
                 style: const pw.TextStyle(fontSize: spacingSmall)),
-            pw.Text(roundedGrandTotal.toStringAsFixed(2),
+            pw.Text(grandTotal.toStringAsFixed(2),
                 style: pw.TextStyle(fontWeight: pw.FontWeight.bold))
           ])
     ]);

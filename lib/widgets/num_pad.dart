@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/configs/app_colors.dart';
 
 class NumPad extends StatelessWidget {
   final void Function(String) onKeyPressed;
@@ -10,6 +11,7 @@ class NumPad extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
+      color: AppColors.grey,
       child: Column(
         children: [
           Row(
@@ -54,19 +56,34 @@ class NumPad extends StatelessWidget {
 
   Widget _buildButton(String text) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.white,
+          maximumSize: const Size(100, 100),
+          minimumSize: const Size(60, 50)),
       onPressed: () {
         onKeyPressed(value + text);
       },
-      child: Text(text),
+      child: Text(
+        text,
+        style: const TextStyle(color: AppColors.black, fontSize: 16),
+      ),
     );
   }
 
   Widget _buildBackButton() {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.white,
+          maximumSize: const Size(100, 100),
+          minimumSize: const Size(60, 50)),
       onPressed: () {
         onKeyPressed(value.substring(0, value.length - 1));
       },
-      child: const Icon(Icons.backspace),
+      child: const Icon(
+        Icons.backspace,
+        color: AppColors.black,
+        size: 20,
+      ),
     );
   }
 }

@@ -41,12 +41,14 @@ Future<void> generateCafePDF(
 
   final double totalQty =
       items.fold(0, (prev, element) => prev + element.quantity);
-  final double subTotal = items.fold(
+  final double netAmount = items.fold(
       0, (previousValue, element) => previousValue + element.totalCost!);
+  final double discount = netAmount * billModel.discount / 100;
+  final double subTotal =
+      items.fold(0, (previousValue, element) => netAmount - discount);
   final double cgstValue = calculateTaxValue(subTotal, gSTRates.cgstRate);
   final double sgstValue = calculateTaxValue(subTotal, gSTRates.sgstRate);
-  final double discount = subTotal * billModel.discount / 100;
-  final double grandTotal = subTotal + cgstValue + sgstValue - discount;
+  final double grandTotal = subTotal + cgstValue + sgstValue;
   final double roundedGrandTotal = roundOff(grandTotal);
   final double roundOffDifference = grandTotal < roundedGrandTotal
       ? roundOff(grandTotal) - grandTotal
@@ -69,8 +71,8 @@ Future<void> generateCafePDF(
               pw.Divider(indent: 1, endIndent: 1, thickness: 0.75),
               CafeBillItemListWidget(items),
               pw.Divider(indent: 1, endIndent: 1, thickness: 0.75),
-              TaxSummaryWidget(totalQty, subTotal, cgstValue, sgstValue,
-                  gSTRates, discount, billModel.discount),
+              TaxSummaryWidget(totalQty, netAmount, subTotal, cgstValue,
+                  sgstValue, gSTRates, discount, billModel.discount),
               pw.Divider(indent: 1, endIndent: 1, thickness: 0.75),
               GrandTotalWidget(
                   grandTotal, roundedGrandTotal, roundOffDifference),

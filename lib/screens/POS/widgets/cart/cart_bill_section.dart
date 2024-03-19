@@ -27,11 +27,10 @@ class CartBillSection extends StatelessWidget {
             style: Theme.of(context).textTheme.generalSectionHeadingTextStyle),
         const SizedBox(height: spacingSmall),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text('Item Total: ',
+          Text('Net Amount: ',
               style: Theme.of(context).textTheme.descriptionTextStyle),
           formatAmount(context.read<POSBloc>().billModel.itemTotal, context),
         ]),
-        const Divider(),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -86,7 +85,12 @@ class CartBillSection extends StatelessWidget {
                   context.read<POSBloc>().billModel.itemTotal,
               context),
         ]),
-        const SizedBox(height: spacingSmallest),
+        const Divider(),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Text('Sub Total: ',
+              style: Theme.of(context).textTheme.descriptionTextStyle),
+          formatAmount(context.read<POSBloc>().billModel.subTotal, context),
+        ]),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Row(
             children: [
@@ -135,12 +139,12 @@ class CartBillSection extends StatelessWidget {
           formatAmount(
               context.read<POSBloc>().billModel.tax /
                   100 *
-                  context.read<POSBloc>().billModel.itemTotal,
+                  context.read<POSBloc>().billModel.subTotal,
               context),
         ]),
         const Divider(),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text('Total: ',
+          Text('Grand Total: ',
               style: Theme.of(context).textTheme.descriptionTextStyle),
           formatAmount(context.read<POSBloc>().billModel.totalAmount, context),
         ])

@@ -69,6 +69,16 @@ extension AppTextTheme on TextTheme {
         fontSize: 14, color: AppColors.darkBlue, fontWeight: FontWeight.w700);
   }
 
+  TextStyle get variantNameTextStyle {
+    return const TextStyle(
+        fontSize: 13, color: AppColors.darkBlue, fontWeight: FontWeight.w600);
+  }
+
+  TextStyle get variantDescTextStyle {
+    return const TextStyle(
+        fontSize: 12, color: AppColors.darkBlue, fontWeight: FontWeight.w500);
+  }
+
   TextStyle get descriptionTextStyle {
     return const TextStyle(
         fontSize: 12, color: AppColors.darkGrey, fontWeight: FontWeight.w500);

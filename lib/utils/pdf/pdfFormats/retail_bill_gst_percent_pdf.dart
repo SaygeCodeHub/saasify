@@ -40,8 +40,9 @@ Future<void> generateRetailGSTPercentPDF(BuildContext context) async {
       cashierName: 'Gunther', tokenNo: '45, 57', dineIn: 05, billNo: 1766);
   final double totalQty =
       items.fold(0, (prev, element) => prev + element.quantity);
-  final double subTotal = items.fold(
+  final double netAmount = items.fold(
       0, (previousValue, element) => previousValue + element.totalCost!);
+  final double subTotal = items.fold(0, (previousValue, element) => netAmount);
   final double cgstValue = calculateTaxValue(subTotal, gSTRates.cgstRate);
   final double sgstValue = calculateTaxValue(subTotal, gSTRates.sgstRate);
   final double grandTotal = subTotal + cgstValue + sgstValue;
@@ -66,8 +67,8 @@ Future<void> generateRetailGSTPercentPDF(BuildContext context) async {
               pw.Divider(indent: 1, endIndent: 1, thickness: 0.75),
               RetailBillGSTPercentItemListWidget(items),
               pw.Divider(indent: 1, endIndent: 1, thickness: 0.75),
-              TaxSummaryWidget(
-                  totalQty, subTotal, cgstValue, sgstValue, gSTRates, 0, 0),
+              TaxSummaryWidget(totalQty, netAmount, subTotal, cgstValue,
+                  sgstValue, gSTRates, 0, 0),
               pw.Divider(indent: 1, endIndent: 1, thickness: 0.75),
               GrandTotalWidget(
                   grandTotal, roundedGrandTotal, roundOffDifference),

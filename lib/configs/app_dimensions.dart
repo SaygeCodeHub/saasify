@@ -43,3 +43,16 @@ const double kCompaniesGridContainerHeight = 50;
 
 const double kDateTimePickerContainerHeight = 220;
 const double kDateTimePickerHeight = 170;
+
+const double KBoardTileRedius = 5;
+const double KBoardTilePadding = 10;
+const double kBoardstatuspadingh= 12;
+const double kBoardStatuspadingv= 40;
+const double kBoardStatusHeight= 500;
+const double kBoardStatuswidth= 290;
+const double kBoardStatusRedius= 4;
+const double kBoardSearchBtnWidth= 300;
+const double kBoardUtilityBtnw = 20;
+
+
+

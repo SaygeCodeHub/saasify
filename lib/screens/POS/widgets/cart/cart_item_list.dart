@@ -33,6 +33,7 @@ class CartItemList extends StatelessWidget {
                     return WarningAlertDialogue(
                         description: "Are you sure you want to clear the cart?",
                         onPressed: () {
+                          context.read<POSBloc>().showCart = false;
                           context.read<POSBloc>().add(ClearCart(
                               productsWithCategories: productsWithCategories));
                           Navigator.pop(context);

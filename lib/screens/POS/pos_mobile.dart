@@ -38,64 +38,61 @@ class POSMobile extends StatelessWidget {
               cartItems: cartItems,
               productsWithCategories: productsWithCategories,
             )
-          : Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: mobileBodyPadding),
-                  child: LabelAndTextFieldWidget(
-                    suffixIcon: Icon(Icons.search),
-                    hintText: 'Search Products',
-                  ),
+          : Column(children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: mobileBodyPadding),
+                child: LabelAndTextFieldWidget(
+                  suffixIcon: Icon(Icons.search),
+                  hintText: 'Search Products',
                 ),
-                const SizedBox(height: spacingStandard),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: mobileBodyPadding),
-                  child: LabelAndDropdownWidget(
-                      items: List.generate(
-                          productsWithCategories.length,
-                          (index) => CustomDropDownItem(
-                              value: index,
-                              label:
-                                  productsWithCategories[index].categoryName)),
-                      initialValue: selectedCategory,
-                      onChanged: (value) {
-                        context.read<POSBloc>().selectedCategory = value;
+              ),
+              const SizedBox(height: spacingStandard),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: mobileBodyPadding),
+                child: LabelAndDropdownWidget(
+                    items: List.generate(
+                        productsWithCategories.length,
+                        (index) => CustomDropDownItem(
+                            value: index,
+                            label: productsWithCategories[index].categoryName)),
+                    initialValue: selectedCategory,
+                    onChanged: (value) {
+                      context.read<POSBloc>().selectedCategory = value;
+                      context.read<POSBloc>().add(ReloadPOS(
+                          productsWithCategories: productsWithCategories));
+                    }),
+              ),
+              Expanded(
+                child: Padding(
+                    padding: const EdgeInsets.all(mobileBodyPadding),
+                    child: ProductsGrid(
+                        products:
+                            productsWithCategories[selectedCategory].products,
+                        selectedCategory: selectedCategory,
+                        productsWithCategories: productsWithCategories,
+                        cartItems: cartItems)),
+              ),
+              const Divider(height: 0),
+              Container(
+                padding: const EdgeInsets.all(spacingStandard),
+                child: Row(
+                  children: [
+                    Text(
+                        'Total: ${context.read<POSBloc>().billModel.totalAmount}'),
+                    const Spacer(),
+                    TextButton(
+                      onPressed: () {
+                        context.read<POSBloc>().showCart = true;
                         context.read<POSBloc>().add(ReloadPOS(
                             productsWithCategories: productsWithCategories));
-                      }),
+                      },
+                      child: const Text('Settle Bill'),
+                    ),
+                  ],
                 ),
-                Expanded(
-                  child: Padding(
-                      padding: const EdgeInsets.all(mobileBodyPadding),
-                      child: ProductsGrid(
-                          products:
-                              productsWithCategories[selectedCategory].products,
-                          selectedCategory: selectedCategory,
-                          productsWithCategories: productsWithCategories,
-                          cartItems: cartItems)),
-                ),
-                const Divider(height: 0),
-                Container(
-                  padding: const EdgeInsets.all(spacingStandard),
-                  child: Row(
-                    children: [
-                      Text(
-                          'Total: ${context.read<POSBloc>().billModel.totalAmount}'),
-                      const Spacer(),
-                      TextButton(
-                        onPressed: () {
-                          context.read<POSBloc>().showCart = true;
-                          context.read<POSBloc>().add(ReloadPOS(
-                              productsWithCategories: productsWithCategories));
-                        },
-                        child: const Text('Settle Bill'),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ]),
     );
   }
 }

@@ -35,8 +35,8 @@ class ViewDataMobile extends StatelessWidget {
               return Card(
                 child: ListTile(
                     onTap: () {
-                      Navigator.pushNamed(context, DetailsScreen.routeName,
-                          arguments: viewData.utilityButtons![index].endPoint);
+                      Navigator.pushNamed(context, ViewDetailsScreen.routeName,
+                          arguments: '');
                     },
                     contentPadding: const EdgeInsets.all(spacingMedium),
                     leading: const Icon(Icons.person,
@@ -53,12 +53,18 @@ class ViewDataMobile extends StatelessWidget {
                                   .textTheme
                                   .userNameTextStyle),
                           const Spacer(),
-                          StatusChip(
-                              text: viewData.data[index]
-                                      [viewData.tileData?.status ?? ""] ??
-                                  "",
-                              color: getColorFromStatus(
-                                  viewData.data[index]["status_color"]))
+                          Visibility(
+                            visible: viewData.data[index]
+                                    [viewData.tileData?.status ?? ""] !=
+                                null,
+                            child: StatusChip(
+                                text: viewData.data[index]
+                                            [viewData.tileData?.status ?? ""]
+                                        ?.toString() ??
+                                    "",
+                                color: getColorFromStatus(
+                                    viewData.data[index]["status_color"])),
+                          )
                         ],
                       ),
                     ),

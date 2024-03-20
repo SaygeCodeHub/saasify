@@ -9,6 +9,6 @@ class SectionHeading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(label!,
-        style: Theme.of(context).textTheme.formSectionHeadingTextStyle);
+        style: Theme.of(context).textTheme.generalSectionHeadingTextStyle);
   }
 }

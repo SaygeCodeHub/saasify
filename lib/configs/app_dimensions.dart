@@ -60,3 +60,6 @@ const double kBoardUtilityBtnw = 20;
 
 
 
+
+const double kBillImageWidth = 100;
+const double kBillImageHeight = 75;

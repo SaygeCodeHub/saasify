@@ -1,11 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:saasify/configs/app_colors.dart';
+import 'package:saasify/configs/app_theme.dart';
 
 String formatDate(String inputDate) {
   DateTime dateTime = DateTime.parse(inputDate);
   String formattedDate = DateFormat('dd/MM/yyyy').format(dateTime);
   return formattedDate;
+}
+
+RichText formatAmount(double amount, BuildContext context, {int? count}) {
+  return RichText(
+      text: TextSpan(
+          text: '₹ ',
+          style: Theme.of(context).textTheme.descriptionTextStyle,
+          children: <TextSpan>[
+        TextSpan(
+            text: amount.toStringAsFixed(2),
+            style: Theme.of(context).textTheme.productCostTextStyle)
+      ]));
 }
 
 Color getColorFromStatus(String text) {

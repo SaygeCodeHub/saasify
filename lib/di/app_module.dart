@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:saasify/repositories/POS/pos_repository.dart';
+import 'package:saasify/repositories/POS/pos_repository_impl.dart';
 import 'package:saasify/repositories/attendance/attendance_repository.dart';
 import 'package:saasify/repositories/attendance/attendance_repository_impl.dart';
 import 'package:saasify/repositories/authentication/authentication_repository.dart';
@@ -42,6 +44,7 @@ configurableDependencies() {
       () => CompaniesRepositoryImpl());
   getIt.registerLazySingleton<InitialiseRepository>(
       () => InitialiseRepositoryImpl());
+  getIt.registerLazySingleton<POSRepository>(() => POSRepositoryImpl());
   getIt.registerLazySingleton<FormRepository>(() => FormRepositoryImpl());
   getIt.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl());
   getIt.registerLazySingleton<ViewDataRepository>(

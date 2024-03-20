@@ -49,7 +49,7 @@ InputDecorationTheme inputDecorationTheme = const InputDecorationTheme(
     disabledBorder:
         OutlineInputBorder(borderSide: BorderSide(color: Colors.black12)),
     hintStyle: TextStyle(
-        fontSize: 13, color: AppColors.grey, fontWeight: FontWeight.w500));
+        fontSize: 13, color: AppColors.darkGrey, fontWeight: FontWeight.w500));
 
 // New Text Theme
 
@@ -64,9 +64,29 @@ extension AppTextTheme on TextTheme {
         fontSize: 14, color: AppColors.cementGrey, fontWeight: FontWeight.w500);
   }
 
-  TextStyle get displayLabelTextStyle {
+  TextStyle get productNameTextStyle {
     return const TextStyle(
-        fontSize: 16, color: AppColors.darkBlue, fontWeight: FontWeight.w800);
+        fontSize: 14, color: AppColors.darkBlue, fontWeight: FontWeight.w700);
+  }
+
+  TextStyle get variantNameTextStyle {
+    return const TextStyle(
+        fontSize: 13, color: AppColors.darkBlue, fontWeight: FontWeight.w600);
+  }
+
+  TextStyle get variantDescTextStyle {
+    return const TextStyle(
+        fontSize: 12, color: AppColors.darkBlue, fontWeight: FontWeight.w500);
+  }
+
+  TextStyle get descriptionTextStyle {
+    return const TextStyle(
+        fontSize: 12, color: AppColors.darkGrey, fontWeight: FontWeight.w500);
+  }
+
+  TextStyle get productCostTextStyle {
+    return const TextStyle(
+        fontSize: 16, color: AppColors.darkBlue, fontWeight: FontWeight.w700);
   }
 
   TextStyle get noDataFoundHeading {
@@ -79,23 +99,14 @@ extension AppTextTheme on TextTheme {
         fontSize: 12, color: AppColors.darkGrey, fontWeight: FontWeight.w700);
   }
 
-  TextStyle get smallWarningTextStyle {
-    return const TextStyle(
-        fontSize: 8, color: AppColors.orange, fontWeight: FontWeight.w500);
-  }
-
   TextStyle get moduleHeadingTextStyle {
     return const TextStyle(
         fontSize: 20, color: AppColors.darkBlue, fontWeight: FontWeight.w800);
   }
 
-  TextStyle get formSectionHeadingTextStyle {
+  TextStyle get generalSectionHeadingTextStyle {
     return const TextStyle(
         fontSize: 16, color: AppColors.darkBlue, fontWeight: FontWeight.w700);
-  }
-
-  TextStyle get churnPathTextStyle {
-    return const TextStyle(fontSize: 12, color: AppColors.lightBlue);
   }
 
   TextStyle get errorTitleTextStyle {

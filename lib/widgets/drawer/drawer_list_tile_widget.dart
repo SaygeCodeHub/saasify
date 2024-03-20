@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:saasify/configs/app_colors.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/configs/dashboard_route.dart';
@@ -23,12 +23,8 @@ class ModuleTileState extends State<DrawerListTileWidget> {
       children: [
         ListTile(
           minLeadingWidth: spacingStandard,
-          leading: SvgPicture.asset(
-              (widget.module['icon'] != "")
-                  ? widget.module['icon']
-                  : ('assets/svg/pos.svg'),
-              width: spacingStandard,
-              height: spacingStandard),
+          leading:
+              const Icon(Icons.desktop_mac_outlined, color: AppColors.black),
           title: Text(widget.module['title'],
               style: Theme.of(context).textTheme.drawerModuleTextStyle),
           onTap: () {

@@ -64,10 +64,10 @@ class ViewDataScreen extends StatelessWidget {
                               icon: const Icon(Icons.arrow_back_ios)),
                       ModuleHeading(label: state.viewData.tableName),
                       const Spacer(),
-                      ...List.generate(state.viewData.utilityButtons.length,
+                      ...List.generate(state.viewData.utilityButtons!.length,
                           (index) {
                         UtilityButton button =
-                            state.viewData.utilityButtons[index];
+                            state.viewData.utilityButtons![index];
                         return IconButton(
                             onPressed: () {
                               ButtonUtils.buttonAction(
@@ -77,7 +77,7 @@ class ViewDataScreen extends StatelessWidget {
                                   apiMethodType: button.apiMethodType);
                             },
                             icon: ButtonUtils.getButtonIconFromType(state
-                                .viewData.utilityButtons[index].buttonIcon));
+                                .viewData.utilityButtons![index].buttonIcon));
                       })
                     ],
                   ),
@@ -112,5 +112,5 @@ class ViewDataScreen extends StatelessWidget {
 }
 
 Color getColorFromStatus(String? statusColor) {
-  return Color(int.tryParse("0xFF$statusColor") ?? 0xFFF7F9FB);
+  return Color(int.tryParse(statusColor ?? '') ?? 0xFFF7F9FB);
 }

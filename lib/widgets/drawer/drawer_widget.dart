@@ -32,7 +32,7 @@ class DrawerWidget extends StatelessWidget {
                   final module = snapshot.data![index].toJson();
                   return DrawerListTileWidget(module: module);
                 },
-              ),
+              )
             ]);
           } else {
             return const SizedBox.shrink();

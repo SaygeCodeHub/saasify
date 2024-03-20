@@ -6,8 +6,8 @@ class ButtonActionLoading extends ButtonActionStates {}
 
 class ButtonActionSuccess extends ButtonActionStates {
   final Map<String, dynamic>? data;
-
-  ButtonActionSuccess({this.data});
+  final String message;
+  ButtonActionSuccess({required this.message, this.data});
 }
 
 class ButtonActionFailure extends ButtonActionStates {

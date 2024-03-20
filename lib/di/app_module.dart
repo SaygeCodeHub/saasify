@@ -6,6 +6,8 @@ import 'package:saasify/repositories/authentication/authentication_repository_im
 import 'package:saasify/repositories/buttonAction/button_action_repository.dart';
 import 'package:saasify/repositories/buttonAction/button_action_repository_impl.dart';
 import 'package:saasify/repositories/companies/companies_repository.dart';
+import 'package:saasify/repositories/details/details_repository.dart';
+import 'package:saasify/repositories/details/details_repository_impl.dart';
 import 'package:saasify/repositories/form/form_repository.dart';
 import 'package:saasify/repositories/form/form_repository_impl.dart';
 import 'package:saasify/repositories/initialise/initialise_repository.dart';
@@ -44,6 +46,7 @@ configurableDependencies() {
   getIt.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl());
   getIt.registerLazySingleton<ViewDataRepository>(
       () => ViewDataRepositoryImpl());
+  getIt.registerLazySingleton<DetailsRepository>(() => DetailsRepositoryImpl());
   getIt.registerLazySingleton<ButtonActionRepository>(
       () => ButtonActionRepositoryImpl());
 }

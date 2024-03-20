@@ -10,13 +10,13 @@ class ButtonUtils {
   static Icon getButtonIconFromType(String type) {
     switch (type) {
       case 'close':
-        return Icon(Icons.close);
+        return const Icon(Icons.close);
       case 'edit':
-        return Icon(Icons.edit_outlined);
+        return const Icon(Icons.edit_outlined);
       case 'delete':
-        return Icon(Icons.delete_outline, color: AppColors.errorRed);
+        return const Icon(Icons.delete_outlined, color: AppColors.errorRed);
       default:
-        return Icon(Icons.add_outlined);
+        return const Icon(Icons.add_outlined);
     }
   }
 

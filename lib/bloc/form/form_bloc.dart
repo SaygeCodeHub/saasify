@@ -15,17 +15,17 @@ class FormBloc extends Bloc<FormEvents, FormStates> {
 
   void _buildForm(BuildForm event, Emitter<FormStates> emit) async {
     emit(FormStructureFetching());
-    try {
-      FormStructureModel formStructureModel =
-          await formRepository.fetchFormStructure(event.endpoint);
-      if (formStructureModel.status == 200) {
-        emit(FormAssembled(formStructureModel: formStructureModel));
-      } else {
-        emit(FormBuildFailure(
-            error: formStructureModel.message ?? "Form Data Fetching Failed"));
-      }
-    } catch (e) {
-      emit(FormBuildFailure(error: e.toString()));
+    // try {
+    FormStructureModel formStructureModel =
+        await formRepository.fetchFormStructure(event.endpoint);
+    if (formStructureModel.status == 200) {
+      emit(FormAssembled(formStructureModel: formStructureModel));
+    } else {
+      emit(FormBuildFailure(
+          error: formStructureModel.message ?? "Form Data Fetching Failed"));
     }
+    // } catch (e) {
+    //   emit(FormBuildFailure(error: e.toString()));
+    // }
   }
 }

@@ -17,7 +17,7 @@ RichText formatAmount(double amount, BuildContext context, {int? count}) {
           children: <TextSpan>[
         TextSpan(
             text: amount.toStringAsFixed(2),
-            style: Theme.of(context).textTheme.productCostTextStyle)
+            style: Theme.of(context).textTheme.subtotalCostTextStyle)
       ]));
 }
 

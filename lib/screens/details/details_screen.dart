@@ -10,14 +10,15 @@ import 'package:saasify/data/models/screenArguments/no_data_screen_arguments.dar
 import 'package:saasify/screens/details/widgets/staggered_grid_card_item.dart';
 import 'package:saasify/screens/generalScreens/no_data_found_screen.dart';
 import 'package:saasify/utils/button_utils.dart';
+import 'package:saasify/widgets/buttons/back_button.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
-class DetailsScreen extends StatelessWidget {
-  static const routeName = 'DetailsScreen';
+class ViewDetailsScreen extends StatelessWidget {
+  static const routeName = 'ViewDetailsScreen';
   final String endpoint;
 
-  const DetailsScreen({super.key, required this.endpoint});
+  const ViewDetailsScreen({super.key, required this.endpoint});
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +49,9 @@ class DetailsScreen extends StatelessWidget {
                         children: [
                           isMobile
                               ? const SizedBox.shrink()
-                              : IconButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  icon: const Icon(Icons.arrow_back_ios)),
+                              : CustomBackButton(onPressed: () {
+                                  Navigator.pop(context);
+                                }),
                           ModuleHeading(
                               label: state.fetchDetailsModel.data!.heading),
                           const Spacer(),

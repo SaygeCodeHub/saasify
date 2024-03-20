@@ -21,18 +21,18 @@ class NoDataFoundScreen extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Icon(Icons.square_rounded,
-                    size: 100, color: AppColors.orange),
+                const Icon(Icons.error, size: 60, color: AppColors.orange),
+                const SizedBox(height: spacingXSmall),
                 Text(args.heading ?? "No Data Found",
                     style: Theme.of(context).textTheme.noDataFoundHeading),
-                const SizedBox(height: spacingStandard),
+                const SizedBox(height: spacingXXSmall),
                 args.message == null || args.message!.isEmpty
                     ? const SizedBox()
                     : Text(args.message!,
                         style: Theme.of(context).textTheme.noDataFoundMessage),
                 args.message == null || args.message!.isEmpty
                     ? const SizedBox()
-                    : const SizedBox(height: spacingStandard),
+                    : const SizedBox(height: spacingXSmall),
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);

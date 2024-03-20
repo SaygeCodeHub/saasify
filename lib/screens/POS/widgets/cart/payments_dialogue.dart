@@ -55,7 +55,7 @@ class _PaymentsDialogueState extends State<PaymentsDialogue> {
         ]),
         content: SizedBox(
             width: 300,
-            height: selectedPaymentMethod == "Cash" ? 400 : 300,
+            height: selectedPaymentMethod == "Cash" ? 450 : 300,
             child: selectedPaymentMethod == "Cash"
                 ? Column(mainAxisSize: MainAxisSize.min, children: [
                     LabelAndTextFieldWidget(
@@ -82,7 +82,8 @@ class _PaymentsDialogueState extends State<PaymentsDialogue> {
                             totalAmountReceived = value;
                           });
                         },
-                        value: totalAmountReceived),
+                        value: totalAmountReceived,
+                        isMobile: isMobile),
                     const Spacer(),
                     PrimaryButton(
                         onPressed: () {

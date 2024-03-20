@@ -67,7 +67,7 @@ class VariantsDialogue extends StatelessWidget {
                                 .copyWith(
                                     color: AppColors.darkBlue, fontSize: 16)),
                         Text(
-                            "₹${products[index].variants[variantIndex].cost.toString()}",
+                            "₹ ${products[index].variants[variantIndex].cost.toString()}",
                             style: Theme.of(context)
                                 .textTheme
                                 .labelTextStyle

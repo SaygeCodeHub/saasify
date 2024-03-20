@@ -39,7 +39,7 @@ class ViewDataWeb extends StatelessWidget {
             dataIds: viewData.data.map((e) => e["id"] as int).toList(),
             onSelectChanged: onSelectChanged,
             rowOnTap: (_) {
-              Navigator.pushNamed(context, DetailsScreen.routeName,
+              Navigator.pushNamed(context, ViewDetailsScreen.routeName,
                   arguments: '');
             },
             generateData: (rowIndex) {

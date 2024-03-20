@@ -89,6 +89,11 @@ extension AppTextTheme on TextTheme {
         fontSize: 16, color: AppColors.darkBlue, fontWeight: FontWeight.w700);
   }
 
+  TextStyle get subtotalCostTextStyle {
+    return const TextStyle(
+        fontSize: 12, color: AppColors.darkBlue, fontWeight: FontWeight.w700);
+  }
+
   TextStyle get noDataFoundHeading {
     return const TextStyle(
         fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w700);
@@ -141,7 +146,7 @@ extension AppTextTheme on TextTheme {
 
   TextStyle get userNameTextStyle {
     return const TextStyle(
-        fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w500);
+        fontSize: 14, color: AppColors.black, fontWeight: FontWeight.w500);
   }
 
   TextStyle get drawerModuleTextStyle {

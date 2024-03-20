@@ -14,7 +14,7 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
   final POSRepository posRepository = getIt<POSRepository>();
 
   Map<int, CartItemModel> cartProducts = {};
-  int variantCost = 0;
+  double variantCost = 0;
   BillModel billModel = BillModel(
     customerName: '',
     customerPhone: '',
@@ -44,6 +44,9 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
     cartProducts.clear();
     billModel.tax = 0;
     billModel.discount = 0;
+    billModel.totalAmount = 0;
+    billModel.subTotal = 0;
+    billModel.itemTotal = 0;
     emit(ProductByCategoryLoaded(
         productsWithCategories: event.productsWithCategories,
         selectedCategory: selectedCategory,
@@ -112,11 +115,11 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
     } else {
       cartProducts[event.variant!.variantId] = CartItemModel(
           id: event.variant!.variantId,
-          unit: event.variant!.unit,
-          quantity: event.variant!.quantity,
-          name: event.productName,
+          unit: event.variant!.unit.toString(),
+          quantity: double.parse(event.variant!.quantity),
+          name: event.variant!.variantName,
           cost: event.variant!.cost,
-          image: event.variant!.image,
+          image: "event.variant!.image",
           count: 1,
           variantCost: variantCost);
     }

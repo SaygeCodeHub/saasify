@@ -42,9 +42,9 @@ class AppRoutes {
             args: settings.arguments as NoDataScreenArguments));
       case FormScreen.routeName:
         return _createRoute(FormScreen(endpoint: settings.arguments as String));
-      case ViewDataScreen.routeName:
+      case ViewListScreen.routeName:
         return _createRoute(
-            ViewDataScreen(endpoint: settings.arguments as String));
+            ViewListScreen(endpoint: settings.arguments as String));
       case AllCompaniesScreen.routeName:
         return _createRoute(AllCompaniesScreen(
             authenticateUserData: settings.arguments as AuthenticateUserData));
@@ -59,8 +59,8 @@ class AppRoutes {
       case POSScreen.routeName:
         return _createRoute(const POSScreen());
 
-      case DetailsScreen.routeName:
-        return _createRoute(const DetailsScreen(endpoint: ''));
+      case ViewDetailsScreen.routeName:
+        return _createRoute(const ViewDetailsScreen(endpoint: ''));
       default:
         return _createRoute(const ComingSoonScreen());
     }

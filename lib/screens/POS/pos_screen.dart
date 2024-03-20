@@ -10,7 +10,7 @@ import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 
 class POSScreen extends StatelessWidget {
-  static const String routeName = 'POS';
+  static const String routeName = 'POSScreen';
 
   const POSScreen({super.key});
 

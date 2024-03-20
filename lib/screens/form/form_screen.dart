@@ -14,6 +14,7 @@ import 'package:saasify/utils/button_utils.dart';
 import 'package:saasify/utils/progress_bar.dart';
 import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
 import 'package:saasify/widgets/alertDialogs/success_alert_dialog.dart';
+import 'package:saasify/widgets/buttons/back_button.dart';
 import 'package:saasify/widgets/formWidgets/form_section.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
@@ -61,11 +62,9 @@ class FormScreen extends StatelessWidget {
                           children: [
                             isMobile
                                 ? const SizedBox.shrink()
-                                : IconButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    icon: const Icon(Icons.arrow_back_ios)),
+                                : CustomBackButton(onPressed: () {
+                                    Navigator.pop(context);
+                                  }),
                             ModuleHeading(
                                 label:
                                     state.formStructureModel.data?.formName ??

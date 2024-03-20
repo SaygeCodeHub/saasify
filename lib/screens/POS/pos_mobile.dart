@@ -58,7 +58,7 @@ class POSMobile extends StatelessWidget {
                             label: productsWithCategories[index].categoryName)),
                     initialValue: selectedCategory,
                     onChanged: (value) {
-                      context.read<POSBloc>().selectedCategory = value;
+                      context.read<POSBloc>().selectedCategory = value + 1;
                       context.read<POSBloc>().add(ReloadPOS(
                           productsWithCategories: productsWithCategories));
                     }),
@@ -67,29 +67,34 @@ class POSMobile extends StatelessWidget {
                 child: Padding(
                     padding: const EdgeInsets.all(mobileBodyPadding),
                     child: ProductsGrid(
-                        products:
-                            productsWithCategories[selectedCategory].products,
+                        products: productsWithCategories
+                            .firstWhere((element) =>
+                                element.categoryId == selectedCategory)
+                            .products,
                         selectedCategory: selectedCategory,
                         productsWithCategories: productsWithCategories,
                         cartItems: cartItems)),
               ),
               const Divider(height: 0),
-              Container(
-                padding: const EdgeInsets.all(spacingStandard),
-                child: Row(
-                  children: [
-                    Text(
-                        'Total: ${context.read<POSBloc>().billModel.totalAmount}'),
-                    const Spacer(),
-                    TextButton(
-                      onPressed: () {
-                        context.read<POSBloc>().showCart = true;
-                        context.read<POSBloc>().add(ReloadPOS(
-                            productsWithCategories: productsWithCategories));
-                      },
-                      child: const Text('Settle Bill'),
-                    ),
-                  ],
+              Visibility(
+                visible: cartItems.isNotEmpty,
+                child: Container(
+                  padding: const EdgeInsets.all(spacingStandard),
+                  child: Row(
+                    children: [
+                      Text(
+                          'Total: ${context.read<POSBloc>().billModel.totalAmount}'),
+                      const Spacer(),
+                      TextButton(
+                        onPressed: () {
+                          context.read<POSBloc>().showCart = true;
+                          context.read<POSBloc>().add(ReloadPOS(
+                              productsWithCategories: productsWithCategories));
+                        },
+                        child: const Text('Settle Bill'),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ]),

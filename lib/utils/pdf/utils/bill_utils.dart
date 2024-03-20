@@ -9,9 +9,9 @@ const double whiteLuxuryDemeritGst = 28;
 class MenuItem {
   final String itemName;
   final int quantity;
-  final int price;
+  final double price;
   final double gstRate;
-  final int? totalCost;
+  final double? totalCost;
 
   MenuItem(
       {this.totalCost = 0,
@@ -20,7 +20,7 @@ class MenuItem {
       required this.price,
       required this.gstRate});
 
-  int get amount => quantity * price;
+  double get amount => quantity * price;
 
   double get gst => (quantity * price * gstRate) / 100;
 }

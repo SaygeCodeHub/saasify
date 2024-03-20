@@ -40,7 +40,7 @@ class DashboardRouting {
             arguments: endpoint ?? '');
         break;
       case 'HR_VIEW_ALL_EMPLOYEES':
-        Navigator.pushNamed(context, ViewDataScreen.routeName,
+        Navigator.pushNamed(context, ViewListScreen.routeName,
             arguments: endpoint ?? '');
         break;
       case 'HR_SALARY_ROLLOUT':
@@ -77,7 +77,7 @@ class DashboardRouting {
             arguments: endpoint ?? '');
         break;
       case "viewData":
-        Navigator.pushNamed(context, ViewDataScreen.routeName,
+        Navigator.pushNamed(context, ViewListScreen.routeName,
             arguments: endpoint ?? '');
         break;
       default:

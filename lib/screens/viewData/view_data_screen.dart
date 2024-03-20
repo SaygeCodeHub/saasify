@@ -10,16 +10,17 @@ import 'package:saasify/screens/generalScreens/no_data_found_screen.dart';
 import 'package:saasify/screens/viewData/view_data_mobile.dart';
 import 'package:saasify/screens/viewData/view_data_web.dart';
 import 'package:saasify/utils/button_utils.dart';
+import 'package:saasify/widgets/buttons/back_button.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 import 'package:saasify/widgets/text/module_heading.dart';
 
-class ViewDataScreen extends StatelessWidget {
-  static const String routeName = 'ViewDataScreen';
+class ViewListScreen extends StatelessWidget {
+  static const String routeName = 'ViewListScreen';
 
   final String endpoint;
 
-  const ViewDataScreen({super.key, required this.endpoint});
+  const ViewListScreen({super.key, required this.endpoint});
 
   @override
   Widget build(BuildContext context) {
@@ -57,12 +58,13 @@ class ViewDataScreen extends StatelessWidget {
                     children: [
                       isMobile
                           ? const SizedBox.shrink()
-                          : IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(Icons.arrow_back_ios)),
-                      ModuleHeading(label: state.viewData.tableName),
+                          : CustomBackButton(onPressed: () {
+                              Navigator.pop(context);
+                            }),
+                      ModuleHeading(
+                          label: (state.viewData.tableName.isEmpty)
+                              ? state.viewData.screenName
+                              : state.viewData.tableName),
                       const Spacer(),
                       ...List.generate(state.viewData.utilityButtons!.length,
                           (index) {

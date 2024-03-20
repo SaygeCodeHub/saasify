@@ -31,6 +31,7 @@ class ViewDataModel {
 
 class ViewData {
   final String tableName;
+  final String screenName;
   final TileData? tileData;
   final List<ColumnDetailsData>? columns;
   final List<Map<String, dynamic>> data;
@@ -38,6 +39,7 @@ class ViewData {
 
   ViewData({
     required this.tableName,
+    required this.screenName,
     required this.tileData,
     required this.columns,
     required this.data,
@@ -45,7 +47,8 @@ class ViewData {
   });
 
   factory ViewData.fromJson(Map<String, dynamic> json) => ViewData(
-        tableName: json["table_name"],
+        tableName: json["table_name"] ?? '',
+        screenName: json["screen_name"] ?? '',
         tileData: json["tile_data"] == null
             ? null
             : TileData.fromJson(json["tile_data"]),
@@ -62,6 +65,7 @@ class ViewData {
 
   Map<String, dynamic> toJson() => {
         "table_name": tableName,
+        "screen_name": screenName,
         "tile_data": tileData?.toJson(),
         "columns": columns == null
             ? null
@@ -103,7 +107,7 @@ class ColumnDetailsData {
 
 class TileData {
   final String title;
-  final dynamic subtitle;
+  final String subtitle;
   final String avatar;
   final String status;
 
@@ -115,11 +119,10 @@ class TileData {
   });
 
   factory TileData.fromJson(Map<String, dynamic> json) => TileData(
-        title: json["title_key"],
-        subtitle: json["subtitle_key"],
-        avatar: json["avatar_key"],
-        status: json["status_key"],
-      );
+      title: json["title_key"] ?? '',
+      subtitle: json["subtitle_key"] ?? '',
+      avatar: json["avatar_key"] ?? '',
+      status: json["status_key"] ?? '');
 
   Map<String, dynamic> toJson() => {
         "title_key": title,

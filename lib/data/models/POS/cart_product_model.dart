@@ -3,10 +3,10 @@ class CartItemModel {
   final String name;
   final String image;
   final String unit;
-  int cost;
+  double cost;
   int count;
-  final int quantity;
-  int variantCost;
+  final double quantity;
+  double variantCost;
 
   CartItemModel(
       {required this.id,

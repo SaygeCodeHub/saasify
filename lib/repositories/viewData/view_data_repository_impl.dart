@@ -14,7 +14,6 @@ class ViewDataRepositoryImpl implements ViewDataRepository {
       final companyId = await _cache.getCompanyId();
       final branchId = await _cache.getBranchId();
       final userId = await _cache.getUserId();
-
       final response = await ClientServices().post(
           "${ApiConstants.baseUrl3_0}$companyId/$branchId/$userId$endpoint",
           data);

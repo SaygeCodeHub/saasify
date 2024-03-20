@@ -40,17 +40,16 @@ class Cart extends StatelessWidget {
             cartItems: cartItems,
             productsWithCategories: productsWithCategories),
       )),
-      const SizedBox(height: spacingStandard),
+      const SizedBox(height: spacingXXXLarge),
       Padding(
         padding: EdgeInsets.symmetric(
             horizontal: isMobile ? mobileBodyPadding : spacingStandard),
         child: CartBillSection(productsWithCategories: productsWithCategories),
       ),
-      const SizedBox(height: spacingStandard),
       Padding(
         padding: EdgeInsets.symmetric(
             horizontal: isMobile ? mobileBodyPadding : spacingStandard,
-            vertical: spacingStandard),
+            vertical: spacingXSmall),
         child: CartActions(formKey: _formKey, cartItems: cartItems),
       )
     ]);

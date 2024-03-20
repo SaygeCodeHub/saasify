@@ -59,8 +59,10 @@ class POSWeb extends StatelessWidget {
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Image.network(e.categoryIconImage,
-                                        width: 15, height: 15),
+                                    Image.network(
+                                        "https://media.istockphoto.com/id/1398630614/photo/bacon-cheeseburger-on-a-toasted-bun.jpg?s=1024x1024&w=is&k=20&c=rXM2ry9bme764bKBGagwq4jYdjr7q98UiJLyHrl6BUU=",
+                                        width: 15,
+                                        height: 15),
                                     const SizedBox(width: spacingXSmall),
                                     Text(e.categoryName,
                                         style: Theme.of(context)

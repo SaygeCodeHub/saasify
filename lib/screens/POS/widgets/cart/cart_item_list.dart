@@ -7,7 +7,6 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/POS/cart_product_model.dart';
 import 'package:saasify/data/models/POS/product_with_categories_model.dart';
-import 'package:saasify/utils/formatters.dart';
 import 'package:saasify/widgets/alertDialogs/warning_alert_dialogue.dart';
 
 class CartItemList extends StatelessWidget {
@@ -62,7 +61,7 @@ class CartItemList extends StatelessWidget {
                           child: SizedBox.square(
                             dimension: 70,
                             child: Image.network(
-                              cartItem.image,
+                              "https://media.istockphoto.com/id/1398630614/photo/bacon-cheeseburger-on-a-toasted-bun.jpg?s=1024x1024&w=is&k=20&c=rXM2ry9bme764bKBGagwq4jYdjr7q98UiJLyHrl6BUU=",
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -72,7 +71,7 @@ class CartItemList extends StatelessWidget {
                           child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(cartItem.name,
+                                Text('${cartItem.name} ${cartItem.quantity}',
                                     style: Theme.of(context)
                                         .textTheme
                                         .productNameTextStyle),
@@ -179,9 +178,19 @@ class CartItemList extends StatelessWidget {
                                           ),
                                         ],
                                       ),
-                                      formatAmount(
-                                          cartItem.cost.toDouble(), context,
-                                          count: cartItem.count)
+                                      RichText(
+                                          text: TextSpan(
+                                              text: '₹ ',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .descriptionTextStyle,
+                                              children: <TextSpan>[
+                                            TextSpan(
+                                                text: cartItem.cost.toString(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .productCostTextStyle)
+                                          ]))
                                     ])
                               ]),
                         ),

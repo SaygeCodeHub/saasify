@@ -66,12 +66,14 @@ class Product {
   final int productId;
   final String productName;
   final String description;
+  final String productImage;
   final List<Variant> variants;
 
   Product({
     required this.productId,
     required this.productName,
     required this.description,
+    required this.productImage,
     required this.variants,
   });
 
@@ -79,6 +81,7 @@ class Product {
         productId: json["product_id"],
         productName: json["product_name"] ?? '',
         description: json["description"] ?? '',
+        productImage: json["product_image"] ?? '',
         variants: List<Variant>.from(
             json["variants"].map((x) => Variant.fromJson(x))),
       );

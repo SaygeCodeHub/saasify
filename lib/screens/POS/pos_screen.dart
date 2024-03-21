@@ -19,33 +19,33 @@ class POSScreen extends StatelessWidget {
     context.read<POSBloc>().add(FetchProductsWithCategories());
     return ScreenSkeleton(childScreenBuilder: (isMobile) {
       return BlocConsumer<POSBloc, POSStates>(
-        listener: (context, state) {
-          if (state is ProductByCategoryError) {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return ErrorAlertDialog(description: state.errorMessage);
-                });
+          listener: (context, state) {
+            if (state is ProductByCategoryError) {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return ErrorAlertDialog(description: state.errorMessage);
+                  });
+            }
+          },
+          builder: (context, state) {
+            if (state is ProductByCategoryLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (state is ProductByCategoryLoaded) {
+              return ResponsiveLayout(
+                  mobileBody: POSMobile(
+                      productsWithCategories: state.productsWithCategories,
+                      selectedCategory: state.selectedCategory,
+                      cartItems: state.cartItems),
+                  provideMobilePadding: false,
+                  desktopBody: POSWeb(
+                      productsWithCategories: state.productsWithCategories,
+                      selectedCategory: state.selectedCategory,
+                      cartItems: state.cartItems));
+            }
+            return const SizedBox.shrink();
           }
-        },
-        builder: (context, state) {
-          if (state is ProductByCategoryLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          if (state is ProductByCategoryLoaded) {
-            return ResponsiveLayout(
-                mobileBody: POSMobile(
-                    productsWithCategories: state.productsWithCategories,
-                    selectedCategory: state.selectedCategory,
-                    cartItems: state.cartItems),
-                provideMobilePadding: false,
-                desktopBody: POSWeb(
-                    productsWithCategories: state.productsWithCategories,
-                    selectedCategory: state.selectedCategory,
-                    cartItems: state.cartItems));
-          }
-          return const SizedBox.shrink();
-        },
       );
     });
   }

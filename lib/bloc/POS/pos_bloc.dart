@@ -165,9 +165,7 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
         );
         selectedCategory = 0;
         add(FetchProductsWithCategories());
-      } else {
-        // Order failed
-      }
+      } else {}
     } catch (e) {
       // Order failed
     }

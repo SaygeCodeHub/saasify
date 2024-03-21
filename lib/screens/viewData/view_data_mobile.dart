@@ -39,20 +39,41 @@ class ViewDataMobile extends StatelessWidget {
                           arguments: '');
                     },
                     contentPadding: const EdgeInsets.all(spacingMedium),
-                    leading: const Icon(Icons.person,
-                        color: AppColors.darkBlue, size: kAvatarRadius),
+                    leading: Container(
+                        padding: const EdgeInsets.all(spacingXSmall),
+                        decoration: BoxDecoration(
+                            color: AppColors.lightBlue.withOpacity(0.4),
+                            borderRadius: BorderRadius.circular(
+                                kViewPersonContainerRadius)),
+                        child: const Icon(Icons.person_2_outlined,
+                            color: AppColors.black, size: kViewPersonIconSize)),
+                    trailing: const Icon(Icons.navigate_next_rounded,
+                        color: AppColors.black, size: kViewNextIconSize),
                     title: Padding(
-                      padding: const EdgeInsets.only(bottom: spacingSmall),
-                      child: Row(
+                      padding: const EdgeInsets.only(
+                          left: spacingXSmall, bottom: spacingXXSmall),
+                      child: Text(
+                          viewData.data[index]
+                                  [viewData.tileData?.title ?? ""] ??
+                              "",
+                          style: Theme.of(context).textTheme.userNameTextStyle),
+                    ),
+                    subtitle: Padding(
+                      padding: const EdgeInsets.only(left: spacingXSmall),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                               viewData.data[index]
-                                      [viewData.tileData?.title ?? ""] ??
+                                      [viewData.tileData?.subtitle ?? ""] ??
                                   "",
                               style: Theme.of(context)
                                   .textTheme
-                                  .userNameTextStyle),
-                          const Spacer(),
+                                  .statusTextStyle
+                                  .copyWith(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 12)),
+                          const SizedBox(height: spacingXSmall),
                           Visibility(
                             visible: viewData.data[index]
                                     [viewData.tileData?.status ?? ""] !=
@@ -67,23 +88,6 @@ class ViewDataMobile extends StatelessWidget {
                           )
                         ],
                       ),
-                    ),
-                    subtitle: Row(
-                      children: [
-                        Text(
-                            viewData.data[index]
-                                    [viewData.tileData?.subtitle ?? ""] ??
-                                "",
-                            style: Theme.of(context)
-                                .textTheme
-                                .statusTextStyle
-                                .copyWith(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 10)),
-                        const Spacer(),
-                        const Icon(Icons.navigate_next_rounded,
-                            color: AppColors.lighterBlack)
-                      ],
                     )),
               );
             },

@@ -35,6 +35,9 @@ const double kAlertDialogIconSize = 38;
 const double kAlertDialogErrorIconSize = 23;
 const double kAlertDialogCloseIconSize = 20;
 const double kBackButtonSize = 20;
+const double kViewPersonIconSize = 28;
+const double kViewPersonContainerRadius = 25;
+const double kViewNextIconSize = 25;
 
 const double kBackIconSize = 20;
 

@@ -60,12 +60,15 @@ class POSBloc extends Bloc<POSEvents, POSStates> {
       final ProductsWithCategoriesModel productsWithCategoriesModel =
           await posRepository.getAllProductsWithCategories();
       if (productsWithCategoriesModel.status == 200) {
-        selectedCategory = productsWithCategoriesModel.data.first.categoryId;
-        emit(ProductByCategoryLoaded(
-            cartItems: cartProducts.values.toList(),
-            productsWithCategories: productsWithCategoriesModel.data,
-            selectedCategory: selectedCategory));
-        return;
+        if (productsWithCategoriesModel.data.isNotEmpty) {
+          selectedCategory = productsWithCategoriesModel.data.first.categoryId;
+          emit(ProductByCategoryLoaded(
+              cartItems: cartProducts.values.toList(),
+              productsWithCategories: productsWithCategoriesModel.data,
+              selectedCategory: selectedCategory));
+        } else {
+          emit(ProductByCategoryError(errorMessage: 'No data found!'));
+        }
       } else {
         emit(ProductByCategoryError(
             errorMessage: productsWithCategoriesModel.message));

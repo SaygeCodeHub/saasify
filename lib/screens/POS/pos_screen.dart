@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/POS/pos_bloc.dart';
 import 'package:saasify/bloc/POS/pos_event.dart';
 import 'package:saasify/bloc/POS/pos_state.dart';
+import 'package:saasify/data/models/screenArguments/no_data_screen_arguments.dart';
 import 'package:saasify/screens/POS/pos_mobile.dart';
 import 'package:saasify/screens/POS/pos_web.dart';
-import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
+import 'package:saasify/screens/generalScreens/no_data_found_screen.dart';
 import 'package:saasify/widgets/layoutWidgets/responsive_layout.dart';
 import 'package:saasify/widgets/layoutWidgets/screen_skeleton.dart';
 
@@ -20,11 +21,9 @@ class POSScreen extends StatelessWidget {
     return ScreenSkeleton(childScreenBuilder: (isMobile) {
       return BlocConsumer<POSBloc, POSStates>(listener: (context, state) {
         if (state is ProductByCategoryError) {
-          showDialog(
-              context: context,
-              builder: (context) {
-                return ErrorAlertDialog(description: state.errorMessage);
-              });
+          Navigator.pushReplacementNamed(context, NoDataFoundScreen.routeName,
+              arguments: NoDataScreenArguments(
+                  heading: "No data found!", message: ''));
         }
       }, builder: (context, state) {
         if (state is ProductByCategoryLoading) {

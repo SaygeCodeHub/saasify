@@ -5,8 +5,9 @@ import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/configs/app_theme.dart';
 import 'package:saasify/data/models/initialise/initialise_app_model.dart';
 import 'package:saasify/di/app_module.dart';
+import 'package:saasify/posOffline/screens/pos_add_category.dart';
+import 'package:saasify/posOffline/screens/pos_add_product.dart';
 import 'package:saasify/screens/POS/pos_screen.dart';
-import 'package:saasify/screens/form/form_screen.dart';
 import 'package:saasify/screens/viewData/view_data_screen.dart';
 import 'package:saasify/utils/globals.dart';
 import 'package:saasify/widgets/drawer/drawer_list_tile_widget.dart';
@@ -78,16 +79,12 @@ class DrawerWidget extends StatelessWidget {
                                     switch (posOfflineData[index]['endpoint']) {
                                       case '/buildCategoryForm':
                                         Navigator.pushNamed(
-                                            context, FormScreen.routeName,
-                                            arguments: posOfflineData[index]
-                                                    ['endpoint'] ??
-                                                '');
+                                          context,
+                                          PosAddCategory.routeName,
+                                        );
                                       case '/buildProductForm':
                                         Navigator.pushNamed(
-                                            context, FormScreen.routeName,
-                                            arguments: posOfflineData[index]
-                                                    ['endpoint'] ??
-                                                '');
+                                            context, PosAddProduct.routeName);
                                       case '/buildCategories':
                                         Navigator.pushNamed(
                                             context, ViewListScreen.routeName,
@@ -95,6 +92,12 @@ class DrawerWidget extends StatelessWidget {
                                                     ['endpoint'] ??
                                                 '');
                                       case '/buildProducts':
+                                        Navigator.pushNamed(
+                                            context, ViewListScreen.routeName,
+                                            arguments: posOfflineData[index]
+                                                    ['endpoint'] ??
+                                                '');
+                                      case '/buildGetProductWithCategories':
                                         Navigator.pushNamed(
                                             context, ViewListScreen.routeName,
                                             arguments: posOfflineData[index]

@@ -10,6 +10,40 @@ var addProduct = {
           {
             "fields": [
               {
+                "column_name": "select_category",
+                "label": "Select Category",
+                "field_type": "dropDown",
+                "placeholder": null,
+                "required": false,
+                "error_text": null,
+                "user_selection": {
+                  "text_value": null,
+                  "user_selected_value": null,
+                  "user_selected_date": null
+                },
+                "text_field": null,
+                "dropdown_field": {
+                  "options": [
+                    {
+                      "label": "Coffee",
+                      "value": "Male"
+                    },
+                    {
+                      "label": "Maggie",
+                      "value": "Maggie"
+                    },
+                    {
+                      "label": "Donuts",
+                      "value": "Donuts"
+                    }
+                  ],
+                  "default_value": null
+                },
+                "radio_field": null,
+                "checkbox_field": null,
+                "date_picker_field": null
+              },
+              {
                 "column_name": "product_name",
                 "label": "Product Name",
                 "field_type": "textField",

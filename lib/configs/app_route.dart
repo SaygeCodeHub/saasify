@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/data/models/authentication/authenticate_user_model.dart';
 import 'package:saasify/data/models/screenArguments/no_data_screen_arguments.dart';
+import 'package:saasify/posOffline/screens/pos_add_category.dart';
+import 'package:saasify/posOffline/screens/pos_add_product.dart';
 import 'package:saasify/screens/POS/pos_screen.dart';
 import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
 import 'package:saasify/screens/authentication/forgotPassword/forgot_password_screen.dart';
@@ -58,7 +60,10 @@ class AppRoutes {
         return _createRoute(const ShiftManagementScreen());
       case POSScreen.routeName:
         return _createRoute(const POSScreen());
-
+      case PosAddCategory.routeName:
+        return _createRoute(PosAddCategory());
+      case PosAddProduct.routeName:
+        return _createRoute(PosAddProduct());
       case ViewDetailsScreen.routeName:
         return _createRoute(const ViewDetailsScreen(endpoint: ''));
       default:

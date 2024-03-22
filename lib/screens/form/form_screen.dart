@@ -184,6 +184,7 @@ class FormScreen extends StatelessWidget {
                                                     kGeneralActionButtonWidth,
                                                 buttonType: button.buttonType ??
                                                     "primary", onPressed: () {
+
                                                 Map<String, dynamic> data =
                                                     state.formStructureModel
                                                             .data

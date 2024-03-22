@@ -101,7 +101,9 @@ class ViewListScreen extends StatelessWidget {
                               },
                               onSelectChanged: (selectedIds) {
                                 selectedIds = selectedIds;
-                              })))
+                              },
+                              viewPosData: state.viewPosData,
+                              isMobile: isMobile)))
                 ],
               );
             }

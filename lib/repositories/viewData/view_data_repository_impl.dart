@@ -25,7 +25,7 @@ class ViewDataRepositoryImpl implements ViewDataRepository {
       } else {
         switch (endpoint) {
           case '/buildCategories':
-            return ViewDataModel.fromJson(webViewCategory);
+            return ViewDataModel.fromJson(viewCategory);
           case '/buildProducts':
             return ViewDataModel.fromJson(viewProducts);
           default:

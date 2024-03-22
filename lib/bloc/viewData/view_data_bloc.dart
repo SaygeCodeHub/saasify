@@ -19,7 +19,7 @@ class ViewDataBloc extends Bloc<ViewDataEvents, ViewDataStates> {
           .fetchData(event.endpoint, {"isMobile": event.isMobile});
 
       if (viewDataModel.status == 200) {
-        emit(DataFetched(viewDataModel.data));
+        emit(DataFetched(viewDataModel.data, viewDataModel.viewPOSData));
       } else {
         emit(ErrorFetchingData(viewDataModel.message));
       }

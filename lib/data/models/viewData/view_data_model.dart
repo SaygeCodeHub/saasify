@@ -9,23 +9,57 @@ class ViewDataModel {
   final int status;
   final String message;
   final ViewData data;
+  final List<ViewPOSData> viewPOSData;
 
-  ViewDataModel({
-    required this.status,
-    required this.message,
-    required this.data,
-  });
+  ViewDataModel(
+      {required this.status,
+      required this.message,
+      required this.data,
+      required this.viewPOSData});
 
   factory ViewDataModel.fromJson(Map<String, dynamic> json) => ViewDataModel(
-        status: json["status"],
-        message: json["message"],
-        data: ViewData.fromJson(json["data"]),
-      );
+      status: json["status"],
+      message: json["message"],
+      data: ViewData.fromJson(json["data"]),
+      viewPOSData: List<ViewPOSData>.from(
+          json["view_pos_data"].map((x) => ViewPOSData.fromJson(x))));
 
   Map<String, dynamic> toJson() => {
         "status": status,
         "message": message,
         "data": data.toJson(),
+        "view_pos_data":
+            List<ViewPOSData>.from(viewPOSData.map((x) => x.toJson())),
+      };
+}
+
+class ViewPOSData {
+  final int id;
+  final String name;
+  final String image;
+  final String description;
+  final double price;
+
+  ViewPOSData(
+      {required this.id,
+      required this.name,
+      required this.image,
+      required this.description,
+      required this.price});
+
+  factory ViewPOSData.fromJson(Map<String, dynamic> json) => ViewPOSData(
+      id: json["id"],
+      name: json["name"],
+      image: json["image"] ?? '',
+      description: json["description"] ?? '',
+      price: json["price"]);
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "image": image,
+        "description": description,
+        "price": price
       };
 }
 
@@ -56,7 +90,9 @@ class ViewData {
             ? null
             : List<ColumnDetailsData>.from(
                 json["columns"].map((x) => ColumnDetailsData.fromJson(x))),
-        data: List<Map<String, dynamic>>.from(json["view_data"]),
+        data: (json["view_data"] == null)
+            ? []
+            : List<Map<String, dynamic>>.from(json["view_data"]),
         utilityButtons: (json["utility_buttons"] == null)
             ? []
             : List<UtilityButton>.from(

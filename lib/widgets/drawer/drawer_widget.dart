@@ -94,6 +94,12 @@ class DrawerWidget extends StatelessWidget {
                                             arguments: posOfflineData[index]
                                                     ['endpoint'] ??
                                                 '');
+                                      case '/buildProducts':
+                                        Navigator.pushNamed(
+                                            context, ViewListScreen.routeName,
+                                            arguments: posOfflineData[index]
+                                                    ['endpoint'] ??
+                                                '');
                                     }
                                   });
                             },

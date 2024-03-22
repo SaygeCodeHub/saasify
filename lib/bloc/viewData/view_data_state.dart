@@ -8,8 +8,9 @@ class FetchingData extends ViewDataStates {}
 
 class DataFetched extends ViewDataStates {
   final ViewData viewData;
+  final List<ViewPOSData> viewPosData;
 
-  DataFetched(this.viewData);
+  DataFetched(this.viewData, this.viewPosData);
 }
 
 class ErrorFetchingData extends ViewDataStates {

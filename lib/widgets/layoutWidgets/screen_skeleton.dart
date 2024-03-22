@@ -23,7 +23,7 @@ class ScreenSkeleton extends StatelessWidget {
       appBar: isMobile ? MobileAppBar(isHome: isHome) : null,
       drawer: isMobile
           ? isHome
-              ? const DrawerWidget()
+              ? DrawerWidget()
               : null
           : null,
       body: Row(
@@ -34,7 +34,7 @@ class ScreenSkeleton extends StatelessWidget {
               ? const SizedBox.shrink()
               : isMobile
                   ? const SizedBox()
-                  : const DrawerWidget(),
+                  : DrawerWidget(),
           Expanded(
             child: !isMobile
                 ? Column(

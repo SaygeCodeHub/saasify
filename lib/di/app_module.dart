@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:saasify/posOffline/pos_offline_data.dart';
 import 'package:saasify/repositories/POS/pos_repository.dart';
 import 'package:saasify/repositories/POS/pos_repository_impl.dart';
 import 'package:saasify/repositories/attendance/attendance_repository.dart';
@@ -49,6 +50,7 @@ configurableDependencies() {
   getIt.registerLazySingleton<TaskRepository>(() => TaskRepositoryImpl());
   getIt.registerLazySingleton<ViewDataRepository>(
       () => ViewDataRepositoryImpl());
+  getIt.registerLazySingleton<PosOfflineModel>(() => PosOfflineModel());
   getIt.registerLazySingleton<DetailsRepository>(() => DetailsRepositoryImpl());
   getIt.registerLazySingleton<ButtonActionRepository>(
       () => ButtonActionRepositoryImpl());

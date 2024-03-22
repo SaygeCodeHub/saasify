@@ -15,7 +15,6 @@ class DrawerListTileWidget extends StatefulWidget {
 
 class ModuleTileState extends State<DrawerListTileWidget> {
   bool isExpanded = false;
-  int selectedDestination = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -62,10 +61,8 @@ class FeatureTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-        title: Text(
-          feature['title'],
-          style: Theme.of(context).textTheme.drawerFeatureTextStyle,
-        ),
+        title: Text(feature['title'],
+            style: Theme.of(context).textTheme.drawerFeatureTextStyle),
         onTap: () {
           DashboardRouting(
             featureKey: feature['feature_key'],

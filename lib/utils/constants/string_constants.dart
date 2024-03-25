@@ -1,4 +1,6 @@
 class StringConstants {
+  static const kCategoryName = 'Category Name';
+
   static const kFirstName = 'First Name';
   static const kMiddleName = 'Middle Name';
   static const kLastName = 'Last Name';

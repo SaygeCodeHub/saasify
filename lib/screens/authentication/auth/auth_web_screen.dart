@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/auth/auth_bloc.dart';
-import 'package:saasify/configs/app_colors.dart';
-import 'package:saasify/configs/app_spacing.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:saasify/screens/authentication/auth/verify_button.dart';
-import 'package:saasify/screens/authentication/forgotPassword/forgot_password_button.dart';
-import 'package:saasify/widgets/form/form_input_fields.dart';
-import 'package:saasify/widgets/profile/saasify_logo.dart';
+import '../../../configs/app_colors.dart';
+import '../../../configs/app_spacing.dart';
+import '../../../utils/constants/string_constants.dart';
+import '../../widgets/lable_and_textfield_widget.dart';
+import '../forgetPassword/forget_password_button.dart';
 
 class AuthWebScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -16,56 +15,46 @@ class AuthWebScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-        alignment: Alignment.center,
+      alignment: Alignment.center,
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.80,
+        width: MediaQuery.of(context).size.width * 0.60,
+        decoration: BoxDecoration(
+          border: Border.all(color: AppColors.grey, width: 5.0),
+        ),
         child: Container(
-          height: MediaQuery.sizeOf(context).height * 0.80,
-          width: MediaQuery.sizeOf(context).width * 0.60,
-          decoration: BoxDecoration(
-            border: Border.all(color: AppColors.grey, width: 5.0),
-          ),
-          child: Row(
-            children: [
-              SizedBox(
-                  height: MediaQuery.sizeOf(context).height,
-                  width: MediaQuery.sizeOf(context).width * 0.18,
-                  child: Image.asset('assets/abstract.png', fit: BoxFit.fill)),
-              Expanded(
-                child: Container(
-                  color: AppColors.lightGrey,
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.all(spacingBetweenTextFieldAndButton),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SaasifyLogo(),
-                        const SizedBox(
-                            height: spacingBetweenTextFieldAndButton),
-                        EmailTextField(
-                            isRequired: true,
-                            onTextFieldChanged: (value) {
-                              context
-                                  .read<AuthBloc>()
-                                  .userInputAuthenticationMap['email'] = value;
-                            }),
-                        const SizedBox(height: spacingBetweenTextFields),
-                        PasswordTextField(onTextFieldChanged: (value) {
-                          context
-                              .read<AuthBloc>()
-                              .userInputAuthenticationMap['password'] = value;
-                        }),
-                        const ForgotPasswordButton(),
-                        const SizedBox(
-                            height: spacingBetweenTextFieldAndButton),
-                        AuthVerifyButton(formKey: formKey)
-                      ],
-                    ),
-                  ),
+          color: AppColors.lightGrey,
+          child: Padding(
+            padding: const EdgeInsets.all(spacingBetweenTextFieldAndButton),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset("assets/saasify_logo.svg",
+                    width: 50, height: 50),
+                const SizedBox(height: spacingBetweenTextFields),
+                LabelAndTextFieldWidget(
+                  prefixIcon: const Icon(Icons.email_outlined),
+                  label: StringConstants.kEmailAddress,
+                  isRequired: true,
+                  onTextFieldChanged: (value) {},
                 ),
-              ),
-            ],
+                const SizedBox(height: spacingBetweenTextFields),
+                LabelAndTextFieldWidget(
+                  prefixIcon: const Icon(Icons.password_outlined),
+                  label: StringConstants.kPassword,
+                  isRequired: true,
+                  onTextFieldChanged: (value) {},
+                ),
+                const SizedBox(height: spacingBetweenTextFields),
+                const ForgotPasswordButton(),
+                const SizedBox(height: spacingBetweenTextFieldAndButton),
+                AuthVerifyButton(formKey: formKey),
+              ],
+            ),
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

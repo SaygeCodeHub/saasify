@@ -1,3 +1,5 @@
+const double mobileBodyPadding = 16.00;
+const double webBodyPadding = 32.00;
 const double kCardRadius = 5;
 const double kCircularRadius = 5;
 const double kVerticalPadding = 6;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/configs/app_colors.dart';
+
+import 'app_colors.dart';
 
 ThemeData appTheme = ThemeData(
     useMaterial3: false,
@@ -10,7 +11,7 @@ ThemeData appTheme = ThemeData(
     highlightColor: AppColors.transparent,
     focusColor: AppColors.transparent,
     appBarTheme: appBarTheme,
-    scaffoldBackgroundColor: AppColors.backgroundColor,
+    scaffoldBackgroundColor: AppColors.white,
     inputDecorationTheme: inputDecorationTheme,
     iconTheme: iconThemeData,
     drawerTheme: drawerThemeData);
@@ -20,12 +21,12 @@ AppBarTheme appBarTheme = const AppBarTheme(
     elevation: 0,
     centerTitle: false,
     iconTheme: IconThemeData(color: AppColors.darkBlue),
-    actionsIconTheme: IconThemeData(color: AppColors.orange));
+    actionsIconTheme: IconThemeData(color: AppColors.blue));
 
 ColorScheme colorScheme = const ColorScheme.light(
   surface: AppColors.white,
   background: AppColors.white,
-  primary: AppColors.orange,
+  primary: AppColors.blue,
 );
 
 DrawerThemeData drawerThemeData =
@@ -51,12 +52,20 @@ InputDecorationTheme inputDecorationTheme = const InputDecorationTheme(
     hintStyle: TextStyle(
         fontSize: 13, color: AppColors.darkGrey, fontWeight: FontWeight.w500));
 
-// New Text Theme
-
 extension AppTextTheme on TextTheme {
+  TextStyle get screenTitle {
+    return const TextStyle(
+        fontSize: 42, fontWeight: FontWeight.w600, color: Colors.black);
+  }
+
   TextStyle get labelTextStyle {
     return const TextStyle(
         fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w300);
+  }
+
+  TextStyle get gridViewLabelTextStyle {
+    return const TextStyle(
+        fontSize: 18, color: AppColors.cementGrey, fontWeight: FontWeight.w600);
   }
 
   TextStyle get fieldLabelTextStyle {
@@ -107,11 +116,6 @@ extension AppTextTheme on TextTheme {
   TextStyle get generalSectionHeadingTextStyle {
     return const TextStyle(
         fontSize: 16, color: AppColors.darkBlue, fontWeight: FontWeight.w700);
-  }
-
-  TextStyle get errorTitleTextStyle {
-    return const TextStyle(
-        fontSize: 18, color: AppColors.black, fontWeight: FontWeight.w800);
   }
 
   TextStyle get errorSubtitleTextStyle {
@@ -187,15 +191,6 @@ extension AppTextTheme on TextTheme {
   TextStyle get dialogueContentTextStyle {
     return const TextStyle(
         fontSize: 16, color: AppColors.black, fontWeight: FontWeight.w500);
-  }
-
-  TextStyle get headingTextStyle {
-    return const TextStyle(
-        fontSize: 32, color: AppColors.orange, fontWeight: FontWeight.w500);
-  }
-
-  TextStyle get titleTextStyle {
-    return const TextStyle(fontSize: 15, fontWeight: FontWeight.w600);
   }
 
   TextStyle get subtitleTextStyle {

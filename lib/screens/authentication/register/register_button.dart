@@ -1,21 +1,53 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/auth/auth_bloc.dart';
-import 'package:saasify/bloc/register/register_bloc.dart';
-import 'package:saasify/bloc/register/register_events.dart';
-import 'package:saasify/bloc/register/register_states.dart';
-import 'package:saasify/configs/app_colors.dart';
-import 'package:saasify/configs/app_spacing.dart';
-import 'package:saasify/screens/authentication/auth/auhentication_screen.dart';
-import 'package:saasify/screens/companies/widgets/addCompany/add_company_screen.dart';
-import 'package:saasify/utils/constants/string_constants.dart';
-import 'package:saasify/widgets/alertDialogs/error_alert_dialog.dart';
-import 'package:saasify/widgets/buttons/primary_button.dart';
+
+import '../../../configs/app_colors.dart';
+import '../../../configs/app_spacing.dart';
+import '../../../utils/constants/string_constants.dart';
+import '../../widgets/buttons/primary_button.dart';
+import '../auth/authentication_screen.dart';
 
 class RegisterButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
+  final Map registerMap;
 
-  const RegisterButton({super.key, required this.formKey});
+  const RegisterButton(
+      {super.key, required this.formKey, required this.registerMap});
+
+  Future<UserCredential?> registerUser(
+      String email, String password, String fullName) async {
+    try {
+      // Register the user with FirebaseAuth
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      // Add user details to Firestore under 'users' collection
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set({
+        'fullName': fullName,
+        'email': email,
+      });
+
+      print("User registered successfully");
+      return userCredential; // Returning UserCredential for further actions if needed
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('An account already exists for that email.');
+      }
+      return null;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,45 +55,36 @@ class RegisterButton extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        BlocConsumer<RegisterBloc, RegisterStates>(listener: (context, state) {
-          if (state is UserRegistered) {
-            Navigator.pushReplacementNamed(context, AddCompanyScreen.routeName);
-          }
-          if (state is FailedToRegisterUser) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return ErrorAlertDialog(
-                    description: state.errorMessage.toString());
-              },
-            );
-          }
-        }, builder: (context, state) {
-          if (state is RegisteringUser) {
-            return const Center(child: CircularProgressIndicator());
-          } else {
-            return PrimaryButton(
-                onPressed: () {
-                  if (formKey.currentState?.validate() ?? false) {
-                    context.read<RegisterBloc>().add(RegisterUser(
-                        userDetails: context
-                            .read<RegisterBloc>()
-                            .userInputAuthenticationMap));
-                  }
-                },
-                buttonTitle: StringConstants.kRegister);
-          }
-        }),
+        PrimaryButton(
+          onPressed: () {
+            print('register map--->$registerMap');
+            if (formKey.currentState!.validate()) {
+              registerUser(registerMap['email'], registerMap['password'],
+                  '${registerMap['first_name']} ${registerMap['last_name']}');
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) => const HomeScreen(),
+              //   ),
+              // );
+            }
+          },
+          buttonTitle: StringConstants.kRegister,
+        ),
         InkWell(
           onTap: () {
-            context.read<AuthBloc>().userInputAuthenticationMap.clear();
-            Navigator.pushReplacementNamed(
-                context, AuthenticationScreen.routeName);
+            Navigator.pop(context);
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AuthenticationScreen()));
           },
           child: const Padding(
             padding: EdgeInsets.only(top: spacingStandard),
-            child: Text('Already have an account? Sign in!',
-                style: TextStyle(color: AppColors.orange)),
+            child: Text(
+              'Already have an account? Sign in!',
+              style: TextStyle(color: AppColors.blue),
+            ),
           ),
         ),
       ],

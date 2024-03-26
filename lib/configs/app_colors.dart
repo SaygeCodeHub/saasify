@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 class AppColors {
   static const Color white = Color(0xFFFFFFFF);
   static const Color black = Color(0xFF14111F);
-  static const Color backgroundColor = Color(0xFFFAFAFA);
-  static const Color lighterBlack = Color(0x1F000000);
   static const Color transparent = Color(0x00000000);
   static const Color grey = Color(0xFFF7F9FB);
   static const Color darkGrey = Color(0xFFC9C6C6);
@@ -22,4 +20,8 @@ class AppColors {
   static const Color red = Color(0xFFF64209);
   static const Color warningYellow = Color(0xFFEED202);
   static const Color lightestYellow = Color(0xFFFFFFED);
+  static const Color ghostwhite = Color(0xFFF6F5FD);
+  static const Color honeydew = Color(0xFFD9EADA);
+  static const Color flowlwewhitw = Color(0xFFFFF9F1);
+  static const Color antiwhite = Color(0xFFF3F4F6);
 }

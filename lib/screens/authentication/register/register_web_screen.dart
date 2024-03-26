@@ -1,34 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/register/register_bloc.dart';
-import 'package:saasify/configs/app_colors.dart';
-import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/authentication/register/register_button.dart';
-import 'package:saasify/utils/constants/string_constants.dart';
-import 'package:saasify/widgets/form/form_input_fields.dart';
-import 'package:saasify/widgets/formWidgets/label_and_textfield_widget.dart';
-import 'package:saasify/widgets/profile/saasify_logo.dart';
+import 'package:saasify/utils/authentication_validators.dart';
+import '../../../configs/app_colors.dart';
+import '../../../configs/app_spacing.dart';
+import '../../../utils/constants/string_constants.dart';
+import '../../widgets/lable_and_textfield_widget.dart';
 
 class RegisterWebScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey;
+  final Map registerMap = {};
 
-  const RegisterWebScreen({super.key, required this.formKey});
+  RegisterWebScreen({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.center,
       child: Container(
-        height: MediaQuery.sizeOf(context).height * 0.80,
-        width: MediaQuery.sizeOf(context).width * 0.60,
+        height: MediaQuery.of(context).size.height * 0.80,
+        width: MediaQuery.of(context).size.width * 0.60,
         decoration: BoxDecoration(
           border: Border.all(color: AppColors.grey, width: 5.0),
         ),
         child: Row(
           children: [
             SizedBox(
-              height: MediaQuery.sizeOf(context).height,
-              width: MediaQuery.sizeOf(context).width * 0.18,
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width * 0.18,
               child: Image.asset('assets/abstract.png', fit: BoxFit.fill),
             ),
             Expanded(
@@ -41,7 +39,6 @@ class RegisterWebScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const SaasifyLogo(),
                       const SizedBox(height: spacingBetweenTextFieldAndButton),
                       Expanded(
                         child: SingleChildScrollView(
@@ -55,11 +52,14 @@ class RegisterWebScreen extends StatelessWidget {
                                           const Icon(Icons.person_2_outlined),
                                       isRequired: true,
                                       label: StringConstants.kFirstName,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'First name is required';
+                                        }
+                                        return null;
+                                      },
                                       onTextFieldChanged: (value) {
-                                        context
-                                                .read<RegisterBloc>()
-                                                .userInputAuthenticationMap[
-                                            'first_name'] = value;
+                                        registerMap['first_name'] = value;
                                       },
                                     ),
                                   ),
@@ -70,37 +70,70 @@ class RegisterWebScreen extends StatelessWidget {
                                           const Icon(Icons.person_2_outlined),
                                       label: StringConstants.kLastName,
                                       isRequired: true,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Last name is required';
+                                        }
+                                        return null;
+                                      },
                                       onTextFieldChanged: (value) {
-                                        context
-                                                .read<RegisterBloc>()
-                                                .userInputAuthenticationMap[
-                                            'last_name'] = value;
+                                        registerMap['last_name'] = value;
                                       },
                                     ),
                                   ),
                                 ],
                               ),
                               const SizedBox(height: spacingBetweenTextFields),
-                              EmailTextField(
-                                  isRequired: true,
-                                  onTextFieldChanged: (value) {
-                                    context
-                                            .read<RegisterBloc>()
-                                            .userInputAuthenticationMap[
-                                        'user_email'] = value;
-                                  }),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: LabelAndTextFieldWidget(
+                                      prefixIcon:
+                                          const Icon(Icons.email_outlined),
+                                      isRequired: true,
+                                      label: StringConstants.kEmailAddress,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Email is required';
+                                        } else if (!AuthenticationValidators()
+                                            .isValidEmail(value)) {
+                                          return 'Please enter a valid email address';
+                                        }
+                                        return null;
+                                      },
+                                      onTextFieldChanged: (value) {
+                                        registerMap['email'] = value;
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(width: spacingSmall),
+                                  Expanded(
+                                    child: LabelAndTextFieldWidget(
+                                      prefixIcon:
+                                          const Icon(Icons.password_outlined),
+                                      label: StringConstants.kPassword,
+                                      isRequired: true,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Password is required';
+                                        } else if (!AuthenticationValidators()
+                                            .isValidPassword(value)) {
+                                          return 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character';
+                                        }
+                                        return null;
+                                      },
+                                      onTextFieldChanged: (value) {
+                                        registerMap['password'] = value;
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
                               const SizedBox(height: spacingBetweenTextFields),
-                              PasswordTextField(
-                                  isRequired: true,
-                                  onTextFieldChanged: (value) {
-                                    context
-                                            .read<RegisterBloc>()
-                                            .userInputAuthenticationMap[
-                                        'password'] = value;
-                                  }),
                               const SizedBox(
                                   height: spacingBetweenTextFieldAndButton),
-                              RegisterButton(formKey: formKey)
+                              RegisterButton(
+                                  formKey: formKey, registerMap: registerMap),
                             ],
                           ),
                         ),

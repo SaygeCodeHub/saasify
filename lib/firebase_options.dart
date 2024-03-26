@@ -23,15 +23,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -65,5 +59,23 @@ class DefaultFirebaseOptions {
     messagingSenderId: '966829940851',
     projectId: 'saasify-production',
     storageBucket: 'saasify-production.appspot.com',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyAWJsM8xzkiRT2uYpMkBjWJEzsbL4evfWY',
+    appId: '1:966829940851:ios:a45a832884a3f0809fca06',
+    messagingSenderId: '966829940851',
+    projectId: 'saasify-production',
+    storageBucket: 'saasify-production.appspot.com',
+    iosBundleId: 'com.example.saasify',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyAWJsM8xzkiRT2uYpMkBjWJEzsbL4evfWY',
+    appId: '1:966829940851:ios:d9353fec63d92c0f9fca06',
+    messagingSenderId: '966829940851',
+    projectId: 'saasify-production',
+    storageBucket: 'saasify-production.appspot.com',
+    iosBundleId: 'com.example.saasify.RunnerTests',
   );
 }

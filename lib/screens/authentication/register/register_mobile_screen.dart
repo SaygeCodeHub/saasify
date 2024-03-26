@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:saasify/bloc/register/register_bloc.dart';
-import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/authentication/register/register_button.dart';
-import 'package:saasify/utils/constants/string_constants.dart';
-import 'package:saasify/widgets/form/form_input_fields.dart';
-import 'package:saasify/widgets/formWidgets/label_and_textfield_widget.dart';
-import 'package:saasify/widgets/profile/saasify_logo.dart';
+import '../../../configs/app_spacing.dart';
+import '../../../utils/constants/string_constants.dart';
+import '../../widgets/lable_and_textfield_widget.dart';
 
 class RegisterMobileScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey;
@@ -21,16 +17,13 @@ class RegisterMobileScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const SizedBox(height: spacingExcel),
-          const SaasifyLogo(),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
           LabelAndTextFieldWidget(
             prefixIcon: const Icon(Icons.person_2_outlined),
             label: StringConstants.kFirstName,
             isRequired: true,
             onTextFieldChanged: (value) {
-              context
-                  .read<RegisterBloc>()
-                  .userInputAuthenticationMap['first_name'] = value;
+              // Add your logic here if needed
             },
           ),
           const SizedBox(height: spacingBetweenTextFields),
@@ -39,29 +32,12 @@ class RegisterMobileScreen extends StatelessWidget {
             isRequired: true,
             label: StringConstants.kLastName,
             onTextFieldChanged: (value) {
-              context
-                  .read<RegisterBloc>()
-                  .userInputAuthenticationMap['last_name'] = value;
+              // Add your logic here if needed
             },
           ),
           const SizedBox(height: spacingBetweenTextFields),
-          EmailTextField(
-              isRequired: true,
-              onTextFieldChanged: (value) {
-                context
-                    .read<RegisterBloc>()
-                    .userInputAuthenticationMap['user_email'] = value;
-              }),
-          const SizedBox(height: spacingBetweenTextFields),
-          PasswordTextField(
-              isRequired: true,
-              onTextFieldChanged: (value) {
-                context
-                    .read<RegisterBloc>()
-                    .userInputAuthenticationMap['password'] = value;
-              }),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
-          RegisterButton(formKey: formKey)
+          RegisterButton(formKey: formKey, registerMap: {}),
         ],
       ),
     );

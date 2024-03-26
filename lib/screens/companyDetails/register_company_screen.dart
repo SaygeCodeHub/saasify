@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import '../../../configs/app_spacing.dart';
 import '../../models/user/user_model.dart';
+import '../../utils/global.dart';
 import '../skeleton_screen.dart';
 import '../widgets/buttons/primary_button.dart';
 import '../widgets/form_widgets.dart';
 import '../widgets/image_picker_widget.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterCompanyWebScreen extends StatefulWidget {
   const RegisterCompanyWebScreen({super.key});
@@ -70,7 +73,11 @@ class RegisterCompanyWebScreenState extends State<RegisterCompanyWebScreen> {
         buttonTitle: 'Save Profile Details',
         onPressed: () async {
           if (formKey.currentState!.validate()) {
-            await saveUserDetailsToLocalDatabase();
+            if (offlineModule) {
+              await saveUserDetailsToLocalDatabase();
+            } else {
+              await uploadImageAndSaveUrl('12');
+            }
           }
         },
       ),
@@ -97,6 +104,34 @@ class RegisterCompanyWebScreenState extends State<RegisterCompanyWebScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Failed to add company: $e')));
+    }
+  }
+
+  Future<void> uploadImageAndSaveUrl(String userId) async {
+    try {
+      // Create a reference to the location you want to upload to in Firebase Storage
+      final storageRef = firebase_storage.FirebaseStorage.instance.ref();
+      final imagesRef =
+          storageRef.child("user_images/$userId/profile_picture.jpg");
+
+      // Upload the file to Firebase Storage
+      final uploadTask = imagesRef.putData(_imageBytes!);
+      final completedTask = await uploadTask;
+
+      // Once the upload is complete, get the download URL
+      final downloadUrl = await completedTask.ref.getDownloadURL();
+
+      // Store the download URL in Firestore under users collection
+      final usersRef =
+          FirebaseFirestore.instance.collection('users').doc(userId);
+      await usersRef.collection('user_details').doc('profile').set({
+        'image_url': downloadUrl,
+      });
+
+      print('Image uploaded and URL saved to Firestore successfully');
+    } catch (e) {
+      print('Error occurred: $e');
+      // Handle errors accordingly
     }
   }
 }

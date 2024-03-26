@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/screens/skeleton_screen.dart';
 import '../../widgets/responsive_layout.dart';
 import 'auth_mobile_screen.dart';
 import 'auth_web_screen.dart';
@@ -12,14 +13,14 @@ class AuthenticationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Form(
-        key: formKey,
-        child: ResponsiveLayout(
-          mobileBody: AuthMobileScreen(formKey: formKey),
-          desktopBody: AuthWebScreen(formKey: formKey),
+    return SkeletonScreen(
+        appBarTitle: 'Sassify',
+        bodyContent: Form(
+          key: formKey,
+          child: ResponsiveLayout(
+              mobileBody: AuthMobileScreen(formKey: formKey),
+              desktopBody: const AuthWebScreen()),
         ),
-      ),
-    );
+        bottomBarButtons: const []);
   }
 }

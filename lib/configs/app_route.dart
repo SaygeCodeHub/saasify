@@ -4,7 +4,6 @@ import '../screens/authentication/auth/authentication_screen.dart';
 import '../screens/authentication/forgetPassword/forget_password_screen.dart';
 import '../screens/authentication/register/register_screen.dart';
 
-
 class AppRoutes {
   static Route<dynamic> routes(RouteSettings settings) {
     final routeBuilders = <String, WidgetBuilder>{

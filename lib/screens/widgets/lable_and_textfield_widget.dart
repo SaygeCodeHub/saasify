@@ -50,15 +50,15 @@ class LabelAndTextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController controller =
-        textFieldController ?? TextEditingController();
-
-    if (initialValue != null) {
-      controller.text = initialValue.toString();
-    }
-
-    controller.selection = TextSelection.fromPosition(
-        TextPosition(offset: controller.text.length));
+    // final TextEditingController controller =
+    //     textFieldController ?? TextEditingController();
+    //
+    // if (initialValue != null) {
+    //   controller.text = initialValue.toString();
+    // }
+    //
+    // controller.selection = TextSelection.fromPosition(
+    //     TextPosition(offset: controller.text.length));
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +74,7 @@ class LabelAndTextFieldWidget extends StatelessWidget {
           obscuringCharacter: "*",
           obscureText: obscureText,
           onChanged: onTextFieldChanged,
-          controller: controller,
+          controller: textFieldController,
           maxLines: maxLines ?? 1,
           keyboardType: keyboardType,
           inputFormatters: inputFormatters,

@@ -33,7 +33,7 @@ class StringConstants {
 
   static const kPassword = 'Password';
   static const kConfirmPassword = 'Confirm Password';
-  static const kVerify = "Verify";
+  static const kSignUp = "Sign in";
   static const kRegister = "Register";
   static const kSendVerificationCode = "Send Verification Code";
   static const kOk = "Ok";

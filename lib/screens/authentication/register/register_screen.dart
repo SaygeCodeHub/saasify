@@ -4,7 +4,6 @@ import 'package:saasify/screens/authentication/register/register_web_screen.dart
 
 import '../../widgets/responsive_layout.dart';
 
-
 class RegisterScreen extends StatelessWidget {
   static const routeName = 'RegisterScreen';
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();

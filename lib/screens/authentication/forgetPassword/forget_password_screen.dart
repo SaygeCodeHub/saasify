@@ -4,7 +4,6 @@ import '../../widgets/responsive_layout.dart';
 import 'forget_password_mobile_screen.dart';
 import 'forget_password_web_screen.dart';
 
-
 class ForgotPasswordScreen extends StatelessWidget {
   static const routeName = 'ForgotPasswordScreen';
 

@@ -1,7 +1,7 @@
 {
   "file_generated_by": "FlutterFire CLI",
   "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
-  "GOOGLE_APP_ID": "1:229181566236:ios:7358bef77938b9c8d85ed9",
-  "FIREBASE_PROJECT_ID": "saasify-de974",
-  "GCM_SENDER_ID": "229181566236"
+  "GOOGLE_APP_ID": "1:966829940851:ios:a45a832884a3f0809fca06",
+  "FIREBASE_PROJECT_ID": "saasify-production",
+  "GCM_SENDER_ID": "966829940851"
 }

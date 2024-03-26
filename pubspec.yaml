@@ -26,6 +26,7 @@ dependencies:
   firebase_core: ^2.25.4
   cloud_firestore:
   cupertino_icons: ^1.0.6
+  cloud_firestore: ^4.15.9
   firebase_storage: ^11.6.10
   shared_preferences: ^2.2.2
   firebase_messaging: ^14.7.15

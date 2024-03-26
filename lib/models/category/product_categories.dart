@@ -11,8 +11,13 @@ class ProductCategories {
   @HiveField(1)
   final Uint8List? imageBytes;
 
-  ProductCategories({
-    required this.name,
-    this.imageBytes,
-  });
+  @HiveField(2)
+  final String? categoryId;
+
+  ProductCategories(
+      {required this.name, this.imageBytes, this.categoryId = ''});
+
+  Map<String, dynamic> toMap() {
+    return {'name': name, 'image_bytes': imageBytes, 'category_id': categoryId};
+  }
 }

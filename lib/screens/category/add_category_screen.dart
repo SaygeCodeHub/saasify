@@ -58,17 +58,14 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
           onPressed: () async {
             if (offlineModule) {
               final category = ProductCategories(
-                name: textEditingController.text,
-                imageBytes: _imageBytes,
-              );
+                  name: textEditingController.text, imageBytes: _imageBytes);
               final categoriesBox = Hive.box<ProductCategories>('categories');
               await categoriesBox.add(category).whenComplete(() {
                 Navigator.pop(context);
               });
             } else {
-              String moduleId = await (createModule('pos'));
-              await addCategory(
-                  moduleId, textEditingController.text, _imageBytes);
+              print('else---->');
+              await addCategory();
             }
           },
         ),
@@ -76,8 +73,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
     );
   }
 
-// Function to create a module within a user
-  Future<String> createModule(String moduleName) async {
+  Future<void> addCategory() async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
       if (user == null) {
@@ -85,65 +81,26 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
       }
 
       String userId = user.uid;
+      ProductCategories category = ProductCategories(
+          name: textEditingController.text, imageBytes: _imageBytes);
 
-      // Create the module document
-      DocumentReference moduleRef = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userId)
-          .collection('modules')
-          .add({
-        'name': moduleName,
-        'createdAt': FieldValue.serverTimestamp(),
-      });
+      // Convert ProductCategories instance to Map
+      Map<String, dynamic> categoryData = category.toMap();
 
-      print('Module created with ID: ${moduleRef.id}');
-      return moduleRef.id; // Return the module ID
-    } catch (error) {
-      print('Error creating module: $error');
-      // Handle error appropriately
-      throw error;
-    }
-  }
+      final usersRef =
+          FirebaseFirestore.instance.collection('users').doc(userId);
+      usersRef
+          .collection('module')
+          .doc('pos')
+          .collection('add category')
+          .add(categoryData);
 
-// Function to add a POS category within a module
-  Future<void> addCategory(
-      String moduleId, String categoryName, Uint8List? imageBytes) async {
-    try {
-      User? user = FirebaseAuth.instance.currentUser;
-      if (user == null) {
-        throw Exception("User not authenticated");
-      }
+      print('Category added successfully');
 
-      String userId = user.uid;
-
-      // Check if the module belongs to the user
-      DocumentSnapshot moduleSnapshot = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userId)
-          .collection('modules')
-          .doc(moduleId)
-          .get();
-      if (!moduleSnapshot.exists) {
-        throw Exception("Module not found");
-      }
-
-      // Create the category document within the POS collection
-      DocumentReference categoryRef = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(userId)
-          .collection('modules')
-          .doc(moduleId)
-          .collection('pos')
-          .add({
-        'name': categoryName,
-        'imageBytes': imageBytes,
-        'createdAt': FieldValue.serverTimestamp(),
-      });
-
-      print('Category added with ID: ${categoryRef.id}');
-    } catch (error) {
-      print('Error adding category: $error');
-      // Handle error appropriately
+      // Display success message or perform any other action
+    } catch (e) {
+      // Handle errors
+      print('Error adding category: $e');
     }
   }
 }

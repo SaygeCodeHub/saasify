@@ -14,6 +14,6 @@ PreferredSizeWidget buildAppBar() {
         ),
       ),
     ),
-    backgroundColor: AppColors.backgroundColor,
+    // backgroundColor: AppColors.backgroundColor,
   );
 }

@@ -1,9 +1,12 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/utils/global.dart';
 import '../../configs/app_spacing.dart';
 import '../../models/category/product_categories.dart';
 import '../../models/product/products.dart';
@@ -35,10 +38,21 @@ class AddProductScreenState extends State<AddProductScreen> {
   @override
   void initState() {
     super.initState();
+    fetchAndSetCategories();
     _categories = Hive.box<ProductCategories>('categories').values.toList();
     if (_categories.isNotEmpty) {
       _selectedCategory = _categories.first.name;
     }
+  }
+
+  void fetchAndSetCategories() async {
+    List<ProductCategories> fetchedCategories = await fetchCategories();
+    setState(() {
+      _categories = fetchedCategories;
+      if (_categories.isNotEmpty) {
+        _selectedCategory = _categories.first.categoryId ?? '';
+      }
+    });
   }
 
   Future<void> pickImage() async {
@@ -74,23 +88,42 @@ class AddProductScreenState extends State<AddProductScreen> {
           Text('Category',
               style: Theme.of(context).textTheme.fieldLabelTextStyle),
           const SizedBox(height: spacingSmall),
-          DropdownButtonHideUnderline(
-            child: DropdownButtonFormField<String>(
-              value: _selectedCategory,
-              hint: const Text("Select an item"),
-              items: _categories.map((category) {
-                return DropdownMenuItem<String>(
-                  value: category.name,
-                  child: Text(category.name),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  _selectedCategory = newValue!;
-                });
-              },
-            ),
-          ),
+          (offlineModule)
+              ? DropdownButtonHideUnderline(
+                  child: DropdownButtonFormField<String>(
+                    value: _selectedCategory,
+                    hint: const Text("Select an item"),
+                    items: _categories.map((category) {
+                      return DropdownMenuItem<String>(
+                        value: category.name,
+                        child: Text(category.name),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedCategory = newValue!;
+                      });
+                    },
+                  ),
+                )
+              : DropdownButtonHideUnderline(
+                  child: DropdownButtonFormField<String>(
+                    value: _selectedCategory,
+                    hint: const Text("Select an item"),
+                    items: _categories.map((category) {
+                      return DropdownMenuItem<String>(
+                        value: category.categoryId,
+                        child: Text(category.name),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        _selectedCategory = newValue!;
+                        print('selected catgeory--->$_selectedCategory');
+                      });
+                    },
+                  ),
+                ),
         ],
       ),
       LabelAndTextFieldWidget(
@@ -188,26 +221,114 @@ class AddProductScreenState extends State<AddProductScreen> {
         PrimaryButton(
           buttonTitle: 'Add Product',
           onPressed: () async {
-            final product = Products(
-              productId: 0,
-              name: _productController.text,
-              category: _selectedCategory,
-              description: _descriptionController.text,
-              imageUrl: _imageUrlController.text,
-              supplier: _supplierController.text,
-              tax: double.tryParse(_taxController.text) ?? 0,
-              minStockLevel: int.tryParse(_minStockLevelController.text) ?? 0,
-              reorderPoint: int.tryParse(_reorderPointController.text) ?? 0,
-              dateAdded: DateTime.now(),
-              isActive: true,
-              variants: [],
-            );
-            final productsBox = Hive.box<Products>('products');
-            productsBox.add(product);
-            Navigator.pop(context);
+            if (offlineModule) {
+              final product = Products(
+                productId: 0,
+                name: _productController.text,
+                category: _selectedCategory,
+                description: _descriptionController.text,
+                imageUrl: _imageUrlController.text,
+                supplier: _supplierController.text,
+                tax: double.tryParse(_taxController.text) ?? 0,
+                minStockLevel: int.tryParse(_minStockLevelController.text) ?? 0,
+                reorderPoint: int.tryParse(_reorderPointController.text) ?? 0,
+                dateAdded: DateTime.now(),
+                isActive: true,
+                variants: [],
+              );
+              final productsBox = Hive.box<Products>('products');
+              productsBox.add(product);
+              Navigator.pop(context);
+            } else {
+              addProduct(Products(
+                productId: 0,
+                name: _productController.text,
+                category: _selectedCategory,
+                description: _descriptionController.text,
+                imageUrl: _imageUrlController.text,
+                supplier: _supplierController.text,
+                tax: double.tryParse(_taxController.text) ?? 0,
+                minStockLevel: int.tryParse(_minStockLevelController.text) ?? 0,
+                reorderPoint: int.tryParse(_reorderPointController.text) ?? 0,
+                dateAdded: DateTime.now(),
+                isActive: true,
+                variants: [],
+              ));
+            }
           },
         ),
       ],
     );
+  }
+
+  Future<void> addProduct(Products product) async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        throw Exception("User not authenticated");
+      }
+
+      String userId = user.uid;
+      String? categoryId = '';
+      for (var item in _categories) {
+        categoryId = item.categoryId;
+      }
+      Map<String, dynamic> productData = product.toMap();
+      final usersRef =
+          FirebaseFirestore.instance.collection('users').doc(userId);
+      usersRef
+          .collection('module')
+          .doc('pos')
+          .collection('add category')
+          .doc(categoryId)
+          .collection('add product')
+          .add({...productData, 'dateAdded': FieldValue.serverTimestamp()});
+
+      print('Product added successfully');
+    } catch (error) {
+      print('Error adding product: $error');
+      throw error;
+    }
+  }
+
+  Future<List<ProductCategories>> fetchCategories() async {
+    List<ProductCategories> categories = [];
+
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user == null) {
+        throw Exception("User not authenticated");
+      }
+
+      String userId = user.uid;
+
+      final usersRef =
+          FirebaseFirestore.instance.collection('users').doc(userId);
+
+      // Query the 'add category' collection under 'pos' under 'module' under the user's document
+      QuerySnapshot querySnapshot = await usersRef
+          .collection('module')
+          .doc(
+              'pos') // Assuming 'pos' is a fixed document ID, replace with actual ID if needed
+          .collection('add category')
+          .get();
+
+      // Iterate through the documents and convert them into ProductCategories objects
+      for (var doc in querySnapshot.docs) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+        ProductCategories category = ProductCategories(
+            name: data['name'],
+            imageBytes: data['imageBytes'],
+            categoryId: doc.id);
+        categories.add(category);
+      }
+
+      print('Categories fetched successfully');
+    } catch (e) {
+      // Handle errors
+      print('Error fetching categories: $e');
+    }
+
+    return categories;
   }
 }

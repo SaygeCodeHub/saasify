@@ -45,4 +45,21 @@ class Products {
   }) : dateAdded = dateAdded ??
             DateTime
                 .now(); // Initialize dateAdded with current date if not provided
+
+  Map<String, dynamic> toMap() {
+    return {
+      'productId': productId,
+      'name': name,
+      'category': category,
+      'description': description,
+      'imageUrl': imageUrl,
+      'supplier': supplier,
+      'tax': tax,
+      'minStockLevel': minStockLevel,
+      'reorderPoint': reorderPoint,
+      'dateAdded': dateAdded,
+      'isActive': isActive = true,
+      'variants': variants,
+    };
+  }
 }

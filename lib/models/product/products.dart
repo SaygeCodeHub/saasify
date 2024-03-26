@@ -42,5 +42,7 @@ class Products {
     this.imageUrl = '', // Default value for imageUrl
     DateTime? dateAdded, // Optional parameter for dateAdded
     bool isActive = false, // Default value for isActive
-  }) : dateAdded = dateAdded ?? DateTime.now(); // Initialize dateAdded with current date if not provided
+  }) : dateAdded = dateAdded ??
+            DateTime
+                .now(); // Initialize dateAdded with current date if not provided
 }

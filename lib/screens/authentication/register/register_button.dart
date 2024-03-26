@@ -6,8 +6,6 @@ import '../../../utils/constants/string_constants.dart';
 import '../../widgets/buttons/primary_button.dart';
 import '../auth/authentication_screen.dart';
 
-
-
 class RegisterButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
 

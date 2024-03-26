@@ -26,8 +26,9 @@ class SkeletonScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomAppBar(title: appBarTitle),
-            Expanded(child: Padding(
-              padding: const EdgeInsets.only(left:12),
+            Expanded(
+                child: Padding(
+              padding: const EdgeInsets.only(left: 12),
               child: bodyContent,
             )),
           ],

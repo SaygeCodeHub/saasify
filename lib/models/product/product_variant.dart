@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 
 part 'product_variant.g.dart';
+
 @HiveType(typeId: 2)
 class ProductVariant {
   @HiveField(0)

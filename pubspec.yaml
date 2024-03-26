@@ -25,14 +25,17 @@ dependencies:
   firebase_auth: ^4.16.0
   firebase_core: ^2.25.4
   cupertino_icons: ^1.0.6
+  firebase_storage: ^11.6.10
   shared_preferences: ^2.2.2
   firebase_messaging: ^14.7.15
+
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints:
+  hive_generator: ^1.1.1
   build_runner: ^2.0.5
 
 flutter:

@@ -4,7 +4,6 @@ import '../../../configs/app_spacing.dart';
 import '../../../utils/constants/string_constants.dart';
 import '../../widgets/lable_and_textfield_widget.dart';
 
-
 class RegisterMobileScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey;
 
@@ -37,7 +36,6 @@ class RegisterMobileScreen extends StatelessWidget {
             },
           ),
           const SizedBox(height: spacingBetweenTextFields),
-
           const SizedBox(height: spacingBetweenTextFieldAndButton),
           RegisterButton(formKey: formKey),
         ],

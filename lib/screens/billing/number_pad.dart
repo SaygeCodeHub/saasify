@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../configs/app_colors.dart';
 import '../../configs/app_spacing.dart';
 
-
 class NumPad extends StatelessWidget {
   final void Function(String) onKeyPressed;
   final String value;

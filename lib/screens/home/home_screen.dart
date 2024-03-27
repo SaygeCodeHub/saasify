@@ -107,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                     label: 'View All Products',
                     screen: const AllProductsScreen(),
                     color: cardColors[3],
-                  ),
+                  )
                 ],
               ),
             ),

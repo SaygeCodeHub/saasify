@@ -84,7 +84,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
               child: PrimaryButton(
                   buttonTitle: 'Add Category',
                   onPressed: () async {
-                    if (offlineModule) {
+                    if (kIsOfflineModule) {
                       final category = ProductCategories(
                           name: textEditingController.text,
                           imageBytes: _imageBytes);

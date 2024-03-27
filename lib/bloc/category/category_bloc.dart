@@ -54,7 +54,7 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
     List<ProductCategories> categories = [];
     try {
       emit(FetchingCategories());
-      if (offlineModule) {
+      if (kIsOfflineModule) {
         categories = Hive.box<ProductCategories>('categories').values.toList();
         if (categories.isNotEmpty) {
           selectedCategory = categories.first.name;

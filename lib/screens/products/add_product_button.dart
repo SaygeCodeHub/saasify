@@ -25,7 +25,7 @@ class AddProductButton extends StatelessWidget {
     return PrimaryButton(
       buttonTitle: 'Add Product',
       onPressed: () async {
-        if (offlineModule) {
+        if (kIsOfflineModule) {
           if (context.read<CategoryBloc>().selectedCategory.isNotEmpty) {
             final product = Products(
               productId: 0,

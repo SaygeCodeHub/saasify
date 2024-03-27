@@ -79,7 +79,7 @@ class RegisterCompanyWebScreenState extends State<RegisterCompanyWebScreen> {
         buttonTitle: 'Save Profile Details',
         onPressed: () async {
           if (formKey.currentState!.validate()) {
-            if (offlineModule) {
+            if (kIsOfflineModule) {
               await saveUserDetailsToLocalDatabase();
             } else {
               bool companyRegistered = await uploadImageAndSaveUrl(

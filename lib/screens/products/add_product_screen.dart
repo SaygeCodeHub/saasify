@@ -84,7 +84,7 @@ class AddProductScreen extends StatelessWidget {
               child: PrimaryButton(
                 buttonTitle: 'Add Product',
                 onPressed: () async {
-                  if (offlineModule) {
+                  if (kIsOfflineModule) {
                     if (context
                         .read<CategoryBloc>()
                         .selectedCategory

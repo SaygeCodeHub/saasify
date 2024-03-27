@@ -6,6 +6,7 @@ import 'package:saasify/bloc/category/category_bloc.dart';
 import 'package:saasify/bloc/category/category_event.dart';
 import 'package:saasify/bloc/category/category_state.dart';
 import 'package:saasify/utils/custom_dialogs.dart';
+import 'package:saasify/utils/global.dart';
 import 'package:saasify/utils/progress_bar.dart';
 import '../../configs/app_spacing.dart';
 import '../../models/category/product_categories.dart';
@@ -97,7 +98,7 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
                   buttonTitle: 'Add Category',
                   onPressed: () async {
                     if (formKey.currentState!.validate()) {
-                      if (offlineModule) {
+                      if (kIsOfflineModule) {
                         final category = ProductCategories(
                             name: textEditingController.text,
                             imageBytes: _imageBytes);

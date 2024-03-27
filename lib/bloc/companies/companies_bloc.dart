@@ -20,7 +20,7 @@ class CompaniesBloc extends Bloc<CompaniesEvent, CompaniesState> {
       AddCompany event, Emitter<CompaniesState> emit) async {
     try {
       emit(AddingCompany());
-      if (offlineModule) {
+      if (kIsOfflineModule) {
         final newCompany = UserDetails(
           ownerName: event.companyDetailsMap['owner_name'] ?? '',
           companyName: event.companyDetailsMap['company_name'] ?? '',

@@ -27,7 +27,7 @@ class ViewCategoryScreen extends StatelessWidget {
     return SkeletonScreen(
       appBarTitle: 'Categories',
       bodyContent: SingleChildScrollView(
-        child: (offlineModule)
+        child: (kIsOfflineModule)
             ? ValueListenableBuilder(
                 valueListenable: listenableBox,
                 builder: (context, Box<ProductCategories> box, _) {

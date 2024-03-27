@@ -1,8 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:saasify/screens/authentication/auth/authentication_screen.dart';
-import 'package:saasify/screens/companyDetails/register_company_screen.dart';
-import 'package:saasify/screens/customers/add_customer_screen.dart';
 import 'configs/app_theme.dart';
 import 'dependency_injection.dart';
 import 'firebase_options.dart';
@@ -28,7 +26,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'POS',
       theme: appTheme,
-      home: AddCustomerScreen(),
+      home:  AuthenticationScreen(),
     );
   }
 }

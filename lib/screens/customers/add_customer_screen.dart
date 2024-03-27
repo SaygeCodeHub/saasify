@@ -22,7 +22,7 @@ class AddCustomerScreenState extends State<AddCustomerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Add Customer')),
+      appBar: AppBar(title: const Text('Add Customer')),
       body: SingleChildScrollView(
         child: Form(
           key: formKey,
@@ -68,7 +68,7 @@ class AddCustomerScreenState extends State<AddCustomerScreen> {
               dobController.text,
               int.tryParse(loyaltyPointsController.text) ?? 0,
             );
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('Customer added successfully'),
             ));
           }

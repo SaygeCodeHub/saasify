@@ -8,8 +8,10 @@ import '../auth/authentication_screen.dart';
 
 class RegisterButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
+  final Map registerMap;
 
-  const RegisterButton({super.key, required this.formKey});
+  const RegisterButton(
+      {super.key, required this.formKey, required this.registerMap});
 
   @override
   Widget build(BuildContext context) {
@@ -19,18 +21,17 @@ class RegisterButton extends StatelessWidget {
       children: [
         PrimaryButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => AuthenticationScreen(),
-              ),
-            );
+            if (formKey.currentState!.validate()) {}
           },
           buttonTitle: StringConstants.kRegister,
         ),
         InkWell(
           onTap: () {
-            // Add your logic for navigating to the sign-in screen
+            Navigator.pop(context);
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AuthenticationScreen()));
           },
           child: const Padding(
             padding: EdgeInsets.only(top: spacingStandard),

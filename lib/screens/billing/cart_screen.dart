@@ -23,11 +23,9 @@ class _CartScreenState extends State<CartScreen> {
   void calculateBillDetails(List<Cart> cart) {
     double netAmount = 0.0;
     double totalCost = 0.0;
-    int totalCount = 0;
 
     for (var cartItem in cart) {
       totalCost += cartItem.cost;
-      totalCount += cartItem.count;
     }
 
     netAmount = totalCost;

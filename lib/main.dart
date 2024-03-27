@@ -1,6 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:saasify/screens/authentication/auth/authentication_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/authentication/authentication_bloc.dart';
+import 'package:saasify/bloc/category/category_bloc.dart';
+import 'package:saasify/bloc/product/product_bloc.dart';
+import 'package:saasify/screens/authentication/auth/auth_web_screen.dart';
 import 'configs/app_theme.dart';
 import 'dependency_injection.dart';
 import 'firebase_options.dart';
@@ -21,12 +25,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     isMobile = MediaQuery.of(context).size.width < mobileBreakPoint;
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'POS',
-      theme: appTheme,
-      home:  AuthenticationScreen(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(lazy: false, create: (context) => CategoryBloc()),
+        BlocProvider(lazy: false, create: (context) => ProductBloc()),
+        BlocProvider(lazy: false, create: (context) => AuthenticationBloc()),
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'POS',
+          theme: appTheme,
+          home: const AuthWebScreen()),
     );
   }
 }

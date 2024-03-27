@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/screens/authentication/register/register_button.dart';
+import 'package:saasify/utils/authentication_validators.dart';
 import '../../../configs/app_colors.dart';
 import '../../../configs/app_spacing.dart';
 import '../../../utils/constants/string_constants.dart';
@@ -7,8 +8,9 @@ import '../../widgets/lable_and_textfield_widget.dart';
 
 class RegisterWebScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey;
+  final Map registerMap = {};
 
-  const RegisterWebScreen({super.key, required this.formKey});
+  RegisterWebScreen({super.key, required this.formKey});
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +52,14 @@ class RegisterWebScreen extends StatelessWidget {
                                           const Icon(Icons.person_2_outlined),
                                       isRequired: true,
                                       label: StringConstants.kFirstName,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'First name is required';
+                                        }
+                                        return null;
+                                      },
                                       onTextFieldChanged: (value) {
-                                        // Add your logic here if needed
+                                        registerMap['first_name'] = value;
                                       },
                                     ),
                                   ),
@@ -62,18 +70,70 @@ class RegisterWebScreen extends StatelessWidget {
                                           const Icon(Icons.person_2_outlined),
                                       label: StringConstants.kLastName,
                                       isRequired: true,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Last name is required';
+                                        }
+                                        return null;
+                                      },
                                       onTextFieldChanged: (value) {
-                                        // Add your logic here if needed
+                                        registerMap['last_name'] = value;
                                       },
                                     ),
                                   ),
                                 ],
                               ),
                               const SizedBox(height: spacingBetweenTextFields),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: LabelAndTextFieldWidget(
+                                      prefixIcon:
+                                          const Icon(Icons.email_outlined),
+                                      isRequired: true,
+                                      label: StringConstants.kEmailAddress,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Email is required';
+                                        } else if (!AuthenticationValidators()
+                                            .isValidEmail(value)) {
+                                          return 'Please enter a valid email address';
+                                        }
+                                        return null;
+                                      },
+                                      onTextFieldChanged: (value) {
+                                        registerMap['email'] = value;
+                                      },
+                                    ),
+                                  ),
+                                  const SizedBox(width: spacingSmall),
+                                  Expanded(
+                                    child: LabelAndTextFieldWidget(
+                                      prefixIcon:
+                                          const Icon(Icons.password_outlined),
+                                      label: StringConstants.kPassword,
+                                      isRequired: true,
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Password is required';
+                                        } else if (!AuthenticationValidators()
+                                            .isValidPassword(value)) {
+                                          return 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character';
+                                        }
+                                        return null;
+                                      },
+                                      onTextFieldChanged: (value) {
+                                        registerMap['password'] = value;
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
                               const SizedBox(height: spacingBetweenTextFields),
                               const SizedBox(
                                   height: spacingBetweenTextFieldAndButton),
-                              RegisterButton(formKey: formKey),
+                              RegisterButton(
+                                  formKey: formKey, registerMap: registerMap),
                             ],
                           ),
                         ),

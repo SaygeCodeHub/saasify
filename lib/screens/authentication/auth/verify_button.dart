@@ -3,14 +3,15 @@ import 'package:flutter/material.dart';
 import '../../../configs/app_colors.dart';
 import '../../../configs/app_spacing.dart';
 import '../../../utils/constants/string_constants.dart';
-import '../../home/home_screen.dart';
 import '../../widgets/buttons/primary_button.dart';
 import '../register/register_screen.dart';
 
 class AuthVerifyButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
+  final Map authenticationMap;
 
-  const AuthVerifyButton({super.key, required this.formKey});
+  const AuthVerifyButton(
+      {super.key, required this.formKey, required this.authenticationMap});
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +19,9 @@ class AuthVerifyButton extends StatelessWidget {
       children: [
         PrimaryButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
-              ),
-            );
+            if (formKey.currentState!.validate()) {}
           },
-          buttonTitle: StringConstants.kVerify,
+          buttonTitle: StringConstants.kSignUp,
         ),
         const SizedBox(height: spacingStandard),
         Padding(

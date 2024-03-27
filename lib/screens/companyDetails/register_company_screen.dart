@@ -1,6 +1,9 @@
 import 'dart:typed_data';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:saasify/screens/home/home_screen.dart';
+import 'package:saasify/utils/custom_dialogs.dart';
 import '../../../configs/app_spacing.dart';
 import '../../models/user/user_details.dart';
 import '../../utils/global.dart';
@@ -57,17 +60,20 @@ class RegisterCompanyWebScreenState extends State<RegisterCompanyWebScreen> {
             onImagePicked: _handleImagePicked),
         const SizedBox(height: spacingHuge),
         buildTextField(ownerNameController, 'Owner Name', Icons.person, true),
+        const SizedBox(height: spacingMedium),
         buildTextField(
             companyNameController, 'Company Name', Icons.business, true),
+        const SizedBox(height: spacingMedium),
         buildTextField(identificationNumberController, 'EIN / TIN / GST Number',
             Icons.numbers_outlined, true),
+        const SizedBox(height: spacingMedium),
         buildTextField(addressController, 'Address', Icons.location_city, false,
             maxLines: 2),
       ],
     );
   }
 
-  List<Widget> _buildBottomBarButtons(BuildContext context) {
+  List<Widget> _buildBottomBarButtons(context) {
     return [
       PrimaryButton(
         buttonTitle: 'Save Profile Details',
@@ -76,7 +82,28 @@ class RegisterCompanyWebScreenState extends State<RegisterCompanyWebScreen> {
             if (offlineModule) {
               await saveUserDetailsToLocalDatabase();
             } else {
-              await uploadImageAndSaveUrl('12');
+              bool companyRegistered = await uploadImageAndSaveUrl(
+                  FirebaseAuth.instance.currentUser!.uid);
+              if (companyRegistered) {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return CustomDialogs().showSuccessDialog(
+                          context, 'Company added successfully.',
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomeScreen())));
+                    });
+              } else {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return CustomDialogs().showAlertDialog(
+                          context, 'Company not registered.',
+                          onPressed: () => Navigator.pop(context));
+                    });
+              }
             }
           }
         },
@@ -107,31 +134,25 @@ class RegisterCompanyWebScreenState extends State<RegisterCompanyWebScreen> {
     }
   }
 
-  Future<void> uploadImageAndSaveUrl(String userId) async {
+  Future<bool> uploadImageAndSaveUrl(String userId) async {
     try {
-      // Create a reference to the location you want to upload to in Firebase Storage
       final storageRef = firebase_storage.FirebaseStorage.instance.ref();
       final imagesRef =
           storageRef.child("user_images/$userId/profile_picture.jpg");
 
-      // Upload the file to Firebase Storage
       final uploadTask = imagesRef.putData(_imageBytes!);
       final completedTask = await uploadTask;
 
-      // Once the upload is complete, get the download URL
       final downloadUrl = await completedTask.ref.getDownloadURL();
 
-      // Store the download URL in Firestore under users collection
       final usersRef =
           FirebaseFirestore.instance.collection('users').doc(userId);
       await usersRef.collection('user_details').doc('profile').set({
         'image_url': downloadUrl,
       });
-
-      print('Image uploaded and URL saved to Firestore successfully');
+      return true;
     } catch (e) {
-      print('Error occurred: $e');
-      // Handle errors accordingly
+      return false;
     }
   }
 }

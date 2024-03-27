@@ -1,9 +1,9 @@
-import '../../models/customer/add_customer_model.dart';
+import '../../models/customer/add_customer_model.dart'; // Import path might differ
 
 abstract class CustomerEvent {}
 
-class AddCustomerEvent extends CustomerEvent {
+class AddCustomer extends CustomerEvent {
   final AddCustomerModel customerModel;
 
-  AddCustomerEvent(this.customerModel);
+  AddCustomer(this.customerModel);
 }

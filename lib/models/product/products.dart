@@ -1,7 +1,9 @@
 import 'package:hive/hive.dart';
 import 'package:saasify/models/product/product_variant.dart';
 
+
 import '../../hiveConfigs/hive_type_ids.dart';
+
 part 'products.g.dart';
 
 @HiveType(typeId: HiveTypeIds.products)

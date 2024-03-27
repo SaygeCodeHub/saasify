@@ -1,13 +1,13 @@
 abstract class CustomerState {}
 
-class CustomerInitialState extends CustomerState {}
+class CustomerInitial extends CustomerState {}
 
-class CustomerLoadingState extends CustomerState {}
+class CustomerAdding extends CustomerState {}
 
-class CustomerAddedState extends CustomerState {}
+class CustomerAddedSuccessfully extends CustomerState {}
 
-class CustomerErrorState extends CustomerState {
+class CustomerAddingError extends CustomerState {
   final String message;
 
-  CustomerErrorState(this.message);
+  CustomerAddingError(this.message);
 }

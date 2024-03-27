@@ -1,21 +1,34 @@
-import 'package:bloc/bloc.dart';
+import 'dart:async';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../repository/customers/customers_repo.dart';
 import 'customer_events.dart';
 import 'customer_states.dart';
 
 class CustomerBloc extends Bloc<CustomerEvent, CustomerState> {
-  final CustomerRepository customerRepository;
+  CustomerState get initialState => CustomerInitial();
 
-  CustomerBloc(this.customerRepository) : super(CustomerInitialState()) {
-    on<AddCustomerEvent>((event, emit) async {
-      emit(CustomerLoadingState());
-      try {
-        await customerRepository.addCustomer(event.customerModel);
-        emit(CustomerAddedState());
-      } catch (e) {
-        emit(CustomerErrorState(e.toString()));
-      }
-    });
+  CustomerBloc() : super(CustomerInitial()) {
+    on<AddCustomer>(_addCustomer);
+  }
+
+  FutureOr<void> _addCustomer(
+      AddCustomer event, Emitter<CustomerState> emit) async {
+    emit(CustomerAdding());
+    try {
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      final customerData = {
+        'name': event.customerModel.name,
+        'email': event.customerModel.email,
+        'contact': event.customerModel.contact,
+        'dateOfBirth': event.customerModel.dob,
+        'loyaltyPoints': event.customerModel.loyaltyPoints,
+        'createdAt': FieldValue.serverTimestamp(),
+      };
+      await firestore.collection('customers').add(customerData);
+      emit(CustomerAddedSuccessfully());
+    } catch (e) {
+      emit(CustomerAddingError('Failed to add customer. Please try again.'));
+    }
   }
 }

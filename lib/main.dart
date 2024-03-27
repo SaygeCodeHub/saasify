@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:saasify/bloc/authentication/authentication_bloc.dart';
 import 'package:saasify/bloc/category/category_bloc.dart';
+import 'package:saasify/bloc/customers/customer_bloc.dart';
 import 'package:saasify/bloc/product/product_bloc.dart';
 import 'package:saasify/screens/authentication/auth/auth_web_screen.dart';
 import 'configs/app_theme.dart';
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(lazy: false, create: (context) => CategoryBloc()),
         BlocProvider(lazy: false, create: (context) => ProductBloc()),
         BlocProvider(lazy: false, create: (context) => AuthenticationBloc()),
+        BlocProvider(lazy: false, create: (context) => CustomerBloc()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,

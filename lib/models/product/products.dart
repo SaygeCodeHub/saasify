@@ -1,9 +1,10 @@
 import 'package:hive/hive.dart';
 import 'package:saasify/models/product/product_variant.dart';
 
+import '../../hiveConfigs/hive_type_ids.dart';
 part 'products.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: HiveTypeIds.products)
 class Products {
   @HiveField(0)
   late int productId;

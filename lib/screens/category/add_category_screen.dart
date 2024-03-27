@@ -1,8 +1,11 @@
 import 'dart:typed_data';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
+import 'package:saasify/bloc/category/category_bloc.dart';
+import 'package:saasify/bloc/category/category_event.dart';
+import 'package:saasify/bloc/category/category_state.dart';
+import 'package:saasify/utils/custom_dialogs.dart';
 import 'package:saasify/utils/global.dart';
 import '../../configs/app_spacing.dart';
 import '../../models/category/product_categories.dart';
@@ -21,6 +24,7 @@ class AddCategoryScreen extends StatefulWidget {
 class _AddCategoryScreenState extends State<AddCategoryScreen> {
   final TextEditingController textEditingController = TextEditingController();
   Uint8List? _imageBytes;
+  final Map categoryMap = {};
 
   void _handleImagePicked(Uint8List imageBytes) {
     setState(() {
@@ -31,76 +35,72 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return SkeletonScreen(
-      appBarTitle: 'Add Category',
-      bodyContent: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            ImagePickerWidget(
-              label: 'Category Display Image',
-              initialImage: _imageBytes,
-              onImagePicked: _handleImagePicked,
-            ),
-            const SizedBox(height: spacingHuge),
-            LabelAndTextFieldWidget(
-              prefixIcon: const Icon(Icons.category),
-              label: 'Category Name',
-              isRequired: true,
-              textFieldController: textEditingController,
-            ),
-          ],
+        appBarTitle: 'Add Category',
+        bodyContent: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              ImagePickerWidget(
+                label: 'Category Display Image',
+                initialImage: _imageBytes,
+                onImagePicked: _handleImagePicked,
+              ),
+              const SizedBox(height: spacingHuge),
+              LabelAndTextFieldWidget(
+                prefixIcon: const Icon(Icons.category),
+                label: 'Category Name',
+                isRequired: true,
+                textFieldController: textEditingController,
+              ),
+            ],
+          ),
         ),
-      ),
-      bottomBarButtons: [
-        PrimaryButton(
-          buttonTitle: 'Add Category',
-          onPressed: () async {
-            if (offlineModule) {
-              final category = ProductCategories(
-                  name: textEditingController.text, imageBytes: _imageBytes);
-              final categoriesBox = Hive.box<ProductCategories>('categories');
-              await categoriesBox.add(category).whenComplete(() {
-                Navigator.pop(context);
-              });
-            } else {
-              print('else---->');
-              await addCategory();
-            }
-          },
-        ),
-      ],
-    );
-  }
-
-  Future<void> addCategory() async {
-    try {
-      User? user = FirebaseAuth.instance.currentUser;
-      if (user == null) {
-        throw Exception("User not authenticated");
-      }
-
-      String userId = user.uid;
-      ProductCategories category = ProductCategories(
-          name: textEditingController.text, imageBytes: _imageBytes);
-
-      // Convert ProductCategories instance to Map
-      Map<String, dynamic> categoryData = category.toMap();
-
-      final usersRef =
-          FirebaseFirestore.instance.collection('users').doc(userId);
-      usersRef
-          .collection('module')
-          .doc('pos')
-          .collection('add category')
-          .add(categoryData);
-
-      print('Category added successfully');
-
-      // Display success message or perform any other action
-    } catch (e) {
-      // Handle errors
-      print('Error adding category: $e');
-    }
+        bottomBarButtons: [
+          BlocListener<CategoryBloc, CategoryState>(
+              listener: (context, state) {
+                if (state is AddingCategory) {
+                  const CircularProgressIndicator();
+                } else if (state is CategoryAdded) {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return CustomDialogs().showSuccessDialog(
+                            context, state.successMessage, onPressed: () {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        });
+                      });
+                } else if (state is CategoryNotAdded) {
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return CustomDialogs().showSuccessDialog(
+                            context, state.errorMessage,
+                            onPressed: () => Navigator.pop(context));
+                      });
+                }
+              },
+              child: PrimaryButton(
+                  buttonTitle: 'Add Category',
+                  onPressed: () async {
+                    if (offlineModule) {
+                      final category = ProductCategories(
+                          name: textEditingController.text,
+                          imageBytes: _imageBytes);
+                      final categoriesBox =
+                          Hive.box<ProductCategories>('categories');
+                      await categoriesBox.add(category).whenComplete(() {
+                        Navigator.pop(context);
+                      });
+                    } else {
+                      categoryMap['category_name'] = textEditingController.text;
+                      categoryMap['image'] = _imageBytes;
+                      context
+                          .read<CategoryBloc>()
+                          .add(AddCategory(addCategoryMap: categoryMap));
+                    }
+                  }))
+        ]);
   }
 }

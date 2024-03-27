@@ -13,16 +13,16 @@ class ForgotPasswordWebScreen extends StatelessWidget {
       alignment: Alignment.center,
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.30,
-        child: Column(
+        child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: spacingBetweenTextFieldAndButton),
-            const Text(
+            SizedBox(height: spacingBetweenTextFieldAndButton),
+            Text(
               "Forgot your password? It happens to the best of us. Enter your email, and we'll send a rescue team to bring it back.",
             ),
-            const SizedBox(height: spacingBetweenTextFields),
-            const SizedBox(height: spacingBetweenTextFieldAndButton),
+            SizedBox(height: spacingBetweenTextFields),
+            SizedBox(height: spacingBetweenTextFieldAndButton),
           ],
         ),
       ),

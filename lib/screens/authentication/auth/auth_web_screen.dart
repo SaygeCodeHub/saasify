@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/authentication/authentication_bloc.dart';
+import 'package:saasify/bloc/authentication/authentication_event.dart';
+import 'package:saasify/bloc/authentication/authentication_state.dart';
 import 'package:saasify/screens/companyDetails/register_company_screen.dart';
 import 'package:saasify/screens/home/home_screen.dart';
 import 'package:saasify/screens/skeleton_screen.dart';
@@ -7,7 +11,7 @@ import 'package:saasify/screens/widgets/lable_and_textfield_widget.dart';
 import 'package:saasify/utils/authentication_validators.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/utils/custom_dialogs.dart';
-import 'package:saasify/utils/firebase_user_authentication.dart';
+
 import '../../../configs/app_colors.dart';
 import '../../../configs/app_spacing.dart';
 
@@ -34,7 +38,7 @@ class _AuthWebScreenState extends State<AuthWebScreen> {
             child: _buildFormBody(context),
           ),
         ),
-        bottomBarButtons: _buildBottomBarButtons(context));
+        bottomBarButtons: const []);
   }
 
   Widget _buildFormBody(BuildContext context) {
@@ -76,64 +80,58 @@ class _AuthWebScreenState extends State<AuthWebScreen> {
           },
         ),
         const SizedBox(height: spacingXXXLarge),
-        PrimaryButton(
-          buttonTitle: (isSignIn) ? 'Sign in' : 'Register',
-          onPressed: () async {
-            if (formKey.currentState!.validate()) {
+        BlocListener<AuthenticationBloc, AuthenticationState>(
+          listener: (context, state) {
+            if (state is AuthenticatingUser) {
+              const CircularProgressIndicator();
+            } else if (state is UserAuthenticated) {
               if (isSignIn) {
-                bool signInSuccessfully = await FirebaseUserAuthentication()
-                    .signInUser(authenticationMap['email'],
-                        authenticationMap['password']);
-                if (signInSuccessfully) {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext conetxt) {
-                        return CustomDialogs().showSuccessDialog(
-                            context, 'User signed-in successfully',
-                            onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const HomeScreen())));
-                      });
-                } else {
-                  showDialog(
+                showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return CustomDialogs().showAlertDialog(
-                          context, 'User did not sign-in successfully.',
-                          onPressed: () => Navigator.pop(context));
-                    },
-                  );
-                }
+                      return CustomDialogs().showSuccessDialog(
+                          context, 'User signed-in successfully',
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const HomeScreen())));
+                    });
               } else {
-                bool registered = await FirebaseUserAuthentication()
-                    .registerUser(authenticationMap['email'],
-                        authenticationMap['password'], '');
-                if (registered) {
-                  showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return CustomDialogs().showSuccessDialog(
-                            context, 'User registered successfully!',
-                            onPressed: () => Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const RegisterCompanyWebScreen())));
-                      });
-                } else {
-                  showDialog(
+                showDialog(
                     context: context,
                     builder: (BuildContext context) {
-                      return CustomDialogs().showAlertDialog(
-                          context, 'User did not register successfully.',
-                          onPressed: () => Navigator.pop(context));
-                    },
-                  );
-                }
+                      return CustomDialogs().showSuccessDialog(
+                          context, 'User registered successfully!',
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const RegisterCompanyWebScreen())));
+                    });
               }
+            } else if (state is UserNotAuthenticated) {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return CustomDialogs().showAlertDialog(
+                        context, state.errorMessage,
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const RegisterCompanyWebScreen())));
+                  });
             }
           },
+          child: PrimaryButton(
+            buttonTitle: (isSignIn) ? 'Sign in' : 'Register',
+            onPressed: () {
+              if (formKey.currentState!.validate()) {
+                context.read<AuthenticationBloc>().add(
+                    AuthenticateUser(authenticationMap: authenticationMap));
+              }
+            },
+          ),
         ),
         const SizedBox(height: spacingMedium),
         Center(
@@ -157,9 +155,5 @@ class _AuthWebScreenState extends State<AuthWebScreen> {
         )
       ],
     );
-  }
-
-  List<Widget> _buildBottomBarButtons(BuildContext context) {
-    return [];
   }
 }

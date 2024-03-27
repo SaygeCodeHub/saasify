@@ -27,7 +27,7 @@ Widget buildBoardContent(
                   return SizedBox(
                     height: kBoardStatusHeight,
                     child: Container(
-                      padding: const EdgeInsets.all(KBoardTilePadding),
+                      padding: const EdgeInsets.all(kBoardTilePadding),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(kBoardStatusRedius),
                         color: Colors.grey.withOpacity(0.1),

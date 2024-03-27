@@ -1,8 +1,8 @@
 const double mobileBodyPadding = 16.00;
 const double webBodyPadding = 32.00;
 
-const double KBoardTileRedius = 5;
-const double KBoardTilePadding = 10;
+const double kBoardTileRedius = 5;
+const double kBoardTilePadding = 10;
 const double kBoardstatuspadingh = 12;
 const double kBoardStatuspadingv = 40;
 const double kBoardStatusHeight = 500;

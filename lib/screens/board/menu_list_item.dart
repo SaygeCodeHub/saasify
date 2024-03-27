@@ -17,9 +17,9 @@ class MenuListItem extends StatelessWidget {
       padding: const EdgeInsets.all(spacingSmallest),
       child: Material(
         elevation: 3,
-        borderRadius: BorderRadius.circular(KBoardTileRedius),
+        borderRadius: BorderRadius.circular(kBoardTileRedius),
         child: Padding(
-          padding: const EdgeInsets.all(KBoardTilePadding),
+          padding: const EdgeInsets.all(kBoardTilePadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -29,12 +29,12 @@ class MenuListItem extends StatelessWidget {
                   fontSize: spacingXStandard,
                 ),
               ),
-              const SizedBox(height: KBoardTilePadding),
+              const SizedBox(height: kBoardTilePadding),
               const Text(
                 'Some description here',
                 style: TextStyle(fontSize: spacingStandard),
               ),
-              const SizedBox(height: KBoardTilePadding),
+              const SizedBox(height: kBoardTilePadding),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

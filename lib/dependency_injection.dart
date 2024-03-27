@@ -10,12 +10,5 @@ void setupDependencies() async {
 
   if (isOffline) {
     await setupHive();
-  } else {}
-}
-
-Future<bool> _checkOfflineMode() async {
-  // Add your logic to determine offline or online mode
-  // For example, you can check internet connectivity
-  // Here, I'm simulating offline mode for demonstration purposes
-  return true;
+  }
 }

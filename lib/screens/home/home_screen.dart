@@ -93,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                   GridItem(
                     icon: Icons.add_box_outlined,
                     label: 'Add New Product',
-                    screen: const AddProductScreen(),
+                    screen: AddProductScreen(),
                     color: cardColors[1],
                   ),
                   GridItem(

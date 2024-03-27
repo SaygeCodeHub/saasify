@@ -1,5 +1,6 @@
 import 'package:hive/hive.dart';
 import 'package:saasify/models/product/product_variant.dart';
+
 part 'products.g.dart';
 
 @HiveType(typeId: 1)
@@ -17,16 +18,14 @@ class Products {
   @HiveField(5)
   late int minStockLevel; // Minimum Stock Level
   @HiveField(6)
-  late int reorderPoint; // Reorder Point
-  @HiveField(7)
   late String description; // Product Description
-  @HiveField(8)
+  @HiveField(7)
   late String imageUrl; // Image URL
-  @HiveField(9)
+  @HiveField(8)
   late DateTime dateAdded; // Date Added/Last Updated
-  @HiveField(10)
+  @HiveField(9)
   late bool isActive; // Active/Inactive Status
-  @HiveField(11)
+  @HiveField(10)
   late List<ProductVariant> variants; // Variants
 
   Products({
@@ -36,8 +35,7 @@ class Products {
     required this.variants,
     this.tax = 0.0, // Default value for tax
     this.supplier = '', // Default value for supplier
-    this.minStockLevel = 0, // Default value for minStockLevel
-    this.reorderPoint = 0, // Default value for reorderPoint
+    this.minStockLevel = 0, // Default value for reorderPoint
     this.description = '', // Default value for description
     this.imageUrl = '', // Default value for imageUrl
     DateTime? dateAdded, // Optional parameter for dateAdded
@@ -56,10 +54,9 @@ class Products {
       'supplier': supplier,
       'tax': tax,
       'minStockLevel': minStockLevel,
-      'reorderPoint': reorderPoint,
       'dateAdded': dateAdded,
       'isActive': isActive = true,
-      'variants': variants,
+      'variants': variants
     };
   }
 }

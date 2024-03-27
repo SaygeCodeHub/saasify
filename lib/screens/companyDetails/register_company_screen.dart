@@ -73,7 +73,7 @@ class RegisterCompanyWebScreenState extends State<RegisterCompanyWebScreen> {
     );
   }
 
-  List<Widget> _buildBottomBarButtons(BuildContext context) {
+  List<Widget> _buildBottomBarButtons(context) {
     return [
       PrimaryButton(
         buttonTitle: 'Save Profile Details',
@@ -152,9 +152,7 @@ class RegisterCompanyWebScreenState extends State<RegisterCompanyWebScreen> {
       });
       return true;
     } catch (e) {
-      print('Error occurred: $e');
       return false;
-      // Handle errors accordingly
     }
   }
 }

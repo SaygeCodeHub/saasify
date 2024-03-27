@@ -13,12 +13,13 @@ import 'package:saasify/utils/global.dart';
 class AddProductButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final List<ProductCategories> categories;
-  final Map categoryMap;
+  final Map productMap;
+
   const AddProductButton(
       {super.key,
       required this.formKey,
       required this.categories,
-      required this.categoryMap});
+      required this.productMap});
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +30,13 @@ class AddProductButton extends StatelessWidget {
           if (context.read<CategoryBloc>().selectedCategory.isNotEmpty) {
             final product = Products(
               productId: 0,
-              name: categoryMap['name'],
+              name: productMap['name'],
               category: context.read<CategoryBloc>().selectedCategory,
-              description: categoryMap['description'],
+              description: productMap['description'],
               imageUrl: '',
-              supplier: categoryMap['supplier'],
-              tax: double.tryParse(categoryMap['tax']) ?? 0,
-              minStockLevel: int.tryParse(categoryMap['min_stock']) ?? 0,
+              supplier: productMap['supplier'],
+              tax: double.tryParse(productMap['tax']) ?? 0,
+              minStockLevel: int.tryParse(productMap['min_stock']) ?? 0,
               dateAdded: DateTime.now(),
               isActive: true,
               variants: [],
@@ -71,13 +72,13 @@ class AddProductButton extends StatelessWidget {
               context.read<ProductBloc>().add(AddProduct(
                   product: Products(
                     productId: 0,
-                    name: categoryMap['name'],
+                    name: productMap['name'],
                     category: context.read<CategoryBloc>().selectedCategory,
-                    description: categoryMap['description'],
+                    description: productMap['description'],
                     imageUrl: '',
-                    supplier: categoryMap['supplier'],
-                    tax: double.tryParse(categoryMap['tax']) ?? 0,
-                    minStockLevel: int.tryParse(categoryMap['min_stock']) ?? 0,
+                    supplier: productMap['supplier'],
+                    tax: double.tryParse(productMap['tax']) ?? 0,
+                    minStockLevel: int.tryParse(productMap['min_stock']) ?? 0,
                     dateAdded: DateTime.now(),
                     isActive: true,
                     variants: [],

@@ -68,9 +68,6 @@ class AddCustomerScreenState extends State<AddCustomerScreen> {
               dobController.text,
               int.tryParse(loyaltyPointsController.text) ?? 0,
             );
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Customer added successfully'),
-            ));
           }
         },
       ),

@@ -1,19 +1,24 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:saasify/bloc/category/category_bloc.dart';
 import 'package:saasify/bloc/category/category_event.dart';
 import 'package:saasify/bloc/category/category_state.dart';
 import 'package:saasify/bloc/product/product_bloc.dart';
 import 'package:saasify/bloc/product/product_state.dart';
 import 'package:saasify/configs/app_theme.dart';
+import 'package:saasify/models/product/products.dart';
 import 'package:saasify/screens/products/add_product_section.dart';
+import 'package:saasify/screens/widgets/buttons/primary_button.dart';
 import 'package:saasify/utils/custom_dialogs.dart';
+import 'package:saasify/utils/global.dart';
+import 'package:saasify/utils/progress_bar.dart';
+import '../../bloc/product/product_event.dart';
 import '../../configs/app_spacing.dart';
 import '../../models/category/product_categories.dart';
 import '../skeleton_screen.dart';
 import '../widgets/lable_and_textfield_widget.dart';
-import 'add_product_button.dart';
 
 class AddProductScreen extends StatelessWidget {
   AddProductScreen({super.key});
@@ -22,12 +27,10 @@ class AddProductScreen extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  final TextEditingController _imageUrlController = TextEditingController();
   final TextEditingController _supplierController = TextEditingController();
   final TextEditingController _taxController = TextEditingController();
   final TextEditingController _minStockLevelController =
       TextEditingController();
-  final TextEditingController _reorderPointController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -55,8 +58,9 @@ class AddProductScreen extends StatelessWidget {
           BlocListener<ProductBloc, ProductState>(
               listener: (context, state) {
                 if (state is AddingProduct) {
-                  const CircularProgressIndicator();
+                  ProgressBar.show(context);
                 } else if (state is ProductAdded) {
+                  ProgressBar.dismiss(context);
                   showDialog(
                       context: context,
                       builder: (context) {
@@ -67,6 +71,7 @@ class AddProductScreen extends StatelessWidget {
                         });
                       });
                 } else if (state is ProductNotAdded) {
+                  ProgressBar.dismiss(context);
                   showDialog(
                       context: context,
                       builder: (context) {
@@ -76,16 +81,87 @@ class AddProductScreen extends StatelessWidget {
                       });
                 }
               },
-              child: AddProductButton(
-                  formKey: formKey,
-                  categories: categories,
-                  categoryMap: {
-                    'name': _nameController.text,
-                    'description': _descriptionController.text,
-                    'supplier': _supplierController.text,
-                    'tax': _taxController.text,
-                    'min_stock': _minStockLevelController.text
-                  }))
+              child: PrimaryButton(
+                buttonTitle: 'Add Product',
+                onPressed: () async {
+                  if (offlineModule) {
+                    if (context
+                        .read<CategoryBloc>()
+                        .selectedCategory
+                        .isNotEmpty) {
+                      final product = Products(
+                        productId: 0,
+                        name: _nameController.text,
+                        category: context.read<CategoryBloc>().selectedCategory,
+                        description: _descriptionController.text,
+                        imageUrl: '',
+                        supplier: _supplierController.text,
+                        tax: double.tryParse(_taxController.text) ?? 0,
+                        minStockLevel:
+                            int.tryParse(_minStockLevelController.text) ?? 0,
+                        dateAdded: DateTime.now(),
+                        isActive: true,
+                        variants: [],
+                      );
+                      final productsBox = Hive.box<Products>('products');
+                      productsBox.add(product);
+                      if (productsBox.isNotEmpty) {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return CustomDialogs().showSuccessDialog(
+                                  context, 'Product added successfully',
+                                  onPressed: () {
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                              });
+                            });
+                      } else {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return CustomDialogs().showSuccessDialog(
+                                  context, 'Failed to add product.',
+                                  onPressed: () => Navigator.pop(context));
+                            });
+                      }
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Select a category!')));
+                    }
+                  } else {
+                    if (formKey.currentState!.validate()) {
+                      if (context
+                          .read<CategoryBloc>()
+                          .selectedCategory
+                          .isNotEmpty) {
+                        context.read<ProductBloc>().add(AddProduct(
+                            product: Products(
+                              productId: 0,
+                              name: _nameController.text,
+                              category:
+                                  context.read<CategoryBloc>().selectedCategory,
+                              description: _descriptionController.text,
+                              imageUrl: '',
+                              supplier: _supplierController.text,
+                              tax: double.tryParse(_taxController.text) ?? 0,
+                              minStockLevel:
+                                  int.tryParse(_minStockLevelController.text) ??
+                                      0,
+                              dateAdded: DateTime.now(),
+                              isActive: true,
+                              variants: [],
+                            ),
+                            categories: categories));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('Select a category!')));
+                      }
+                    }
+                  }
+                },
+              ))
         ]);
   }
 
@@ -143,53 +219,21 @@ class AddProductScreen extends StatelessWidget {
           textFieldController: _descriptionController,
         ),
         LabelAndTextFieldWidget(
-          prefixIcon: const Icon(Icons.image),
-          label: 'Image URL',
-          textFieldController: _imageUrlController,
-        ),
-        LabelAndTextFieldWidget(
           prefixIcon: const Icon(Icons.supervisor_account),
           label: 'Supplier',
-          isRequired: true,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'This field is required';
-            }
-            return null;
-          },
           textFieldController: _supplierController,
         ),
         LabelAndTextFieldWidget(
             prefixIcon: const Icon(Icons.attach_money),
             label: 'Tax',
-            isRequired: true,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'This field is required';
-              }
-              return null;
-            },
             keyboardType: TextInputType.number,
             textFieldController: _taxController),
         LabelAndTextFieldWidget(
           prefixIcon: const Icon(Icons.local_shipping),
           label: 'Minimum Stock Level',
-          isRequired: true,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'This field is required';
-            }
-            return null;
-          },
           keyboardType: TextInputType.number,
           textFieldController: _minStockLevelController,
-        ),
-        LabelAndTextFieldWidget(
-          prefixIcon: const Icon(Icons.reorder),
-          label: 'Reorder Point',
-          keyboardType: TextInputType.number,
-          textFieldController: _reorderPointController,
-        ),
+        )
       ];
 
       List<Widget> rows = [];

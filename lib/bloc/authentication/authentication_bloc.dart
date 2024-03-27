@@ -17,22 +17,43 @@ class AuthenticationBloc
   FutureOr<void> _authenticateUser(
       AuthenticateUser event, Emitter<AuthenticationState> emit) async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: event.authenticationMap['email'],
-        password: event.authenticationMap['password'],
-      );
-      User? user = FirebaseAuth.instance.currentUser;
-      if (user!.uid.isNotEmpty) {
-        FirebaseFirestore firestore = FirebaseFirestore.instance;
-        await firestore.collection('users').doc(user.uid).set({
-          'name': event.authenticationMap['email'],
-          'email': event.authenticationMap['password'],
-          'createdAt': FieldValue.serverTimestamp(),
-        });
-        emit(UserAuthenticated());
+      emit(AuthenticatingUser());
+      if (event.authenticationMap['is_sign_in'] == true) {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: event.authenticationMap['email'],
+          password: event.authenticationMap['password'],
+        );
+        User? user = FirebaseAuth.instance.currentUser;
+        if (user!.uid.isNotEmpty) {
+          FirebaseFirestore firestore = FirebaseFirestore.instance;
+          await firestore.collection('users').doc(user.uid).set({
+            'name': event.authenticationMap['email'],
+            'email': event.authenticationMap['password'],
+            'createdAt': FieldValue.serverTimestamp(),
+          });
+          emit(UserAuthenticated());
+        } else {
+          emit(UserNotAuthenticated(
+              errorMessage: 'Could not authenticate user. Please try again!'));
+        }
       } else {
-        emit(UserNotAuthenticated(
-            errorMessage: 'Could not authenticate user. Please try again!'));
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: event.authenticationMap['email'],
+            password: event.authenticationMap['password']);
+
+        User? user = FirebaseAuth.instance.currentUser;
+        if (user!.uid.isNotEmpty) {
+          FirebaseFirestore firestore = FirebaseFirestore.instance;
+          await firestore.collection('users').doc(user.uid).set({
+            'name': event.authenticationMap['email'],
+            'email': event.authenticationMap['password'],
+            'createdAt': FieldValue.serverTimestamp(),
+          });
+          emit(UserAuthenticated());
+        } else {
+          emit(UserNotAuthenticated(
+              errorMessage: 'Could not authenticate user. Please try again!'));
+        }
       }
     } catch (e) {
       emit(UserNotAuthenticated(

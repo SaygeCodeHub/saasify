@@ -38,10 +38,18 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
       Map<String, dynamic> categoryData = category.toMap();
       final usersRef =
           FirebaseFirestore.instance.collection('users').doc(userId);
+      CollectionReference companiesRef = usersRef.collection('companies');
+      QuerySnapshot snapshot = await companiesRef.get();
+      String companyId = '';
+      for (var doc in snapshot.docs) {
+        companyId = doc.id;
+      }
       usersRef
-          .collection('module')
+          .collection('companies')
+          .doc(companyId)
+          .collection('modules')
           .doc('pos')
-          .collection('category')
+          .collection('categories')
           .add(categoryData);
       emit(CategoryAdded(successMessage: 'Category added successfully'));
     } catch (e) {
@@ -68,8 +76,16 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
         String userId = user.uid;
         final usersRef =
             FirebaseFirestore.instance.collection('users').doc(userId);
+        CollectionReference companiesRef = usersRef.collection('companies');
+        QuerySnapshot snapshot = await companiesRef.get();
+        String companyId = '';
+        for (var doc in snapshot.docs) {
+          companyId = doc.id;
+        }
         QuerySnapshot querySnapshot = await usersRef
-            .collection('module')
+            .collection('companies')
+            .doc(companyId)
+            .collection('modules')
             .doc('pos')
             .collection('categories')
             .get();
@@ -77,7 +93,8 @@ class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
           Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
           ProductCategories category = ProductCategories(
               name: data['name'],
-              imageBytes: data['imageBytes'],
+              imageBytes:
+                  Uint8List.fromList(data['imageBytes'] ?? Uint8List(0)),
               categoryId: doc.id);
           categories.add(category);
         }

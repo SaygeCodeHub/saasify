@@ -30,12 +30,20 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       Map<String, dynamic> productData = event.product.toMap();
       final usersRef =
           FirebaseFirestore.instance.collection('users').doc(userId);
+      CollectionReference companiesRef = usersRef.collection('companies');
+      QuerySnapshot snapshot = await companiesRef.get();
+      String companyId = '';
+      for (var doc in snapshot.docs) {
+        companyId = doc.id;
+      }
       usersRef
-          .collection('module')
+          .collection('companies')
+          .doc(companyId)
+          .collection('modules')
           .doc('pos')
-          .collection('category')
+          .collection('categories')
           .doc(categoryId)
-          .collection('product')
+          .collection('products')
           .add({...productData, 'dateAdded': FieldValue.serverTimestamp()});
       emit(ProductAdded(successMessage: 'Product added successfully'));
     } catch (error) {

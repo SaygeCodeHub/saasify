@@ -11,6 +11,7 @@ import 'package:saasify/screens/widgets/lable_and_textfield_widget.dart';
 import 'package:saasify/utils/authentication_validators.dart';
 import 'package:saasify/utils/constants/string_constants.dart';
 import 'package:saasify/utils/custom_dialogs.dart';
+import 'package:saasify/utils/progress_bar.dart';
 
 import '../../../configs/app_colors.dart';
 import '../../../configs/app_spacing.dart';
@@ -83,8 +84,9 @@ class _AuthWebScreenState extends State<AuthWebScreen> {
         BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) {
             if (state is AuthenticatingUser) {
-              const CircularProgressIndicator();
+              ProgressBar.show(context);
             } else if (state is UserAuthenticated) {
+              ProgressBar.dismiss(context);
               if (isSignIn) {
                 showDialog(
                     context: context,
@@ -110,16 +112,13 @@ class _AuthWebScreenState extends State<AuthWebScreen> {
                     });
               }
             } else if (state is UserNotAuthenticated) {
+              ProgressBar.dismiss(context);
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return CustomDialogs().showAlertDialog(
                         context, state.errorMessage,
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const RegisterCompanyWebScreen())));
+                        onPressed: () => Navigator.pop(context));
                   });
             }
           },
@@ -127,6 +126,7 @@ class _AuthWebScreenState extends State<AuthWebScreen> {
             buttonTitle: (isSignIn) ? 'Sign in' : 'Register',
             onPressed: () {
               if (formKey.currentState!.validate()) {
+                authenticationMap['is_sign_in'] = isSignIn;
                 context.read<AuthenticationBloc>().add(
                     AuthenticateUser(authenticationMap: authenticationMap));
               }

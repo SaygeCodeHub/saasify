@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import '../../../configs/app_spacing.dart';
-import '../../models/user/user_model.dart';
+import '../../models/user/user_details.dart';
 import '../../utils/global.dart';
 import '../skeleton_screen.dart';
 import '../widgets/buttons/primary_button.dart';
@@ -85,7 +85,7 @@ class RegisterCompanyWebScreenState extends State<RegisterCompanyWebScreen> {
   }
 
   Future<void> saveUserDetailsToLocalDatabase() async {
-    final newCompany = UserModel(
+    final newCompany = UserDetails(
       ownerName: ownerNameController.text,
       companyName: companyNameController.text,
       identificationNumber: identificationNumberController.text,
@@ -95,7 +95,7 @@ class RegisterCompanyWebScreenState extends State<RegisterCompanyWebScreen> {
     );
 
     try {
-      final companiesBox = Hive.box<UserModel>('userDetails');
+      final companiesBox = Hive.box<UserDetails>('userDetails');
       await companiesBox.add(newCompany);
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

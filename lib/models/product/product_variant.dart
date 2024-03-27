@@ -1,8 +1,10 @@
 import 'package:hive/hive.dart';
 
+import '../../hiveConfigs/hive_type_ids.dart';
+
 part 'product_variant.g.dart';
 
-@HiveType(typeId: 2)
+@HiveType(typeId: HiveTypeIds.productVariants)
 class ProductVariant {
   @HiveField(0)
   late int variantId; // Variant ID

@@ -1,4 +1,3 @@
-<<<<<<<<< Temporary merge branch 1
 const double kCardRadius = 5;
 const double kCircularRadius = 5;
 const double kVerticalPadding = 6;
@@ -44,9 +43,5 @@ const double kBoardStatusRedius = 4;
 const double kBoardSearchBtnWidth = 300;
 const double kBoardUtilityBtnw = 20;
 
-
-
-=========
 const double mobileBodyPadding = 16.00;
 const double webBodyPadding = 32.00;
->>>>>>>>> Temporary merge branch 2

@@ -50,12 +50,18 @@ class LabelAndTextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 600;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (label != null)
           Text(label!, style: Theme.of(context).textTheme.fieldLabelTextStyle),
-        if (label != null) const SizedBox(height: spacingSmall),
+        if (label != null)
+          SizedBox(
+              height: isMobile
+                  ? spacingSmallest
+                  : spacingSmall), // Reduce the height for mobile
         TextFormField(
           key: key,
           onTap: onTap,
@@ -85,8 +91,10 @@ class LabelAndTextFieldWidget extends StatelessWidget {
             hintText: hintText,
             prefixIcon: prefixIcon,
             suffixIcon: suffixIcon,
-            contentPadding:
-                const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            contentPadding: EdgeInsets.symmetric(
+              vertical: isMobile ? 12 : 15, // Adjusted padding for mobile
+              horizontal: 15,
+            ),
           ),
         ),
       ],

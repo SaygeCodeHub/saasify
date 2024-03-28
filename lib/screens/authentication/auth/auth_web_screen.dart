@@ -43,6 +43,8 @@ class _AuthWebScreenState extends State<AuthWebScreen> {
   }
 
   Widget _buildFormBody(BuildContext context) {
+    final bool isMobile = MediaQuery.of(context).size.width < 600;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -55,6 +57,8 @@ class _AuthWebScreenState extends State<AuthWebScreen> {
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'This field is required';
+            } else if (!AuthenticationValidators().isValidEmail(value)) {
+              return 'Invalid email format';
             }
             return null;
           },
@@ -71,7 +75,7 @@ class _AuthWebScreenState extends State<AuthWebScreen> {
           validator: (value) {
             if (value == null || value.isEmpty) {
               return 'This field is required';
-            } else if (AuthenticationValidators().isValidPassword(value)) {
+            } else if (!AuthenticationValidators().isValidPassword(value)) {
               return 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character';
             }
             return null;
@@ -134,16 +138,15 @@ class _AuthWebScreenState extends State<AuthWebScreen> {
           ),
         ),
         const SizedBox(height: spacingMedium),
-        Center(
-          child: InkWell(
-            onTap: () {
-              setState(() {
-                authenticationMap.clear();
-                isSignIn = !isSignIn;
-              });
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(top: spacingStandard),
+        if (isMobile)
+          Center(
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  authenticationMap.clear();
+                  isSignIn = !isSignIn;
+                });
+              },
               child: Text(
                 (isSignIn)
                     ? 'Create a new account. Register!'
@@ -151,8 +154,27 @@ class _AuthWebScreenState extends State<AuthWebScreen> {
                 style: const TextStyle(color: AppColors.blue),
               ),
             ),
-          ),
-        )
+          )
+        else
+          Center(
+            child: InkWell(
+              onTap: () {
+                setState(() {
+                  authenticationMap.clear();
+                  isSignIn = !isSignIn;
+                });
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(top: spacingLarge),
+                child: Text(
+                  (isSignIn)
+                      ? 'Create a new account. Register!'
+                      : 'Already have an account? Sign in!',
+                  style: const TextStyle(color: AppColors.blue),
+                ),
+              ),
+            ),
+          )
       ],
     );
   }

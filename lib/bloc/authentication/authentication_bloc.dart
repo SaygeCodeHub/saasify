@@ -56,8 +56,13 @@ class AuthenticationBloc
         }
       }
     } catch (e) {
-      emit(UserNotAuthenticated(
-          errorMessage: 'Could not authenticate user. Please try again!'));
+      String errorMessage = 'Could not authenticate user. ';
+      if (e is FirebaseAuthException) {
+        errorMessage += e.message ?? 'An unknown error occurred.';
+      } else {
+        errorMessage += 'An unknown error occurred.';
+      }
+      emit(UserNotAuthenticated(errorMessage: errorMessage));
     }
   }
 }

@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:saasify/bloc/category/category_bloc.dart';
 import 'package:saasify/bloc/category/category_event.dart';
 import 'package:saasify/bloc/category/category_state.dart';
+import 'package:saasify/configs/app_dimensions.dart';
 import 'package:saasify/utils/custom_dialogs.dart';
 import 'package:saasify/utils/global.dart';
 import 'package:saasify/utils/progress_bar.dart';
@@ -37,86 +38,104 @@ class _AddCategoryScreenState extends State<AddCategoryScreen> {
   @override
   Widget build(BuildContext context) {
     return SkeletonScreen(
-        appBarTitle: 'Add Category',
-        bodyContent: SingleChildScrollView(
-          child: Form(
-            key: formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ImagePickerWidget(
-                  label: 'Category Display Image',
-                  initialImage: _imageBytes,
-                  onImagePicked: _handleImagePicked,
-                ),
-                const SizedBox(height: spacingHuge),
-                LabelAndTextFieldWidget(
-                  prefixIcon: const Icon(Icons.category),
-                  label: 'Category Name',
-                  isRequired: true,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'This field is required';
-                    }
-                    return null;
-                  },
-                  textFieldController: textEditingController,
-                ),
-              ],
-            ),
+      appBarTitle: 'Add Category',
+      bodyContent: SingleChildScrollView(
+        child: Form(
+          key: formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ImagePickerWidget(
+                    label: 'Category Display Image',
+                    initialImage: _imageBytes,
+                    onImagePicked: _handleImagePicked,
+                  ),
+                  const SizedBox(width: kDashContainerHeight),
+                  Expanded(
+                    child: LabelAndTextFieldWidget(
+                      prefixIcon: const Icon(Icons.category),
+                      label: 'Category Name',
+                      isRequired: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'This field is required';
+                        }
+                        return null;
+                      },
+                      textFieldController: textEditingController,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: spacingHuge),
+            ],
           ),
         ),
-        bottomBarButtons: [
-          BlocListener<CategoryBloc, CategoryState>(
-              listener: (context, state) {
-                if (state is AddingCategory) {
-                  ProgressBar.show(context);
-                } else if (state is CategoryAdded) {
-                  ProgressBar.dismiss(context);
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return CustomDialogs().showSuccessDialog(
-                            context, state.successMessage, onPressed: () {
-                          Navigator.pop(context);
-                          Navigator.pop(context);
-                        });
-                      });
-                } else if (state is CategoryNotAdded) {
-                  ProgressBar.dismiss(context);
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return CustomDialogs().showSuccessDialog(
-                            context, state.errorMessage,
-                            onPressed: () => Navigator.pop(context));
-                      });
+      ),
+      bottomBarButtons: [
+        BlocListener<CategoryBloc, CategoryState>(
+          listener: (context, state) {
+            if (state is AddingCategory) {
+              ProgressBar.show(context);
+            } else if (state is CategoryAdded) {
+              ProgressBar.dismiss(context);
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return CustomDialogs().showSuccessDialog(
+                    context,
+                    state.successMessage,
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    },
+                  );
+                },
+              );
+            } else if (state is CategoryNotAdded) {
+              ProgressBar.dismiss(context);
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return CustomDialogs().showSuccessDialog(
+                    context,
+                    state.errorMessage,
+                    onPressed: () => Navigator.pop(context),
+                  );
+                },
+              );
+            }
+          },
+          child: PrimaryButton(
+            buttonTitle: 'Add Category',
+            onPressed: () async {
+              if (formKey.currentState!.validate()) {
+                if (kIsOfflineModule) {
+                  final category = ProductCategories(
+                    name: textEditingController.text,
+                    imageBytes: _imageBytes,
+                  );
+                  final categoriesBox =
+                      Hive.box<ProductCategories>('categories');
+                  await categoriesBox.add(category).whenComplete(() {
+                    Navigator.pop(context);
+                  });
+                } else {
+                  categoryMap['category_name'] = textEditingController.text;
+                  categoryMap['image'] = _imageBytes;
+                  context
+                      .read<CategoryBloc>()
+                      .add(AddCategory(addCategoryMap: categoryMap));
                 }
-              },
-              child: PrimaryButton(
-                  buttonTitle: 'Add Category',
-                  onPressed: () async {
-                    if (formKey.currentState!.validate()) {
-                      if (kIsOfflineModule) {
-                        final category = ProductCategories(
-                            name: textEditingController.text,
-                            imageBytes: _imageBytes);
-                        final categoriesBox =
-                            Hive.box<ProductCategories>('categories');
-                        await categoriesBox.add(category).whenComplete(() {
-                          Navigator.pop(context);
-                        });
-                      } else {
-                        categoryMap['category_name'] =
-                            textEditingController.text;
-                        categoryMap['image'] = _imageBytes;
-                        context
-                            .read<CategoryBloc>()
-                            .add(AddCategory(addCategoryMap: categoryMap));
-                      }
-                    }
-                  }))
-        ]);
+              }
+            },
+          ),
+        ),
+      ],
+    );
   }
 }

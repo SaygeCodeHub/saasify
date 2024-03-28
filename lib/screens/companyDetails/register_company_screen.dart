@@ -57,13 +57,11 @@ class RegisterCompanyWebScreenState extends State<RegisterCompanyWebScreen> {
             initialImage: _imageBytes,
             onImagePicked: _handleImagePicked),
         const SizedBox(height: spacingHuge),
-        buildTextField(ownerNameController, 'Owner Name', Icons.person, true),
-        const SizedBox(height: spacingMedium),
         buildTextField(
             companyNameController, 'Company Name', Icons.business, true),
         const SizedBox(height: spacingMedium),
         buildTextField(identificationNumberController, 'EIN / TIN / GST Number',
-            Icons.numbers_outlined, true),
+            Icons.numbers_outlined, false),
         const SizedBox(height: spacingMedium),
         buildTextField(addressController, 'Address', Icons.location_city, false,
             maxLines: 2),
@@ -78,16 +76,8 @@ class RegisterCompanyWebScreenState extends State<RegisterCompanyWebScreen> {
           if (state is AddingCompany) {
             const CircularProgressIndicator();
           } else if (state is CompanyAdded) {
-            showDialog(
-                context: context,
-                builder: (context) {
-                  return CustomDialogs().showSuccessDialog(
-                      context, 'Company added successfully.',
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomeScreen())));
-                });
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const HomeScreen()));
           } else if (state is CompanyNotAdded) {
             showDialog(
                 context: context,
@@ -103,7 +93,6 @@ class RegisterCompanyWebScreenState extends State<RegisterCompanyWebScreen> {
           onPressed: () async {
             if (formKey.currentState!.validate()) {
               context.read<CompaniesBloc>().add(AddCompany(companyDetailsMap: {
-                    'owner_name': ownerNameController.text,
                     'company_name': companyNameController.text,
                     'einNumber': identificationNumberController.text,
                     'address': addressController.text,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:saasify/configs/app_theme.dart';
 
 class UserAvatarWidget extends StatelessWidget {
   const UserAvatarWidget({super.key});
@@ -8,14 +9,9 @@ class UserAvatarWidget extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        CircleAvatar(
-          radius: 20,
-          backgroundColor: Colors.white,
-          child: Image.asset("assets/human.gif"),
-        ),
-        const Text(
+        Text(
           'Hi Ashish,',
-          style: TextStyle(fontSize: 24, color: Colors.grey),
+          style: Theme.of(context).textTheme.moduleHeadingTextStyle,
         ),
       ],
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_theme.dart';
-import '../configs/app_spacing.dart';
-import '../utils/global.dart';
+import '../../configs/app_spacing.dart';
+import '../../utils/global.dart';
 
 class SkeletonScreen extends StatelessWidget {
   final String appBarTitle;

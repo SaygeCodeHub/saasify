@@ -7,7 +7,7 @@ import 'package:saasify/bloc/companies/companies_state.dart';
 import 'package:saasify/screens/home/home_screen.dart';
 import 'package:saasify/utils/custom_dialogs.dart';
 import '../../../configs/app_spacing.dart';
-import '../skeleton_screen.dart';
+import '../widgets/skeleton_screen.dart';
 import '../widgets/buttons/primary_button.dart';
 import '../widgets/form_widgets.dart';
 import '../widgets/image_picker_widget.dart';

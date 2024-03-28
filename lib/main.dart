@@ -9,7 +9,6 @@ import 'package:saasify/screens/authentication/auth/authentication_screen.dart';
 import 'package:saasify/screens/home/home_screen.dart';
 import 'cache/Cache.dart';
 import 'configs/app_theme.dart';
-import 'dependency_injection.dart';
 import 'firebase_options.dart';
 import 'utils/global.dart';
 
@@ -19,7 +18,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await Cache.init();
-  setupDependencies();
   runApp(const MyApp());
 }
 

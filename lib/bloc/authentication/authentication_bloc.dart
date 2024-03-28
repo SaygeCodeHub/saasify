@@ -28,7 +28,11 @@ class AuthenticationBloc
       if (user != null && user.uid.isNotEmpty) {
         await _updateUserData(user, event.authenticationMap);
         await _cacheUserData(user);
-        emit(UserAuthenticated());
+        if (await checkUserCompanies(user.uid)) {
+          emit(UserAuthenticated());
+        } else {
+          emit(UserAuthenticatedWithoutCompany());
+        }
       } else {
         emit(UserNotAuthenticated(
             errorMessage: 'User not found after authentication.'));
@@ -40,6 +44,16 @@ class AuthenticationBloc
           errorMessage:
               'An unexpected error occurred. Please try again later.'));
     }
+  }
+
+  Future<bool> checkUserCompanies(String userUid) async {
+    final FirebaseFirestore db = FirebaseFirestore.instance;
+    final QuerySnapshot companiesSnapshot = await db
+        .collection('companies')
+        .where('ownerUid', isEqualTo: db.doc('users/$userUid'))
+        .get();
+
+    return companiesSnapshot.docs.isNotEmpty;
   }
 
   Future<User?> _signIn(String email, String password) async {

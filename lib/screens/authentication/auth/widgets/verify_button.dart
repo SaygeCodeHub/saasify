@@ -14,6 +14,7 @@ class VerifyButton extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final Map authenticationMap;
   final bool isNewUser;
+
   const VerifyButton(
       {super.key,
       required this.formKey,
@@ -28,30 +29,14 @@ class VerifyButton extends StatelessWidget {
           ProgressBar.show(context);
         } else if (state is UserAuthenticated) {
           ProgressBar.dismiss(context);
-          if (!isNewUser) {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return CustomDialogs().showSuccessDialog(
-                      context, 'User signed-in successfully',
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomeScreen())));
-                });
-          } else {
-            showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return CustomDialogs().showSuccessDialog(
-                      context, 'User registered successfully!',
-                      onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const RegisterCompanyWebScreen())));
-                });
-          }
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()));
+        } else if (state is UserAuthenticatedWithoutCompany) {
+          ProgressBar.dismiss(context);
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const RegisterCompanyWebScreen()));
         } else if (state is UserNotAuthenticated) {
           ProgressBar.dismiss(context);
           showDialog(
@@ -67,7 +52,6 @@ class VerifyButton extends StatelessWidget {
         buttonTitle: (!isNewUser) ? 'Sign in' : 'Register',
         onPressed: () {
           if (formKey.currentState!.validate()) {
-            print(authenticationMap);
             authenticationMap['is_sign_in'] = !isNewUser;
             context
                 .read<AuthenticationBloc>()

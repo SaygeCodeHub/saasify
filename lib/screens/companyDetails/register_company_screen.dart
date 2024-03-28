@@ -1,18 +1,16 @@
 import 'dart:typed_data';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:saasify/bloc/companies/companies_bloc.dart';
+import 'package:saasify/bloc/companies/companies_event.dart';
+import 'package:saasify/bloc/companies/companies_state.dart';
 import 'package:saasify/screens/home/home_screen.dart';
 import 'package:saasify/utils/custom_dialogs.dart';
 import '../../../configs/app_spacing.dart';
-import '../../models/user/user_model.dart';
-import '../../utils/global.dart';
 import '../skeleton_screen.dart';
 import '../widgets/buttons/primary_button.dart';
 import '../widgets/form_widgets.dart';
 import '../widgets/image_picker_widget.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class RegisterCompanyWebScreen extends StatefulWidget {
   const RegisterCompanyWebScreen({super.key});
@@ -75,86 +73,48 @@ class RegisterCompanyWebScreenState extends State<RegisterCompanyWebScreen> {
 
   List<Widget> _buildBottomBarButtons(BuildContext context) {
     return [
-      PrimaryButton(
-        buttonTitle: 'Save Profile Details',
-        onPressed: () async {
-          if (formKey.currentState!.validate()) {
-            if (offlineModule) {
-              await saveUserDetailsToLocalDatabase();
-            } else {
-              bool companyRegistered = await uploadImageAndSaveUrl(
-                  FirebaseAuth.instance.currentUser!.uid);
-              if (companyRegistered) {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return CustomDialogs().showSuccessDialog(
-                          context, 'Company added successfully.',
-                          onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const HomeScreen())));
-                    });
-              } else {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return CustomDialogs().showAlertDialog(
-                          context, 'Company not registered.',
-                          onPressed: () => Navigator.pop(context));
-                    });
-              }
-            }
+      BlocListener<CompaniesBloc, CompaniesState>(
+        listener: (context, state) {
+          if (state is AddingCompany) {
+            const CircularProgressIndicator();
+          } else if (state is CompanyAdded) {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return CustomDialogs().showSuccessDialog(
+                      context, 'Company added successfully.',
+                      onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen())));
+                });
+          } else if (state is CompanyNotAdded) {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return CustomDialogs().showAlertDialog(
+                      context, 'Company not registered.',
+                      onPressed: () => Navigator.pop(context));
+                });
           }
         },
+        child: PrimaryButton(
+          buttonTitle: 'Save Profile Details',
+          onPressed: () async {
+            if (formKey.currentState!.validate()) {
+              context.read<CompaniesBloc>().add(AddCompany(companyDetailsMap: {
+                    'owner_name': ownerNameController.text,
+                    'company_name': companyNameController.text,
+                    'einNumber': identificationNumberController.text,
+                    'address': addressController.text,
+                    'logoUrl': _imageBytes
+                  }));
+            }
+          },
+        ),
       ),
     ];
   }
 
-  Future<void> saveUserDetailsToLocalDatabase() async {
-    final newCompany = UserModel(
-      ownerName: ownerNameController.text,
-      companyName: companyNameController.text,
-      identificationNumber: identificationNumberController.text,
-      logo: _imageBytes,
-      address:
-          addressController.text.isNotEmpty ? addressController.text : null,
-    );
-
-    try {
-      final companiesBox = Hive.box<UserModel>('userDetails');
-      await companiesBox.add(newCompany);
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Company added successfully')));
-    } catch (e) {
-      if (!mounted) return;
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Failed to add company: $e')));
-    }
-  }
-
-  Future<bool> uploadImageAndSaveUrl(String userId) async {
-    try {
-      final storageRef = firebase_storage.FirebaseStorage.instance.ref();
-      final imagesRef =
-          storageRef.child("user_images/$userId/profile_picture.jpg");
-
-      final uploadTask = imagesRef.putData(_imageBytes!);
-      final completedTask = await uploadTask;
-
-      final downloadUrl = await completedTask.ref.getDownloadURL();
-
-      final usersRef =
-          FirebaseFirestore.instance.collection('users').doc(userId);
-      await usersRef.collection('user_details').doc('profile').set({
-        'image_url': downloadUrl,
-      });
-      return true;
-    } catch (e) {
-      print('Error occurred: $e');
-      return false;
-      // Handle errors accordingly
-    }
-  }
+  Future<void> saveUserDetailsToLocalDatabase() async {}
 }

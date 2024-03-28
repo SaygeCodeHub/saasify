@@ -1,5 +1,4 @@
-const double mobileBodyPadding = 16.00;
-const double webBodyPadding = 32.00;
+<<<<<<<<< Temporary merge branch 1
 const double kCardRadius = 5;
 const double kCircularRadius = 5;
 const double kVerticalPadding = 6;
@@ -32,36 +31,22 @@ const double kAvatarRadius = 30;
 const double kPaymentCircleSize = 8;
 const double kCloseIconSize = 20;
 const double kErrorPopButtonWidth = 130;
-const double kCircleAvatarRadius = 32;
-const double kAlertDialogIconSize = 38;
-const double kAlertDialogErrorIconSize = 23;
-const double kAlertDialogCloseIconSize = 20;
 
 const double kBackIconSize = 20;
 
-const double kHeaderIconsSize = 22;
-const double kTextContainerHeight = 280;
-const double kDashboardIconContainerSize = 40;
-const double kSideBarLeadingIconsSize = 20;
-const double kSassifyLogoSize = 50;
-const double kNextButtonWidth = 250;
-const double kCompaniesGridContainerHeight = 50;
-
-const double kDateTimePickerContainerHeight = 220;
-const double kDateTimePickerHeight = 170;
-
-const double KBoardTileRedius = 5;
-const double KBoardTilePadding = 10;
-const double kBoardstatuspadingh= 12;
-const double kBoardStatuspadingv= 40;
-const double kBoardStatusHeight= 500;
-const double kBoardStatuswidth= 290;
-const double kBoardStatusRedius= 4;
-const double kBoardSearchBtnWidth= 300;
+const double kBoardTileRedius = 5;
+const double kBoardTilePadding = 10;
+const double kBoardstatuspadingh = 12;
+const double kBoardStatuspadingv = 40;
+const double kBoardStatusHeight = 500;
+const double kBoardStatuswidth = 290;
+const double kBoardStatusRedius = 4;
+const double kBoardSearchBtnWidth = 300;
 const double kBoardUtilityBtnw = 20;
 
 
 
-
-const double kBillImageWidth = 100;
-const double kBillImageHeight = 75;
+=========
+const double mobileBodyPadding = 16.00;
+const double webBodyPadding = 32.00;
+>>>>>>>>> Temporary merge branch 2

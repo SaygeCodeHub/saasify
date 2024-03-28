@@ -8,14 +8,16 @@ import 'package:saasify/screens/board/task.dart';
 import 'board_utility_button.dart';
 import 'board_search_button.dart';
 
-Widget buildBoardContent(List<Task> tasks, Function(Item, Task, Task) itemDropCallback) {
+Widget buildBoardContent(
+    List<Task> tasks, Function(Item, Task, Task) itemDropCallback) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
       const BoardSearchButton(),
       const BoardUtilityButton(),
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: kBoardstatuspadingh, vertical: kBoardStatuspadingv),
+        padding: const EdgeInsets.symmetric(
+            horizontal: kBoardstatuspadingh, vertical: kBoardStatuspadingv),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -25,7 +27,7 @@ Widget buildBoardContent(List<Task> tasks, Function(Item, Task, Task) itemDropCa
                   return SizedBox(
                     height: kBoardStatusHeight,
                     child: Container(
-                      padding: const EdgeInsets.all(KBoardTilePadding),
+                      padding: const EdgeInsets.all(kBoardTilePadding),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(kBoardStatusRedius),
                         color: Colors.grey.withOpacity(0.1),
@@ -71,10 +73,10 @@ Widget buildBoardContent(List<Task> tasks, Function(Item, Task, Task) itemDropCa
                 onAcceptWithDetails: (details) {
                   final item = details.data;
                   final currentTask =
-                  tasks.firstWhere((task) => task.name == process.name);
+                      tasks.firstWhere((task) => task.name == process.name);
                   if (!currentTask.items.contains(item)) {
-                    final sourceTask = tasks.firstWhere(
-                            (task) => task.name == currentTask.name);
+                    final sourceTask = tasks
+                        .firstWhere((task) => task.name == currentTask.name);
                     sourceTask.items.remove(item);
                     itemDropCallback(item, sourceTask, currentTask);
                   }

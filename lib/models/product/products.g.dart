@@ -8,7 +8,7 @@ part of 'products.dart';
 
 class ProductsAdapter extends TypeAdapter<Products> {
   @override
-  final int typeId = 1;
+  final int typeId = 2;
 
   @override
   Products read(BinaryReader reader) {
@@ -24,7 +24,6 @@ class ProductsAdapter extends TypeAdapter<Products> {
       tax: fields[3] as double,
       supplier: fields[4] as String,
       minStockLevel: fields[5] as int,
-      reorderPoint: fields[6] as int,
       description: fields[7] as String,
       imageUrl: fields[8] as String,
       dateAdded: fields[9] as DateTime?,
@@ -49,16 +48,14 @@ class ProductsAdapter extends TypeAdapter<Products> {
       ..writeByte(5)
       ..write(obj.minStockLevel)
       ..writeByte(6)
-      ..write(obj.reorderPoint)
-      ..writeByte(7)
       ..write(obj.description)
-      ..writeByte(8)
+      ..writeByte(7)
       ..write(obj.imageUrl)
-      ..writeByte(9)
+      ..writeByte(8)
       ..write(obj.dateAdded)
-      ..writeByte(10)
+      ..writeByte(9)
       ..write(obj.isActive)
-      ..writeByte(11)
+      ..writeByte(10)
       ..write(obj.variants);
   }
 

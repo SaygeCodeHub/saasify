@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:saasify/configs/app_colors.dart';
 import 'board_app_bar.dart';
 import 'board_content.dart';
 import 'item.dart';
 import 'task.dart';
-
 
 List<Item> items = [
   const Item(
@@ -63,7 +61,7 @@ class _BoardScreenState extends State<BoardScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      // backgroundColor: AppColors.backgroundColor,
       appBar: buildAppBar(),
       body: buildBoardContent(_tasks, _itemDroppedOnTaskCart),
     );

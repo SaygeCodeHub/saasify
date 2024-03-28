@@ -9,11 +9,11 @@ class BoardSearchButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(KBoardTilePadding),
+      padding: const EdgeInsets.all(kBoardTilePadding),
       child: Container(
         width: kBoardSearchBtnWidth,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(KBoardTilePadding),
+          borderRadius: BorderRadius.circular(kBoardTilePadding),
           border: Border.all(color: AppColors.black),
         ),
         child: Row(

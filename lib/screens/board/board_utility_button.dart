@@ -20,7 +20,7 @@ class BoardUtilityButton extends StatelessWidget {
               fontSize: spacingSmall,
             ),
           ),
-          const SizedBox(width: KBoardTilePadding),
+          const SizedBox(width: kBoardTilePadding),
           ElevatedButton.icon(
             onPressed: () {},
             icon: const Icon(Icons.refresh),
@@ -33,7 +33,7 @@ class BoardUtilityButton extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: KBoardTilePadding),
+          const SizedBox(width: kBoardTilePadding),
           ElevatedButton.icon(
             onPressed: () {},
             icon: const Icon(Icons.leaderboard),
@@ -46,7 +46,7 @@ class BoardUtilityButton extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: KBoardTilePadding),
+          const SizedBox(width: kBoardTilePadding),
           ElevatedButton.icon(
             onPressed: () {},
             icon: const Icon(Icons.settings),

@@ -37,7 +37,7 @@ class RegisterMobileScreen extends StatelessWidget {
           ),
           const SizedBox(height: spacingBetweenTextFields),
           const SizedBox(height: spacingBetweenTextFieldAndButton),
-          RegisterButton(formKey: formKey, registerMap: {}),
+          RegisterButton(formKey: formKey, registerMap: const {}),
         ],
       ),
     );

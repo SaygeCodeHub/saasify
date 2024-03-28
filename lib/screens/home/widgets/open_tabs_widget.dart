@@ -32,7 +32,7 @@ class OpenTabsWidget extends StatelessWidget {
                   width: 75,
                   child: Align(
                       child: Text(
-                    'Your Story',
+                    'New Customer',
                     overflow: TextOverflow.ellipsis,
                   )),
                 )
@@ -45,7 +45,7 @@ class OpenTabsWidget extends StatelessWidget {
               padding: const EdgeInsets.only(right: 20),
               child: Column(
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                     width: 60,
                     height: 60,
                     child: Stack(

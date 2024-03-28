@@ -6,6 +6,8 @@ import 'package:saasify/bloc/category/category_bloc.dart';
 import 'package:saasify/bloc/companies/companies_bloc.dart';
 import 'package:saasify/bloc/product/product_bloc.dart';
 import 'package:saasify/screens/authentication/auth/auth_web_screen.dart';
+import 'package:saasify/screens/home/home_screen.dart';
+import 'cache/Cache.dart';
 import 'configs/app_theme.dart';
 import 'dependency_injection.dart';
 import 'firebase_options.dart';
@@ -16,6 +18,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await Cache.init();
   setupDependencies();
   runApp(const MyApp());
 }
@@ -36,10 +39,27 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'POS',
+        title: 'Saasify',
         theme: appTheme,
-        home: const AuthWebScreen(),
+        home: Scaffold(
+          body: FutureBuilder<Widget>(
+            future: getInitialScreen(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.done) {
+                return snapshot.data ?? const AuthWebScreen();
+              }
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          ),
+        ),
       ),
     );
   }
+}
+
+Future<Widget> getInitialScreen() async {
+  final isLoggedIn = Cache.getUserLoggedIn() ?? false;
+  return isLoggedIn ? const HomeScreen() : const AuthWebScreen();
 }

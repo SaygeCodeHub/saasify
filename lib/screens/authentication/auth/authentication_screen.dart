@@ -83,7 +83,8 @@ class AuthenticationScreen extends StatelessWidget {
                       authenticationMap['is_sign_in'] = isSignIn;
                       Navigator.of(context).pushReplacement(
                         PageRouteBuilder(
-                          pageBuilder: (context, animation1, animation2) => AuthenticationScreen(isSignIn: !isSignIn),
+                          pageBuilder: (context, animation1, animation2) =>
+                              AuthenticationScreen(isSignIn: !isSignIn),
                           transitionDuration: Duration.zero, // No animation
                         ),
                       );

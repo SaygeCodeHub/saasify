@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:saasify/configs/app_spacing.dart';
 import 'package:saasify/screens/home/widgets/feature_card_widget.dart';
+import 'package:saasify/screens/home/widgets/open_tabs_widget.dart';
+import 'package:saasify/screens/home/widgets/user_avatar_widget.dart';
 import '../../utils/feature_list.dart';
-import 'avtar.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,64 +11,63 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(top: 30.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(20.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Hi Ashish,',
-                    style: TextStyle(fontSize: 24, color: Colors.grey),
-                  ),
-                  SizedBox(height: 8),
-                  Text(
-                    '1234.00',
-                    style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  ),
-                ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(spacingXXSmall),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    UserAvatarWidget(),
+                    SizedBox(height: spacingLarge),
+                    Text(
+                      "Today's Collection", // New text
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'Rs. 1234.00',
+                      style: TextStyle(
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                children: [
-                  CircularAvatarWidget(
-                    labelText: 'Add New',
-                    iconData: Icons.add,
-                  ),
-                  SizedBox(width: 8),
-                  CircularAvatarWidget(
-                    labelText: 'Jane Doe',
-                    iconData: Icons.person,
-                  ),
-                  SizedBox(width: 8),
-                  CircularAvatarWidget(
-                    labelText: 'Alice Smith',
-                    iconData: Icons.person,
-                  ),
-                ],
+              const Divider(),
+              const Padding(
+                padding: EdgeInsets.all(spacingMedium), // Add padding
+                child: Text(
+                  'Open Tabs', // New text
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(16.0), // Add padding
-              child: Text(
-                'Here are some things that you can do', // New text
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.bold),
+              const Padding(
+                padding: EdgeInsets.all(spacingMedium), // Add padding
+                child: OpenTabsWidget(),
               ),
-            ),
-            Expanded(
-              child: GridView.builder(
+              const SizedBox(height: spacingLarge),
+              const Padding(
+                padding: EdgeInsets.all(spacingMedium), // Add padding
+                child: Text(
+                  'Here are some things that you can do', // New text
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              GridView.builder(
                 shrinkWrap: true,
                 padding: const EdgeInsets.all(spacingSmall),
                 itemCount: features.length,
@@ -84,9 +84,9 @@ class HomeScreen extends StatelessWidget {
                     screen: features[index].screen,
                   );
                 },
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

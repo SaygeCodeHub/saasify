@@ -5,7 +5,7 @@ import 'package:saasify/bloc/authentication/authentication_bloc.dart';
 import 'package:saasify/bloc/category/category_bloc.dart';
 import 'package:saasify/bloc/companies/companies_bloc.dart';
 import 'package:saasify/bloc/product/product_bloc.dart';
-import 'package:saasify/screens/authentication/auth/auth_web_screen.dart';
+import 'package:saasify/screens/authentication/auth/authentication_screen.dart';
 import 'package:saasify/screens/home/home_screen.dart';
 import 'cache/Cache.dart';
 import 'configs/app_theme.dart';
@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
             future: getInitialScreen(),
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                return snapshot.data ?? const AuthWebScreen();
+                return snapshot.data ?? AuthenticationScreen();
               }
               return const Center(
                 child: CircularProgressIndicator(),
@@ -61,5 +61,5 @@ class MyApp extends StatelessWidget {
 
 Future<Widget> getInitialScreen() async {
   final isLoggedIn = Cache.getUserLoggedIn() ?? false;
-  return isLoggedIn ? const HomeScreen() : const AuthWebScreen();
+  return isLoggedIn ? const HomeScreen() : AuthenticationScreen();
 }
